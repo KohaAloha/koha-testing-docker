@@ -1,0 +1,46 @@
+#!/bin/bash
+
+WORKDIR=/kohadevbox
+
+# Wait for the DB server startup
+while ! nc -z db 3306; do sleep 1; done
+
+# TODO: Have bugs pushed so all this is a koha-create parameter
+echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INSTANCE}" > /etc/koha/passwd
+# TODO: Get rid of this hack with the relevant bug
+echo "[client]" > /etc/mysql/koha-common.cnf
+echo "host = db" >> /etc/mysql/koha-common.cnf
+
+cp /kohadevbox/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
+
+koha-create --request-db ${KOHA_INSTANCE}
+# gitify instance
+cd /kohadevbox/gitify
+./koha-gitify kohadev "/kohadevbox/koha"
+cd ${WORKDIR}
+
+koha-enable kohadev
+a2ensite kohadev.conf
+
+# Update /etc/hosts so the www tests can run
+echo "127.0.0.1    kohadev.myDNSname.org kohadev-intra.myDNSname.org" >> /etc/hosts
+
+cp /kohadevbox/instance_bashrc /var/lib/koha/kohadev/.bashrc
+
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/populate_db.pl"
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/create_superlibrarian.pl"
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/insert_data.pl"
+
+# dist-upgrade to make sure packages are up to date
+apt-get update
+apt-get -y dist-upgrade
+
+# Stop apache2
+service apache2 stop
+# Configure and start koha-plack
+koha-plack --enable kohadev
+koha-plack --start kohadev
+# Start apache
+service apache2 start
+
+bash
