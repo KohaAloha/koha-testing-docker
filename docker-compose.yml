@@ -1,0 +1,24 @@
+version: '3'
+services:
+    db:
+        image: mysql:5.5
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: koha_kohadev
+            MYSQL_USER: koha_kohadev
+            MYSQL_PASSWORD: password
+    koha:
+        build: ./
+        depends_on:
+            - db
+        cap_add:
+            - SYS_NICE
+            - DAC_READ_SEARCH
+            - SETGID
+            - SETUID
+        volumes:
+            - /home/tcohen/git/koha:/kohadevbox/koha
+        environment:
+            KOHA_INSTANCE: kohadev
+            KOHA_DB_PASSWORD: password
+
