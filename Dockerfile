@@ -56,12 +56,6 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-RUN wget -O libjson-validator-perl.deb \
-    http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb \
-    && dpkg -i libjson-validator-perl.deb \
-    && rm libjson-validator-perl.deb
-
-
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
