@@ -2,7 +2,7 @@
 FROM debian:jessie
 
 # File Author / Maintainer
-MAINTAINER theke.io
+LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
