@@ -67,7 +67,8 @@ RUN cpanm -i \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
-       Test::DBIx::Class
+       Test::DBIx::Class \
+       TAP::Harness::JUnit
 
 VOLUME /kohadevbox/koha
 
