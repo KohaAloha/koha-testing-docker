@@ -58,3 +58,9 @@ Once you are left on the shell, you can run Koha tests as you would on KohaDevBo
   $ prove t/db_dependent/Search.t
 ```
 
+
+## Having Elasticsearch run
+
+In order for Elasticsearch to run, changes to the host OS need to be made. Please read
+[the official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
+
