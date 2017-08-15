@@ -32,7 +32,7 @@ services:
             - SETGID
             - SETUID
         volumes:
-            - /home/tcohen/git/koha:/kohadevbox/koha
+            - ${SYNC_REPO}:/kohadevbox/koha
         environment:
             KOHA_INSTANCE: kohadev
             KOHA_DB_PASSWORD: password
