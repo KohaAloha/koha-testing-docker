@@ -64,3 +64,22 @@ Once you are left on the shell, you can run Koha tests as you would on KohaDevBo
 In order for Elasticsearch to run, changes to the host OS need to be made. Please read
 [the official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
 
+### TL;DR
+Increase *vm.max_map_count* kernel setting to at least 262144:
+
+* On Linux:
+```
+  # Increase vm.max_map_count
+  $ sudo sysctl -w vm.max_map_count=262144
+  # Make it permanent
+  $ sudo echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+
+```
+
+* On MacOS:
+```
+  $ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+  # login with root and no password
+  $ sysctl -w vm.max_map_count=262144
+```
+
