@@ -34,6 +34,7 @@ sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevb
 # dist-upgrade to make sure packages are up to date
 apt-get update
 apt-get -y dist-upgrade
+apt-get install -y koha-elasticsearch
 
 wget -O libjson-validator-perl.deb \
     http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb \
@@ -48,4 +49,9 @@ koha-plack --start kohadev
 # Start apache
 service apache2 start
 
-bash
+#if [ "${DEBUG}" != "0" ]; then
+    bash
+#else
+#    cd /kohadevbox/koha
+#    sudo koha-shell kohadev -c "JUNIT_OUTPUT_FILE=junit_main.xml PERL5OPT=-MDevel::Cover prove --timer --harness=TAP::Harness::JUnit -s -r t xt"
+#fi

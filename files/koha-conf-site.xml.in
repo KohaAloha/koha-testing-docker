@@ -259,7 +259,7 @@ __END_SRU_PUBLICSERVER__
  <authorityserver>authorities</authorityserver>
  <authorityservershadow>1</authorityservershadow>
  <elasticsearch>
-     <server>elasticsearch:9200</server>
+     <server>es:9200</server>
      <index_name>koha___KOHASITE__</index_name>
  </elasticsearch>
  <pluginsdir>__PLUGINS_DIR__</pluginsdir>

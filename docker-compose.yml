@@ -7,10 +7,25 @@ services:
             MYSQL_DATABASE: koha_kohadev
             MYSQL_USER: koha_kohadev
             MYSQL_PASSWORD: password
+        networks:
+            - kohanet
+    es:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.5.1
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        networks:
+            - kohanet
     koha:
         build: ./
         depends_on:
             - db
+            - es
         cap_add:
             - SYS_NICE
             - DAC_READ_SEARCH
@@ -21,4 +36,8 @@ services:
         environment:
             KOHA_INSTANCE: kohadev
             KOHA_DB_PASSWORD: password
+        networks:
+            - kohanet
+networks:
+    kohanet:
 
