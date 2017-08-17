@@ -53,7 +53,7 @@ if [ ${DEBUG} ]; then
     bash
 else
     cd /kohadevbox/koha
-    sudo koha-shell kohadev -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+    sudo koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                 PERL5OPT=-MDevel::Cover \
                                 prove --timer --harness=TAP::Harness::JUnit -s -r t xt ; \
                                 cover -report clover"
