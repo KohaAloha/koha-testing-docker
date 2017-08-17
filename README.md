@@ -36,6 +36,9 @@ Note: I rushed to publish this to get more eyes on it earlier. The TODOs explain
 
 * Run
 
+*Requirement*: The SYNC_REPO variable needs to be defined and contain the full path
+for a Koha's git repository clone.
+
 By default it runs the whole test suite:
 
 
