@@ -37,6 +37,7 @@ services:
         environment:
             KOHA_INSTANCE: kohadev
             KOHA_DB_PASSWORD: password
+            DEBUG: ${DEBUG}
         networks:
             - kohanet
 networks:

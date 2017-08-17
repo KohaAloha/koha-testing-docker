@@ -34,9 +34,10 @@ Note: I rushed to publish this to get more eyes on it earlier. The TODOs explain
   $ docker-compose build
 ```
 
-* Edit the *docker-compose.yml* file making the volume match your own git clone
-of the Koha project's repository.
-**TODO:** Make this more easily configurable.
+* Run
+
+By default it runs the whole test suite:
+
 
 Run:
 
@@ -45,7 +46,12 @@ Run:
   $ docker-compose run koha
 ```
 
-You should be left on a bash shell in which you can check everything went ok.
+If you want to do something else inside of the _koha_ container, you can add the DEBUG=1
+environment variable and you will be left on a bash shell in which you can run anything you want:
+
+```
+  $ DEBUG=1 docker-compose run koha
+```
 
 ## Run tests
 

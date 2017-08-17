@@ -68,7 +68,8 @@ RUN cpanm -i \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
        Test::DBIx::Class \
-       TAP::Harness::JUnit
+       TAP::Harness::JUnit \
+       Devel::Cover::Report::Clover
 
 VOLUME /kohadevbox/koha
 
