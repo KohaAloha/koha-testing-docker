@@ -51,7 +51,9 @@ RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable 
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
 RUN apt-get -y update \
-   && apt-get -y install koha-common \
+   && apt-get -y install \
+         koha-common \
+         koha-elasticsearch \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*

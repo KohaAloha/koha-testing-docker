@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORKDIR=/kohadevbox
+export BUILD_DIR=/kohadevbox
 
 # Wait for the DB server startup
 while ! nc -z db 3306; do sleep 1; done
@@ -11,13 +11,13 @@ echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INS
 echo "[client]" > /etc/mysql/koha-common.cnf
 echo "host = db" >> /etc/mysql/koha-common.cnf
 
-cp /kohadevbox/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
+cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
 
 koha-create --request-db ${KOHA_INSTANCE}
 # gitify instance
-cd /kohadevbox/gitify
+cd ${BUILD_DIR}/gitify
 ./koha-gitify kohadev "/kohadevbox/koha"
-cd ${WORKDIR}
+cd ${BUILD_DIR}
 
 koha-enable kohadev
 a2ensite kohadev.conf
@@ -25,16 +25,11 @@ a2ensite kohadev.conf
 # Update /etc/hosts so the www tests can run
 echo "127.0.0.1    kohadev.myDNSname.org kohadev-intra.myDNSname.org" >> /etc/hosts
 
-cp /kohadevbox/instance_bashrc /var/lib/koha/kohadev/.bashrc
+cp ${BUILD_DIR}/instance_bashrc /var/lib/koha/kohadev/.bashrc
 
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/populate_db.pl"
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/create_superlibrarian.pl"
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=/kohadevbox/koha perl /kohadevbox/misc4dev/insert_data.pl"
-
-# dist-upgrade to make sure packages are up to date
-apt-get update
-apt-get -y dist-upgrade
-apt-get install -y koha-elasticsearch
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl"
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
+sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
 
 wget -O libjson-validator-perl.deb \
     http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb \
@@ -52,7 +47,7 @@ service apache2 start
 if [ ${DEBUG} ]; then
     bash
 else
-    cd /kohadevbox/koha
+    cd ${BUILD_DIR}/koha
     sudo koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                 PERL5OPT=-MDevel::Cover \
                                 prove --timer --harness=TAP::Harness::JUnit -s -r t xt ; \
