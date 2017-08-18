@@ -14,6 +14,8 @@ echo "host = db" >> /etc/mysql/koha-common.cnf
 cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
 
 koha-create --request-db ${KOHA_INSTANCE}
+[ ${LOCAL_USER_ID} ] && \
+    usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
 # gitify instance
 cd ${BUILD_DIR}/gitify
 ./koha-gitify kohadev "/kohadevbox/koha"

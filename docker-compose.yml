@@ -38,6 +38,7 @@ services:
             KOHA_INSTANCE: kohadev
             KOHA_DB_PASSWORD: password
             DEBUG: ${DEBUG}
+            LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
             - kohanet
 networks:
