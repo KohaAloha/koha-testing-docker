@@ -71,6 +71,7 @@ RUN cpanm -i \
        MooseX::Attribute::ENV \
        Test::DBIx::Class \
        TAP::Harness::JUnit \
+       Text::CSV::Unicode \
        Devel::Cover::Report::Clover
 
 VOLUME /kohadevbox/koha
