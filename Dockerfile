@@ -23,6 +23,7 @@ RUN apt-get -y update \
       libmoo-perl \
       libperl-critic-perl \
       libtest-perl-critic-perl \
+      libtest-spelling-perl \
       libsmart-comments-perl \
       libdatetimex-easy-perl \
       libtest-differences-perl \
