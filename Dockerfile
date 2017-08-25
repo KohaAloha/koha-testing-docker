@@ -34,8 +34,22 @@ RUN apt-get -y update \
       build-essential \
       wget \
       git \
+      locales \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+
+# Set locales
+RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen \
+    && dpkg-reconfigure locales \
+    && /usr/sbin/update-locale LANG=en_US.UTF-8
+
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LC_CTYPE en_US.UTF-8
 
 # Prepare apache configuration
 RUN a2dismod mpm_event
@@ -82,4 +96,4 @@ COPY files/run.sh /kohadevbox
 COPY files/instance_bashrc /kohadevbox
 COPY files/koha-conf-site.xml.in /kohadevbox/koha-conf-site.xml.in
 
-CMD ["/kohadevbox/run.sh"]
+CMD ["/bin/bash", "/kohadevbox/run.sh"]
