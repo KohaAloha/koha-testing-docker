@@ -73,7 +73,8 @@ RUN cpanm -i \
        Test::DBIx::Class \
        TAP::Harness::JUnit \
        Text::CSV::Unicode \
-       Devel::Cover::Report::Clover
+       Devel::Cover::Report::Clover \
+       WebService::ILS
 
 VOLUME /kohadevbox/koha
 
