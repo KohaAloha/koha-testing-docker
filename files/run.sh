@@ -38,6 +38,11 @@ wget -O libjson-validator-perl.deb \
     && dpkg -i libjson-validator-perl.deb \
     && rm libjson-validator-perl.deb
 
+wget -O libmojolicious-perl.deb \
+    http://debian.koha-community.org/koha/pool/main/libm/libmojolicious-perl/libmojolicious-perl_6.15+dfsg-1~koha1_all.deb \
+    && dpkg -i libmojolicious-perl.deb \
+    && rm libmojolicious-perl.deb
+
 # Stop apache2
 service apache2 stop
 # Configure and start koha-plack
