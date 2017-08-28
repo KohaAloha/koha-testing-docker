@@ -32,6 +32,7 @@ services:
             - DAC_READ_SEARCH
             - SETGID
             - SETUID
+            - MKNOD
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
         environment:
