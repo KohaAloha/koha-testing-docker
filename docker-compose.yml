@@ -28,11 +28,7 @@ services:
             - db
             - es
         cap_add:
-            - SYS_NICE
-            - DAC_READ_SEARCH
-            - SETGID
-            - SETUID
-            - MKNOD
+            - ALL
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
         environment:
@@ -40,6 +36,8 @@ services:
             KOHA_DB_PASSWORD: password
             KOHA_USER: koha
             KOHA_PASS: koha
+            KOHA_CONF: "/etc/koha/sites/kohadev/koha-conf.xml"
+            PERL5LIB: "/kohadevbox/koha"
             KOHA_INTRANET_URL: "http://kohadev-intra.myDNSname.org"
             KOHA_OPAC_URL: "http://kohadev.myDNSname.org"
             DEBUG: ${DEBUG}
