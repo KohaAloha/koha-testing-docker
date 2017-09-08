@@ -34,16 +34,6 @@ sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_
 sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
 sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
 
-wget -O libjson-validator-perl.deb \
-    http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb \
-    && dpkg -i libjson-validator-perl.deb \
-    && rm libjson-validator-perl.deb
-
-wget -O libmojolicious-perl.deb \
-    http://debian.koha-community.org/koha/pool/main/libm/libmojolicious-perl/libmojolicious-perl_6.15+dfsg-1~koha1_all.deb \
-    && dpkg -i libmojolicious-perl.deb \
-    && rm libmojolicious-perl.deb
-
 # Stop apache2
 service apache2 stop
 # Configure and start koha-plack
@@ -56,6 +46,7 @@ if [ ${DEBUG} ]; then
     bash
 else
     cd ${BUILD_DIR}/koha
+    rm -rf cover_db
     sudo koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                 PERL5OPT=-MDevel::Cover \
                                 KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
