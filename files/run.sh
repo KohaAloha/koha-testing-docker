@@ -15,8 +15,15 @@ echo "host = db" >> /etc/mysql/koha-common.cnf
 cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
 
 koha-create --request-db ${KOHA_INSTANCE}
-[ ${LOCAL_USER_ID} ] && \
+# Fix UID
+if [ ${LOCAL_USER_ID} ]; then
     usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
+    # Fix permissions due to UID change
+    chown -R "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}"
+    chown -R "${KOHA_INSTANCE}-koha" "/var/lock/koha/${KOHA_INSTANCE}"
+    chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
+fi
+
 # gitify instance
 cd ${BUILD_DIR}/gitify
 ./koha-gitify kohadev "/kohadevbox/koha"
