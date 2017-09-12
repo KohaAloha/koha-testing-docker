@@ -12,6 +12,9 @@ echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INS
 echo "[client]" > /etc/mysql/koha-common.cnf
 echo "host = db" >> /etc/mysql/koha-common.cnf
 
+# Get rid of Apache warnings
+echo "ServerName kohadevdock" >> /etc/apache2/apache2.conf
+
 cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
 
 koha-create --request-db ${KOHA_INSTANCE}
