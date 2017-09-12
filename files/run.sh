@@ -47,12 +47,12 @@ if [ ${DEBUG} ]; then
 else
     cd ${BUILD_DIR}/koha
     rm -rf cover_db
-    sudo koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
-                                PERL5OPT=-MDevel::Cover \
-                                KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
-                                KOHA_OPAC_URL=${KOHA_OPAC_URL} \
-                                KOHA_USER=${KOHA_USER} \
-                                KOHA_PASS=${KOHA_PASS} \
-                                prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
-                                cover -report clover"
+    koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+                              PERL5OPT=-MDevel::Cover \
+                              KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
+                              KOHA_OPAC_URL=${KOHA_OPAC_URL} \
+                              KOHA_USER=${KOHA_USER} \
+                              KOHA_PASS=${KOHA_PASS} \
+                              prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
+                              cover -report clover"
 fi
