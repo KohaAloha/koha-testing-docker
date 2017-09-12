@@ -41,6 +41,9 @@ koha-plack --enable kohadev
 koha-plack --start kohadev
 # Start apache
 service apache2 start
+# Start Zebra and the Indexer
+koha-start-zebra kohadev
+koha-indexer --start kohadev
 
 if [ ${DEBUG} ]; then
     bash
