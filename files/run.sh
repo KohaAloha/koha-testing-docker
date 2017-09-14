@@ -69,6 +69,7 @@ else
                               KOHA_OPAC_URL=${KOHA_OPAC_URL} \
                               KOHA_USER=${KOHA_USER} \
                               KOHA_PASS=${KOHA_PASS} \
+                              TEST_QA=1 \
                               prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
                               cover -report clover"
 fi
