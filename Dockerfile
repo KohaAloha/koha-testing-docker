@@ -59,8 +59,8 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha 17.05 main" > /etc/apt/sources.list.d/koha.list
+
 # Add repository key
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
@@ -71,16 +71,6 @@ RUN apt-get -y update \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-RUN wget -O libjson-validator-perl.deb \
-    http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb \
-    && dpkg -i libjson-validator-perl.deb \
-    && rm libjson-validator-perl.deb
-
-RUN wget -O libmojolicious-perl.deb \
-    http://debian.koha-community.org/koha/pool/main/libm/libmojolicious-perl/libmojolicious-perl_6.15+dfsg-1~koha1_all.deb \
-    && dpkg -i libmojolicious-perl.deb \
-    && rm libmojolicious-perl.deb
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
