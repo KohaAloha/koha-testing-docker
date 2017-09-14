@@ -67,7 +67,6 @@ RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update \
    && apt-get -y install \
          koha-common \
-         koha-elasticsearch \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
