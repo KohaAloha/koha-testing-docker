@@ -40,9 +40,11 @@ echo "127.0.0.1    kohadev.myDNSname.org kohadev-intra.myDNSname.org" >> /etc/ho
 
 cp ${BUILD_DIR}/instance_bashrc /var/lib/koha/kohadev/.bashrc
 
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl"
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
-sudo koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
+koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl \
+                                                                     --opac-base-url ${KOHA_OPAC_URL} \
+                                                                     --intranet-base-url ${KOHA_INTRANET_URL}"
+koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
+koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
 
 # Stop apache2
 service apache2 stop
