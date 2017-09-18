@@ -23,7 +23,7 @@ services:
         networks:
             - kohanet
     koha:
-        image: theke/koha-testing:master
+        image: theke/koha-testing:16.11
         depends_on:
             - db
             - es
