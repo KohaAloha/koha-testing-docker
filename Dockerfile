@@ -85,6 +85,17 @@ RUN wget -O libmojolicious-perl.deb \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
+# Install Selenium tests deps
+RUN apt-get -y update \
+    && apt-get -y install \
+      xvfb \
+      firefox-esr \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
+# Download Selenium
+RUN wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar -O selenium.jar
+
 RUN git clone https://github.com/mkfifo/koha-gitify.git gitify
 RUN git clone https://github.com/joubu/koha-misc4dev.git misc4dev
 
@@ -97,7 +108,8 @@ RUN cpanm -i \
        TAP::Harness::JUnit \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
-       WebService::ILS
+       WebService::ILS \
+       Selenium::Remote::Driver
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \

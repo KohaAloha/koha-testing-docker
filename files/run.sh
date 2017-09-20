@@ -56,6 +56,9 @@ service apache2 start
 # Start Zebra and the Indexer
 koha-start-zebra kohadev
 koha-indexer --start kohadev
+# Start Selenium
+Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 &
+DISPLAY=:1 java -jar selenium.jar > /dev/null &
 
 if [ ${DEBUG} ]; then
     bash
@@ -69,6 +72,8 @@ else
                               KOHA_OPAC_URL=${KOHA_OPAC_URL} \
                               KOHA_USER=${KOHA_USER} \
                               KOHA_PASS=${KOHA_PASS} \
+                              SELENIUM_ADDR=localhost \
+                              SELENIUM_PORT=4444 \
                               TEST_QA=1 \
                               prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
                               cover -report clover"
