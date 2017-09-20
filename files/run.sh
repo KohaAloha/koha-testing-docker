@@ -58,7 +58,7 @@ koha-start-zebra kohadev
 koha-indexer --start kohadev
 # Start Selenium
 Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 &
-DISPLAY=:1 java -jar selenium.jar > /dev/null &
+DISPLAY=:1 java -jar selenium.jar 2> /dev/null &
 
 if [ ${DEBUG} ]; then
     bash
