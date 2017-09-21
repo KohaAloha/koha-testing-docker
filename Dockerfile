@@ -68,6 +68,7 @@ RUN apt-get -y update \
    && apt-get -y install \
          koha-common \
          koha-elasticsearch \
+         libmojolicious-plugin-openapi-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
