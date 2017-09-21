@@ -27,6 +27,7 @@ services:
         depends_on:
             - db
             - es
+            - memcached
         cap_add:
             - ALL
         volumes:
@@ -44,6 +45,14 @@ services:
             LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
             - kohanet
+    memcached:
+        image: memcached
+        ports:
+            - "127.0.0.1:11211:11211"
+        command: memcached -m 64m
+        networks:
+            - kohanet
+
 networks:
     kohanet:
 

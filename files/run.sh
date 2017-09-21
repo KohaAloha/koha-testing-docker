@@ -17,7 +17,7 @@ echo "ServerName kohadevdock" >> /etc/apache2/apache2.conf
 
 cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
 
-koha-create --request-db ${KOHA_INSTANCE}
+koha-create --request-db ${KOHA_INSTANCE} --use-memcached --memcached-servers memcached:11211
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
     usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
