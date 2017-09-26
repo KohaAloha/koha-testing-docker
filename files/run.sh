@@ -60,7 +60,7 @@ koha-indexer --start kohadev
 Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 &
 DISPLAY=:1 java -jar selenium.jar 2> /dev/null &
 
-if [ ${DEBUG} ]; then
+if [ ${KOHA_DOCKER_DEBUG} ]; then
     bash
 else
     cd ${BUILD_DIR}/koha

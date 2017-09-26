@@ -49,11 +49,11 @@ Run:
   $ docker-compose run koha
 ```
 
-If you want to do something else inside of the _koha_ container, you can add the DEBUG=1
+If you want to do something else inside of the _koha_ container, you can add the KOHA_DOCKER_DEBUG=1
 environment variable and you will be left on a bash shell in which you can run anything you want:
 
 ```
-  $ DEBUG=1 docker-compose run koha
+  $ KOHA_DOCKER_DEBUG=1 docker-compose run koha
 ```
 
 ## Run tests
