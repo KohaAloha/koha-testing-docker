@@ -64,9 +64,9 @@ if [ ${DEBUG} ]; then
     bash
 else
     cd ${BUILD_DIR}/koha
-    rm -rf cover_db
+    rm -rf /cover_db/*
     koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
-                              PERL5OPT=-MDevel::Cover \
+                              PERL5OPT=-MDevel::Cover=-db,/cover_db \
                               KOHA_NO_TABLE_LOCKS=1 \
                               KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
                               KOHA_OPAC_URL=${KOHA_OPAC_URL} \
