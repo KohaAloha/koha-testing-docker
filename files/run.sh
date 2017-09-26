@@ -57,7 +57,7 @@ service apache2 start
 koha-start-zebra kohadev
 koha-indexer --start kohadev
 
-if [ ${DEBUG} ]; then
+if [ ${KOHA_DOCKER_DEBUG} ]; then
     bash
 else
     cd ${BUILD_DIR}/koha

@@ -44,7 +44,7 @@ services:
             PERL5LIB: "/kohadevbox/koha"
             KOHA_INTRANET_URL: "http://kohadev-intra.myDNSname.org"
             KOHA_OPAC_URL: "http://kohadev.myDNSname.org"
-            DEBUG: ${DEBUG}
+            KOHA_DOCKER_DEBUG: ${KOHA_DOCKER_DEBUG}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
             - kohanet
