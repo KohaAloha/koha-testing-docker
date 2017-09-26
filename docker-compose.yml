@@ -32,6 +32,9 @@ services:
             - ALL
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
+        tmpfs:
+            - /cover_db
+            - /tmp
         environment:
             KOHA_INSTANCE: kohadev
             KOHA_DB_PASSWORD: password
