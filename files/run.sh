@@ -65,7 +65,8 @@ if [ ${KOHA_DOCKER_DEBUG} ]; then
 else
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
-    koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+    koha-shell kohadev -p -c "rm -rf cover_db;
+                              JUNIT_OUTPUT_FILE=junit_main.xml \
                               PERL5OPT=-MDevel::Cover=-db,/cover_db \
                               KOHA_NO_TABLE_LOCKS=1 \
                               KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
@@ -76,5 +77,6 @@ else
                               SELENIUM_PORT=4444 \
                               TEST_QA=1 \
                               prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
+                              mkdir cover_db; cp -r /cover_db/* cover_db;
                               cover -report clover"
 fi
