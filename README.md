@@ -49,6 +49,13 @@ Run:
   $ docker-compose run koha
 ```
 
+If you want to include Devel::Cover while running the tests to generate a coverage report, set
+the _COVERAGE_ env variable like this:
+
+```
+  $ COVERAGE=1 docker-compose run koha
+```
+
 If you want to do something else inside of the _koha_ container, you can add the KOHA_DOCKER_DEBUG=1
 environment variable and you will be left on a bash shell in which you can run anything you want:
 
