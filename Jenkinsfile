@@ -8,7 +8,7 @@ node {
 
     stage('Build image') {
 
-        app = docker.build("theke/koha-testing")
+        app = docker.build("koha/koha-testing")
     }
 
     stage('Push image') {
