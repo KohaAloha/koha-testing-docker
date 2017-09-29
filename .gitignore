@@ -36,3 +36,5 @@ inc/
 
 # IDEs
 *.komodoproject
+*.sublime-project
+*.sublime-workspace
