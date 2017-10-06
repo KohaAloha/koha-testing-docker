@@ -14,7 +14,7 @@ node {
     stage('Push image') {
 
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("17.05")
+            app.push("16.05")
         }
     }
 }
