@@ -67,6 +67,7 @@ else
         koha-shell kohadev -p -c "rm -rf cover_db;
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   PERL5OPT=-MDevel::Cover=-db,/cover_db \
+                                  PERL5LIB=${BUILD_DIR}/koha
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
                                   KOHA_OPAC_URL=${KOHA_OPAC_URL} \
@@ -80,6 +81,7 @@ else
                                   cover -report clover"
     else
         koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  PERL5LIB=${BUILD_DIR}/koha
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
                                   KOHA_OPAC_URL=${KOHA_OPAC_URL} \
