@@ -34,6 +34,7 @@ RUN apt-get -y update \
       wget \
       git \
       locales \
+      libcatmandu-marc-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -86,7 +87,8 @@ RUN cpanm -i \
        TAP::Harness::JUnit \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
-       WebService::ILS
+       WebService::ILS \
+       Catmandu::Store::ElasticSearch
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
