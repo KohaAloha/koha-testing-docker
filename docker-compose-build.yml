@@ -1,0 +1,62 @@
+version: '3'
+services:
+    db:
+        image: mysql:5.5
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: koha_kohadev
+            MYSQL_USER: koha_kohadev
+            MYSQL_PASSWORD: password
+        networks:
+            - kohanet
+    es:
+        image: koha/elasticsearch-icu
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - xpack.security.enabled=false
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        networks:
+            - kohanet
+    koha:
+        build: ./
+        depends_on:
+            - db
+            - es
+            - memcached
+        cap_add:
+            - ALL
+        volumes:
+            - ${SYNC_REPO}:/kohadevbox/koha
+        tmpfs:
+            - /cover_db
+            - /tmp
+        environment:
+            COVERAGE: ${COVERAGE}
+            KOHA_INSTANCE: kohadev
+            KOHA_DB_PASSWORD: password
+            KOHA_USER: koha
+            KOHA_PASS: koha
+            KOHA_CONF: "/etc/koha/sites/kohadev/koha-conf.xml"
+            PERL5LIB: "/kohadevbox/koha"
+            KOHA_INTRANET_URL: "http://kohadev-intra.myDNSname.org"
+            KOHA_OPAC_URL: "http://kohadev.myDNSname.org"
+            KOHA_DOCKER_DEBUG: ${KOHA_DOCKER_DEBUG}
+            LOCAL_USER_ID: ${LOCAL_USER_ID}
+        networks:
+            - kohanet
+    memcached:
+        image: memcached
+        ports:
+            - "127.0.0.1:11211:11211"
+        command: memcached -m 64m
+        networks:
+            - kohanet
+
+networks:
+    kohanet:
+
