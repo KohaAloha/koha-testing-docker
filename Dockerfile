@@ -79,6 +79,7 @@ WORKDIR /kohadevbox
 # Install Selenium tests deps
 RUN apt-get -y update \
     && apt-get -y install \
+      openjdk-7-jre \
       xvfb \
       firefox-esr \
    && rm -rf /var/cache/apt/archives/* \
