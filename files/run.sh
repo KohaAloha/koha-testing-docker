@@ -78,7 +78,8 @@ else
                                   SELENIUM_ADDR=localhost \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ ; \
+                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
     else
@@ -91,6 +92,7 @@ else
                                   SELENIUM_ADDR=localhost \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/"
+                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  && touch testing.success"
     fi
 fi
