@@ -58,6 +58,8 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
+ENV REBUILD 1
+
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
 RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
