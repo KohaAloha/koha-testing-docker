@@ -58,6 +58,8 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
+ENV REBUILD 1
+
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha 17.11 main" > /etc/apt/sources.list.d/koha.list
 # Add repository key
