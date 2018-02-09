@@ -35,16 +35,10 @@ services:
         tmpfs:
             - /cover_db
             - /tmp
+        env_file:
+            - ./env/defaults.env
         environment:
             COVERAGE: ${COVERAGE}
-            KOHA_INSTANCE: kohadev
-            KOHA_DB_PASSWORD: password
-            KOHA_USER: koha
-            KOHA_PASS: koha
-            KOHA_CONF: "/etc/koha/sites/kohadev/koha-conf.xml"
-            PERL5LIB: "/kohadevbox/koha"
-            KOHA_INTRANET_URL: "http://kohadev-intra.myDNSname.org"
-            KOHA_OPAC_URL: "http://kohadev.myDNSname.org"
             KOHA_DOCKER_DEBUG: ${KOHA_DOCKER_DEBUG}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
