@@ -3,6 +3,10 @@
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
 
+# Handy variables
+export KOHA_INTRANET_URL=http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+export KOHA_OPAC_URL=http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT}
+
 # Wait for the DB server startup
 while ! nc -z db 3306; do sleep 1; done
 
@@ -39,7 +43,7 @@ koha-enable kohadev
 a2ensite kohadev.conf
 
 # Update /etc/hosts so the www tests can run
-echo "127.0.0.1    kohadev.myDNSname.org kohadev-intra.myDNSname.org" >> /etc/hosts
+echo "127.0.0.1    ${KOHA_OPAC_URL} ${KOHA_INTRANET_URL}" >> /etc/hosts
 
 envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/kohadev/.bashrc
 
