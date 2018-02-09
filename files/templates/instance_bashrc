@@ -1,6 +1,6 @@
 export KOHA_USER=${KOHA_USER}
 export KOHA_PASS=${KOHA_PASS}
-export KOHA_INTRANET_URL=http://kohadev-intra.myDNSname.org:${KOHA_INTRANET_PORT}
-export KOHA_OPAC_URL=http://kohadev.myDNSname.org:${KOHA_OPAC_PORT}
+export KOHA_INTRANET_URL=${KOHA_INTRANET_URL}
+export KOHA_OPAC_URL=${KOHA_OPAC_URL}
 export PERL5LIB="/kohadevbox/koha"
 export TEST_QA=1
