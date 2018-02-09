@@ -116,7 +116,6 @@ RUN wget -O Devel-Cover.tar.gz \
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
-COPY files/instance_bashrc /kohadevbox
-COPY files/koha-conf-site.xml.in /kohadevbox/koha-conf-site.xml.in
+COPY files/templates /kohadevbox/templates
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]

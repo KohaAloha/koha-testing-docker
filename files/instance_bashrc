@@ -1,7 +1,0 @@
-export KOHA_USER=koha
-export KOHA_PASS=koha
-export KOHA_INTRANET_URL=http://kohadev-intra.myDNSname.org:80
-export KOHA_OPAC_URL=http://kohadev.myDNSname.org:80
-export PERL5LIB="/kohadevbox/koha"
-export TEST_QA=1
-

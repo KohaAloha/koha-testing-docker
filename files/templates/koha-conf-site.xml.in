@@ -258,10 +258,6 @@ __END_SRU_PUBLICSERVER__
  <biblioservershadow>1</biblioservershadow>
  <authorityserver>authorities</authorityserver>
  <authorityservershadow>1</authorityservershadow>
- <elasticsearch>
-     <server>es:9200</server>
-     <index_name>koha___KOHASITE__</index_name>
- </elasticsearch>
  <pluginsdir>__PLUGINS_DIR__</pluginsdir>
  <enable_plugins>0</enable_plugins>
  <upload_path>__UPLOAD_PATH__</upload_path>
@@ -295,18 +291,12 @@ __END_SRU_PUBLICSERVER__
  <!-- <zebra_loglevels>none,fatal,warn</zebra_loglevels> -->
  <memcached_servers>__MEMCACHED_SERVERS__</memcached_servers>
  <memcached_namespace>__MEMCACHED_NAMESPACE__</memcached_namespace>
- <!-- Uncomment the following line if you want to use template caching
-      That will bring a performance boost
- -->
-  <template_cache_dir>/tmp</template_cache_dir>
-
-
- <dev_install>1</dev_install>
+ <template_cache_dir>__TEMPLATE_CACHE_DIR__</template_cache_dir>
 
  <!-- Secret passphrase used by Mojolicious for signed cookies -->
  <api_secret_passphrase>__API_SECRET__</api_secret_passphrase>
 
-<!-- true type font mapping accoding to type from $font_types in C4/Creators/Lib.pm -->
+ <!-- true type font mapping accoding to type from $font_types in C4/Creators/Lib.pm -->
  <ttf>
     <font type="TR" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf</font>
     <font type="TB" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf</font>
@@ -321,6 +311,41 @@ __END_SRU_PUBLICSERVER__
     <font type="HB" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf</font>
     <font type="HBO">/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-BoldOblique.ttf</font>
  </ttf>
+
+ <!-- Path to the config file for SMS::Send -->
+ <sms_send_config>__KOHA_CONF_DIR__/sms_send/</sms_send_config>
+
+ <!-- Configuration for Plack -->
+ <plack_max_requests>50</plack_max_requests>
+ <plack_workers>2</plack_workers>
+
+ <elasticsearch>
+     <server>localhost:9200</server>
+     <index_name>koha___KOHASITE__</index_name>
+ </elasticsearch>
+
+ <interlibrary_loans>
+     <!-- Path to where Illbackends are located on the system
+          - This setting should normally not be touched -->
+     <backend_directory>/usr/share/koha/lib/Koha/Illbackends</backend_directory>
+     <!-- How should we treat staff comments?
+          - hide: don't show in OPAC
+          - show: show in OPAC -->
+     <staff_request_comments>hide</staff_request_comments>
+     <!-- How should we treat the reply_date field?
+          - hide: don't show this field in the UI
+          - any other string: show, with this label -->
+     <reply_date>hide</reply_date>
+     <!-- Where should digital ILLs be sent?
+          - borrower: send it straight to the borrower email
+          - branch: send the ILL to the branch email -->
+     <digital_recipient>branch</digital_recipient>
+     <!-- What patron category should we use for p2p ILL requests?
+          - By default this is set to 'ILLLIBS' -->
+     <partner_code>ILLLIBS</partner_code>
+ </interlibrary_loans>
+
+ <dev_install>1</dev_install>
 
 </config>
 </yazgfs>

@@ -13,9 +13,12 @@ echo "[client]" > /etc/mysql/koha-common.cnf
 echo "host = db" >> /etc/mysql/koha-common.cnf
 
 # Get rid of Apache warnings
-echo "ServerName kohadevdock" >> /etc/apache2/apache2.conf
+echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
+echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
+echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
 
-cp ${BUILD_DIR}/koha-conf-site.xml.in /etc/koha/koha-conf-site.xml.in
+envsubst < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
+envsubst < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
 
 koha-create --request-db ${KOHA_INSTANCE} --use-memcached --memcached-servers memcached:11211
 # Fix UID
@@ -38,7 +41,7 @@ a2ensite kohadev.conf
 # Update /etc/hosts so the www tests can run
 echo "127.0.0.1    kohadev.myDNSname.org kohadev-intra.myDNSname.org" >> /etc/hosts
 
-cp ${BUILD_DIR}/instance_bashrc /var/lib/koha/kohadev/.bashrc
+envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/kohadev/.bashrc
 
 koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl \
                                                                      --opac-base-url ${KOHA_OPAC_URL} \
