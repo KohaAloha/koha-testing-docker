@@ -320,7 +320,7 @@ __END_SRU_PUBLICSERVER__
  <plack_workers>2</plack_workers>
 
  <elasticsearch>
-     <server>localhost:9200</server>
+     <server>es:9200</server>
      <index_name>koha___KOHASITE__</index_name>
  </elasticsearch>
 
