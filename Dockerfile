@@ -58,7 +58,7 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-ENV REFRESHED_AT 2018-02-09-1
+ENV REFRESHED_AT 2018-02-12-1
 
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
