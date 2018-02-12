@@ -54,6 +54,7 @@ koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/
                                                                      --intranet-base-url ${KOHA_INTRANET_URL}"
 koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
 koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
+perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl --koha_dir=${BUILD_DIR}/koha --gitify_dir=${BUILD_DIR}/gitify
 
 # Stop apache2
 service apache2 stop
