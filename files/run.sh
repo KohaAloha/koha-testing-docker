@@ -67,9 +67,6 @@ service apache2 start
 # Start Zebra and the Indexer
 koha-start-zebra kohadev
 koha-indexer --start kohadev
-# Start Selenium
-Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 &
-DISPLAY=:1 java -jar selenium.jar 2> /dev/null &
 
 if [ ${KOHA_DOCKER_DEBUG} ]; then
     bash
@@ -82,8 +79,8 @@ else
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
-                                  KOHA_OPAC_URL=${KOHA_OPAC_URL} \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   SELENIUM_ADDR=localhost \
@@ -96,11 +93,11 @@ else
     else
         koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=${KOHA_INTRANET_URL} \
-                                  KOHA_OPAC_URL=${KOHA_OPAC_URL} \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
-                                  SELENIUM_ADDR=localhost \
+                                  SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
                                   prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
