@@ -28,6 +28,7 @@ services:
             - db
             - es
             - memcached
+            - selenium
         cap_add:
             - ALL
         volumes:
@@ -48,6 +49,13 @@ services:
         ports:
             - "127.0.0.1:11211:11211"
         command: memcached -m 64m
+        networks:
+            - kohanet
+        ports:
+            - 8080
+            - 8081
+    selenium:
+        image: selenium/standalone-firefox:2.53.1-americium
         networks:
             - kohanet
 

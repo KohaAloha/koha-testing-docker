@@ -78,18 +78,6 @@ RUN apt-get -y update \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-# Install Selenium tests deps
-RUN apt-get -y update \
-    && apt-get -y install \
-      openjdk-7-jre \
-      xvfb \
-      firefox-esr \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-
-# Download Selenium
-RUN wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar -O selenium.jar
-
 RUN git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
 RUN git clone https://github.com/mkfifo/koha-gitify.git gitify
 
@@ -119,3 +107,5 @@ COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
+
+EXPOSE 8080 8081
