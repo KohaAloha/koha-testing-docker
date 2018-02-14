@@ -40,7 +40,7 @@ services:
             - ./env/defaults.env
         environment:
             COVERAGE: ${COVERAGE}
-            KOHA_DOCKER_DEBUG: ${KOHA_DOCKER_DEBUG}
+            RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
             - kohanet

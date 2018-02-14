@@ -62,15 +62,13 @@ service apache2 stop
 # Configure and start koha-plack
 koha-plack --enable kohadev
 koha-plack --start kohadev
+# Start Zebra and the Indexer
+koha-zebra --startkohadev
+koha-indexer --start kohadev
 # Start apache
 service apache2 start
-# Start Zebra and the Indexer
-koha-start-zebra kohadev
-koha-indexer --start kohadev
 
-if [ ${KOHA_DOCKER_DEBUG} ]; then
-    bash
-else
+if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
 
@@ -103,4 +101,7 @@ else
                                   prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
                                   && touch testing.success"
     fi
+else
+    # TODO: We could use supervise as the main loop
+    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 fi
