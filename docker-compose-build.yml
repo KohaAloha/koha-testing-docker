@@ -40,10 +40,13 @@ services:
             - ./env/defaults.env
         environment:
             COVERAGE: ${COVERAGE}
-            KOHA_DOCKER_DEBUG: ${KOHA_DOCKER_DEBUG}
+            RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
         networks:
             - kohanet
+        ports:
+            - 8080
+            - 8081
     memcached:
         image: memcached
         ports:
@@ -51,9 +54,6 @@ services:
         command: memcached -m 64m
         networks:
             - kohanet
-        ports:
-            - 8080
-            - 8081
     selenium:
         image: selenium/standalone-firefox:2.53.1-americium
         networks:
