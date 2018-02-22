@@ -49,8 +49,6 @@ services:
             - 8081
     memcached:
         image: memcached
-        ports:
-            - "127.0.0.1:11211:11211"
         command: memcached -m 64m
         networks:
             - kohanet
