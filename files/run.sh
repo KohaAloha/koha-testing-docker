@@ -63,7 +63,7 @@ service apache2 stop
 koha-plack --enable kohadev
 koha-plack --start kohadev
 # Start Zebra and the Indexer
-koha-zebra --startkohadev
+koha-zebra --start kohadev
 koha-indexer --start kohadev
 # Start apache
 service apache2 start
