@@ -89,7 +89,7 @@ RUN apt-get -y update \
 # Download Selenium
 RUN wget https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar -O selenium.jar
 
-RUN git clone https://github.com/joubu/koha-misc4dev.git misc4dev
+RUN git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
 RUN git clone https://github.com/mkfifo/koha-gitify.git gitify
 
 # Install testing extras
