@@ -78,9 +78,6 @@ RUN apt-get -y update \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-RUN git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
-RUN git clone https://github.com/mkfifo/koha-gitify.git gitify
-
 # Install testing extras
 RUN cpanm -i \
        DBD::SQLite \

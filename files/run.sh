@@ -37,6 +37,11 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
 fi
 
+# Clone helper repositories
+cd ${BUILD_DIR}
+git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
+git clone https://github.com/mkfifo/koha-gitify.git gitify
+
 # gitify instance
 cd ${BUILD_DIR}/gitify
 ./koha-gitify kohadev "/kohadevbox/koha"
