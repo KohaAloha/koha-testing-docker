@@ -71,6 +71,7 @@ RUN apt-get -y update \
          koha-common \
          koha-elasticsearch \
          libmojolicious-plugin-openapi-perl \
+         libtest-mocktime-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
