@@ -73,6 +73,11 @@ koha-indexer --start kohadev
 # Start apache
 service apache2 start
 
+# if KOHA_PROVE_CPUS is not set, then use nproc
+if [ -z ${KOHA_PROVE_CPUS} ]; then
+    KOHA_PROVE_CPUS=`nproc`
+fi
+
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
@@ -89,7 +94,10 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  prove -j ${KOHA_PROVE_CPUS} \
+                                  --rules='par=t/db_dependent/00-strict.t' \
+                                  --rules='seq=t/db_dependent/**.t' --rules='par=**' \
+                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
@@ -103,7 +111,10 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  prove -j ${KOHA_PROVE_CPUS} \
+                                  --rules='par=t/db_dependent/00-strict.t' \
+                                  --rules='seq=t/db_dependent/**.t' --rules='par=**' \
+                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
                                   && touch testing.success"
     fi
 else
