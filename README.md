@@ -12,11 +12,6 @@ It requires:
 - Docker
 - Docker Compose
 
-Note: I rushed to publish this to get more eyes on it earlier. The TODOs explains this.
-
-**TODO:** Make it run the tests by default (it currently launches a bash shell for debugging purposes)
-**TODO:** Write a better README.
-
 ## Usage
 
 * First, fetch this project:
@@ -27,43 +22,43 @@ Note: I rushed to publish this to get more eyes on it earlier. The TODOs explain
   $ cd koha-testing-docker
 ```
 
-* Build the app image(s):
-
-
-```
-  $ docker-compose build
-```
-
-* Run
+## Launch
 
 *Requirement*: The SYNC_REPO variable needs to be defined and contain the full path
 for a Koha's git repository clone.
 
-By default it runs the whole test suite:
+### Setup
 
-
-Run:
-
+Some variables need to be set to run this:
 
 ```
-  $ docker-compose run koha
+  $ export SYNC_REPO=/path/to/kohaclone
+  $ export LOCAL_USER_ID=$(id -u)
 ```
 
-If you want to include Devel::Cover while running the tests to generate a coverage report, set
-the _COVERAGE_ env variable like this:
+### Running
 
 ```
-  $ COVERAGE=1 docker-compose run koha
+  $ docker-compose -p koha up
 ```
 
-If you want to do something else inside of the _koha_ container, you can add the KOHA_DOCKER_DEBUG=1
-environment variable and you will be left on a bash shell in which you can run anything you want:
+Alternatively, you can have it run all the tests and exit, like this:
 
 ```
-  $ KOHA_DOCKER_DEBUG=1 docker-compose run koha
+  $ export RUN_TESTS_AND_EXIT="yes"
+  $ docker-compose -p koha up --abort-on-container-exit
 ```
 
-## Run tests
+## Getting into the container
+
+Getting into the _koha_ container:
+
+```
+  $ docker exec -it koha_koha_1 bash
+```
+
+Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
+
 
 Once you are left on the shell, you can run Koha tests as you would on KohaDevBox:
 
