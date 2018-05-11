@@ -29,6 +29,12 @@ for a Koha's git repository clone.
 
 ### Setup
 
+Copy the _env/defaults.env_ file into the running directory:
+
+```
+  $ cp env/defaults.env .env
+```
+
 Some variables need to be set to run this:
 
 ```
@@ -46,6 +52,7 @@ Alternatively, you can have it run all the tests and exit, like this:
 
 ```
   $ export RUN_TESTS_AND_EXIT="yes"
+  # Optionally you can add COVERAGE=1 so the tests generate coverage data
   $ docker-compose -p koha up --abort-on-container-exit
 ```
 
