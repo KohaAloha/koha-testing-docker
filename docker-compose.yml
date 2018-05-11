@@ -36,6 +36,8 @@ services:
         tmpfs:
             - /cover_db
             - /tmp
+        env_file:
+            - ./env/defaults.env
         environment:
             COVERAGE: ${COVERAGE}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
