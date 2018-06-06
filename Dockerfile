@@ -1,15 +1,17 @@
 # Base it on Debian 8
-FROM debian:jessie
+FROM debian:stretch
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
+
+ENV REFRESHED_AT 2018-06-06-1
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
+RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -58,19 +60,19 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-ENV REFRESHED_AT 2018-03-30-1
-
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha 18.05 main" > /etc/apt/sources.list.d/koha.list
+
 # Add repository key
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
          koha-common \
-         koha-elasticsearch \
-         libmojolicious-plugin-openapi-perl \
+         libnet-oauth2-authorizationserver-perl \
+         libcatmandu-marc-perl \
+         libcatmandu-store-elasticsearch-perl \
+         libwww-youtube-download-perl \
          libtest-mocktime-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
