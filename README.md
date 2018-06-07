@@ -3,7 +3,7 @@
 This project aims to provide a dockered solution for running the Koha ILS
 tests inside Docker containers.
 
-It is built on a packages install on Debian 8, with the needed tweaks (including koha-gitify)
+It is built on a packages install on Debian 9, with the needed tweaks (including koha-gitify)
 in order to create such environment.
 
 The *docker-compose.yml* file is self explanatory.
