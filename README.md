@@ -18,7 +18,7 @@ It requires:
 
 ```
   $ mkdir ~/git ; cd ~/git
-  $ git clone https://github.com/tomascohen/koha-testing-docker.git
+  $ git clone https://gitlab.com/koha-community/koha-testing-docker.git
   $ cd koha-testing-docker
 ```
 
