@@ -11,6 +11,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
+ENV REFRESHED_AT 2018-06-07-1
+
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
@@ -58,8 +60,6 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-ENV REBUILD 1
-
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha 17.11 main" > /etc/apt/sources.list.d/koha.list
 # Add repository key
@@ -70,6 +70,7 @@ RUN apt-get -y update \
          koha-common \
          koha-elasticsearch \
          libmojolicious-plugin-openapi-perl \
+         libtest-mocktime-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
