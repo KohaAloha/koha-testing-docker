@@ -1,5 +1,5 @@
-# Base it on Debian 8
-FROM debian:jessie
+# Base it on Ubunt 18.04
+FROM ubuntu:18.04
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
@@ -9,11 +9,7 @@ ENV REFRESHED_AT 2018-06-06-1
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-# Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
-
-# Install apache2 and testting deps
+# Install apache2 and testing deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
     && apt-get -y install \
