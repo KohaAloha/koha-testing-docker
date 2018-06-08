@@ -26,7 +26,7 @@ echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
 envsubst < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
 
-koha-create --request-db ${KOHA_INSTANCE} --use-memcached --memcached-servers memcached:11211
+koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
     usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
