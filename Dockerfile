@@ -1,5 +1,5 @@
-# Base it on Debian 9
-FROM debian:stretch
+# Base it on Debian 8
+FROM debian:jessie
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
@@ -8,8 +8,8 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
+RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
