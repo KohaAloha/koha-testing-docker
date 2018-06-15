@@ -1,5 +1,5 @@
-# Base it on Debian 9
-FROM debian:stretch
+# Base it on Ubuntu 18.04
+FROM ubuntu:18.04
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
@@ -7,11 +7,7 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-# Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
-
-ENV REFRESHED_AT 2019-05-24-1
+ENV REFRESHED_AT 2019-05-30-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
