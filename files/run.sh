@@ -64,6 +64,17 @@ koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/
 koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
 perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl --koha_dir=${BUILD_DIR}/koha --gitify_dir=${BUILD_DIR}/gitify
 
+# Configure git-bz
+cd /kohadevbox/koha
+git config bz.default-tracker bugs.koha-community.org
+git config bz.default-product Koha
+git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
+git config --global bz-tracker.bugs.koha-community.org.https true
+git config --global core.whitespace trailing-space,space-before-tab
+git config --global apply.whitespace fix
+git config --global bz-tracker.bugs.koha-community.org.bz-user ${GIT_BZ_USER}
+git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASSWORD}
+
 # Stop apache2
 service apache2 stop
 # Configure and start koha-plack

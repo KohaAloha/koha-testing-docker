@@ -36,6 +36,8 @@ RUN apt-get -y update \
       wget \
       git \
       locales \
+      vim \
+      python-gdbm \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -100,6 +102,14 @@ RUN wget -O Devel-Cover.tar.gz \
     && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
     && cd Devel-Cover-1.26/ \
     && cpanm -i -n .
+
+# Add git-bz
+RUN cd /usr/local/share \
+    && git clone https://github.com/joubu/git-bz.git \
+    && cd git-bz \
+    && git fetch origin \
+    && git checkout -b apply_on_cascade origin/apply_on_cascade \
+    && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
 
 VOLUME /kohadevbox/koha
 
