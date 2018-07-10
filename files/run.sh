@@ -25,8 +25,12 @@ echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
 echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
 echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
 
-envsubst < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
-envsubst < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
+VARS_TO_SUB='$KOHA_DB_PASSWORD:$KOHA_USER:$KOHA_PASS:$KOHA_INSTANCE:$KOHA_DOMAIN:$KOHA_CONF:$KOHA_INTRANET_PORT:$KOHA_INTRANET_PREFIX:$KOHA_INTRANET_SUFFIX:$KOHA_OPAC_PORT:$KOHA_OPAC_PREFIX:$KOHA_OPAC_SUFFIX:$KOHA_MARC_FLAVOUR:$KOHA_PROVE_CPUS:$PERL5LIB:$RUN_TESTS_AND_EXIT:$REMOTE_DEBUGGER_DIR:$REMOTE_DEBUGGER_PACKAGE:$REMOTE_DEBUGGER_LOCATION:$REMOTE_DEBUGGER_KEY:$GIT_BZ_USER:$GIT_BZ_PASSWORD:$GIT_USER_NAME:$GIT_USER_EMAIL';
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
 
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
@@ -43,6 +47,7 @@ fi
 cd ${BUILD_DIR}
 git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
 git clone https://github.com/mkfifo/koha-gitify.git gitify
+git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 # gitify instance
 cd ${BUILD_DIR}/gitify

@@ -1,0 +1,115 @@
+# Alias for the Koha QA tool
+alias qa="/kohadevbox/qa-test-tools/koha-qa.pl"
+
+# Aliases for reading logs
+alias koha-opac-err="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/opac-error.log"
+alias koha-intra-err="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/intranet-error.log"
+alias koha-plack-log="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/plack.log"
+alias koha-plack-err="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/plack-error.log"
+
+# Alias for getting into the ${KOHA_INSTANCE} user, inside /kohadevbox/koha
+alias kshell='cd /kohadevbox/koha ; sudo koha-shell ${KOHA_INSTANCE}'
+
+# Aliases for getting the db/admin user and password for our instance
+alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml'"
+alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml'"
+
+# Aliases for dealing with Less compilation
+alias less-opac="lessc --clean-css='--s0 --advanced --compatibility=ie7' \
+                    /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/less/opac.less \
+                  > /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/css/opac.css"
+
+# Alias to recreate the schema files
+alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
+            cd '/kohadevbox/koha' ; \
+            mysql -uroot dbic < installer/data/mysql/kohastructure.sql ;\
+            misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"
+
+# Alias for restarting all needed services
+alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo service koha-common restart"
+
+# Alias for running updatedatabase.pl
+alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'"
+
+# Alias for reseting everything koha-related
+alias reset_all='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+                 echo    # move to a new line
+                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+
+                    ELASTICSEARCH="";
+                    if [ -n "$ELASTICSEARCH" ]; then
+                        ELASTICSEARCH="--elasticsearch"
+                    fi
+
+                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
+                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
+                                --userid ${KOHA_USER} \
+                                --password ${KOHA_PASS} \
+                                --marcflavour ${KOHA_MARC_FLAVOUR} \
+                                --koha_dir /kohadevbox/koha \
+                                --opac-base-url http://%{KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                    restart_all
+                 else
+                    echo "Aborted"
+                 fi'
+
+alias reset_all_marc21='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+                 echo    # move to a new line
+                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+
+                    ELASTICSEARCH="";
+                    if [ -n "$ELASTICSEARCH" ]; then
+                        ELASTICSEARCH="--elasticsearch"
+                    fi
+
+                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
+                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
+                                --userid ${KOHA_USER} \
+                                --password ${KOHA_PASS} \
+                                --marcflavour marc21 \
+                                --koha_dir /kohadevbox/koha \
+                                --opac-base-url http://%{KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                    restart_all
+                 else
+                    echo "Aborted"
+                 fi'
+
+alias reset_all_unimarc='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+                 echo    # move to a new line
+                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+
+                    ELASTICSEARCH="";
+                    if [ -n "$ELASTICSEARCH" ]; then
+                        ELASTICSEARCH="--elasticsearch"
+                    fi
+
+                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
+                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
+                                --userid ${KOHA_USER} \
+                                --password ${KOHA_PASS} \
+                                --marcflavour unimarc \
+                                --koha_dir /kohadevbox/koha \
+                                --opac-base-url http://%{KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                    restart_all
+                 else
+                    echo "Aborted"
+                 fi'
+
+alias start_plack_debug='sudo koha-plack --start \
+                                         --debugger \
+                                         --debugger-path "${REMOTE_DEBUGGER_DIR}/${REMOTE_DEBUGGER_PACKAGE}" \
+                                         --debugger-location "${REMOTE_DEBUGGER_LOCATION}" \
+                                         --debugger-key "${REMOTE_DEBUGGER_KEY}" \
+                                         ${KOHA_INSTANCE}'
+
+alias start_selenium='Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 & \
+                      DISPLAY=:1 java -jar selenium.jar 2> /dev/null'

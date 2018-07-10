@@ -2,5 +2,5 @@ export KOHA_USER=${KOHA_USER}
 export KOHA_PASS=${KOHA_PASS}
 export KOHA_INTRANET_URL=${KOHA_INTRANET_URL}
 export KOHA_OPAC_URL=${KOHA_OPAC_URL}
-export PERL5LIB="/kohadevbox/koha"
+export PERL5LIB="/kohadevbox/koha:/kohadevbox/qa-test-tools"
 export TEST_QA=1

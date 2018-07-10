@@ -18,26 +18,27 @@ ENV REFRESHED_AT 2018-07-11-1
 RUN apt-get -y update \
     && apt-get -y install \
       apache2 \
+      build-essential \
+      codespell \
       cpanminus \
-      netcat \
+      git \
+      libdatetimex-easy-perl \
+      libdbd-sqlite2-perl \
+      libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
+      libmodule-install-perl \
       libmoo-perl \
       libperl-critic-perl \
-      libtest-perl-critic-perl \
       libsmart-comments-perl \
-      libdatetimex-easy-perl \
       libtest-differences-perl \
-      libdbd-sqlite2-perl \
-      codespell \
-      libdbix-class-timestamp-perl \
-      libmodule-install-perl \
-      build-essential \
-      wget \
-      git \
+      libtest-perl-critic-perl \
+      libtest-perl-critic-progressive-perl \
       locales \
-      vim \
+      netcat \
       python-gdbm \
+      vim \
+      wget \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
