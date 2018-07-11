@@ -25,7 +25,9 @@ echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
 echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
 echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
 
-VARS_TO_SUB='$KOHA_DB_PASSWORD:$KOHA_USER:$KOHA_PASS:$KOHA_INSTANCE:$KOHA_DOMAIN:$KOHA_CONF:$KOHA_INTRANET_PORT:$KOHA_INTRANET_PREFIX:$KOHA_INTRANET_SUFFIX:$KOHA_OPAC_PORT:$KOHA_OPAC_PREFIX:$KOHA_OPAC_SUFFIX:$KOHA_MARC_FLAVOUR:$KOHA_PROVE_CPUS:$PERL5LIB:$RUN_TESTS_AND_EXIT:$REMOTE_DEBUGGER_DIR:$REMOTE_DEBUGGER_PACKAGE:$REMOTE_DEBUGGER_LOCATION:$REMOTE_DEBUGGER_KEY:$GIT_BZ_USER:$GIT_BZ_PASSWORD:$GIT_USER_NAME:$GIT_USER_EMAIL';
+# Pull the names of the environment variables to substitute from defaults.env and convert them to a string of the format "$VAR1:$VAR2:$VAR3", etc.
+VARS_TO_SUB=`cut -d '=' -f1 ${BUILD_DIR}/templates/defaults.env  | tr '\n' ':' | sed -e 's/:/:$/g' | awk '{print "$"$1}' | sed -e 's/:\$$//'`
+
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
