@@ -20,9 +20,9 @@ alias less-opac="lessc --clean-css='--s0 --advanced --compatibility=ie7' \
                   > /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/css/opac.css"
 
 # Alias to recreate the schema files
-alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
+alias dbic="mysql -h ${DB_HOSTNAME} -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
             cd '/kohadevbox/koha' ; \
-            mysql -uroot dbic < installer/data/mysql/kohastructure.sql ;\
+            mysql -h ${DB_HOSTNAME} -uroot dbic < installer/data/mysql/kohastructure.sql ;\
             misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"
 
 # Alias for restarting all needed services
@@ -35,8 +35,8 @@ alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/k
 alias reset_all='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
                  echo    # move to a new line
                  if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
                     ELASTICSEARCH="";
                     if [ -n "$ELASTICSEARCH" ]; then
@@ -59,8 +59,8 @@ alias reset_all='read -p "This action will erase all your data. Are you sure? (y
 alias reset_all_marc21='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
                  echo    # move to a new line
                  if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
                     ELASTICSEARCH="";
                     if [ -n "$ELASTICSEARCH" ]; then
@@ -83,8 +83,8 @@ alias reset_all_marc21='read -p "This action will erase all your data. Are you s
 alias reset_all_unimarc='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
                  echo    # move to a new line
                  if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
                     ELASTICSEARCH="";
                     if [ -n "$ELASTICSEARCH" ]; then
