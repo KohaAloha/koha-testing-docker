@@ -105,7 +105,7 @@ RUN wget -O Devel-Cover.tar.gz \
 
 # Add git-bz
 RUN cd /usr/local/share \
-    && git clone https://github.com/joubu/git-bz.git \
+    && git clone https://gitlab.com/koha-community/git-bz \
     && cd git-bz \
     && git fetch origin \
     && git checkout -b apply_on_cascade origin/apply_on_cascade \
