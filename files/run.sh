@@ -27,6 +27,8 @@ echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
 
 # Pull the names of the environment variables to substitute from defaults.env and convert them to a string of the format "$VAR1:$VAR2:$VAR3", etc.
 VARS_TO_SUB=`cut -d '=' -f1 ${BUILD_DIR}/templates/defaults.env  | tr '\n' ':' | sed -e 's/:/:$/g' | awk '{print "$"$1}' | sed -e 's/:\$$//'`
+# Add additional vars to sub from this script that are not in defaults.env
+VARS_TO_SUB="\$BUILD_DIR:$VARS_TO_SUB";
 
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
