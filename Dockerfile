@@ -105,10 +105,7 @@ RUN wget -O Devel-Cover.tar.gz \
 
 # Add git-bz
 RUN cd /usr/local/share \
-    && git clone https://gitlab.com/koha-community/git-bz \
-    && cd git-bz \
-    && git fetch origin \
-    && git checkout -b apply_on_cascade origin/apply_on_cascade \
+    && git clone --depth 1 --branch apply_on_cascade https://gitlab.com/koha-community/git-bz git-bz \
     && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
 
 VOLUME /kohadevbox/koha
