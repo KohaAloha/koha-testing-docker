@@ -56,16 +56,16 @@ git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 # gitify instance
 cd ${BUILD_DIR}/gitify
-./koha-gitify kohadev "/kohadevbox/koha"
+./koha-gitify ${KOHA_INSTANCE} "/kohadevbox/koha"
 cd ${BUILD_DIR}
 
-koha-enable kohadev
-a2ensite kohadev.conf
+koha-enable ${KOHA_INSTANCE} 
+a2ensite ${KOHA_INSTANCE}.conf
 
 # Update /etc/hosts so the www tests can run
 echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
-envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/kohadev/.bashrc
+envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
 
 koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl \
                                                                      --opac-base-url ${KOHA_OPAC_URL} \
@@ -88,11 +88,11 @@ git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASS
 # Stop apache2
 service apache2 stop
 # Configure and start koha-plack
-koha-plack --enable kohadev
-koha-plack --start kohadev
+koha-plack --enable ${KOHA_INSTANCE} 
+koha-plack --start ${KOHA_INSTANCE} 
 # Start Zebra and the Indexer
-koha-zebra --start kohadev
-koha-indexer --start kohadev
+koha-zebra --start ${KOHA_INSTANCE} 
+koha-indexer --start ${KOHA_INSTANCE} 
 # Start apache
 service apache2 start
 
@@ -106,7 +106,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     rm -rf /cover_db/*
 
     if [ ${COVERAGE} ]; then
-        koha-shell kohadev -p -c "rm -rf cover_db;
+        koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_NO_TABLE_LOCKS=1 \
@@ -125,7 +125,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
     else
-        koha-shell kohadev -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+        koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
                                   KOHA_OPAC_URL=http://koha:8080 \
