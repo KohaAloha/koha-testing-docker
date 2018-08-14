@@ -39,6 +39,7 @@ RUN apt-get -y update \
       python-gdbm \
       vim \
       wget \
+      curl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
