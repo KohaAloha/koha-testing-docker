@@ -35,7 +35,6 @@ RUN apt-get -y update \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
       locales \
       netcat \
       python-gdbm \
@@ -83,6 +82,7 @@ RUN apt-get -y update \
          libtest-mocktime-perl \
          libintl-perl \
          libppi-perl \
+         libtest-perl-critic-progressive-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
