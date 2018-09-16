@@ -55,12 +55,15 @@ echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
 envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/kohadev/.bashrc
 
-koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/populate_db.pl \
-                                                                     --opac-base-url ${KOHA_OPAC_URL} \
-                                                                     --intranet-base-url ${KOHA_INTRANET_URL}"
-koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/create_superlibrarian.pl"
-koha-shell ${KOHA_INSTANCE} -p -c "PERL5LIB=${BUILD_DIR}/koha perl ${BUILD_DIR}/misc4dev/insert_data.pl"
-perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl --koha_dir=${BUILD_DIR}/koha --gitify_dir=${BUILD_DIR}/gitify
+perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
+            --instance          ${KOHA_INSTANCE} \
+            --userid            ${KOHA_USER} \
+            --password          ${KOHA_PASS} \
+            --marcflavour       ${KOHA_MARC_FLAVOUR} \
+            --koha_dir          ${BUILD_DIR}/koha \
+            --opac-base-url     ${KOHA_OPAC_URL} \
+            --intranet-base-url ${KOHA_INTRANET_URL} \
+            --gitify_dir        ${BUILD_DIR}/gitify
 
 # Stop apache2
 service apache2 stop
