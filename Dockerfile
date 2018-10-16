@@ -32,6 +32,7 @@ RUN apt-get -y update \
       wget \
       git \
       locales \
+      curl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
