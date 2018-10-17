@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
 
-ENV REFRESHED_AT 2018-09-15-1
+ENV REFRESHED_AT 2018-10-17-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -86,7 +86,7 @@ RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
 # Install testing extras
-RUN cpanm -i \
+RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
