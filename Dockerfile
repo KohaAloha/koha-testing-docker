@@ -4,7 +4,7 @@ FROM debian:stretch
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
 
-ENV REFRESHED_AT 2018-06-06-1
+ENV REFRESHED_AT 2018-10-25-1
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -83,7 +83,7 @@ RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
 # Install testing extras
-RUN cpanm -i \
+RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
