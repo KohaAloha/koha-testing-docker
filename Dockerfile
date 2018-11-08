@@ -78,6 +78,8 @@ RUN apt-get -y update \
          libcatmandu-store-elasticsearch-perl \
          libwww-youtube-download-perl \
          libtest-mocktime-perl \
+         libintl-perl \
+         libppi-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
