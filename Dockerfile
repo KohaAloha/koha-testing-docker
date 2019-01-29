@@ -7,7 +7,7 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV REFRESHED_AT 2018-11-05-1
+ENV REFRESHED_AT 2019-01-29-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
