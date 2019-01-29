@@ -65,7 +65,7 @@ a2ensite ${KOHA_INSTANCE}.conf
 # Update /etc/hosts so the www tests can run
 echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
-envsubst < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
 
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} \

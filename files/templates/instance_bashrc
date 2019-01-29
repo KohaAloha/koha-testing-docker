@@ -1,6 +1,8 @@
 export KOHA_USER=${KOHA_USER}
 export KOHA_PASS=${KOHA_PASS}
-export KOHA_INTRANET_URL=${KOHA_INTRANET_URL}
-export KOHA_OPAC_URL=${KOHA_OPAC_URL}
+export KOHA_INTRANET_URL=http://koha:8081
+export KOHA_OPAC_URL=http://koha:8080
+export SELENIUM_ADDR=${SELENIUM_ADDR}
+export SELENIUM_PORT=${SELENIUM_PORT}
 export PERL5LIB="/kohadevbox/koha:/kohadevbox/qa-test-tools"
 export TEST_QA=1
