@@ -50,7 +50,8 @@ alias reset_all='read -p "This action will erase all your data. Are you sure? (y
                                 --marcflavour ${KOHA_MARC_FLAVOUR} \
                                 --koha_dir /kohadevbox/koha \
                                 --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
+                                --gitify_dir ${BUILD_DIR}/gitify
                     restart_all
                  else
                     echo "Aborted"
@@ -74,7 +75,8 @@ alias reset_all_marc21='read -p "This action will erase all your data. Are you s
                                 --marcflavour marc21 \
                                 --koha_dir /kohadevbox/koha \
                                 --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
+                                --gitify_dir ${BUILD_DIR}/gitify
                     restart_all
                  else
                     echo "Aborted"
@@ -98,7 +100,8 @@ alias reset_all_unimarc='read -p "This action will erase all your data. Are you 
                                 --marcflavour unimarc \
                                 --koha_dir /kohadevbox/koha \
                                 --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT}
+                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
+                                --gitify_dir ${BUILD_DIR}/gitify
                     restart_all
                  else
                     echo "Aborted"
