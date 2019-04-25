@@ -36,6 +36,7 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars       > /etc/apache2/envvars
 
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
