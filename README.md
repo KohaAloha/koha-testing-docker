@@ -56,6 +56,15 @@ Alternatively, you can have it run all the tests and exit, like this:
   $ docker-compose -p koha up --abort-on-container-exit
 ```
 
+#### Database persistence
+
+If you need to keep the DB between your different uses of the containers, you can
+run
+
+```
+  $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
+```
+
 ## Getting into the container
 
 Getting into the _koha_ container:
