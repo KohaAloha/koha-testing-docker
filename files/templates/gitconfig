@@ -1,6 +1,6 @@
 [alias]
       s  = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: ${GIT_USER_NAME} <${GIT_USER_EMAIL}>\\\"\" HEAD~$c^..; }; f"
-      so = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: ${GIT_USER_NAME} <${GIT_USER_EMAIL}>\\"\" HEAD~$c^..; }; f"
+      so = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: ${GIT_USER_NAME} <${GIT_USER_EMAIL}>\\\"\" HEAD~$c^..; }; f"
       sob = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: $2\\\"\" HEAD~$c^..; }; f"
       qa = !sh -c 'git fetch origin && git checkout origin/master && ( git checkout -b bug$1-qa origin/master || ( git branch -D bug$1-qa && git checkout -b bug$1-qa origin/master ) ) && git bz apply $1' -
       qa2 = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: ${GIT_USER_NAME} <${GIT_USER_EMAIL}>\\\"\" HEAD~$c^..; }; f"
