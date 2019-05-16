@@ -27,6 +27,15 @@ It requires:
 *Requirement*: The SYNC_REPO variable needs to be defined and contain the full path
 for a Koha's git repository clone.
 
+This can be made permanent by adding the following to your user's .bashrc (using the correct path to your Koha clone):
+
+```
+  # ENV variables for kohadevbox
+  export SYNC_REPO="/home/user/kohaclone"
+  export LOCAL_USER_ID=$(id -u)
+```
+Note you will need to log out and log back in (or start a new terminal window) for this to take effect.
+
 ### Setup
 
 Copy the _env/defaults.env_ file into the running directory:
@@ -47,6 +56,14 @@ Some variables need to be set to run this:
 ```
   $ docker-compose -p koha up
 ```
+
+Some people find it handy to make some start, ssh into, and stop aliases in their user's .bash_aliases, as follows:
+```
+  alias ku="cd /home/user/koha-testing-docker/; docker-compose -f docker-compose.yml -f docker-compose.persistent.yml up -d --force-recreate"
+  alias kd="cd /home/user/koha-testing-docker/; docker-compose down"
+  alias koha_ssh="docker exec -it koha_koha_1 bash"
+```
+Which startup command used in the aliases is variable, depending on the use case. Use the one that works best for you based on this documentation. 
 
 Alternatively, you can have it run all the tests and exit, like this:
 
@@ -84,7 +101,15 @@ Once you are left on the shell, you can run Koha tests as you would on KohaDevBo
   $ cd koha
   $ prove t/db_dependent/Search.t
 ```
+## Getting to the web interface
 
+The IP address of the web server in your docker group will be variable. Once you are in with SSH, issuing a
+```
+$ip a
+```
+should display the IP address of the webserver. At this point the web interface of Koha can be accessed by going to
+http://<the displayed IP>:8080 for the OPAC
+http://<the displayed IP>:8081 for the Staff interface.
 
 ## Having Elasticsearch run
 
