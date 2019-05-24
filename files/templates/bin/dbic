@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mysql -h ${DB_HOSTNAME} -p${KOHA_DB_PASSWORD} -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic'
+cd '/kohadevbox/koha'
+mysql -h ${DB_HOSTNAME} -p${KOHA_DB_PASSWORD} -uroot dbic < installer/data/mysql/kohastructure.sql
+misc/devel/update_dbix_class_files.pl --db_name dbic --db_host ${DB_HOSTNAME} --db_user root --db_passwd ${KOHA_DB_PASSWORD}

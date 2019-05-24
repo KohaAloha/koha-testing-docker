@@ -36,7 +36,13 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
-#envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars       > /etc/apache2/envvars
+
+# bin
+mkdir -p ${BUILD_DIR}/bin
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/dbic > ${BUILD_DIR}/bin/dbic
+
+# Make sure things are executable on /bin.
+chmod +x ${BUILD_DIR}/bin/*
 
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
@@ -49,6 +55,9 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
 fi
+
+# This needs to be done ONCE koha-create has run (i.e. kohadev-koha user exists)
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars > /etc/apache2/envvars
 
 # Clone helper repositories
 cd ${BUILD_DIR}
@@ -97,7 +106,8 @@ koha-plack --enable ${KOHA_INSTANCE}
 koha-plack --start ${KOHA_INSTANCE} 
 # Start Zebra and the Indexer
 koha-zebra --start ${KOHA_INSTANCE} 
-koha-indexer --start ${KOHA_INSTANCE} 
+koha-indexer --start ${KOHA_INSTANCE}
+
 # Start apache
 service apache2 start
 
