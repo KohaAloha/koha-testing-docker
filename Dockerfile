@@ -112,6 +112,18 @@ RUN cd /usr/local/share \
     && git clone --depth 1 --branch apply_on_cascade https://gitlab.com/koha-community/git-bz git-bz \
     && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
 
+## Add Yarn
+# Add node repo
+RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/node.list
+# Install Node.js
+RUN apt-get update \
+   && apt-get install nodejs \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+# Install Yarn
+RUN npm install -g yarn
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
