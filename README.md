@@ -60,11 +60,8 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | Alias  | Function                                      |
 |--------|-----------------------------------------------|
 | ku     | Start the whole thing                         |
-|--------|-----------------------------------------------|
 | kp     | Start the whole thing, with mysql persistence |
-|--------|-----------------------------------------------|
 | kd     | Stop the whole thing                          |
-|--------|-----------------------------------------------|
 | kshell | Opens a shell inside the Koha container       |
 
 In order to use this aliases you need to edit your _~/.bashrc_ file adding:
