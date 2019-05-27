@@ -40,6 +40,7 @@ RUN apt-get -y update \
       vim \
       wget \
       curl \
+      apt-transport-https \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -116,13 +117,14 @@ RUN cd /usr/local/share \
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/node.list
-# Install Node.js
+# Add yarn repo
+RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+# Install Node.js and Yarn
 RUN apt-get update \
-   && apt-get install nodejs \
+   && apt-get install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-# Install Yarn
-RUN npm install -g yarn
 
 VOLUME /kohadevbox/koha
 
