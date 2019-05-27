@@ -58,13 +58,13 @@ Some variables need to be set to run this:
 This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:
 
 | Alias  | Function                                      |
-----------------------------------------------------------
+|--------|-----------------------------------------------|
 | ku     | Start the whole thing                         |
-----------------------------------------------------------
+|--------|-----------------------------------------------|
 | kp     | Start the whole thing, with mysql persistence |
-----------------------------------------------------------
+|--------|-----------------------------------------------|
 | kd     | Stop the whole thing                          |
-----------------------------------------------------------
+|--------|-----------------------------------------------|
 | kshell | Opens a shell inside the Koha container       |
 
 In order to use this aliases you need to edit your _~/.bashrc_ file adding:
