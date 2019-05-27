@@ -108,11 +108,6 @@ RUN wget -O Devel-Cover.tar.gz \
     && cd Devel-Cover-1.26/ \
     && cpanm -i -n .
 
-# Add git-bz
-RUN cd /usr/local/share \
-    && git clone --depth 1 --branch apply_on_cascade https://gitlab.com/koha-community/git-bz git-bz \
-    && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
-
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
@@ -125,6 +120,17 @@ RUN apt-get update \
    && apt-get install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+# Add git-bz
+RUN cd /usr/local/share \
+    && git clone --depth 1 --branch apply_on_cascade https://gitlab.com/koha-community/git-bz git-bz \
+    && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
+
+# Clone helper repositories
+RUN cd /kohadevbox ; \
+    git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev ; \
+    git clone https://github.com/mkfifo/koha-gitify.git gitify ; \
+    git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 VOLUME /kohadevbox/koha
 

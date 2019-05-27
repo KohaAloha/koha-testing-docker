@@ -59,12 +59,6 @@ fi
 # This needs to be done ONCE koha-create has run (i.e. kohadev-koha user exists)
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars > /etc/apache2/envvars
 
-# Clone helper repositories
-cd ${BUILD_DIR}
-git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev
-git clone https://github.com/mkfifo/koha-gitify.git gitify
-git clone https://gitlab.com/koha-community/qa-test-tools.git
-
 # gitify instance
 cd ${BUILD_DIR}/gitify
 ./koha-gitify ${KOHA_INSTANCE} "/kohadevbox/koha"
