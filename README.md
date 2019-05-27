@@ -53,17 +53,32 @@ Some variables need to be set to run this:
 
 ### Running
 
+#### Aliases
+
+This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:
+
+| Alias  | Function                                      |
+----------------------------------------------------------
+| ku     | Start the whole thing                         |
+----------------------------------------------------------
+| kp     | Start the whole thing, with mysql persistence |
+----------------------------------------------------------
+| kd     | Stop the whole thing                          |
+----------------------------------------------------------
+| kshell | Opens a shell inside the Koha container       |
+
+In order to use this aliases you need to edit your _~/.bashrc_ file adding:
+
+```
+export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
+source ${KOHA_TESTING_DOCKER}/files/bash_aliases
+```
+
+#### Manually
+
 ```
   $ docker-compose -p koha up
 ```
-
-Some people find it handy to make some start, ssh into, and stop aliases in their user's .bash_aliases, as follows:
-```
-  alias ku="cd /home/user/koha-testing-docker/; docker-compose -f docker-compose.yml -f docker-compose.persistent.yml up -d --force-recreate"
-  alias kd="cd /home/user/koha-testing-docker/; docker-compose down"
-  alias koha_ssh="docker exec -it koha_koha_1 bash"
-```
-Which startup command used in the aliases is variable, depending on the use case. Use the one that works best for you based on this documentation. 
 
 Alternatively, you can have it run all the tests and exit, like this:
 
