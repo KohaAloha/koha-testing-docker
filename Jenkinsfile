@@ -8,7 +8,7 @@ node {
 
     stage('Build image') {
 
-        app = docker.build("koha/koha-testing")
+        app = docker.build("koha/koha-testing", "--no-cache --rm")
     }
 
     stage('Push image') {
