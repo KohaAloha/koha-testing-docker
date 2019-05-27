@@ -68,7 +68,7 @@ In order to use this aliases you need to edit your _~/.bashrc_ file adding:
 
 ```
 export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
-source ${KOHA_TESTING_DOCKER}/files/bash_aliases
+source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
 ```
 
 #### Manually
