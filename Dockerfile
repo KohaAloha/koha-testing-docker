@@ -28,6 +28,7 @@ RUN apt-get -y update \
       libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
+      libmemcached-tools \
       libmodule-install-perl \
       libmoo-perl \
       libperl-critic-perl \
