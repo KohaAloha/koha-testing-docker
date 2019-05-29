@@ -22,6 +22,7 @@ RUN apt-get -y update \
       codespell \
       cpanminus \
       git \
+      tig \
       libdatetimex-easy-perl \
       libdbd-sqlite2-perl \
       libdbix-class-timestamp-perl \
