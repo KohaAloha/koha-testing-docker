@@ -123,6 +123,51 @@ should display the IP address of the webserver. At this point the web interface 
 http://<the displayed IP>:8080 for the OPAC
 http://<the displayed IP>:8081 for the Staff interface.
 
+## Available commands and aliases
+
+The Koha container ships with some aliases to improve productivity. They are divided in two,
+depending on the user in which the alias is defined.
+
+Aliases for the *instance* user require that you start a shell with that user in
+order to be used. This is done like this:
+
+```
+  $ kshell
+```
+
+### **root** user
+* **koha-intra-err**:    tail the intranet error log
+* **koha-opac-err**:     tail the OPAC error log
+* **koha-plack-log**:    tail the Plack access log
+* **koha-plack-err**:    tail de Plack error log
+* **kshell**:            get into the instance user, on the kohaclone dir
+* **koha-user**:         get the db/admin username from koha-conf.xml
+* **koha-pass**:         get the db/admin password from koha-conf.xml
+* **dbic**:              recreate the schema files using a fresh DB
+* **flush_memcached**:   Flush all key/value stored on memcached
+* **restart_all**:       restarts memcached, apache and plack
+* **reset_all**:         Drop and recreate the koha database [*]
+* **reset_all_marc21**:  Same as **reset_all**, but forcing MARC21
+* **reset_all_unimarc**: Same as **reset_all**, but forcing UNIMARC
+* **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
+* **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
+
+Note: it is recommended to run __start_plack_debug__ on a separate terminal
+because it doesn't free the prompt until the process is stopped.
+
+[*] **reset_all** actually:
+* Drops the instance's database, and creates an empty one.
+* Calls the misc4dev/do_all_you_can_do.pl script.
+* Populates the DB with the sample data, using the configured MARC flavour.
+* Create a superlibrarian user.
+* Updates the debian files in the VM (overwrites the ones shipped by the koha-common package).
+* Updates the plack configuration file for the instance.
+* Calls **restart_all**
+
+### **kohadev** user
+* **qa**:          Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
+* **prove_debug**: Run the *prove* command with all parameters needed for starting a remote debugging session.
+
 ## Having Elasticsearch run
 
 In order for Elasticsearch to run, changes to the host OS need to be made. Please read

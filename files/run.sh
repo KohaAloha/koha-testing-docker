@@ -40,6 +40,7 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/ko
 # bin
 mkdir -p ${BUILD_DIR}/bin
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/dbic > ${BUILD_DIR}/bin/dbic
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_DIR}/bin/flush_memcached
 
 # Make sure things are executable on /bin.
 chmod +x ${BUILD_DIR}/bin/*

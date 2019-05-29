@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo flush_all > /dev/tcp/memcached/11211
