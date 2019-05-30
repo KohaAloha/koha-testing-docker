@@ -12,10 +12,18 @@ node {
             app = docker.build("koha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
-        // stage( "${it} | Push image" ) {
-        //     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-        //         app.push( "master-${it}" );
-        //     }
-        // }
+        if ( it == 'stretch' ) {
+            stage( "${it} | Push image" ) {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    app.push( "master" );
+                }
+            }
+        } else {
+            stage( "${it} | Push image" ) {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    app.push( "master-${it}" );
+                }
+            }
+        }
     }
 }
