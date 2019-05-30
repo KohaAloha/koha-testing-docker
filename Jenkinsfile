@@ -6,15 +6,16 @@ node {
         checkout scm
     }
 
-    stage('Build image') {
+    ['stretch', 'bionic', 'jessie'].each {
 
-        app = docker.build("koha/koha-testing", "--no-cache --rm .")
-    }
-
-    stage('Push image') {
-
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("master")
+        stage( "${it} | Build image" ) {
+            app = docker.build("koha/koha-testing", "--no-cache --rm dists/${it}")
         }
+
+        // stage( "${it} | Push image" ) {
+        //     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        //         app.push( "master-${it}" );
+        //     }
+        // }
     }
 }
