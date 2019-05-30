@@ -9,7 +9,7 @@ node {
     ['stretch', 'bionic', 'jessie'].each {
 
         stage( "${it} | Build image" ) {
-            app = docker.build("koha/koha-testing", "--no-cache --rm dists/${it}")
+            app = docker.build("koha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
         // stage( "${it} | Push image" ) {
