@@ -57,13 +57,15 @@ Some variables need to be set to run this:
 
 This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:
 
-| Alias  | Function                                      |
-|--------|-----------------------------------------------|
-| ku     | Start the whole thing                         |
-| kp     | Start the whole thing, with mysql persistence |
-| kup    | Start the env, plugin development set [^1]     |
-| kd     | Stop the whole thing                          |
-| kshell | Opens a shell inside the Koha container       |
+| Alias  | Function                                                 |
+|--------|----------------------------------------------------------|
+| ku     | Start the whole thing                                    |
+| kp     | Start the whole thing, with mysql persistence            |
+| kup    | Start the env, plugin development set [^1]               |
+| kk     | Start the whole thing, with kibana                       |
+| kpk    | Start the whole thing, with mysql persistence and kibana |
+| kd     | Stop the whole thing                                     |
+| kshell | Opens a shell inside the Koha container                  |
 
 In order to use this aliases you need to edit your _~/.bashrc_ file adding:
 
@@ -96,6 +98,20 @@ run
 
 ```
   $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
+```
+
+#### Kibana
+
+If you would like to use Kibana for testing/interacting with ES directly you can include
+an extra compose file
+
+```
+  $ docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up
+```
+
+It is possible to combine this with persistence
+```
+  $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up
 ```
 
 ## Getting into the container
