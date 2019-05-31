@@ -45,7 +45,6 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
-
 # Set locales
 RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -131,10 +130,23 @@ RUN cd /usr/local/share \
     && ln -s /usr/local/share/git-bz/git-bz /usr/bin/git-bz
 
 # Clone helper repositories
-RUN cd /kohadevbox ; \
-    git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev ; \
-    git clone https://github.com/mkfifo/koha-gitify.git gitify ; \
-    git clone https://gitlab.com/koha-community/qa-test-tools.git
+RUN cd /kohadevbox \
+    && git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev \
+    && git clone https://github.com/mkfifo/koha-gitify.git gitify \
+    && git clone https://gitlab.com/koha-community/qa-test-tools.git
+
+# release-tools
+RUN cd /kohadevbox \
+    && git clone https://gitlab.com/koha-community/release-tools.git \
+    && apt-get update \
+    && apt-get -y install \
+        libhtml-tableextract-perl \
+        libtext-multimarkdown-perl \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/api/lists/* \
+    && cpanm -i --force \
+        File::FindLib \
+        REST::Client
 
 VOLUME /kohadevbox/koha
 
