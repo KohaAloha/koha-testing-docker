@@ -146,6 +146,7 @@ VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
+RUN  sed -i "s|/usr/share/doc/koha-common|/kohadevbox/koha/docs|g" /kohadevbox/templates/koha-conf-site.xml.in
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
