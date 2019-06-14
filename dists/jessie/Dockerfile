@@ -35,6 +35,7 @@ RUN apt-get -y update \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
+      pmtools \
       locales \
       netcat \
       python-gdbm \
@@ -79,8 +80,6 @@ RUN apt-get -y update \
          libcatmandu-store-elasticsearch-perl \
          libwww-youtube-download-perl \
          libtest-mocktime-perl \
-         libintl-perl \
-         libppi-perl \
          libtest-perl-critic-progressive-perl \
          libintl-perl \
          libppi-perl \

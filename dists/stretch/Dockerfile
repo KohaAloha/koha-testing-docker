@@ -36,6 +36,7 @@ RUN apt-get -y update \
       libtest-differences-perl \
       libtest-perl-critic-perl \
       libtest-perl-critic-progressive-perl \
+      pmtools \
       locales \
       netcat \
       python-gdbm \
