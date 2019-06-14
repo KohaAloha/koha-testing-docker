@@ -61,6 +61,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 |--------|-----------------------------------------------|
 | ku     | Start the whole thing                         |
 | kp     | Start the whole thing, with mysql persistence |
+| kup    | Start the env, plugin development set [^1]     |
 | kd     | Stop the whole thing                          |
 | kshell | Opens a shell inside the Koha container       |
 
@@ -70,6 +71,9 @@ In order to use this aliases you need to edit your _~/.bashrc_ file adding:
 export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
 source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
 ```
+
+[^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will
+fail to load if you don't export the variable first.
 
 #### Manually
 
