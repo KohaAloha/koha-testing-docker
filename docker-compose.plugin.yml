@@ -1,0 +1,5 @@
+version: '3'
+services:
+    koha:
+        volumes:
+            - ${PLUGIN_REPO}:/kohadevbox/koha_plugin
