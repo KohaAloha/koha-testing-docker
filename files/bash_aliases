@@ -1,13 +1,19 @@
 alias ku="cd ${KOHA_TESTING_DOCKER_HOME}; \
           docker-compose \
-          	-f docker-compose.yml \
-           	-p koha up \
-           	--force-recreate"
+            -f docker-compose.yml \
+            -p koha up \
+            --force-recreate"
 alias kp="cd ${KOHA_TESTING_DOCKER_HOME}; \
           docker-compose \
-          	-f docker-compose.yml \
-          	-f docker-compose.persistent.yml \
-           	-p koha up \
-           	--force-recreate"
+            -f docker-compose.yml \
+            -f docker-compose.persistent.yml \
+            -p koha up \
+            --force-recreate"
 alias kd="cd ${KOHA_TESTING_DOCKER_HOME}; docker-compose -p koha down"
+alias kup="cd ${KOHA_TESTING_DOCKER_HOME}; \
+          docker-compose \
+            -f docker-compose.yml \
+            -f docker-compose.plugin.yml \
+            -p koha up \
+            --force-recreate"
 alias kshell="docker exec -it koha_koha_1 bash"
