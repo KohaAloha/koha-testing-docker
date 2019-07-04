@@ -20,7 +20,7 @@ alias less-opac="lessc --clean-css='--s0 --advanced --compatibility=ie7' \
                   > /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/css/opac.css"
 
 # Alias for restarting all needed services
-alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo service koha-common restart"
+alias restart_all="flush_memcached ; sudo service apache2 restart ; sudo service koha-common restart"
 
 # Alias for running updatedatabase.pl
 alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'"
