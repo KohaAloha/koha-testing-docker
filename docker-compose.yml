@@ -42,6 +42,10 @@ services:
             COVERAGE: ${COVERAGE}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
+        ulimits:
+            nofile:
+                soft: 65536
+                hard: 65536
         networks:
             kohanet:
                 aliases:
