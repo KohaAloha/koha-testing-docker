@@ -35,6 +35,7 @@ RUN apt-get -y update \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
+      libdata-printer-perl \
       pmtools \
       locales \
       netcat \
