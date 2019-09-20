@@ -60,6 +60,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | Alias  | Function                                                 |
 |--------|----------------------------------------------------------|
 | ku     | Start the whole thing                                    |
+| ku-es6 | Start the whole thing, using ES6                         |
 | kp     | Start the whole thing, with mysql persistence            |
 | kup    | Start the env, plugin development set [^1]               |
 | kk     | Start the whole thing, with kibana                       |

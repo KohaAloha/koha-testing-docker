@@ -3,6 +3,12 @@ alias ku='cd "${KOHA_TESTING_DOCKER_HOME}"; \
             -f docker-compose.yml \
             -p koha up \
             --force-recreate'
+alias ku-es6='cd "${KOHA_TESTING_DOCKER_HOME}"; \
+          docker-compose \
+            -f docker-compose.yml \
+            -f docker-compose.es6.yml \
+            -p koha up \
+            --force-recreate'
 alias kup='cd "${KOHA_TESTING_DOCKER_HOME}"; \
           docker-compose \
             -f docker-compose.yml \
