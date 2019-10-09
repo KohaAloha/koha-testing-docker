@@ -85,8 +85,8 @@ perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
 
 # Configure git-bz
 cd /kohadevbox/koha
-git config --global user.name ${GIT_USER_NAME}
-git config --global user.email ${GIT_USER_EMAIL}
+git config --global user.name "${GIT_USER_NAME}"
+git config --global user.email "${GIT_USER_EMAIL}"
 git config bz.default-tracker bugs.koha-community.org
 git config bz.default-product Koha
 git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
