@@ -81,6 +81,7 @@ RUN apt-get -y update \
          libintl-perl \
          libppi-perl \
          libnet-z3950-simpleserver-perl \
+         libnet-netmask-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
