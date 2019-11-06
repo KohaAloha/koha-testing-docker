@@ -21,6 +21,12 @@ alias ku-md10='cd "${KOHA_TESTING_DOCKER_HOME}"; \
             -f docker-compose.mariadb10.yml \
             -p koha up \
             --force-recreate'
+alias ku-my8='cd "${KOHA_TESTING_DOCKER_HOME}"; \
+          docker-compose \
+            -f docker-compose.yml \
+            -f docker-compose.mysql8.0.yml \
+            -p koha up \
+            --force-recreate'
 alias kup='cd "${KOHA_TESTING_DOCKER_HOME}"; \
           docker-compose \
             -f docker-compose.yml \
