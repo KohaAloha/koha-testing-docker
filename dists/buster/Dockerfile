@@ -23,6 +23,7 @@ RUN apt-get -y update \
       cpanminus \
       git \
       tig \
+      libcarp-always-perl \
       libdatetimex-easy-perl \
       libdbd-sqlite2-perl \
       libdbix-class-timestamp-perl \
@@ -42,9 +43,11 @@ RUN apt-get -y update \
       netcat \
       python-gdbm \
       vim \
+      tmux \
       wget \
       curl \
       apt-transport-https \
+      mlocate \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
