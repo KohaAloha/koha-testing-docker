@@ -23,7 +23,9 @@ services:
         networks:
             - kohanet
     koha:
-        build: ./
+        build:
+            context: .
+            dockerfile: dists/${KOHA_IMAGE_OS}/Dockerfile
         depends_on:
             - db
             - es
