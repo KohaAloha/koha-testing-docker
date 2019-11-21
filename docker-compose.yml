@@ -37,7 +37,7 @@ services:
             - /cover_db
             - /tmp
         env_file:
-            - ./env/defaults.env
+            - .env
         environment:
             COVERAGE: ${COVERAGE}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
