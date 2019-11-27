@@ -18,7 +18,9 @@ while ! nc -z db 3306; do sleep 1; done
 echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INSTANCE}" > /etc/koha/passwd
 # TODO: Get rid of this hack with the relevant bug
 echo "[client]" > /etc/mysql/koha-common.cnf
-echo "host = db" >> /etc/mysql/koha-common.cnf
+echo "host     = db"       >> /etc/mysql/koha-common.cnf
+echo "user     = root"     >> /etc/mysql/koha-common.cnf
+echo "password = password" >> /etc/mysql/koha-common.cnf
 
 # Get rid of Apache warnings
 echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
