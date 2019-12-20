@@ -212,8 +212,8 @@ Increase *vm.max_map_count* kernel setting to at least 262144:
 
 * On MacOS:
 ```
-  $ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+  $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
   # login with root and no password
   $ sysctl -w vm.max_map_count=262144
 ```
-
+If the screen command doesn't work try: find ~/Library/Containers/com.docker.docker/Data/ -name 'tty'
