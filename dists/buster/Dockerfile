@@ -72,10 +72,13 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo 'deb http://debian.kohaaloha.com/distro buster main' >> /etc/apt/sources.list.d/koha.list
+RUN echo 'deb http://debian.kohaaloha.com/koha stable main' >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
+#RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 # Add repository key
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | sudo apt-key add -
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
