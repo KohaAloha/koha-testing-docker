@@ -73,7 +73,7 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo 'deb http://debian.kohaaloha.com/distro buster main' >> /etc/apt/sources.list.d/koha.list
-RUN echo 'deb http://debian.kohaaloha.com/koha stable main' >> /etc/apt/sources.list.d/koha.list
+RUN echo 'deb http://debian.kohaaloha.com/koha unstable main' >> /etc/apt/sources.list.d/koha.list
 #RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
 #RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 # Add repository key
