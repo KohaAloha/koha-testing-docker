@@ -16,7 +16,7 @@ ENV REFRESHED_AT 2019-05-24-1
 # Add Koha development repositories
 RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 19.11 main" > /etc/apt/sources.list.d/koha.list
 
-RUN apt install --force-yes wget gnupg2 
+RUN apt install --force-yes wget gpgv
 
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
