@@ -9,7 +9,7 @@ node {
     ['buster'].each {
 
         stage( "${it} | Build image" ) {
-            app = docker.build("kohaaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
+            app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
         if ( it == 'stretch' ) {
