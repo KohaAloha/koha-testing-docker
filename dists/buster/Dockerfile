@@ -77,7 +77,8 @@ RUN echo "deb http://debian.kohaaloha.com/koha 19.11 main" > /etc/apt/sources.li
 
 
 # Add repository key
-RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
