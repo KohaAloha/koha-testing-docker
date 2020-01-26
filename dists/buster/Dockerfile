@@ -79,6 +79,11 @@ RUN echo "deb http://debian.kohaaloha.com/koha 19.11 main" > /etc/apt/sources.li
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
+RUN apt-cache policy koha-common
+RUN apt-cache policy libmojolicious-perl 
+RUN apt-cache policy libjson-validator-perl 
+
+
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
