@@ -1,7 +1,7 @@
 version: '3'
 services:
     es:
-        image: koha/elasticsearch-icu:6.x
+        image: kohaaloha/elasticsearch-icu:6.x
         environment:
             - cluster.name=docker-cluster
             - bootstrap.memory_lock=true
