@@ -30,12 +30,12 @@ RUN apt-cache policy libmojolicious-perl
 RUN apt-cache policy libjson-validator-perl
 RUN apt-cache policy libmojolicious-plugin-openapi-perl
 
-RUN apt install libmojolicious-perl
-RUN apt install libjson-validator-perl
-RUN apt install libmojolicious-plugin-openapi-perl --simulate
-RUN apt install libmojolicious-plugin-openapi-perl
-RUN apt install koha-common --simulate
-RUN apt install koha-common
+RUN apt-get -y install libmojolicious-perl
+RUN apt-get -y install libjson-validator-perl
+RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
+RUN apt-get -y install libmojolicious-plugin-openapi-perl
+RUN apt-get -y install koha-common --simulate
+RUN apt-get -y install koha-common
 
 
 # Install apache2 and testting deps
