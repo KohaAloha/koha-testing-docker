@@ -6,7 +6,7 @@ node {
         checkout scm
     }
 
-    ['stretch', 'bionic', 'jessie', 'buster'].each {
+    ['buster', 'stretch', 'bionic', 'jessie'].each {
 
         stage( "${it} | Build image" ) {
             app = docker.build("koha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
