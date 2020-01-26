@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:buster
+FROM debian:stretch
 
 # File Author / Maintainer
 LABEL maintainer="jenkins@kohaaloha.com"
