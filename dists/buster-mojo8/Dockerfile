@@ -13,6 +13,26 @@ RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sourc
 
 ENV REFRESHED_AT 2019-05-24-1
 
+# Add Koha development repositories
+RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 19.11 main" > /etc/apt/sources.list.d/koha.list
+
+# Add repository key
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
+RUN apt-get -y update
+
+RUN apt-cache policy koha-common
+RUN apt-cache policy libmojolicious-perl
+RUN apt-cache policy libjson-validator-perl
+RUN apt-cache policy libmojolicious-plugin-openapi-perl
+
+RUN apt install koha-common
+RUN apt install libmojolicious-perl
+RUN apt install libjson-validator-perl
+RUN apt install libmojolicious-plugin-openapi-perl --simulate
+RUN apt install libmojolicious-plugin-openapi-perl
+
+
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
@@ -70,25 +90,6 @@ RUN a2enmod rewrite \
             headers \
             proxy_http \
             cgi
-
-# Add Koha development repositories
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 19.11 main" > /etc/apt/sources.list.d/koha.list
-
-# Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
-
-RUN apt-get -y update
-
-RUN apt-cache policy koha-common
-RUN apt-cache policy libmojolicious-perl
-RUN apt-cache policy libjson-validator-perl
-RUN apt-cache policy libmojolicious-plugin-openapi-perl
-
-RUN apt install koha-common
-RUN apt install libmojolicious-perl
-RUN apt install libjson-validator-perl
-RUN apt install libmojolicious-plugin-openapi-perl --simulate
-RUN apt install libmojolicious-plugin-openapi-perl
 
 
 # Install koha-common
