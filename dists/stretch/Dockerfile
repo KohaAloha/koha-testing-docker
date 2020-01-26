@@ -2,7 +2,7 @@
 FROM debian:stretch
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="jenkins@kohaaloha.com"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
