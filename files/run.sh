@@ -115,6 +115,12 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
 
+
+dpkg -l
+dpkg -l | grep mojo
+dpkg -l | grep openapi
+dpkg -l | grep validator
+
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*

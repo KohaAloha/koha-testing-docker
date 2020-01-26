@@ -1,5 +1,5 @@
-# Base it on Debian 9
-FROM debian:stretch
+# Base it on Debian 10
+FROM debian:buster
 
 # File Author / Maintainer
 LABEL maintainer="jenkins@kohaaloha.com"
@@ -8,8 +8,8 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
+RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
@@ -72,8 +72,10 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.kohaaloha.com/koha 19.11 main" > /etc/apt/sources.list.d/koha.list
 RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+
+
 # Add repository key
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
@@ -119,7 +121,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_8.x buster main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
