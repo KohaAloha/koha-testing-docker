@@ -85,7 +85,7 @@ RUN apt-cache policy libjson-validator-perl
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libjson-validator-perl
+         libjson-validator-perl \
          libmojolicious-perl \
         \
          koha-common \
