@@ -77,9 +77,15 @@ RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 19.11 main" > /etc/apt/sour
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
+RUN apt-get -y update
+
 RUN apt-cache policy koha-common
-RUN apt-cache policy libmojolicious-perl 
-RUN apt-cache policy libjson-validator-perl 
+RUN apt-cache policy libmojolicious-perl
+RUN apt-cache policy libjson-validator-perl
+
+RUN apt install koha-common
+RUN apt install libmojolicious-perl
+RUN apt install libjson-validator-perl
 
 
 # Install koha-common
