@@ -115,6 +115,8 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
 
+echo ${KOHA_PROVE_CPUS}
+
 
 dpkg -l
 dpkg -l | grep mojo
