@@ -30,12 +30,12 @@ RUN apt-cache policy libmojolicious-perl
 RUN apt-cache policy libjson-validator-perl
 RUN apt-cache policy libmojolicious-plugin-openapi-perl
 
-RUN apt install koha-common
 RUN apt install libmojolicious-perl
 RUN apt install libjson-validator-perl
 RUN apt install libmojolicious-plugin-openapi-perl --simulate
 RUN apt install libmojolicious-plugin-openapi-perl
 
+RUN apt install koha-common
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
