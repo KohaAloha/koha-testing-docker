@@ -10,7 +10,7 @@ services:
         networks:
             - kohanet
     es:
-        image: koha/elasticsearch-icu
+        image: kohaaloha/elasticsearch-icu
         environment:
             - cluster.name=docker-cluster
             - bootstrap.memory_lock=true
@@ -23,7 +23,7 @@ services:
         networks:
             - kohanet
     koha:
-        image: koha/koha-testing:${KOHA_IMAGE}
+        image: kohaaloha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
             - es
