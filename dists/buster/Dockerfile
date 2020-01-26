@@ -89,6 +89,7 @@ RUN apt-get -y update \
    && apt-get -y install \
          libjson-validator-perl=0.97-1~kohadev1 \
          libmojolicious-perl=7.21+dfsg-1~kohadev1 \
+        \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
