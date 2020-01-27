@@ -9,26 +9,11 @@ services:
             MYSQL_PASSWORD: password
         networks:
             - kohanet
-    es:
-        image: kohaaloha/elasticsearch-icu
-        environment:
-            - cluster.name=docker-cluster
-            - bootstrap.memory_lock=true
-            - xpack.security.enabled=false
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        networks:
-            - kohanet
     koha:
         image: kohaaloha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
-            - es
             - memcached
-            - selenium
         cap_add:
             - ALL
         volumes:
@@ -59,11 +44,6 @@ services:
         command: memcached -m 64m
         networks:
             - kohanet
-    selenium:
-        image: selenium/standalone-firefox:2.53.1-americium
-        networks:
-            - kohanet
-
 networks:
     kohanet:
 
