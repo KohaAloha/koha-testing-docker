@@ -65,7 +65,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 
 | Alias   | Function                                                   |
 |---------|------------------------------------------------------------|
-| ku      | Start the whole thing                                      |
+| ku      | Start the whole thing, using MySQL 5.5 with Debian 9       |
 | ku-es5  | Start the whole thing, using ES5                           |
 | ku-es6  | Start the whole thing, using ES6 (default)                 |
 | ku-es7  | Start the whole thing, using ES7                           |
