@@ -6,7 +6,8 @@ node {
         checkout scm
     }
 
-    ['stretch','buster','buster-mojo8'].each {
+//    ['stretch','buster','buster-mojo8'].each {
+    ['buster','buster-mojo8'].each {
 //    ['buster-mojo8'].each {
 
         stage( "${it} | Build image" ) {
