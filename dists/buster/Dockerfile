@@ -72,24 +72,21 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.kohaaloha.com/koha 19.11 main" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.kohaaloha.com/koha-mojo7 19.11 main" > /etc/apt/sources.list.d/koha.list
 #RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 
 
 # Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+RUN wget -O- http://debian.kohaaloha.com/koha-mojo7/gpg.asc | apt-key add -
 
 RUN apt-cache policy koha-common
-RUN apt-cache policy libmojolicious-perl 
-RUN apt-cache policy libjson-validator-perl 
+#RUN apt-cache policy libmojolicious-perl 
+#RUN apt-cache policy libjson-validator-perl 
 
 
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libjson-validator-perl=0.97-1~kohadev1 \
-         libmojolicious-perl=7.21+dfsg-1~kohadev1 \
-        \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
