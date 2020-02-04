@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ bullseye/updates main" >> /etc/apt/sources.list
+#RUN echo "deb http://security.debian.org/ bullseye/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
