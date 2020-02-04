@@ -87,6 +87,8 @@ RUN apt-cache policy koha-common
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
+         libarray-utils-perl \
+\
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
