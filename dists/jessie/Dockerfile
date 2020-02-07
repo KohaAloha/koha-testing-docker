@@ -72,8 +72,8 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo7 19.11 main" > /etc/apt/sources.list.d/koha.list
-#RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha-mojo7 19.11 main" > /etc/apt/sources.list.d/koha.list
 
 
 RUN echo '---------------------------------------------'
