@@ -1,11 +1,15 @@
-# Base it on Ubuntu 18.04
-FROM ubuntu:18.04
+# Base it on Debian 8
+FROM debian:jessie
 
 # File Author / Maintainer
-LABEL maintainer="mason@kohaaloha.com"
+LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
+
+# Set suitable debian sources
+RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
@@ -32,7 +36,6 @@ RUN apt-get -y update \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
       libdata-printer-perl \
       pmtools \
       locales \
@@ -68,25 +71,24 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo7  unstable main" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
 RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 # Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-        libcache-memcached-fast-safe-perl \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
          libcatmandu-store-elasticsearch-perl \
          libwww-youtube-download-perl \
          libtest-mocktime-perl \
+         libtest-perl-critic-progressive-perl \
          libintl-perl \
          libppi-perl \
          libnet-z3950-simpleserver-perl \
          libnet-netmask-perl \
-         libarray-utils-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -123,7 +125,7 @@ RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
 RUN apt-get update \
-   && apt-get install nodejs yarn \
+   && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -155,7 +157,6 @@ VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
-RUN  sed -i "s|/usr/share/doc/koha-common|/kohadevbox/koha/docs|g" /kohadevbox/templates/koha-conf-site.xml.in
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
