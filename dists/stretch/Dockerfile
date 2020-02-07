@@ -76,19 +76,24 @@ RUN echo "deb http://debian.kohaaloha.com/koha 19.11 main" > /etc/apt/sources.li
 #RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 
 
+RUN echo '---------------------------------------------'
+
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 RUN apt-cache policy koha-common
 RUN apt-cache policy libmojolicious-perl 
 RUN apt-cache policy libjson-validator-perl 
+RUN apt-cache policy libcache-memcached-fast-safe-perl
 
 
+RUN echo '---------------------------------------------'
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libjson-validator-perl=0.97-1~kohadev1 \
-         libmojolicious-perl=7.21+dfsg-1~kohadev1 \
+         libjson-validator-perl \
+         libmojolicious-perl \
+         libcache-memcached-fast-safe-perl \
         \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
