@@ -17,7 +17,6 @@ ENV REFRESHED_AT 2019-05-24-1
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
     && apt-get -y install \
-      libcache-memcached-fast-safe-perl \
       apache2 \
       build-essential \
       codespell \
