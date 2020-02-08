@@ -93,6 +93,7 @@ RUN apt-get -y update \
    && apt-get -y install \
          libjson-validator-perl \
          libmojolicious-perl \
+         libarray-utils-perl \
          libcache-memcached-fast-safe-perl \
         \
          koha-common \

@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:bullseye
+FROM debian:buster
 
 # File Author / Maintainer
 LABEL maintainer="jenkins@kohaaloha.com"
@@ -8,12 +8,40 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
-#RUN echo "deb http://security.debian.org/ bullseye/updates main" >> /etc/apt/sources.list
+RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
-#RUN apt-get -y update
+RUN apt-get -y update
+RUN apt-get -y install wget gpgv gnupg gnupg2
+
+# Add Koha development repositories
+RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 buster main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 dev main" >> /etc/apt/sources.list.d/koha.list
+
+# Add repository key
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
+
+RUN apt-get -y update
+
+RUN apt-cache policy koha-common
+RUN apt-cache policy libmojolicious-perl
+RUN apt-cache policy libjson-validator-perl
+RUN apt-cache policy libmojolicious-plugin-openapi-perl
+RUN apt-cache policy libyaml-libyaml-perl
+
+RUN apt-get -y install libmojolicious-perl
+
+RUN apt-get -y install -s libyaml-libyaml-perl
+RUN apt-get -y install libyaml-libyaml-perl
+
+RUN apt-get -y install libjson-validator-perl
+RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
+RUN apt-get -y install libmojolicious-plugin-openapi-perl
+RUN apt-get -y install koha-common --simulate
+RUN apt-get -y install koha-common
 
 
 # Install apache2 and testting deps
@@ -75,39 +103,6 @@ RUN a2enmod rewrite \
             cgi
 
 
-RUN apt-get -y install wget gpgv gnupg gnupg2
-
-# Add Koha development repositories
-#RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 bullseye main" >> /etc/apt/sources.list.d/koha.list
-
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 dev main" >> /etc/apt/sources.list.d/koha.list
-
-# Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
-
-
-RUN apt-get -y update
-
-RUN apt-cache policy koha-common
-RUN apt-cache policy libmojolicious-perl
-RUN apt-cache policy libjson-validator-perl
-RUN apt-cache policy libmojolicious-plugin-openapi-perl
-RUN apt-cache policy libyaml-libyaml-perl
-
-RUN apt-get -y install libmojolicious-perl
-
-RUN apt-get -y install -s libyaml-libyaml-perl
-RUN apt-get -y install libyaml-libyaml-perl
-
-RUN apt-get -y install libjson-validator-perl
-RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
-RUN apt-get -y install libmojolicious-plugin-openapi-perl
-
-RUN apt-get -y install koha-common --simulate
-#RUN apt-get -y install koha-common
-
-
-
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
@@ -155,7 +150,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_8.x sid main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_8.x buster main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
