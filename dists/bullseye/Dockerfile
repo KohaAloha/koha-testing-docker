@@ -75,8 +75,6 @@ RUN a2enmod rewrite \
             cgi
 
 
-RUN apt-get -y install wget gpgv gnupg gnupg2
-
 # Add Koha development repositories
 #RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 bullseye main" >> /etc/apt/sources.list.d/koha.list
 
