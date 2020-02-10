@@ -97,6 +97,12 @@ Alternatively, you can have it run all the tests and exit, like this:
   $ docker-compose -p koha up --abort-on-container-exit
 ```
 
+#### Update images
+
+```
+  $ docker-compose -f docker-compose.yml pull
+```
+
 #### Database persistence
 
 If you need to keep the DB between your different uses of the containers, you can
