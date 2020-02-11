@@ -12,8 +12,8 @@ RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources
 RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
 # Add Koha development repositories
-RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha-mojo7 19.11 main" > /etc/apt/sources.list.d/koha.list
+#RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha dev main" > /etc/apt/sources.list.d/koha.list
 
 
 ENV REFRESHED_AT 2019-05-24-1

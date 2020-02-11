@@ -10,7 +10,7 @@ node {
 //    ['buster','buster-mojo8'].each {
 //    ['bionic','jes.o1','jessie','stretch','bullseye','buster-mojo8'].each {
 
-    [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch','jessie'].each {
+    [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch'].each {
 
         stage( "${it} | Build image" ) {
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
