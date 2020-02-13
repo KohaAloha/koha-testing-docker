@@ -93,6 +93,7 @@ RUN apt-get -y update \
          libnet-z3950-simpleserver-perl \
          libnet-netmask-perl \
          libcache-memcached-fast-safe-perl \
+         perl-modules-5.28 \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
