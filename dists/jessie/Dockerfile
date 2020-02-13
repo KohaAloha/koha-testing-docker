@@ -82,6 +82,8 @@ RUN echo '---------------------------------------------'
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
+RUN dpkg -l 
+
 RUN apt-cache policy koha-common
 RUN apt-cache policy libmojolicious-perl 
 RUN apt-cache policy libjson-validator-perl 

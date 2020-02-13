@@ -1,3 +1,20 @@
+
+def stringsToEcho = [ 'jessie','bullseye']
+
+
+def stepsForParallel = stringsToEcho.collectEntries {
+    ["echoing ${it}" : transformIntoStep(it)]
+}
+
+
+parallel stepsForParallel
+
+
+def transformIntoStep(it) {
+
+    return {
+
+//--------------------
 node {
     def app
 
@@ -6,14 +23,8 @@ node {
         checkout scm
     }
 
-//    ['stretch','buster','buster-mojo8'].each {
-//    ['buster','buster-mojo8'].each {
-//    ['bionic','jes.o1','jessie','stretch','bullseye','buster-mojo8'].each {
-
-    [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch'].each {
-
         stage( "${it} | Build image" ) {
-            app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
+            app = docker.build("kohaaloha/koha-testing-par", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
         if ( it == 'stretch' ) {
@@ -29,5 +40,11 @@ node {
                 }
             }
         }
+
+}
+
+//--------------------
+
     }
 }
+
