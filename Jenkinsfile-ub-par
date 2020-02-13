@@ -1,14 +1,18 @@
-node {
-    def app
+def distros =   [ 'disco','focal','bionic']
 
-    stage('Clone repository') {
+def stepsForParallel = distros.collectEntries {
+    ["echoing ${it}" : transformIntoStep(it)]
+}
 
-        checkout scm
-    }
+parallel stepsForParallel
 
-//    [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch'].each {
-
-    [ 'disco','focal','bionic',].each {
+def transformIntoStep(it) {
+ return {
+  node {
+        def app
+            stage('Clone repository') {
+            checkout scm
+        }
 
         stage( "${it} | Build image" ) {
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
@@ -27,5 +31,7 @@ node {
                 }
             }
         }
-    } //  each
+  }
+ }
 }
+
