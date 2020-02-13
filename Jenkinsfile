@@ -1,5 +1,5 @@
 
-def stringsToEcho = [ 'jessie','bullseye']
+def stringsToEcho =  [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 
 
 def stepsForParallel = stringsToEcho.collectEntries {
