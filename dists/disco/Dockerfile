@@ -125,7 +125,7 @@ RUN echo "deb http://deb.nodesource.com/node_8.x disco main" > /etc/apt/sources.
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
-RUN apt-get update \
+RUN apt-get -y update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
