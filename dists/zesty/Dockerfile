@@ -1,5 +1,5 @@
 # Base it on Ubuntu 18.04
-FROM ubuntu:18.04
+FROM ubuntu:17.04
 
 # File Author / Maintainer
 LABEL maintainer="mason@kohaaloha.com"
