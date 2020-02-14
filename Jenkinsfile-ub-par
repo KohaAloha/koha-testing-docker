@@ -14,7 +14,10 @@ def transformIntoStep(it) {
             checkout scm
         }
 
+
         stage( "${it} | Build image" ) {
+
+            sh "docker image prune -f"
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
