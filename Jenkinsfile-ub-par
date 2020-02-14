@@ -1,4 +1,4 @@
-def distros =   [ 'zesty','disco','focal','bionic']
+def distros =   [ 'xenial','disco','focal','bionic']
 
 def stepsForParallel = distros.collectEntries {
     ["echoing ${it}" : transformIntoStep(it)]
