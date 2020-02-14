@@ -16,8 +16,8 @@ def transformIntoStep(it) {
 
 
         stage( "${it} | Build image" ) {
+            sh "docker system prune -a -f"
 
-            sh "docker image prune -f"
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
@@ -34,6 +34,12 @@ def transformIntoStep(it) {
                 }
             }
         }
+
+        stage( "${it} | Cleanup" ) {
+            sh "docker volume prune -f"
+            sh "docker image prune -f"
+        }
+
   }
  }
 }
