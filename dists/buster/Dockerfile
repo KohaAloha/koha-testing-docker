@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-10-01-0
 

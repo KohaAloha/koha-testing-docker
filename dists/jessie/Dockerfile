@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/debian-security jessie/updates main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
