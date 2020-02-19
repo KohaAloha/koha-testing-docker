@@ -110,6 +110,7 @@ RUN cpanm -i --force \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver \
+       Module::CPANfile \
        CPAN::Meta
 
 # Patch Devel::Cover to skip exec
