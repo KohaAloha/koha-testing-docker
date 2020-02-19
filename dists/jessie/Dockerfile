@@ -111,7 +111,8 @@ RUN cpanm -i --force \
        WebService::ILS \
        Selenium::Remote::Driver \
        Module::CPANfile \
-       CPAN::Meta
+       CPAN::Meta \
+       CPAN::Meta::Requirements
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
