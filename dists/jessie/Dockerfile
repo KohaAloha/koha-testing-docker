@@ -29,6 +29,7 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
+      libcpan-meta-perl \
       libdatetimex-easy-perl \
       libdbd-sqlite2-perl \
       libdbix-class-timestamp-perl \
