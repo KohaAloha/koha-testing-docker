@@ -1,11 +1,11 @@
 def d  = params.DISTROS
 def distros =  [];
 
-
 if ( d  ) {
     echo 'input'
-    distros =  [];
-    distros.add(0,d)
+//    distros.add(0,d)
+    distros << d
+
 } else  {
     echo 'default'
     distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
