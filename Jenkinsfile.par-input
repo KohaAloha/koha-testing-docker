@@ -3,12 +3,6 @@ def doesJavaRock = input(message: 'Do you like Java?', ok: 'Yes',
                         description: 'If you like Java, just push the button',name: 'Yes?')])
 echo "Java rocks?:" + doesJavaRock
 
-
-def ds  = input(message: 'Do you like Java?', ok: 'Yes', 
-                        parameters: [booleanParam(defaultValue: true, 
-                        description: 'enter distros')])
-echo "distro:" + ds 
-
 def distros =  [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 
 def stepsForParallel = distros.collectEntries {
