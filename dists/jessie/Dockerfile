@@ -79,20 +79,16 @@ RUN a2enmod rewrite \
             cgi
 
 
-RUN echo '---------------------------------------------'
+RUN \
+echo '---------------------------------------------' \
+&& wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add - \
+&& dpkg -l  \
+&& apt-cache policy koha-common \
+&& apt-cache policy libmojolicious-perl  \
+&& apt-cache policy libjson-validator-perl \
+&& apt-cache policy libcache-memcached-fast-safe-perl
+&& echo '---------------------------------------------'
 
-# Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
-
-RUN dpkg -l 
-
-RUN apt-cache policy koha-common
-RUN apt-cache policy libmojolicious-perl 
-RUN apt-cache policy libjson-validator-perl 
-RUN apt-cache policy libcache-memcached-fast-safe-perl
-
-
-RUN echo '---------------------------------------------'
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
