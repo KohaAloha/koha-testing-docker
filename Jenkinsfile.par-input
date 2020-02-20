@@ -1,24 +1,17 @@
 def d  = params.DISTROS
 def distros =  [];
 
-echo 'zz'
 
 if ( d  ) {
+    echo 'input'
     distros =  [];
     distros.add(0,d)
 } else  {
+    echo 'default'
     distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 }
 
-echo d
 println "${distros}"
-
-
-distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
-println "${distros}"
-
-
-echo 'zz'
 
 def stepsForParallel = distros.collectEntries {
     ["echoing ${it}" : transformIntoStep(it)]
