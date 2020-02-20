@@ -1,11 +1,12 @@
 #!/bin/bash -x
 
+export
+
 set -e
 
 df -m
 mount
 
-export
 
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
@@ -132,8 +133,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
 
-
-    cp /prove/.prove .
+    [ -f /prove.prove  ] &&  cp /prove/.prove .
 
     koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
 
@@ -178,7 +178,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
     cat .prove
 
-    cp .prove /prove/
+    [ -f .prove  ] &&  cp .prove /prove/
 
 else
     # TODO: We could use supervise as the main loop
