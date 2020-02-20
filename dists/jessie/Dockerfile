@@ -86,7 +86,7 @@ echo '---------------------------------------------' \
 && apt-cache policy koha-common \
 && apt-cache policy libmojolicious-perl  \
 && apt-cache policy libjson-validator-perl \
-&& apt-cache policy libcache-memcached-fast-safe-perl
+&& apt-cache policy libcache-memcached-fast-safe-perl \
 && echo '---------------------------------------------'
 
 # Install koha-common
