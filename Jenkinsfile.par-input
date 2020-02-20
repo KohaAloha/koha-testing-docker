@@ -10,6 +10,7 @@ if ( d  ) {
 }
 
 echo d
+echo distros
 
 
 def stepsForParallel = distros.collectEntries {
