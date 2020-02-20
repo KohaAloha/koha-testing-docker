@@ -1,7 +1,5 @@
 #!/bin/bash -x
 
-export
-
 set -e
 
 df -m
@@ -16,6 +14,10 @@ export KOHA_INTRANET_FQDN=${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET
 export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
+export JOB=${JOB_NAME}
+
+
+export
 
 # Wait for the DB server startup
 while ! nc -z db 3306; do sleep 1; done
@@ -133,7 +135,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
 
-    [ -f /prove.prove  ] &&  cp /prove/.prove .
+    [ -f /prove/${JOB_NAME}  ] &&  cp /prove/${JOB_NAME} .prove
 
     koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
 
@@ -179,6 +181,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cat .prove
 
     [ -f .prove  ] &&  cp .prove /prove/
+    [ -f .prove  ] &&  cp .prove /prove/${JOB_NAME}
 
 else
     # TODO: We could use supervise as the main loop
