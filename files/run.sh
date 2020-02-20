@@ -2,6 +2,10 @@
 
 set -e
 
+
+df -m
+
+
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
 
@@ -127,6 +131,11 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
 
+
+    cp /prove/.prove .
+
+    koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
+
     if [ ${COVERAGE} ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
@@ -164,6 +173,12 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   --timer --harness=TAP::Harness::JUnit -s -r t/  \
                                   && touch testing.success"
     fi
+
+    koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
+    cat .prove
+
+    cp .prove /prove/
+
 else
     # TODO: We could use supervise as the main loop
     /bin/bash -c "trap : TERM INT; sleep infinity & wait"
