@@ -11,10 +11,11 @@ if ( d  ) {
 }
 
 echo d
-echo distros
+println "${distros}"
+
 
 distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
-echo distros
+println "${distros}"
 
 
 echo 'zz'
