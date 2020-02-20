@@ -2,6 +2,8 @@
 
 set -e
 
+ls -l /tmp/prove
+
 df -m
 mount
 
