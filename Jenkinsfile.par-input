@@ -1,8 +1,14 @@
-def distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 
 def d  = params.DISTROS
 
-distros.add(0,d)
+
+if ( d  ) {
+    def distros =  [];
+    distros.add(0,d)
+} else  {
+    def distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
+}
+
 
 
 def stepsForParallel = distros.collectEntries {
