@@ -1,6 +1,6 @@
 def d  = params.DISTROS
 
-echoing 'zz';
+echo 'zz'
 
 if ( d  ) {
     def distros =  [];
@@ -9,7 +9,7 @@ if ( d  ) {
     def distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 }
 
-echoing d;
+echo d
 
 
 def stepsForParallel = distros.collectEntries {
