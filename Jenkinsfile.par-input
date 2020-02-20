@@ -1,12 +1,13 @@
 def d  = params.DISTROS
+def distros =  [];
 
 echo 'zz'
 
 if ( d  ) {
-    def distros =  [];
+    distros =  [];
     distros.add(0,d)
 } else  {
-    def distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
+    distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 }
 
 echo d
