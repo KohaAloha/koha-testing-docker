@@ -5,6 +5,8 @@ set -e
 df -m
 mount
 
+export
+
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
 

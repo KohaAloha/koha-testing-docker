@@ -177,10 +177,13 @@ RUN cd /kohadevbox \
 
 VOLUME /kohadevbox/koha
 
+RUN wget https://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
+COPY run.sh /kohadevbox/run2.sh
+
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
-CMD ["/bin/bash", "/kohadevbox/run.sh"]
+CMD ["/bin/bash", "/kohadevbox/run2.sh"]
 
 EXPOSE 8080 8081
