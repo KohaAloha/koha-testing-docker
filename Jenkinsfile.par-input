@@ -16,6 +16,7 @@ distros =  [ 'stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
 echo distros
 
 
+echo 'zz'
 
 def stepsForParallel = distros.collectEntries {
     ["echoing ${it}" : transformIntoStep(it)]
