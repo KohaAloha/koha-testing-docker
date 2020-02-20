@@ -33,7 +33,7 @@ services:
             - ALL
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
-            - /tmp:/tmp2
+            - /tmp/prove:/prove
         tmpfs:
             - /cover_db
             - /tmp
@@ -67,4 +67,3 @@ services:
 
 networks:
     kohanet:
-
