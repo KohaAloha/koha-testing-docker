@@ -2,7 +2,7 @@
 
 set -e
 
-ls -l /tmp/prove
+ls -l /prove
 
 df -m
 mount
