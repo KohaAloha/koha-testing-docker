@@ -33,6 +33,7 @@ services:
             - ALL
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
+            - /tmp:/tmp2
         tmpfs:
             - /cover_db
             - /tmp
