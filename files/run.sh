@@ -141,7 +141,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     [ -f /prove/${JOB_NAME}  ] &&  cp /prove/${JOB_NAME} .prove
     [ -f /prove/*   ] &&  cp /prove/*  .
 
-    koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
+    koha-shell ${KOHA_INSTANCE} -p -c "head .prove"
 
     if [ ${COVERAGE} ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;
@@ -183,17 +183,16 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
     fi
 
-    koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
-    cat .prove
-
     echo ${JOB_NAME}
 
     ls -la /prove/*
+    ls -la ~/*
 
     [ -f .prove  ] &&  cp .prove /prove/
     [ -f .prove  ] &&  cp .prove /prove/${JOB_NAME}
 
     ls -la /prove/*
+    ls -la ~/*
 
 else
     # TODO: We could use supervise as the main loop
