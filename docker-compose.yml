@@ -33,7 +33,8 @@ services:
             - ALL
         volumes:
             - ${SYNC_REPO}:/kohadevbox/koha
-            - /srv/jenkins/prove:/prove
+#            - /srv/jenkins/prove:/prove
+            - /prove:/prove
         tmpfs:
             - /cover_db
             - /tmp

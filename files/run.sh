@@ -166,6 +166,8 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     else
         koha-shell ${KOHA_INSTANCE} -p -c "pwd; ls -la"
 
+        koha-shell ${KOHA_INSTANCE} -p -c "pwd; ls -la"
+
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
@@ -183,7 +185,9 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
     fi
 
+    echo "---------------------------\n"
     echo ${JOB_NAME}
+    echo "---------------------------\n"
 
     ls -la /prove/*
     ls -la ~/*
