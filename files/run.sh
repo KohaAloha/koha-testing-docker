@@ -2,7 +2,8 @@
 
 set -e
 
-ls -l /prove
+ls -la /prove
+ls -la .
 
 df -m
 mount
@@ -138,6 +139,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     rm -rf /cover_db/*
 
     [ -f /prove/${JOB_NAME}  ] &&  cp /prove/${JOB_NAME} .prove
+    [ -f /prove/*   ] &&  cp /prove/*  .
 
     koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
 
@@ -162,6 +164,8 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
     else
+        koha-shell ${KOHA_INSTANCE} -p -c "pwd; ls -la"
+
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
