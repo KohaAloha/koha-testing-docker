@@ -7,7 +7,7 @@ set -e
     echo "---------------------------\n"
 
 
-ls -la /prove
+[ -f /prove ] && ls -la /prove
 ls -la .
 
 df -m
@@ -196,12 +196,12 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     echo ${JOB_NAME}
     echo "---------------------------\n"
 
-    ls -la /prove/*
+    [ -f /prove ] && ls -la /prove
     ls -la ~/*
 
     [ -f /kohadevbox/koha/.prove  ] &&  cp /kohadevbox/koha/.prove /prove/${JOB_NAME}
 
-    ls -la /prove/*
+    [ -f /prove ] && ls -la /prove
     ls -la ~/*
 
 else
