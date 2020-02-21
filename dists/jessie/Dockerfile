@@ -4,6 +4,8 @@ FROM debian:jessie
 # File Author / Maintainer
 LABEL maintainer="jenkins@kohaaloha.com"
 
+ENV
+
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -183,6 +185,6 @@ COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 #CMD ["/bin/bash", "/kohadevbox/run.sh"]
-CMD ["/bin/bash","-x","/kohadevbox/run.sh"]
+CMD ["/bin/bash","-x","/kohadevbox/run.sh","ZZZ"]
 
 EXPOSE 8080 8081
