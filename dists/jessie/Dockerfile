@@ -4,8 +4,6 @@ FROM debian:jessie
 # File Author / Maintainer
 LABEL maintainer="jenkins@kohaaloha.com"
 
-ENV
-
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
