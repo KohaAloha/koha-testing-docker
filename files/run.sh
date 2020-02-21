@@ -2,12 +2,19 @@
 
 set -e
 
+    echo "---------------------------\n"
+    echo ${JOB_NAME}
+    echo "---------------------------\n"
+
+
 ls -la /prove
 ls -la .
 
 df -m
 mount
 
+[ -f /kohadevbox/koha/.prove ] &&  rm /kohadevbox/koha/.prove
+[ -f /prove/${JOB_NAME} ] &&  cp /prove/${JOB_NAME}  /kohadevbox/koha/.prove
 
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
@@ -192,8 +199,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     ls -la /prove/*
     ls -la ~/*
 
-    [ -f .prove  ] &&  cp .prove /prove/
-    [ -f .prove  ] &&  cp .prove /prove/${JOB_NAME}
+    [ -f /kohadevbox/koha/.prove  ] &&  cp /kohadevbox/koha/.prove /prove/${JOB_NAME}
 
     ls -la /prove/*
     ls -la ~/*
