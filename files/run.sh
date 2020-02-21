@@ -186,8 +186,14 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     koha-shell ${KOHA_INSTANCE} -p -c "cat .prove"
     cat .prove
 
+    echo ${JOB_NAME}
+
+    ls -la /prove/*
+
     [ -f .prove  ] &&  cp .prove /prove/
     [ -f .prove  ] &&  cp .prove /prove/${JOB_NAME}
+
+    ls -la /prove/*
 
 else
     # TODO: We could use supervise as the main loop
