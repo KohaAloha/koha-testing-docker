@@ -1,6 +1,8 @@
 #!/bin/bash -x
 
 export JOB2=$1
+JOB3=$1
+
 set -e
 
     echo "---------------------------\n"
