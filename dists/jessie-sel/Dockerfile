@@ -179,6 +179,7 @@ VOLUME /kohadevbox/koha
 #COPY run.sh /kohadevbox/run2.sh
 
 COPY files/run.sh /kohadevbox
+COPY files/run-sel.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
