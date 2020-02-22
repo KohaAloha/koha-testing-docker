@@ -189,7 +189,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   --state=failed,all,save \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/db_dependant/selenium/  \
+                                  --timer --harness=TAP::Harness::JUnit -s -r t/db_dependent/selenium/  \
                                   && touch testing.success"
     fi
 
