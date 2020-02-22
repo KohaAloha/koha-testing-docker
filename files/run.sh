@@ -177,6 +177,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "pwd; ls -la"
 
         koha-shell ${KOHA_INSTANCE} -p -c "pwd; ls -la"
+        koha-shell ${KOHA_INSTANCE} -p -c "rm -rf ./t/db_dependant/selenium"
 
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_NO_TABLE_LOCKS=1 \
