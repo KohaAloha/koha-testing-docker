@@ -93,6 +93,7 @@ Alternatively, you can have it run all the tests and exit, like this:
 ```
   $ export RUN_TESTS_AND_EXIT="yes"
   # Optionally you can add COVERAGE=1 so the tests generate coverage data
+  # Optionally you can add CPAN=1 to pull the latest versions of perl dependancies directly from cpan
   $ docker-compose -p koha up --abort-on-container-exit
 ```
 

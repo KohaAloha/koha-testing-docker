@@ -98,6 +98,12 @@ git config --global apply.whitespace fix
 git config --global bz-tracker.bugs.koha-community.org.bz-user ${GIT_BZ_USER}
 git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASSWORD}
 
+# Latest Depends
+if [ ${CPAN} ]; then
+    echo "Installing latest versions of dependancies from cpan"
+    cpanm --installdeps .
+fi
+
 # Stop apache2
 service apache2 stop
 # Configure and start koha-plack
