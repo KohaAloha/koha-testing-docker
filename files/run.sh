@@ -101,7 +101,8 @@ git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASS
 # Latest Depends
 if [ ${CPAN} ]; then
     echo "Installing latest versions of dependancies from cpan"
-    cpanm --installdeps .
+    apt install cpanoutdated
+    cpan-outdated --exclude-core -p | cpanm
 fi
 
 # Stop apache2
