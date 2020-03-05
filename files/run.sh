@@ -75,6 +75,16 @@ echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
 
+if [ ${DEBUG_GIT_REPO_MISC4DEV_URL} ]; then
+    rm -rf misc4dev
+    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} misc4dev
+fi
+
+if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
+    rm -rf qa-test-tools
+    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} qa-test-tools
+fi
+
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} \
             --userid            ${KOHA_USER} \
