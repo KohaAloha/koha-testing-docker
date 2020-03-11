@@ -72,16 +72,13 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-#RUN echo 'deb http://debian.kohaaloha.com/distro buster main' >> /etc/apt/sources.list.d/koha.list
-RUN echo 'deb http://debian.kohaaloha.com/koha stable main' >> /etc/apt/sources.list.d/koha.list
-
-#RUN echo "deb http://debian.koha-community.org/koha unstable main" > /etc/apt/sources.list.d/koha.list
-#RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
-
-
+RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/distro buster main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha unstable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
 # Add repository key
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
@@ -95,7 +92,10 @@ RUN apt-get -y update \
          libppi-perl \
          libnet-z3950-simpleserver-perl \
          libnet-netmask-perl \
+         libarray-utils-perl \
          libcache-memcached-fast-safe-perl \
+         perl-modules-5.28 \
+         libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -113,7 +113,7 @@ RUN cpanm -i --force \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
+       Selenium::Remote::Driver \
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
@@ -169,3 +169,4 @@ COPY env/defaults.env /kohadevbox/templates/defaults.env
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
 EXPOSE 8080 8081
+
