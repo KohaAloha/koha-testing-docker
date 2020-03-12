@@ -13,6 +13,12 @@ RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sourc
 
 ENV REFRESHED_AT 2019-05-24-1
 
+
+COPY files/koha-1001 /etc/apt/preferences.d/koha-1001
+RUN ls -l  /etc/apt/preferences.d
+RUN cat /etc/apt/preferences.d/koha-1001
+
+
 RUN apt-get -y update
 RUN apt-get -y install wget gpgv gnupg gnupg2
 
