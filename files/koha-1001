@@ -1,0 +1,8 @@
+#  /etc/apt/preferences.d/koha-1001
+Package: libjson-validator-perl
+Pin-Priority: 1001
+Pin: release o=Koha
+
+Package: libmojolicious-perl
+Pin-Priority: 1001
+Pin: release o=Koha
