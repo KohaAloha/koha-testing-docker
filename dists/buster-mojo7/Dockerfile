@@ -16,12 +16,16 @@ ENV REFRESHED_AT 2019-05-24-1
 RUN apt-get -y update
 RUN apt-get -y install wget gpgv gnupg gnupg2
 
+
+
 # Add Koha development repositories
 RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 buster main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 19.11 main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha stable main" >>  /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 dev main" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
 RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+RUN wget -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
 
 
 RUN apt-get -y update
@@ -108,6 +112,8 @@ RUN apt-get -y update \
    && apt-get -y install \
          libjson-validator-perl \
          libmojolicious-perl \
+         libarray-utils-perl \
+         libtext-unaccent-perl \
         \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
@@ -183,11 +189,19 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+#----------------
 VOLUME /kohadevbox/koha
 
+#RUN wget http://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
+#RUN ls -l run.sh
+#RUN ls -l .
+#RUN pwd
+
 COPY files/run.sh /kohadevbox
+#COPY ./run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
+#----------------
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
