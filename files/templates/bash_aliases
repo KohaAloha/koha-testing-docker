@@ -26,80 +26,45 @@ alias restart_all="flush_memcached ; sudo service apache2 restart ; sudo service
 alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'"
 
 # Alias for reseting everything koha-related
-alias reset_all='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
-                 echo    # move to a new line
-                 if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+function reset_all(){
 
-                    ELASTICSEARCH="";
-                    if [ -n "$ELASTICSEARCH" ]; then
-                        ELASTICSEARCH="--elasticsearch"
-                    fi
+    # MARC_FLAVOUR passed in argument, or env var $KOHA_MARC_FLAVOUR or 'marc21'
+    if [ -z "$MARC_FLAVOUR" ]; then
+        MARC_FLAVOUR=$KOHA_MARC_FLAVOUR
+        if [ -z "$MARC_FLAVOUR" ]; then
+            MARC_FLAVOUR="marc21"
+        fi
+    fi
 
-                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
-                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
-                                --userid ${KOHA_USER} \
-                                --password ${KOHA_PASS} \
-                                --marcflavour ${KOHA_MARC_FLAVOUR} \
-                                --koha_dir /kohadevbox/koha \
-                                --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
-                                --gitify_dir ${BUILD_DIR}/gitify
-                    restart_all
-                 else
-                    echo "Aborted"
-                 fi'
+    read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+    echo    # move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+       mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+       mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
-alias reset_all_marc21='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
-                 echo    # move to a new line
-                 if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+       ELASTICSEARCH="";
+       if [ -n "$ELASTICSEARCH" ]; then
+           ELASTICSEARCH="--elasticsearch"
+       fi
 
-                    ELASTICSEARCH="";
-                    if [ -n "$ELASTICSEARCH" ]; then
-                        ELASTICSEARCH="--elasticsearch"
-                    fi
+       perl /kohadevbox/misc4dev/do_all_you_can_do.pl \
+                   --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
+                   --userid ${KOHA_USER} \
+                   --password ${KOHA_PASS} \
+                   --marcflavour ${KOHA_MARC_FLAVOUR} \
+                   --koha_dir /kohadevbox/koha \
+                   --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
+                   --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
+                   --gitify_dir ${BUILD_DIR}/gitify
 
-                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
-                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
-                                --userid ${KOHA_USER} \
-                                --password ${KOHA_PASS} \
-                                --marcflavour marc21 \
-                                --koha_dir /kohadevbox/koha \
-                                --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
-                                --gitify_dir ${BUILD_DIR}/gitify
-                    restart_all
-                 else
-                    echo "Aborted"
-                 fi'
+       restart_all
+    else
+       echo "Aborted"
+    fi
+}
 
-alias reset_all_unimarc='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
-                 echo    # move to a new line
-                 if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-                    mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
-
-                    ELASTICSEARCH="";
-                    if [ -n "$ELASTICSEARCH" ]; then
-                        ELASTICSEARCH="--elasticsearch"
-                    fi
-
-                    perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
-                                --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
-                                --userid ${KOHA_USER} \
-                                --password ${KOHA_PASS} \
-                                --marcflavour unimarc \
-                                --koha_dir /kohadevbox/koha \
-                                --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
-                                --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
-                                --gitify_dir ${BUILD_DIR}/gitify
-                    restart_all
-                 else
-                    echo "Aborted"
-                 fi'
+alias reset_all_marc21='reset_all "marc21"';
+alias reset_all_unimarc='reset_all "unimarc"';
 
 alias start_plack_debug='sudo koha-plack --start \
                                          --debugger \
