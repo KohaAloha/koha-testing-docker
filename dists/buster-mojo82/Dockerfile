@@ -111,6 +111,7 @@ RUN apt-get -y update \
          libjson-validator-perl \
          libmojolicious-perl \
          libarray-utils-perl \
+         libtext-unaccent-perl \
         \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
@@ -188,7 +189,11 @@ RUN cd /kohadevbox \
 
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
+RUN wget http://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
+RUN ls -l run.sh
+
+#COPY files/run.sh /kohadevbox
+COPY run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
