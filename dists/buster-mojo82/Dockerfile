@@ -16,19 +16,6 @@ ENV REFRESHED_AT 2019-05-24-1
 RUN apt-get -y update
 RUN apt-get -y install wget gpgv gnupg gnupg2
 
-#----------------
-VOLUME /kohadevbox/koha
-
-RUN wget http://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
-RUN ls -l run.sh
-RUN ls -l .
-RUN pwd
-
-#COPY files/run.sh /kohadevbox
-COPY ./run.sh /kohadevbox
-COPY files/templates /kohadevbox/templates
-COPY env/defaults.env /kohadevbox/templates/defaults.env
-#----------------
 
 
 # Add Koha development repositories
@@ -202,6 +189,19 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+#----------------
+VOLUME /kohadevbox/koha
+
+#RUN wget http://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
+#RUN ls -l run.sh
+#RUN ls -l .
+#RUN pwd
+
+COPY files/run.sh /kohadevbox
+#COPY ./run.sh /kohadevbox
+COPY files/templates /kohadevbox/templates
+COPY env/defaults.env /kohadevbox/templates/defaults.env
+#----------------
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
