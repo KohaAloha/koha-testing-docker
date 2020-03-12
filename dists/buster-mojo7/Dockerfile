@@ -120,6 +120,7 @@ RUN apt-get -y update \
          libmojolicious-perl \
          libarray-utils-perl \
          libtext-unaccent-perl \
+         libemail-messageid-perl \
         \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
