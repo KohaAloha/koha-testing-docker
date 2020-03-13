@@ -98,6 +98,7 @@ WORKDIR /kohadevbox
 
 # Install testing extras
 RUN cpanm -i --force \
+       CryptX \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
