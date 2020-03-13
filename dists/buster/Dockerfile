@@ -13,6 +13,41 @@ RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sourc
 
 ENV REFRESHED_AT 2019-05-24-1
 
+RUN apt-get -y update
+RUN apt-get -y install wget gpgv gnupg gnupg2
+
+
+
+# Add Koha development repositories
+RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 buster main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha stable main" >>  /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 dev main" >> /etc/apt/sources.list.d/koha.list
+
+# Add repository key
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+RUN wget -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
+
+
+RUN apt-get -y update
+
+RUN apt-cache policy koha-common
+RUN apt-cache policy libmojolicious-perl
+RUN apt-cache policy libjson-validator-perl
+RUN apt-cache policy libmojolicious-plugin-openapi-perl
+RUN apt-cache policy libyaml-libyaml-perl
+
+RUN apt-get -y install libmojolicious-perl
+
+RUN apt-get -y install -s libyaml-libyaml-perl
+RUN apt-get -y install libyaml-libyaml-perl
+
+RUN apt-get -y install libjson-validator-perl
+RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
+RUN apt-get -y install libmojolicious-plugin-openapi-perl
+RUN apt-get -y install koha-common --simulate
+RUN apt-get -y install koha-common
+
+
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
@@ -71,24 +106,15 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-# Add Koha development repositories
-RUN echo "deb http://debian.kohaaloha.com/koha-mojo7 19.11 main" > /etc/apt/sources.list.d/koha.list
-#RUN echo "deb [trusted=yes] http://apt.abunchofthings.net/koha-nightly unstable main" >> /etc/apt/sources.list.d/koha.list
-
-
-# Add repository key
-RUN wget -O- http://debian.kohaaloha.com/koha-mojo7/gpg.asc | apt-key add -
-
-RUN apt-cache policy koha-common
-#RUN apt-cache policy libmojolicious-perl 
-#RUN apt-cache policy libjson-validator-perl 
-
 
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
+         libjson-validator-perl \
+         libmojolicious-perl \
          libarray-utils-perl \
-\
+         libtext-unaccent-perl \
+        \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
@@ -163,11 +189,19 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+#----------------
 VOLUME /kohadevbox/koha
 
+#RUN wget http://raw.githubusercontent.com/KohaAloha/koha-testing-docker/master/files/run.sh
+#RUN ls -l run.sh
+#RUN ls -l .
+#RUN pwd
+
 COPY files/run.sh /kohadevbox
+#COPY ./run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
+#----------------
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
