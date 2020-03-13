@@ -151,7 +151,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     [ -f /prove/${JOB_NAME}  ] &&  cp /prove/${JOB_NAME} .prove
     [ -f /prove/*   ] &&  cp /prove/*  .
 
-    koha-shell ${KOHA_INSTANCE} -p -c "head .prove"
+##    koha-shell ${KOHA_INSTANCE} -p -c "head .prove"
 
     if [ ${COVERAGE} ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;

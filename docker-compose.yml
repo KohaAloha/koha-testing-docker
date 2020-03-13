@@ -57,7 +57,7 @@ services:
             - "8080:8080"
             - "8081:8081"
     memcached:
-        image: memcached
+        image: memcached:latest
         command: memcached -m 64m
         networks:
             - kohanet
