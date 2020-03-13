@@ -26,7 +26,7 @@ RUN apt-get -y install wget gpgv gnupg gnupg2
 
 # Add Koha development repositories
 #RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 buster main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.koha-community.org/koha stable main" >>  /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha oldstable main" >>  /etc/apt/sources.list.d/koha.list
 #RUN echo "deb http://debian.kohaaloha.com/koha-mojo8 dev main" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
