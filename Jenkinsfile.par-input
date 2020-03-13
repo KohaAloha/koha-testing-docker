@@ -8,7 +8,7 @@ if ( d  ) {
 
 } else  {
     echo 'default'
-    distros =  [ 'stretch-mojo7','bullseye','buster-mojo7','buster-kc','buster-mojo8','buster-mojo82','stretch','buster-mojo7-1905','buster-mojo7-1811','master-stretch-mojo7-1905' ]
+    distros =  [ 'stretch-mojo7','bullseye','buster-mojo7','buster-kc','buster-mojo8','buster-mojo82','stretch','buster-mojo7-1905','buster-mojo7-1811','stretch-mojo7-1905' ]
 }
 
 println "${distros}"
