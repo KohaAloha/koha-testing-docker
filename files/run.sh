@@ -141,6 +141,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
@@ -158,6 +159,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     else
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
