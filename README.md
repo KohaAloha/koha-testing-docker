@@ -74,7 +74,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | ku-md10 | Start the whole thing, using MariaDB matched to Debian 10  |
 | ku-my8  | Start the whole thing, using latest MySQL with Debian 9    |
 | kp      | Start the whole thing, with mysql persistence              |
-| kup     | Start the env, plugin development set [^1]                 |
+| kup     | Start the env, plugin development set [^1] [^2]                |
 | kk      | Start the whole thing, with kibana                         |
 | kpk     | Start the whole thing, with mysql persistence and kibana   |
 | kd      | Stop the whole thing                                       |
@@ -89,6 +89,7 @@ source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
 
 [^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will
 fail to load if you don't export the variable first.
+[^2]: To force Koha to load plugins after import: perl -e 'use Koha::Plugins; my $plugin = Koha::Plugins->new(); $plugin->InstallPlugins;'
 
 #### Manually
 
