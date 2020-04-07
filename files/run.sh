@@ -11,6 +11,18 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Clone before calling cp_debian_files.pl
+if [ ${DEBUG_GIT_REPO_MISC4DEV_URL} ]; then
+    rm -rf misc4dev
+    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} misc4dev
+fi
+
+# Make sure we use the files from the git clone for creating the instance
+perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
+            --instance          ${KOHA_INSTANCE} \
+            --koha_dir          ${BUILD_DIR}/koha \
+            --gitify_dir        ${BUILD_DIR}/gitify
+
 # Wait for the DB server startup
 while ! nc -z db 3306; do sleep 1; done
 
@@ -74,11 +86,6 @@ a2ensite ${KOHA_INSTANCE}.conf
 echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
-
-if [ ${DEBUG_GIT_REPO_MISC4DEV_URL} ]; then
-    rm -rf misc4dev
-    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} misc4dev
-fi
 
 if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
     rm -rf qa-test-tools
