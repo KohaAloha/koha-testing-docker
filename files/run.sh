@@ -124,6 +124,9 @@ fi
 
 # Stop apache2
 service apache2 stop
+
+chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
+
 # Configure and start koha-plack
 koha-plack --enable ${KOHA_INSTANCE} 
 koha-plack --start ${KOHA_INSTANCE} 
