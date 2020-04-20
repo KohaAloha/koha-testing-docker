@@ -87,6 +87,19 @@ echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
 
+# Configure git-bz
+cd /kohadevbox/koha
+git config --global user.name "${GIT_USER_NAME}"
+git config --global user.email "${GIT_USER_EMAIL}"
+git config bz.default-tracker bugs.koha-community.org
+git config bz.default-product Koha
+git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
+git config --global bz-tracker.bugs.koha-community.org.https true
+git config --global core.whitespace trailing-space,space-before-tab
+git config --global apply.whitespace fix
+git config --global bz-tracker.bugs.koha-community.org.bz-user ${GIT_BZ_USER}
+git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASSWORD}
+
 if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
     rm -rf qa-test-tools
     git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} qa-test-tools
@@ -101,19 +114,6 @@ perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --opac-base-url     ${KOHA_OPAC_URL} \
             --intranet-base-url ${KOHA_INTRANET_URL} \
             --gitify_dir        ${BUILD_DIR}/gitify
-
-# Configure git-bz
-cd /kohadevbox/koha
-git config --global user.name "${GIT_USER_NAME}"
-git config --global user.email "${GIT_USER_EMAIL}"
-git config bz.default-tracker bugs.koha-community.org
-git config bz.default-product Koha
-git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
-git config --global bz-tracker.bugs.koha-community.org.https true
-git config --global core.whitespace trailing-space,space-before-tab
-git config --global apply.whitespace fix
-git config --global bz-tracker.bugs.koha-community.org.bz-user ${GIT_BZ_USER}
-git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASSWORD}
 
 # Latest Depends
 if [ ${CPAN} ]; then
