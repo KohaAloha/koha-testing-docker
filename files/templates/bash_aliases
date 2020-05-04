@@ -72,6 +72,3 @@ alias start_plack_debug='sudo koha-plack --start \
                                          --debugger-location "${REMOTE_DEBUGGER_LOCATION}" \
                                          --debugger-key "${REMOTE_DEBUGGER_KEY}" \
                                          ${KOHA_INSTANCE}'
-
-alias start_selenium='Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 & \
-                      DISPLAY=:1 java -jar selenium.jar 2> /dev/null'
