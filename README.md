@@ -8,9 +8,15 @@ in order to create such environment.
 
 The *docker-compose.yml* file is self explanatory.
 
-It requires:
+## Requirements
+
 - Docker
 - Docker Compose
+- If Docker is installed as root, you need to add your user to the docker group.
+
+```
+  $ sudo usermod -aG docker ${USER}
+```
 
 ## Usage
 
