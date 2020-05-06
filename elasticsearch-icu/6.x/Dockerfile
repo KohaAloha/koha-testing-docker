@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:6.8.3
+FROM docker.elastic.co/elasticsearch/elasticsearch:6.8.8
 
 LABEL maintainer="tomascohen@theke.io"
 
