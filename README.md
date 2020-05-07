@@ -66,7 +66,8 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | Alias   | Function                                                   |
 |---------|------------------------------------------------------------|
 | ku      | Start the whole thing                                      |
-| ku-es6  | Start the whole thing, using ES6                           |
+| ku-es5  | Start the whole thing, using ES5                           |
+| ku-es6  | Start the whole thing, using ES6 (default)                 |
 | ku-mdb  | Start the whole thing, using latest MariaDB with Debian 9  |
 | ku-md9  | Start the whole thing, using MariaDB matched to Debian 9   |
 | ku-md10 | Start the whole thing, using MariaDB matched to Debian 10  |
