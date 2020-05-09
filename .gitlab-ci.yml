@@ -2,7 +2,7 @@ image: docker:stable
 
 stages:
   - Build stretch image
-  - Remove stretch image
+  - Clean stretch image
 
 docker build:
   stage: Build stretch image
