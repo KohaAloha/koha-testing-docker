@@ -1,16 +1,40 @@
 image: docker:stable
 
 stages:
-  - Build stretch image
-  - Clean stretch image
+  - Build buster
+  - Build stretch
+  - Build jessie
+  - Build bionic
+  - Push to Docker Hub
 
-docker build:
-  stage: Build stretch image
+buster:
+  stage: Build buster
   script:
-  - docker build -t koha/koha-testing:master --no-cache --rm -f dists/stretch/Dockerfile .
+  - docker build -t koha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
 
-docker cleanup:
-  stage: Clean stretch image
+stretch:
+  stage: Build stretch
   script:
-  - docker image rm koha/koha-testing:master
+  - docker build -t koha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
+
+jessie:
+    stage: Build jessie
+    script:
+    - docker build -t koha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
+
+bionic:
+  stage: Build bionic
+  script:
+  - docker build -t koha/koha-testing:master-bionic --no-cache --rm -f dists/bionic/Dockerfile .
+
+push:
+  stage: Push to Docker Hub
+  only:
+  - master
+  script:
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-buster && docker image rm koha/koha-testing:master-buster
+  - docker push koha/koha-testing:master-stretch && docker image rm koha/koha-testing:master-stretch
+  - docker push koha/koha-testing:master-jessie && docker image rm koha/koha-testing:master-jessie
+  - docker push koha/koha-testing:master-bionic && docker image rm koha/koha-testing:master-bionic
   
