@@ -13,10 +13,11 @@ stretch:
   stage: build
   script:
   - docker build -t koha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
-  jessie:
-    stage: build
-    script:
-    - docker build -t koha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
+
+jessie:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
 
 bionic:
   stage: build
