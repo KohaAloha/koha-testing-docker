@@ -1,0 +1,16 @@
+image: docker:stable
+
+stages:
+  - Build stretch image
+  - Remove stretch image
+
+docker build:
+  stage: Build stretch image
+  script:
+  - docker build -t koha/koha-testing:master --no-cache --rm -f dists/stretch/Dockerfile .
+
+docker cleanup:
+  stage: Clean stretch image
+  script:
+  - docker image rm koha/koha-testing:master
+  
