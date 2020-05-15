@@ -97,8 +97,8 @@ git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
 git config --global bz-tracker.bugs.koha-community.org.https true
 git config --global core.whitespace trailing-space,space-before-tab
 git config --global apply.whitespace fix
-git config --global bz-tracker.bugs.koha-community.org.bz-user ${GIT_BZ_USER}
-git config --global bz-tracker.bugs.koha-community.org.bz-password ${GIT_BZ_PASSWORD}
+git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
+git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
 
 if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
     rm -rf qa-test-tools
