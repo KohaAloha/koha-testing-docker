@@ -80,7 +80,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | kd      | Stop the whole thing                                       |
 | kshell  | Opens a shell inside the Koha container                    |
 
-In order to use this aliases you need to edit your _~/.bashrc_ file adding:
+In order to use this aliases you need to edit your _~/.bashrc_ ( or _~/.profile_ if using Git for Windows ) file adding:
 
 ```
 export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
