@@ -25,6 +25,9 @@ alias restart_all="flush_memcached ; sudo service apache2 restart ; chown -R ${K
 # Alias for running updatedatabase.pl
 alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'"
 
+# Alias for running cp_debian_files.pl
+alias cp_debian_files="sudo perl /kohadevbox/misc4dev/cp_debian_files.pl --instance=${KOHA_INSTANCE} --koha_dir=/kohadevbox/koha --gitify_dir=/kohadevbox/gitify"
+
 # Alias for reseting everything koha-related
 function reset_all(){
 
