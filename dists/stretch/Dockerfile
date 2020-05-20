@@ -37,6 +37,7 @@ RUN apt-get -y update \
       libtest-differences-perl \
       libtest-perl-critic-perl \
       libtest-perl-critic-progressive-perl \
+      libfile-chdir-perl \
       libdata-printer-perl \
       pmtools \
       locales \
