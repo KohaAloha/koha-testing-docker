@@ -8,6 +8,9 @@ buster:
   stage: build
   script:
   - docker build -t koha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-buster
+  - docker image rm koha/koha-testing:master-buster
   only:
     - master@koha-community/koha-testing-docker
 
@@ -15,6 +18,11 @@ stretch:
   stage: build
   script:
   - docker build -t koha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-stretch
+  - docker tag  koha/koha-testing:master-stretch koha/koha-testing:master
+  - docker push koha/koha-testing:master
+  - docker image rm koha/koha-testing:master-stretch koha/koha-testing:master
   only:
     - master@koha-community/koha-testing-docker
 
@@ -22,6 +30,9 @@ jessie:
   stage: build
   script:
   - docker build -t koha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-jessie
+  - docker image rm koha/koha-testing:master-jessie
   only:
     - master@koha-community/koha-testing-docker
 
@@ -29,22 +40,18 @@ bionic:
   stage: build
   script:
   - docker build -t koha/koha-testing:master-bionic --no-cache --rm -f dists/bionic/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-bionic
+  - docker image rm koha/koha-testing:master-bionic
   only:
     - master@koha-community/koha-testing-docker
 
-push:
-  stage: push
+focal:
+  stage: build
   script:
+  - docker build -t koha/koha-testing:master-focal --no-cache --rm -f dists/focal/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:master-buster
-  - docker image rm koha/koha-testing:master-buster
-  - docker push koha/koha-testing:master-stretch
-  - docker tag  koha/koha-testing:master-stretch koha/koha-testing:master
-  - docker push koha/koha-testing:master
-  - docker image rm koha/koha-testing:master-stretch koha/koha-testing:master
-  - docker push koha/koha-testing:master-jessie
-  - docker image rm koha/koha-testing:master-jessie
-  - docker push koha/koha-testing:master-bionic
-  - docker image rm koha/koha-testing:master-bionic
+  - docker push koha/koha-testing:master-focal
+  - docker image rm koha/koha-testing:master-focal
   only:
     - master@koha-community/koha-testing-docker
