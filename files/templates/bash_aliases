@@ -45,13 +45,12 @@ function reset_all(){
        mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
        mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
-       ELASTICSEARCH="";
-       if [ -n "$ELASTICSEARCH" ]; then
-           ELASTICSEARCH="--elasticsearch"
+       if [ -n "$KOHA_ELASTICSEARCH" ]; then
+           ES_FLAG="--elasticsearch"
        fi
 
        perl /kohadevbox/misc4dev/do_all_you_can_do.pl \
-                   --instance ${KOHA_INSTANCE} ${ELASTICSEARCH} \
+                   --instance ${KOHA_INSTANCE} ${ES_FLAG} \
                    --userid ${KOHA_USER} \
                    --password ${KOHA_PASS} \
                    --marcflavour ${KOHA_MARC_FLAVOUR} \
