@@ -94,7 +94,6 @@ RUN apt-get -y update \
          libcache-memcached-fast-safe-perl \
          perl-modules-5.28 \
          libemail-messageid-perl \
-         libsub-override-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*

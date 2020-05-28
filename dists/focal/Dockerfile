@@ -89,8 +89,7 @@ RUN apt-get -y update \
          libarray-utils-perl \
          libcache-memcached-fast-safe-perl \
          libcpan-meta-perl \
-         libemail-messageid-perl \ 
-         libsub-override-perl \
+         libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
