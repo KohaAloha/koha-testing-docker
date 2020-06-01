@@ -78,7 +78,7 @@ RUN a2enmod rewrite \
 # Add Koha development repositories
 #RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 bullseye main" >> /etc/apt/sources.list.d/koha.list
 
-RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha-testing dev main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
 #RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
@@ -92,14 +92,14 @@ RUN apt-cache policy libjson-validator-perl
 RUN apt-cache policy libmojolicious-plugin-openapi-perl
 RUN apt-cache policy libyaml-libyaml-perl
 
-RUN apt-get -y install libmojolicious-perl
+#RUN apt-get -y install libmojolicious-perl
 
-RUN apt-get -y install -s libyaml-libyaml-perl
-RUN apt-get -y install libyaml-libyaml-perl
+#RUN apt-get -y install -s libyaml-libyaml-perl
+#RUN apt-get -y install libyaml-libyaml-perl
 
-RUN apt-get -y install libjson-validator-perl
-RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
-RUN apt-get -y install libmojolicious-plugin-openapi-perl
+#RUN apt-get -y install libjson-validator-perl
+#RUN apt-get -y install libmojolicious-plugin-openapi-perl --simulate
+#RUN apt-get -y install libmojolicious-plugin-openapi-perl
 
 RUN apt-get -y install koha-common --simulate
 #RUN apt-get -y install koha-common
@@ -109,12 +109,9 @@ RUN apt-get -y install koha-common --simulate
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libjson-validator-perl \
-         libmojolicious-perl \
-         libarray-utils-perl \
-        \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
+         libarray-utils-perl \
          libcatmandu-marc-perl \
          libcatmandu-store-elasticsearch-perl \
          libwww-youtube-download-perl \
