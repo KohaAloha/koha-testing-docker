@@ -33,19 +33,15 @@ def transformIntoStep(it) {
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
-        if ( it == 'buster' ) {
-            stage( "${it} | Push image" ) {
-                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    app.push( "buster" );
-                }
-            }
-        } else {
+
+
             stage( "${it} | Push image" ) {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                     app.push( "master-${it}" );
                 }
             }
-        }
+
+
 
         stage( "${it} | Cleanup" ) {
             sh "docker volume prune -f"
