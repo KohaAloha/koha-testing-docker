@@ -42,8 +42,9 @@ function reset_all(){
     read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
     echo    # move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-       mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"DROP DATABASE koha_${KOHA_INSTANCE}"
-       mysql -h ${DB_HOSTNAME} -u koha_${KOHA_INSTANCE} -p${KOHA_DB_PASSWORD} -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
+       mysql_auth_file=/etc/mysql/koha_${KOHA_INSTANCE}.cnf
+       mysql --defaults-file=$mysql_auth_file -e"DROP DATABASE koha_${KOHA_INSTANCE}"
+       mysql --defaults-file=$mysql_auth_file -e"CREATE DATABASE koha_${KOHA_INSTANCE}"
 
        if [ -n "$KOHA_ELASTICSEARCH" ]; then
            ES_FLAG="--elasticsearch"
