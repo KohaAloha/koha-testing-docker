@@ -2,7 +2,16 @@ image: docker:stable
 
 stages:
   - build
-  - push
+
+bullseye:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-bullseye --no-cache --rm -f dists/bullseye/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-bullseye
+  - docker image rm koha/koha-testing:master-bullseye
+  only:
+    - master@koha-community/koha-testing-docker
 
 buster:
   stage: build
