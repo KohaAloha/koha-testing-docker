@@ -78,7 +78,7 @@ RUN a2enmod rewrite \
 # Add Koha development repositories
 #RUN echo "deb http://debian.kohaaloha.com/distro-mojo8 bullseye main" >> /etc/apt/sources.list.d/koha.list
 
-RUN echo "deb http://debian.kohaaloha.com/koha-testing dev main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.kohaaloha.com/koha-testing dev main" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
 #RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
