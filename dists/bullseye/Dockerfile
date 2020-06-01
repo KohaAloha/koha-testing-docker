@@ -95,7 +95,6 @@ RUN apt-get -y update \
          libjson-validator-perl \
          libmojolicious-perl \
          libarray-utils-perl \
-        \
          koha-common \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
