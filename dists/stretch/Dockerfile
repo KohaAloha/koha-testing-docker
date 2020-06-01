@@ -89,8 +89,6 @@ RUN apt-get -y update \
          libnet-z3950-simpleserver-perl \
          libnet-netmask-perl \
          libarray-utils-perl \
-         libcache-memcached-fast-safe-perl \
-         libcpan-meta-perl \
          libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
@@ -101,7 +99,6 @@ WORKDIR /kohadevbox
 
 # Install testing extras
 RUN cpanm -i --force \
-       CryptX \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \

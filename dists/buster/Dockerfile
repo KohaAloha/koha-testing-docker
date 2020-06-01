@@ -101,7 +101,6 @@ WORKDIR /kohadevbox
 
 # Install testing extras
 RUN cpanm -i --force \
-       CryptX \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -111,7 +110,6 @@ RUN cpanm -i --force \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver \
-       Mojolicious::Plugin::OpenAPI
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
