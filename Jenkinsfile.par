@@ -1,4 +1,4 @@
-def distros =  [ 'jessie','stretch-mojo7','bullseye','buster-kc','buster-mojo8','stretch']
+def distros =  [ 'jessie','bullseye','buster','stretch']
 
 def stepsForParallel = distros.collectEntries {
     ["echoing ${it}" : transformIntoStep(it)]
@@ -18,7 +18,7 @@ def transformIntoStep(it) {
             app = docker.build("kohaaloha/koha-testing", "--no-cache --rm -f dists/${it}/Dockerfile .")
         }
 
-        if ( it == 'stretch' ) {
+        if ( it == 'buster' ) {
             stage( "${it} | Push image" ) {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                     app.push( "master" );
