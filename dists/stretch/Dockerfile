@@ -10,6 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
+RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/stretch-backports.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
@@ -72,8 +73,9 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-# Add Koha development repositories
-RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main stretch" >> /etc/apt/sources.list.d/koha.list
+# Add Koha 19.11 repository
+RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
+RUN echo "deb http://debian.koha-community.org/koha 19.11 main" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
