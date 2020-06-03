@@ -153,7 +153,7 @@ RUN cd /usr/local/share \
 # Clone helper repositories
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev \
-    && git clone https://github.com/mkfifo/koha-gitify.git gitify \
+    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
     && git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 # release-tools
