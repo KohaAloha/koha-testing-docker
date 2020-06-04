@@ -88,19 +88,7 @@ RUN apt-cache policy libyaml-libyaml-perl
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libjson-validator-perl \
-         libmojolicious-perl \
-         libarray-utils-perl \
          koha-common \
-         libnet-oauth2-authorizationserver-perl \
-         libcatmandu-marc-perl \
-         libcatmandu-store-elasticsearch-perl \
-         libwww-youtube-download-perl \
-         libtest-mocktime-perl \
-         libintl-perl \
-         libppi-perl \
-         libnet-z3950-simpleserver-perl \
-         libnet-netmask-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*

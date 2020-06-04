@@ -70,19 +70,6 @@ RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev ma
 RUN apt-get -y update \
    && apt-get -y install \
          koha-common \
-         libnet-oauth2-authorizationserver-perl \
-         libcatmandu-marc-perl \
-         libcatmandu-store-elasticsearch-perl \
-         libwww-youtube-download-perl \
-         libtest-mocktime-perl \
-         libintl-perl \
-         libppi-perl \
-         libnet-z3950-simpleserver-perl \
-         libnet-netmask-perl \
-         libarray-utils-perl \
-         libcache-memcached-fast-safe-perl \
-         libcpan-meta-perl \
-         libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
