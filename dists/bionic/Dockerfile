@@ -70,7 +70,7 @@ RUN a2enmod rewrite \
 
 # Add Koha 20.05 repository
 RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha 20.05 main" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha 20.05 main bionic" > /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
