@@ -1,7 +1,8 @@
 version: '3'
 services:
     db:
-        image: mysql:5.5
+        image: mariadb:10.1
+        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: koha_kohadev
