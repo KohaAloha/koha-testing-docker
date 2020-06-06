@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
 
-ENV REFRESHED_AT 2019-05-24-1
+ENV REFRESHED_AT 2020-06-06-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -71,25 +71,13 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-# Add Koha development repositories
-RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main jessie" >> /etc/apt/sources.list.d/koha.list
+# Add Koha 20.05 repository
+RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
+RUN echo "deb http://debian.koha-community.org/koha 20.05 main" > /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
-   && apt-get -y install \
-         koha-common \
-         libnet-oauth2-authorizationserver-perl \
-         libcatmandu-marc-perl \
-         libcatmandu-store-elasticsearch-perl \
-         libwww-youtube-download-perl \
-         libtest-mocktime-perl \
-         libtest-perl-critic-progressive-perl \
-         libintl-perl \
-         libppi-perl \
-         libnet-z3950-simpleserver-perl \
-         libnet-netmask-perl \
-         libarray-utils-perl \
-         libemail-messageid-perl \
+   && apt-get -y install koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
