@@ -51,8 +51,8 @@ services:
                     - "${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}"
                     - "${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}"
         ports:
-            - "8080:8080"
-            - "8081:8081"
+            - "9080:9080"
+            - "9081:9081"
     memcached:
         image: memcached
         command: memcached -m 64m

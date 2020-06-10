@@ -164,4 +164,4 @@ COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
-EXPOSE 8080 8081
+EXPOSE 9080 9081
