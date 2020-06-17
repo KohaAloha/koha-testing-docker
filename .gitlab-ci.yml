@@ -53,7 +53,7 @@ xenial:
   - docker push koha/koha-testing:master-xenial
   - docker image rm koha/koha-testing:master-xenial
   only:
-    - 20.05@koha-community/koha-testing-docker
+    - master@koha-community/koha-testing-docker
 
 bionic:
   stage: build
