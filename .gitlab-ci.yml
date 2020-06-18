@@ -45,6 +45,16 @@ jessie:
   only:
     - 19.11@koha-community/koha-testing-docker
 
+xenial:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:19.11-xenial --no-cache --rm -f dists/xenial/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:19.11-xenial
+  - docker image rm koha/koha-testing:19.11-xenial
+  only:
+    - 19.11@koha-community/koha-testing-docker
+
 bionic:
   stage: build
   script:
