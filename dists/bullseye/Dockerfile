@@ -74,7 +74,7 @@ RUN a2enmod rewrite \
 
 # Add Koha 19.11 repository
 RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha 19.11 main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 19.11 main" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
 #RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
