@@ -65,7 +65,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 
 | Alias   | Function                                                   |
 |---------|------------------------------------------------------------|
-| ku      | Start the whole thing, using MySQL 5.5 with Debian 9       |
+| ku      | Start the whole thing, using MariaDB 10.1 with Debian 9    |
 | ku-es5  | Start the whole thing, using ES5                           |
 | ku-es6  | Start the whole thing, using ES6 (default)                 |
 | ku-es7  | Start the whole thing, using ES7                           |
@@ -74,7 +74,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | ku-md10 | Start the whole thing, using MariaDB matched to Debian 10  |
 | ku-my8  | Start the whole thing, using latest MySQL with Debian 9    |
 | kp      | Start the whole thing, with mysql persistence              |
-| kup     | Start the env, plugin development set [^1] [^2]                |
+| kup     | Start the env, plugin development set [^1] [^2]            |
 | kk      | Start the whole thing, with kibana                         |
 | kpk     | Start the whole thing, with mysql persistence and kibana   |
 | kd      | Stop the whole thing                                       |
