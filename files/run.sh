@@ -13,8 +13,8 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
 # Clone before calling cp_debian_files.pl
 if [ ${DEBUG_GIT_REPO_MISC4DEV_URL} ]; then
-    rm -rf misc4dev
-    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} misc4dev
+    rm -rf ${BUILD_DIR}/misc4dev
+    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} ${BUILD_DIR}/misc4dev
 fi
 
 # Make sure we use the files from the git clone for creating the instance
@@ -107,8 +107,8 @@ git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
 git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
 
 if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
-    rm -rf qa-test-tools
-    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} qa-test-tools
+    rm -rf ${BUILD_DIR}/qa-test-tools
+    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
 fi
 
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
