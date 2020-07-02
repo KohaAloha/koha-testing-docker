@@ -7,8 +7,8 @@ variables:
     # See https://github.com/docker-library/docker/pull/166
   DOCKER_TLS_CERTDIR: ""
 
-#services:
-#  - docker:18-dind
+services:
+  - docker:dind
 
 stages:
   - build
