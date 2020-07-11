@@ -23,3 +23,14 @@ buster:
   - docker image rm kohaaloha/koha-testing:master-buster
   only:
     - master-ka@mjames/koha-testing-docker
+
+
+ulyana:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-ulyana --no-cache --rm -f dists/ulyana/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-ulyana
+  - docker image rm kohaaloha/koha-testing:master-ulyana
+  only:
+    - master-ka@mjames/koha-testing-docker
