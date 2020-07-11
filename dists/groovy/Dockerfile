@@ -1,8 +1,7 @@
-# Base it on Ubuntu 18.04
-FROM ubuntu:20.04
+FROM ubuntu:20.10
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="mason@kohaaloha.com"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -69,7 +68,9 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main focal" >> /etc/apt/sources.list.d/koha.list
+RUN wget -q -O- https://debian.koha-community.org/koha-staging/gpg.asc | apt-key add -
+RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main groovy" >> /etc/apt/sources.list.d/koha.list
+
 
 # Install koha-common
 RUN apt-get -y update \
