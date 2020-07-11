@@ -18,17 +18,6 @@ ENV REFRESHED_AT 2019-10-01-0
 RUN apt-get -y update \
     && apt-get -y install \
       apache2 \
-      build-essential \
-      codespell \
-      cpanminus \
-      git \
-      tig \
-      pmtools \
-      locales \
-      netcat \
-      python-gdbm \
-      vim \
-      tmux \
       wget \
       curl \
       apt-transport-https \
