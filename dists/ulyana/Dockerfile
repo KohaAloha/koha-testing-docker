@@ -10,17 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
 #RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
-RUN echo '
-deb http://packages.linuxmint.com ulyana main upstream import backport
-
-deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse
-deb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse
-deb http://archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse
-
-deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
-deb http://archive.canonical.com/ubuntu/ focal partner'  >  /etc/apt/sources.list
-
 RUN cat /etc/apt/sources.list
+RUN cat /etc/apt/sources.list.d/official-package-repositories.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
