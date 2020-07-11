@@ -34,3 +34,13 @@ ulyana:
   - docker image rm kohaaloha/koha-testing:master-ulyana
   only:
     - master-ka@mjames/koha-testing-docker
+
+groovy:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-groovy --no-cache --rm -f dists/groovy/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-groovy
+  - docker image rm kohaaloha/koha-testing:master-groovy
+  only:
+    - master-ka@mjames/koha-testing-docker
