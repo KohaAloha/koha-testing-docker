@@ -33,6 +33,18 @@ buster:
   only:
     - master-ka@mjames/koha-testing-docker
 
+
+buster-i386:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-i386 --no-cache --rm -f dists/buster-i386/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-i386
+  - docker image rm kohaaloha/koha-testing:master-buster-i386
+  only:
+    - master-ka@mjames/koha-testing-docker
+
+
 stretch:
   stage: build
   script:
