@@ -1,14 +1,14 @@
 # Base it on Debian 10
-FROM debian:bullseye
+FROM i386/debian:buster-slim
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="mason@kohaaloha.com"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
+RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-05-24-1
 
@@ -74,10 +74,10 @@ RUN a2enmod rewrite \
 
 
 # Add Koha development repositories
-RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main bullseye" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Add repository key
-#RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 RUN apt-get -y update
 
