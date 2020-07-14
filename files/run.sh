@@ -11,6 +11,11 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Set a fixed hostname
+echo "kohadevbox" > /etc/hostname
+echo "127.0.0.1 kohadevbox" >> /etc/hosts
+hostname kohadevbox
+
 # Clone before calling cp_debian_files.pl
 if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/misc4dev
