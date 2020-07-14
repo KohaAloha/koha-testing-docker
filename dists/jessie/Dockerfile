@@ -7,6 +7,9 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
+
+RUN ulimit -n 65536
+
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian jessie main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list
