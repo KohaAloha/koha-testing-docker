@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:buster
+FROM debian:buster-slim
 
 # File Author / Maintainer
 LABEL maintainer="mason@kohaaloha.com"

@@ -2,6 +2,8 @@
 
 set -e
 
+ulimit -n 65536
+
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
 
