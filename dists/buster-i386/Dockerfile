@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM i386:debian
+FROM i386/debian:latest
 
 # File Author / Maintainer
 LABEL maintainer="mason@kohaaloha.com"
