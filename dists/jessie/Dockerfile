@@ -1,5 +1,5 @@
 # Base it on Debian 8
-FROM debian:jessie
+FROM debian:jessie-slim
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
