@@ -71,7 +71,7 @@ alias reset_all_unimarc='reset_all "unimarc"';
 
 alias start_plack_debug='sudo koha-plack --start \
                                          --debugger \
-                                         --debugger-path "${REMOTE_DEBUGGER_DIR}/${REMOTE_DEBUGGER_PACKAGE}" \
+                                         --debugger-path "/kohadevbox/dbgp" \
                                          --debugger-location "${REMOTE_DEBUGGER_LOCATION}" \
                                          --debugger-key "${REMOTE_DEBUGGER_KEY}" \
                                          ${KOHA_INSTANCE}'
