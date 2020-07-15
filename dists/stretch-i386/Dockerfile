@@ -1,5 +1,5 @@
 # Base it on Debian 9
-FROM debian:stretch-slim
+FROM i386/debian:stretch-slim
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
