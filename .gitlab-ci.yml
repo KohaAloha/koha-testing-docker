@@ -55,6 +55,25 @@ stretch:
   only:
     - master-ka@mjames/koha-testing-docker
 
+stretch-i386:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-stretch-i386 --no-cache --rm -f dists/stretch/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-stretch-i386
+  - docker image rm kohaaloha/koha-testing:master-stretch-i386
+  only:
+    - master-ka@mjames/koha-testing-docker
+
+
+
+
+
+
+
+
+
+
 jessie:
   stage: build
   script:
