@@ -29,13 +29,12 @@ buster:
   - apt update
   - apt-get install -yq docker-compose  docker-ce-cli 
   - export UNAME=kohadev
-  - export UID=1000
-  - export GID=1000
-  - groupadd -g $GID -o $UNAME
-  - useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+#  - export UID=1000
+#  - export GID=1000
+  - groupadd -g 1000 -o $UNAME
+  - useradd -m -u 1000 -g 1000 -o -s /bin/bash $UNAME
   - export USER $UNAME
-#  - export LOCAL_USER_ID=$(id -u)
-  - export LOCAL_USER_ID=1000
+  - export LOCAL_USER_ID=$(id -u)
   - su -l koha-dev
   - export
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
