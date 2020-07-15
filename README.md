@@ -161,8 +161,8 @@ The IP address of the web server in your docker group will be variable. Once you
 $ip a
 ```
 should display the IP address of the webserver. At this point the web interface of Koha can be accessed by going to
-http://<the displayed IP>:9080 for the OPAC
-http://<the displayed IP>:9081 for the Staff interface.
+http://<the displayed IP>:8080 for the OPAC
+http://<the displayed IP>:8081 for the Staff interface.
 
 ## Available commands and aliases
 
