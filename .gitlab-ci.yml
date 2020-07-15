@@ -21,6 +21,8 @@ buster:
   - export COVERAGE=$COVERAGE
   - export KOHA_IMAGE="master-stretch"
   - export KOHA_BRANCH="20.05"
+  - apt update
+  - apt install git
   - git clone fetch https://gitlab.com/mjames/koha-dev.git --depth=1 
   - rm -rf cover_db
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
