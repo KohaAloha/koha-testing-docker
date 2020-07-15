@@ -32,6 +32,5 @@ buster:
   - cp env/defaults.env .env
   - docker-compose pull
   - docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
-  - docker-compose down
   only:
     - master-ka2@mjames/koha-testing-docker
