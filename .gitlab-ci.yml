@@ -23,7 +23,6 @@ buster:
   - export KOHA_BRANCH="20.05"
   - git clone fetch https://gitlab.com/mjames/koha-dev.git --depth=1 
   - rm -rf cover_db
-  - # Fetch docker-compose.yml until it is included on the source tree
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
   - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
   - mkdir -p env
