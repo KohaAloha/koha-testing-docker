@@ -1,5 +1,4 @@
 image: docker:stable
-#image: docker:18-git
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -11,127 +10,51 @@ services:
   - docker:dind
 
 stages:
-  - build
-
-bullseye:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-bullseye --no-cache --rm -f dists/bullseye/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-bullseye
-  - docker image rm kohaaloha/koha-testing:master-bullseye
-  only:
-    - master-ka@mjames/koha-testing-docker
+#  - build
+  - test
+#  - deploy
 
 buster:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:master-buster2 --no-cache --rm -f dists/buster/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster
-  - docker image rm kohaaloha/koha-testing:master-buster
+  - docker push kohaaloha/koha-testing:master-buster2
+  - docker image rm kohaaloha/koha-testing:master-buster2
   only:
-    - master-ka@mjames/koha-testing-docker
+    - master-ka2@mjames/koha-testing-docker
 
-
-buster-i386:
-  stage: build
+buster:
+  image: kohaaloha/koha-testing:master-buster
+  stage: test
   script:
-  - docker build -t kohaaloha/koha-testing:master-buster-i386 --no-cache --rm -f dists/buster-i386/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster-i386
-  - docker image rm kohaaloha/koha-testing:master-buster-i386
+    - export RUN_TESTS_AND_EXIT="yes"
+    - export SYNC_REPO=./koha-dev.git
+    - export LOCAL_USER_ID=$(id -u)
+    - export COVERAGE=$COVERAGE
+    - export KOHA_IMAGE="master-stretch"
+    - export KOHA_BRANCH="20.05"
+    - git clone fetch https://gitlab.com/mjames/koha-dev.git --depth=1 
+    - rm -rf cover_db
+    - # Fetch docker-compose.yml until it is included on the source tree
+    - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
+    - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
+    - mkdir -p env
+    - wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env
+    - cp env/defaults.env .env
+#    - docker system prune -a -f
+    # Pull the latest image
+    - docker-compose pull
+    # Run tests
+    - docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
+    # Post cleanup
+    - docker-compose down
+#    - docker rm $(docker ps -a -f "name=koha_" -q)
+#    - docker volume prune -f
+#    - docker image  prune -f
+#    - rm docker-compose.yml
+#    - rm docker-compose.mariadb_d9.yml
+#    - rm -rf env .env
+
   only:
-    - master-ka@mjames/koha-testing-docker
-
-
-stretch:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-stretch
-  - docker image rm kohaaloha/koha-testing:master-stretch
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-stretch-i386:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-stretch-i386 --no-cache --rm -f dists/stretch/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-stretch-i386
-  - docker image rm kohaaloha/koha-testing:master-stretch-i386
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-
-
-
-
-
-
-
-
-
-jessie:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-jessie
-  - docker image rm kohaaloha/koha-testing:master-jessie
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-xenial:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-xenial --no-cache --rm -f dists/xenial/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-xenial
-  - docker image rm kohaaloha/koha-testing:master-xenial
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-bionic:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-bionic --no-cache --rm -f dists/bionic/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-bionic
-  - docker image rm kohaaloha/koha-testing:master-bionic
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-focal:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-focal --no-cache --rm -f dists/focal/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-focal
-  - docker image rm kohaaloha/koha-testing:master-focal
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-groovy:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-groovy --no-cache --rm -f dists/groovy/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-groovy
-  - docker image rm kohaaloha/koha-testing:master-groovy
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-ulyana:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-ulyana --no-cache --rm -f dists/ulyana/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-ulyana
-  - docker image rm kohaaloha/koha-testing:master-ulyana
-  only:
-    - master-ka@mjames/koha-testing-docker
-
-
+    - master-ka2@mjames/koha-testing-docker
