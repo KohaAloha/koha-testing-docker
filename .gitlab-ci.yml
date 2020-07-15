@@ -30,7 +30,7 @@ buster:
   - apt-get install -yq docker-compose  docker-ce-cli 
   - groupadd -g 1000 -o kohadev
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
-  - su -l koha-dev
+  - su -l kohadev
   - export LOCAL_USER_ID=$(id -u)
   - export
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
