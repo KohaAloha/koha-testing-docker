@@ -22,7 +22,7 @@ buster:
   - export COVERAGE=$COVERAGE
   - export KOHA_IMAGE="master-buster"
   - export KOHA_BRANCH="20.05"
-  - echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' >  sources.list.d/docker.list
+  - echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' >  /etc/apt/sources.list.d/docker.list
   - apt update
   - apt-get install -yq git docker-compose  docker-ce-cli
   - git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
