@@ -28,33 +28,23 @@ buster:
 
   stage: test
   script:
-    - export RUN_TESTS_AND_EXIT="yes"
-    - export SYNC_REPO=./koha-dev.git
-    - export LOCAL_USER_ID=$(id -u)
-    - export COVERAGE=$COVERAGE
-    - export KOHA_IMAGE="master-stretch"
-    - export KOHA_BRANCH="20.05"
-    - git clone fetch https://gitlab.com/mjames/koha-dev.git --depth=1 
-    - rm -rf cover_db
-    - # Fetch docker-compose.yml until it is included on the source tree
-    - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
-    - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
-    - mkdir -p env
-    - wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env
-    - cp env/defaults.env .env
-#    - docker system prune -a -f
-    # Pull the latest image
-    - docker-compose pull
-    # Run tests
-    - docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
-    # Post cleanup
-    - docker-compose down
-#    - docker rm $(docker ps -a -f "name=koha_" -q)
-#    - docker volume prune -f
-#    - docker image  prune -f
-#    - rm docker-compose.yml
-#    - rm docker-compose.mariadb_d9.yml
-#    - rm -rf env .env
+  - export RUN_TESTS_AND_EXIT="yes"
+  - export SYNC_REPO=./koha-dev.git
+  - export LOCAL_USER_ID=$(id -u)
+  - export COVERAGE=$COVERAGE
+  - export KOHA_IMAGE="master-stretch"
+  - export KOHA_BRANCH="20.05"
+  - git clone fetch https://gitlab.com/mjames/koha-dev.git --depth=1 
+  - rm -rf cover_db
+  - # Fetch docker-compose.yml until it is included on the source tree
+  - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
+  - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
+  - mkdir -p env
+  - wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env
+  - cp env/defaults.env .env
+  - docker-compose pull
+  - docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
+  - docker-compose down
 
   only:
     - master-ka2@mjames/koha-testing-docker
