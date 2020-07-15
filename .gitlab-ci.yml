@@ -28,7 +28,7 @@ buster:
   - echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' >  /etc/apt/sources.list.d/docker.list
   - apt update
   - apt-get install -yq docker-compose  docker-ce-cli 
-  - export UNAME=testuser
+  - export UNAME=kohadev
   - export UID=1000
   - export GID=1000
   - groupadd -g $GID -o $UNAME
@@ -36,7 +36,8 @@ buster:
   - export USER $UNAME
 #  - export LOCAL_USER_ID=$(id -u)
   - export LOCAL_USER_ID=1000
-  - su -l mason
+  - su -l koha-dev
+  - export
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
   - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
