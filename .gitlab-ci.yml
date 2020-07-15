@@ -17,7 +17,7 @@ buster:
   stage: test
   script:
   - export RUN_TESTS_AND_EXIT="yes"
-  - export SYNC_REPO=./koha-dev.git
+  - export SYNC_REPO=./koha-dev
   - export LOCAL_USER_ID=$(id -u)
   - export COVERAGE=$COVERAGE
   - export KOHA_IMAGE="master-buster"
