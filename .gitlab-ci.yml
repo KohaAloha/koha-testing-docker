@@ -35,7 +35,7 @@ buster:
   - mkdir -p env
   - wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env
   - cp env/defaults.env .env
-  - docker-compose pull
+  - docker-compose --verbose pull
   - docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
   only:
     - master-ka2@mjames/koha-testing-docker
