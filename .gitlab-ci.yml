@@ -1,4 +1,4 @@
-image: docker:stable
+image: kohaaloha/koha-testing:master-buster
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -10,22 +10,9 @@ services:
   - docker:dind
 
 stages:
-#  - build
   - test
-#  - deploy
-
-image: kohaaloha/koha-testing:master-buster
 
 buster:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-buster2 --no-cache --rm -f dists/buster/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster2
-  - docker image rm kohaaloha/koha-testing:master-buster2
-  only:
-    - master-ka2@mjames/koha-testing-docker
-
   stage: test
   script:
   - export RUN_TESTS_AND_EXIT="yes"
