@@ -14,6 +14,8 @@ stages:
   - test
 #  - deploy
 
+image: kohaaloha/koha-testing:master-buster
+
 buster:
   stage: build
   script:
@@ -24,8 +26,6 @@ buster:
   only:
     - master-ka2@mjames/koha-testing-docker
 
-buster:
-  image: kohaaloha/koha-testing:master-buster
   stage: test
   script:
     - export RUN_TESTS_AND_EXIT="yes"
