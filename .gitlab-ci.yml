@@ -24,6 +24,8 @@ buster:
 #  - export
   - id -u
   - id -g
+  - cat /etc/passwd
+  - cat /etc/group
   - apt update
   - apt-get install -yq git wget gnupg2
   - wget -q -O- https://download.docker.com/linux/debian/gpg | apt-key add - 
