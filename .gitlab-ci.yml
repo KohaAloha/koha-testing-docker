@@ -22,6 +22,8 @@ buster:
   - export KOHA_IMAGE="master-buster"
   - export KOHA_BRANCH="20.05"
   - export
+  - id -u
+  - id -g
   - apt update
   - apt-get install -yq git wget gnupg2
   - wget -q -O- https://download.docker.com/linux/debian/gpg | apt-key add - 
@@ -33,6 +35,8 @@ buster:
   - su -l kohadev
   - export LOCAL_USER_ID=$(id -u)
   - export
+  - id -u
+  - id -g
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
   - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
