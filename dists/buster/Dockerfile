@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:buster-slim
+FROM debian:buster
 
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
@@ -154,7 +154,7 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
-VOLUME /kohadevbox/koha
+#VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
