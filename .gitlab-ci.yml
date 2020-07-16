@@ -26,11 +26,11 @@ buster:
   - id -g
   - cat /etc/passwd
   - cat /etc/group
-  - apt update
+  - apt-get update -q
   - apt-get install -yq git wget gnupg2
   - wget -q -O- https://download.docker.com/linux/debian/gpg | apt-key add - 
   - echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' >  /etc/apt/sources.list.d/docker.list
-  - apt update
+  - apt-get update -q
   - apt-get install -yq docker-compose  docker-ce-cli 
   - groupadd -g 1000 -o kohadev
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
