@@ -1,6 +1,6 @@
-#image: docker:stable
+image: docker:stable
 #image: docker:19.03.0-dind
-image: docker:stable-dind-rootless
+#image: docker:stable-dind-rootless
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
