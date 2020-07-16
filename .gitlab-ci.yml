@@ -28,13 +28,14 @@ buster:
   - cat /etc/group
   - apt-get update -q2
   - apt-get install -y -q2 git wget gnupg2
-  - wget -q -O- https://download.docker.com/linux/debian/gpg | apt-key add - 
+  - wget -q -O- https://download.docker.com/linux/debian/gpg | apt-key add -
   - echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' >  /etc/apt/sources.list.d/docker.list
   - apt-get update -q2
-  - apt-get install -y -q2 docker-compose  docker-ce-cli 
+  - apt-get install -y -q2 docker-compose  docker-ce-cli
   - groupadd -g 1000 -o kohadev
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
   - whoami
+  - su kohadev -c "whoami"
   - su - kohadev
   - whoami
   - export LOCAL_USER_ID=$(id -u)
@@ -43,7 +44,7 @@ buster:
   - id -g
   - cat /etc/passwd
   - cat /etc/group
-  - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
+  - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
   - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
   - mkdir -p env
