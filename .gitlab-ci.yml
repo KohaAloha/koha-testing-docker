@@ -17,7 +17,7 @@ services:
 #  - docker:dind
 
 before_script:
-  - docker info
+#  - docker info
   - whoami
 
 stages:
