@@ -1,6 +1,5 @@
-#image: docker:stable
+image: docker:stable
 #image: docker:19.03.0-dind
-image: docker:stable-dind-rootless
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -14,8 +13,7 @@ services:
 #  - docker:stable-dind
 #  - docker:stable-dind-rootless
 #  - docker:19.03.0-dind
-#  - docker:dind
-  - docker:dind-rootless
+  - docker:dind
 
 before_script:
 #  - docker info
