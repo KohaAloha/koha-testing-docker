@@ -18,6 +18,7 @@ services:
 
 before_script:
   - docker info
+  - whoami
 
 stages:
   - build
