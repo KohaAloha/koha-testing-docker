@@ -31,3 +31,4 @@ buster:
   - docker image rm kohaaloha/koha-testing:master-buster
   only:
     - dind-ka@mjames/koha-testing-docker
+  allow_failure: true
