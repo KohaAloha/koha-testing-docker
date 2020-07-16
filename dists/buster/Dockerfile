@@ -160,6 +160,10 @@ COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
+#RUN ["useradd", "kohadev"]
+#USER "kohadev"
+#CMD ["/bin/bash"]
+
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
 EXPOSE 8080 8081
