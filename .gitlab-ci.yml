@@ -6,11 +6,15 @@ variables:
   DOCKER_DRIVER: overlay2
     # See https://github.com/docker-library/docker/pull/166
   DOCKER_TLS_CERTDIR: ""
+#  DOCKER_TLS_CERTDIR: "/certs"
+
 
 services:
   - docker:19.03.0-dind
 #  - docker:dind
 
+before_script:
+  - docker info
 
 stages:
   - build
