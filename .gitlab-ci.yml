@@ -21,7 +21,7 @@ buster:
   - export COVERAGE=$COVERAGE
   - export KOHA_IMAGE="master-buster"
   - export KOHA_BRANCH="20.05"
-  - export
+#  - export
   - id -u
   - id -g
   - apt update
@@ -34,7 +34,7 @@ buster:
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
   - su -l kohadev
   - export LOCAL_USER_ID=$(id -u)
-  - export
+#  - export
   - id -u
   - id -g
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
