@@ -17,7 +17,7 @@ buster:
   stage: test
   script:
   - export RUN_TESTS_AND_EXIT="yes"
-  - export SYNC_REPO=./koha-dev
+  - export SYNC_REPO=/home/kohadev/koha-dev
   - export COVERAGE=$COVERAGE
   - export KOHA_IMAGE="master-buster"
   - export KOHA_BRANCH="20.05"
@@ -44,14 +44,16 @@ buster:
   - id -g
   - cat /etc/passwd
   - cat /etc/group
-  - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1
-  - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
-  - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
-  - mkdir -p env
-  - wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env
-  - cp env/defaults.env .env
-  - time docker-compose pull
-  - time docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
+  - mkdir /home/kohadev && chown kohadev /home/kohadev
+  - su kohadev -c "cd /home/kohadev"
+  - su kohadev -c "time git clone https://gitlab.com/mjames/koha-dev.git --depth=1"
+  - su kohadev -c "wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml"
+  - su kohadev -c "wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
+  - su kohadev -c "mkdir -p env"
+  - su kohadev -c "wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env"
+  - su kohadev -c "cp env/defaults.env .env"
+  - su kohadev -c "time docker-compose pull"
+  - su kohadev -c "time docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate"
   only:
     - master-ka2@mjames/koha-testing-docker
   allow_failure: true
