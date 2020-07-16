@@ -21,4 +21,4 @@ buster:
   - docker push kohaaloha/koha-testing:master-buster
   - docker image rm kohaaloha/koha-testing:master-buster
   only:
-    - master-ka@mjames/koha-testing-docker
+    - dind-ka@mjames/koha-testing-docker
