@@ -1,4 +1,4 @@
-image: debian:buster
+image: debian:buster-slim
 #image: kohaaloha/koha-testing:master-buster
 
 variables:
