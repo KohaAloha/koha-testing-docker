@@ -48,7 +48,7 @@ buster:
   - su kohadev -c "cd /home/kohadev"
   - su kohadev -c "time git clone https://gitlab.com/mjames/koha-dev.git --depth=1"
   - su kohadev -c "wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml"
-  - su kohadev -c "wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
+  - su kohadev -c "wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml"
   - su kohadev -c "mkdir -p env"
   - su kohadev -c "wget -O env/defaults.env   https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/env/defaults.env"
   - su kohadev -c "cp env/defaults.env .env"
