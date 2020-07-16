@@ -1,5 +1,5 @@
-image: docker:stable
-#image: docker:18-git
+#image: docker:stable
+image: docker:19.03.0
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -8,7 +8,9 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 services:
-  - docker:dind
+  - docker:19.03.0-dind
+#  - docker:dind
+
 
 stages:
   - build
