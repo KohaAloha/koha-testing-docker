@@ -34,7 +34,9 @@ buster:
   - apt-get install -y -q2 docker-compose  docker-ce-cli 
   - groupadd -g 1000 -o kohadev
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
-  - su -l kohadev
+  - whoami
+  - su - kohadev
+  - whoami
   - export LOCAL_USER_ID=$(id -u)
 #  - export
   - id -u
