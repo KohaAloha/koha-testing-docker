@@ -39,6 +39,8 @@ buster:
 #  - export
   - id -u
   - id -g
+  - cat /etc/passwd
+  - cat /etc/group
   - time git clone https://gitlab.com/mjames/koha-dev.git --depth=1 
   - wget -O docker-compose.yml https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.yml
   - wget -O docker-compose.mariadb_d9.yml    https://gitlab.com/mjames/koha-testing-docker/-/raw/master-ka/docker-compose.mariadb_d10.yml
