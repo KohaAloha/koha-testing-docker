@@ -34,6 +34,7 @@ buster:
   - apt-get install -y -q2 docker-compose  docker-ce-cli
   - groupadd -g 1000 -o kohadev
   - useradd -m -u 1000 -g 1000 -o -s /bin/bash kohadev
+  - usermod -aG docker kohadev
   - whoami
   - su kohadev -c "whoami"
   - su - kohadev
