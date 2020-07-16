@@ -14,7 +14,7 @@ services:
 #  - docker:stable-dind
 #  - docker:stable-dind-rootless
 #  - docker:19.03.0-dind
-#  - docker:dind
+  - docker:dind
 
 before_script:
 #  - docker info
