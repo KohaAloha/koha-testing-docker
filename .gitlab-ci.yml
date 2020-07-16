@@ -26,10 +26,10 @@ stages:
 buster:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:dind1  --no-cache --rm -f dists/buster/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster
-  - docker image rm kohaaloha/koha-testing:master-buster
+  - docker push kohaaloha/koha-testing:dind1
+  - docker image rm kohaaloha/koha-testing:dind1
   only:
     - dind-ka@mjames/koha-testing-docker
   allow_failure: true
