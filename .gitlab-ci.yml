@@ -38,4 +38,4 @@ buster:
   - time docker-compose pull
   - time docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --abort-on-container-exit --no-color --force-recreate
   only:
-    - master-ka2@mjames/koha-testing-docker
+    - master-ka-user@mjames/koha-testing-docker
