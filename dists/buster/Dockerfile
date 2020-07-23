@@ -23,18 +23,18 @@ RUN apt-get -y update \
       cpanminus \
       git \
       tig \
-      libcarp-always-perl \     # for devs
-      libgit-repository-perl \  # misc4dev
-      liblist-compare-perl \    # qa-test-tools
-      libmemcached-tools \      # memcached tools
-      libmodule-install-perl \  #
-      libperl-critic-perl \     # qa-test-tools
-      libsmart-comments-perl \  # qa-test-tools
-      libtest-differences-perl \# qa-test-tools
-      libtest-perl-critic-perl \# qa-test-tools
-      libfile-chdir-perl \      # qa-test-tools
-      libdata-printer-perl \    # for devs
-      pmtools \                 # for devs
+      libcarp-always-perl \
+      libgit-repository-perl \
+      liblist-compare-perl \
+      libmemcached-tools \
+      libmodule-install-perl \
+      libperl-critic-perl \
+      libsmart-comments-perl \
+      libtest-differences-perl \
+      libtest-perl-critic-perl \
+      libfile-chdir-perl \
+      libdata-printer-perl \
+      pmtools \
       locales \
       netcat \
       python-gdbm \

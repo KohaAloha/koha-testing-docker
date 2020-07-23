@@ -20,19 +20,14 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
-      libdatetimex-easy-perl \
-      libdbd-sqlite2-perl \
-      libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
-      libmoo-perl \
       libperl-critic-perl \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
       libfile-chdir-perl \
       libdata-printer-perl \
       pmtools \
