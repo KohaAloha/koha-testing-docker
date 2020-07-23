@@ -35,7 +35,6 @@ RUN apt-get -y update \
       libtest-perl-critic-perl \
       libfile-chdir-perl \
       libdata-printer-perl \
-      pmtools \
       locales \
       netcat \
       python-gdbm \
