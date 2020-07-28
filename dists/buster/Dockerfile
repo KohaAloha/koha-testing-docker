@@ -32,6 +32,7 @@ RUN apt-get -y update \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
+      libtest-perl-critic-progressive-perl \
       libfile-chdir-perl \
       libdata-printer-perl \
       pmtools \
