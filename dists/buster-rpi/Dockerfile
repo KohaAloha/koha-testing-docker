@@ -14,6 +14,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV REFRESHED_AT 2019-10-01-0
 
+RUN echo 'APT::Get::AllowUnauthenticated "1";' >>  /etc/apt/apt.conf
+
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
