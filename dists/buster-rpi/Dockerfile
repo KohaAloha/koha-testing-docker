@@ -20,6 +20,7 @@ RUN echo 'APT::Get::AllowUnauthenticated "1";' >>  /etc/apt/apt.conf
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
+    && apt-get -y upgrade \
     && apt-get -y install \
       apache2 \
       build-essential \
