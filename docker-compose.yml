@@ -24,7 +24,7 @@ services:
         networks:
             - kohanet
     koha:
-        image: kohakoha/koha-testing:${KOHA_IMAGE}
+        image: koha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
             - es
