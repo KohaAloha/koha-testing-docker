@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:buster-slim
+FROM kohaaloha/raspbian:buster-slim
 
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
