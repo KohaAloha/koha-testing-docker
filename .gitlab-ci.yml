@@ -91,3 +91,16 @@ groovy:
   - docker image rm koha/koha-testing:master-groovy
   only:
     - master@koha-community/koha-testing-docker
+
+
+buster-rpi:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-rpi --no-cache --rm -f dists/buster-rpi/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-rpi
+  - docker image rm kohaaloha/koha-testing:master-buster-rpi
+#  only:
+#    - master@koha-community/koha-testing-docker
+
+

@@ -1,15 +1,16 @@
 # Base it on Debian 10
-FROM debian:buster
+#FROM debian:buster
+FROM kohaaloha/raspbian:buster-slim
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="mason james"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
+#RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
+#RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-10-01-0
 
