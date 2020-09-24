@@ -18,6 +18,7 @@ ENV REFRESHED_AT 2019-10-01-0
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
     && apt-get -y install \
+      debian-keyring \
       apache2 \
       build-essential \
       codespell \
