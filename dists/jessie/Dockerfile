@@ -49,7 +49,7 @@ RUN apt-get -y update \
 
 # Temporary dependencies
 RUN apt-get -y install \
-      libplack-middleware-logwarn-perl
+      libplack-middleware-logwarn-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
