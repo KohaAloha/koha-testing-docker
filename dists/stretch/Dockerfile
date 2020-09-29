@@ -48,6 +48,12 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
+# Temporary dependencies
+RUN apt-get -y install \
+      libplack-middleware-logwarn-perl
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
+
 # Set locales
 RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
