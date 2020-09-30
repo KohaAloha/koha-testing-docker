@@ -48,6 +48,7 @@ RUN apt-get -y update \
 RUN apt-get -y update \
     && apt-get -y install \
       libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
