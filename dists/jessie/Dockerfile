@@ -47,14 +47,6 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
-# Temporary dependencies
-RUN apt-get -y update \
-    && apt-get -y install \
-      libplack-middleware-logwarn-perl \
-      libemail-stuffer-perl \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
-
 # Set locales
 RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -77,6 +69,14 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main jessie" >> /etc/apt/sources.list.d/koha.list
+
+# Temporary dependencies
+RUN apt-get -y update \
+    && apt-get -y install \
+      libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
 
 # Install koha-common
 RUN apt-get -y update \
