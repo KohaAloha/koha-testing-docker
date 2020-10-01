@@ -42,16 +42,6 @@ stretch:
   only:
     - master@koha-community/koha-testing-docker
 
-jessie:
-  stage: build
-  script:
-  - docker build -t koha/koha-testing:master-jessie --no-cache --rm -f dists/jessie/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:master-jessie
-  - docker image rm koha/koha-testing:master-jessie
-  only:
-    - master@koha-community/koha-testing-docker
-
 xenial:
   stage: build
   script:
