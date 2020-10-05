@@ -7,7 +7,7 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV REFRESHED_AT 2020-06-06-1
+ENV REFRESHED_AT 2020-10-05-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -70,11 +70,25 @@ RUN a2enmod rewrite \
 
 # Add Koha 19.11 repository
 RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha-staging 19.11 main xenial" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 19.11 main xenial" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
-   && apt-get -y install koha-common \
+   && apt-get -y install \
+         koha-common \
+         libnet-oauth2-authorizationserver-perl \
+         libcatmandu-marc-perl \
+         libcatmandu-store-elasticsearch-perl \
+         libwww-youtube-download-perl \
+         libtest-mocktime-perl \
+         libintl-perl \
+         libppi-perl \
+         libnet-z3950-simpleserver-perl \
+         libnet-netmask-perl \
+         libarray-utils-perl \
+         libcache-memcached-fast-safe-perl \
+         libcpan-meta-perl \
+         libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
