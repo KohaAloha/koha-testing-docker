@@ -109,10 +109,10 @@ RUN cpanm -i --force \
        Selenium::Remote::Driver
 
 # Install catmandu extras
-RUN cpanm -i --force \
-    Ref/Util.pm \
-    YAML/XS.pm \
-    Cpanel/JSON/XS.pm
+#RUN cpanm -i --force \
+#    Ref/Util.pm \
+#    YAML/XS.pm \
+#    Cpanel/JSON/XS.pm
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
