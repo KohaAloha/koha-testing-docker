@@ -108,6 +108,12 @@ RUN cpanm -i --force \
        WebService::ILS \
        Selenium::Remote::Driver
 
+# Install catmandu extras
+RUN cpanm -i --force \
+    Ref/Util.pm \
+    YAML/XS.pm \
+    Cpanel/JSON/XS.pm
+
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
        http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
