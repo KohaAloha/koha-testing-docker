@@ -141,15 +141,14 @@ service apache2 stop
 
 chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
 
-# Configure and start koha-plack
-koha-plack --enable ${KOHA_INSTANCE} 
-koha-plack --start ${KOHA_INSTANCE} 
-# Start Zebra and the Indexer
-koha-zebra --start ${KOHA_INSTANCE} 
-koha-indexer --start ${KOHA_INSTANCE}
+# Enable and start koha-plack and koha-z3950-responder
+koha-plack           --enable ${KOHA_INSTANCE}
+koha-z3950-responder --enable ${KOHA_INSTANCE}
+service koha-common restart
 
-# Start apache
+# Start apache and rabbitmq-server
 service apache2 start
+service rabbitmq-server start
 
 # if KOHA_PROVE_CPUS is not set, then use nproc
 if [ -z ${KOHA_PROVE_CPUS} ]; then
