@@ -144,7 +144,7 @@ chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INS
 # Enable and start koha-plack and koha-z3950-responder
 koha-plack           --enable ${KOHA_INSTANCE}
 koha-z3950-responder --enable ${KOHA_INSTANCE}
-service koha-common restart
+service koha-common start
 
 # Start apache and rabbitmq-server
 service apache2 start
