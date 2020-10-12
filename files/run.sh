@@ -11,6 +11,17 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Make sure SYNC_REPO is correctly set
+if [ ! -n "$SYNC_REPO" ]; then
+    echo "The environment variable SYNC_REPO is not defined."
+    exit 1
+fi
+
+if [ ! -d "$SYNC_REPO" ]; then
+    echo "The environment variable SYNC_REPO is not set to an existing directory"
+    exit 1
+fi
+
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 echo "127.0.0.1 kohadevbox" >> /etc/hosts
