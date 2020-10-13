@@ -36,3 +36,16 @@ export PERL5LIB="/kohadevbox/koha:/kohadevbox/qa-test-tools"
 export TEST_QA=1
 
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$(__git_ps1 "\[\e[1;33m\](%s)\[\e[0m\]")$ '
+
+# function for restarting all needed services
+function restart_all(){
+    flush_memcached
+    sudo service apache2 restart
+    chown -R ${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha /var/log/koha/${KOHA_INSTANCE};
+    sudo service koha-common restart
+}
+
+# function for running updatedatabase.pl
+function updatedatabase(){
+    sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'
+}

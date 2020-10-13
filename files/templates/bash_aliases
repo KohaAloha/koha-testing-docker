@@ -19,12 +19,6 @@ alias less-opac="lessc --clean-css='--s0 --advanced --compatibility=ie7' \
                     /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/less/opac.less \
                   > /kohadevbox/koha/koha-tmpl/opac-tmpl/bootstrap/css/opac.css"
 
-# Alias for restarting all needed services
-alias restart_all="flush_memcached ; sudo service apache2 restart ; chown -R ${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha /var/log/koha/${KOHA_INSTANCE}; sudo service koha-common restart"
-
-# Alias for running updatedatabase.pl
-alias updatedatabase="sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'"
-
 # Alias for running cp_debian_files.pl
 alias cp_debian_files="sudo perl /kohadevbox/misc4dev/cp_debian_files.pl --instance=${KOHA_INSTANCE} --koha_dir=/kohadevbox/koha --gitify_dir=/kohadevbox/gitify"
 
