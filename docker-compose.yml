@@ -44,6 +44,7 @@ services:
             CPAN: ${CPAN}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
+            SYNC_REPO: ${SYNC_REPO}
         ulimits:
             nofile:
                 soft: 65536
