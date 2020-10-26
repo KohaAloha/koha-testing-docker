@@ -100,6 +100,7 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 RUN export PATH=$PATH:/usr/local/bin
+RUN ls -l /usr/local/bin/cover
 RUN which cover
 
 #RUN cpanm -i --force \
