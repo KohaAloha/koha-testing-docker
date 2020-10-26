@@ -99,7 +99,7 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 #RUN cpanm -i --force \
-RUN cpanm -i \
+RUN cpanm -i -v \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
