@@ -130,7 +130,7 @@ RUN wget -O Devel-Cover.tar.gz \
 RUN cp /usr/local/bin/cover /usr/bin
 
 #RUN cpanm -i -v --force \
-RUN cpanm -i -v \
+RUN cpanm -i -v -n \
        Devel::Cover::Report::Clover
 
 ## Add Yarn
