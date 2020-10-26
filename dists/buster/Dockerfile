@@ -96,6 +96,7 @@ RUN apt-get -y update \
          libexpat1-dev \
          libemail-stuffer-perl \
          libb-debug-perl \
+         libyaml-syck-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
