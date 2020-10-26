@@ -97,6 +97,7 @@ RUN apt-get -y update \
          libemail-stuffer-perl \
          libb-debug-perl \
          libyaml-syck-perl \
+         libdbd-sqlite \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -109,7 +110,6 @@ RUN apt-get -y update \
 RUN cpanm -i -n --force \
        Email::Stuffer \
        DBIx::RunSQL \
-       DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
        Test::DBIx::Class \
