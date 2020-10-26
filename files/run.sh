@@ -136,6 +136,8 @@ apt-cache policy libemail-stuffer-perl
 pmvers DBIx::RunSQL
 pmvers Email::Stuffer
 
+dpkg -l
+
 figlet ka
 
 
@@ -218,5 +220,5 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     fi
 else
     # TODO: We could use supervise as the main loop
-###    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 fi

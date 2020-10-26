@@ -104,8 +104,8 @@ RUN apt-get -y update \
 #RUN ls -l /usr/local/bin/cover
 #RUN which cover
 
-#RUN cpanm -i --force \
-RUN cpanm -i -n \
+#RUN cpanm -i -n \
+RUN cpanm -i --force \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
