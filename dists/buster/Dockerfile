@@ -99,6 +99,7 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
+#ENV PATH=$PATH:/usr/local/bin
 RUN export PATH=$PATH:/usr/local/bin
 RUN ls -l /usr/local/bin/cover
 RUN which cover
