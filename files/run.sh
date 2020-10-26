@@ -136,7 +136,7 @@ apt-cache policy libemail-stuffer-perl
 pmvers DBIx::RunSQL
 pmvers Email::Stuffer
 
-figet ka
+figlet ka
 
 
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
