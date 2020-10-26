@@ -121,7 +121,7 @@ if [ -n "$KOHA_ELASTICSEARCH" ]; then
 fi
 
 
-apt install pmtools figlet
+apt-get -y install pmtools figlet
 pmvers DBIx::RunSQL
 
 apt-cache policy libdbix-runsql-perl
