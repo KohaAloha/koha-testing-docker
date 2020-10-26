@@ -99,7 +99,7 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 #RUN cpanm -i --force \
-RUN cpanm -i -v \
+RUN cpanm -i \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
@@ -108,10 +108,11 @@ RUN cpanm -i -v \
        Test::DBIx::Class \
        TAP::Harness::JUnit \
        Text::CSV::Unicode \
-       Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver
 
+RUN cpanm -i -v --force \
+       Devel::Cover::Report::Clover
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
