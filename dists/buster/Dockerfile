@@ -2,7 +2,7 @@
 FROM debian:buster
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+#LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -94,10 +94,13 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
+         pmtools \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
 RUN cpanm -i --force \
+       Email::Stuffer \
+       DBIx::RunSQL \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -107,6 +110,7 @@ RUN cpanm -i --force \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver
+
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \

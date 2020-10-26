@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -e
 
@@ -119,6 +119,24 @@ fi
 if [ -n "$KOHA_ELASTICSEARCH" ]; then
     ES_FLAG="--elasticsearch"
 fi
+
+
+apt install pmtools figlet
+pmvers DBIx::RunSQL
+
+apt-cache policy libdbix-runsql-perl
+apt-get -y libdbix-runsql-perl
+apt-cache policy libdbix-runsql-perl
+
+
+apt-cache policy libemail-stuffer-perl
+apt-get -y libemail-stuffer-perl
+apt-cache policy libemail-stuffer-perl
+
+
+figet ka
+
+
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
             --userid            ${KOHA_USER} \
@@ -198,5 +216,5 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     fi
 else
     # TODO: We could use supervise as the main loop
-    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+###    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 fi
