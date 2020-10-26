@@ -102,7 +102,7 @@ RUN apt-get -y update \
 RUN export PATH=$PATH:/usr/local/bin
 
 #RUN cpanm -i --force \
-RUN cpanm -i \
+RUN cpanm -i -n \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
