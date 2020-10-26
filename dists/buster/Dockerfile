@@ -106,7 +106,7 @@ RUN apt-get -y update \
 #RUN which cover
 
 #RUN cpanm -i -n \
-RUN cpanm -i --force \
+RUN cpanm -i -n --force \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
