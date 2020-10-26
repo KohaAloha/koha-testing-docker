@@ -99,7 +99,13 @@ RUN apt-get -y update \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-# Install testing extras
+# Install testing extras, packages and cpan
+RUN apt-get -y update \
+   && apt-get -y install \
+         libexpat1-dev \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
 RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
