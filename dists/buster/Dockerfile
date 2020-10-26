@@ -100,9 +100,9 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 #ENV PATH=$PATH:/usr/local/bin
-RUN export PATH=$PATH:/usr/local/bin
-RUN ls -l /usr/local/bin/cover
-RUN which cover
+#RUN export PATH=$PATH:/usr/local/bin
+#RUN ls -l /usr/local/bin/cover
+#RUN which cover
 
 #RUN cpanm -i --force \
 RUN cpanm -i -n \
@@ -124,6 +124,8 @@ RUN wget -O Devel-Cover.tar.gz \
     && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
     && cd Devel-Cover-1.26/ \
     && cpanm -i -n .
+
+RUN cp /usr/local/bin/cover /usr/bin
 
 #RUN cpanm -i -v --force \
 RUN cpanm -i -v \
