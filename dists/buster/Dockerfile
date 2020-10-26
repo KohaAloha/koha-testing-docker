@@ -97,6 +97,7 @@ RUN apt-get -y update \
          libemail-stuffer-perl \
          libb-debug-perl \
          libyaml-syck-perl \
+         libyaml-perl \
          libdbd-sqlite \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
