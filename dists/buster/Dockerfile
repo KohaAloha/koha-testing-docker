@@ -98,7 +98,8 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-RUN cpanm -i --force \
+#RUN cpanm -i --force \
+RUN cpanm -i \
        Email::Stuffer \
        DBIx::RunSQL \
        DBD::SQLite \
