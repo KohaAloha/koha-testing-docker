@@ -111,9 +111,6 @@ RUN cpanm -i \
        WebService::ILS \
        Selenium::Remote::Driver
 
-RUN cpanm -i -v --force \
-       Devel::Cover::Report::Clover
-
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
        http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
@@ -121,6 +118,10 @@ RUN wget -O Devel-Cover.tar.gz \
     && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
     && cd Devel-Cover-1.26/ \
     && cpanm -i -n .
+
+#RUN cpanm -i -v --force \
+RUN cpanm -i -v \
+       Devel::Cover::Report::Clover
 
 ## Add Yarn
 # Add node repo
