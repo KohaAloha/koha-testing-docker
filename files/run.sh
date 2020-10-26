@@ -125,12 +125,12 @@ apt-get -y install pmtools figlet
 pmvers DBIx::RunSQL
 
 apt-cache policy libdbix-runsql-perl
-apt-get -y libdbix-runsql-perl
+apt-get -y install libdbix-runsql-perl
 apt-cache policy libdbix-runsql-perl
 
 
 apt-cache policy libemail-stuffer-perl
-apt-get -y libemail-stuffer-perl
+apt-get -y install libemail-stuffer-perl
 apt-cache policy libemail-stuffer-perl
 
 
