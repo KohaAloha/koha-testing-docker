@@ -18,7 +18,7 @@ bullseye:
   - docker push kohaaloha/koha-testing:master-bullseye
   - docker image rm kohaaloha/koha-testing:master-bullseye
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 buster:
   stage: build
@@ -28,7 +28,7 @@ buster:
   - docker push kohaaloha/koha-testing:master-buster
   - docker image rm kohaaloha/koha-testing:master-buster
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 stretch:
   stage: build
@@ -40,7 +40,7 @@ stretch:
   - docker push kohaaloha/koha-testing:master
   - docker image rm kohaaloha/koha-testing:master-stretch kohaaloha/koha-testing:master
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 xenial:
   stage: build
@@ -50,7 +50,7 @@ xenial:
   - docker push kohaaloha/koha-testing:master-xenial
   - docker image rm kohaaloha/koha-testing:master-xenial
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 bionic:
   stage: build
@@ -60,7 +60,7 @@ bionic:
   - docker push kohaaloha/koha-testing:master-bionic
   - docker image rm kohaaloha/koha-testing:master-bionic
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 focal:
   stage: build
@@ -70,7 +70,7 @@ focal:
   - docker push kohaaloha/koha-testing:master-focal
   - docker image rm kohaaloha/koha-testing:master-focal
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
 
 groovy:
   stage: build
@@ -80,4 +80,4 @@ groovy:
   - docker push kohaaloha/koha-testing:master-groovy
   - docker image rm kohaaloha/koha-testing:master-groovy
   only:
-    - master@kohaaloha/koha-testing-docker
+    - master@mjames/koha-testing-docker
