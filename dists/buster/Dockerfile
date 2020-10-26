@@ -94,7 +94,7 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
-         pmtools \
+         libemail-stuffer-perl
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
