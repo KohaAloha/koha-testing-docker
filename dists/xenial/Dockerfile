@@ -115,7 +115,8 @@ RUN cpanm -i --force \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
+       Selenium::Remote::Driver \
+       Locale::XGettext::TT2
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
@@ -137,6 +138,9 @@ RUN apt-get update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+# Install gulp
+RUN npm install gulp-cli -g
 
 # Add git-bz
 RUN cd /usr/local/share \
