@@ -1,9 +1,9 @@
 # koha-testing-docker
 
-This project aims to provide a dockered solution for running the Koha ILS
-tests inside Docker containers.
+This project provides a dockered solution for running a Koha ILS development 
+environment inside Docker containers.
 
-It is built on a packages install on Debian 9, with the needed tweaks (including koha-gitify)
+It is built using the package install with the needed tweaks (including koha-gitify)
 in order to create such environment.
 
 The *docker-compose.yml* file is self explanatory.
@@ -66,9 +66,9 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | Alias   | Function                                                   |
 |---------|------------------------------------------------------------|
 | ku      | Start the whole thing, using MariaDB 10.1 with Debian 9    |
-| ku-es5  | Start the whole thing, using ES5                           |
-| ku-es6  | Start the whole thing, using ES6 (default)                 |
-| ku-es7  | Start the whole thing, using ES7                           |
+| ku-es5  | As above, plus ES5                                         |
+| ku-es6  | As above, replacing ES5 with ES6                           |
+| ku-es7  | As above, replacing ES6 with ES7                           |
 | ku-mdb  | Start the whole thing, using latest MariaDB with Debian 9  |
 | ku-md9  | Start the whole thing, using MariaDB matched to Debian 9   |
 | ku-md10 | Start the whole thing, using MariaDB matched to Debian 10  |
@@ -121,6 +121,8 @@ run
   $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
 ```
 
+**Alias**: `kp`
+
 #### Kibana
 
 If you would like to use Kibana for testing/interacting with ES directly you can include
@@ -130,10 +132,14 @@ an extra compose file
   $ docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up
 ```
 
+**Alias**: `kk`
+
 It is possible to combine this with persistence
 ```
   $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up
 ```
+
+**Alias**: `kpk`
 
 ## Getting into the container
 
@@ -145,15 +151,16 @@ Getting into the _koha_ container:
 
 Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
 
+**Alias**: `kshell`
 
 Once you are left on the shell, you can run Koha tests as you would on KohaDevBox:
-
 
 ```
   $ sudo koha-shell kohadev
   $ cd koha
   $ prove t/db_dependent/Search.t
 ```
+
 ## Getting to the web interface
 
 The IP address of the web server in your docker group will be variable. Once you are in with SSH, issuing a
