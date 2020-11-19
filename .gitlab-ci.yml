@@ -17,8 +17,8 @@ bullseye:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:master-bullseye
   - docker image rm kohaaloha/koha-testing:master-bullseye
-  only:
-    - master@kohaaloha/koha-testing-docker
+#  only:
+#    - master@kohaaloha/koha-testing-docker
 
 buster:
   stage: build
@@ -27,7 +27,7 @@ buster:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:master-buster
   - docker image rm kohaaloha/koha-testing:master-buster
-  only:
-    - master@kohaaloha/koha-testing-docker
+#  only:
+#    - master@kohaaloha/koha-testing-docker
 
 
