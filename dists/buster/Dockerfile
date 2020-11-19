@@ -45,6 +45,7 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+      gnupg \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -75,6 +76,8 @@ RUN a2enmod rewrite \
             headers \
             proxy_http \
             cgi
+
+RUN wget -O- http://deb.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 # Add Koha development repositories
 RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
