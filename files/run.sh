@@ -175,7 +175,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  --timer --harness=TAP::Harness::JUnit -s -r t/db_dependent/api/v1
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
@@ -193,7 +193,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  --timer --harness=TAP::Harness::JUnit -s -r t/db_dependent/api/v1
                                   && touch testing.success"
     fi
 else
