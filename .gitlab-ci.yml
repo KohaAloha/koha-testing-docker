@@ -20,14 +20,14 @@ bullseye:
 #  only:
 #    - master@kohaaloha/koha-testing-docker
 
-buster:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster
-  - docker image rm kohaaloha/koha-testing:master-buster
-#  only:
-#    - master@kohaaloha/koha-testing-docker
-
-
+#buster:
+#  stage: build
+#  script:
+#  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
+#  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+#  - docker push kohaaloha/koha-testing:master-buster
+#  - docker image rm kohaaloha/koha-testing:master-buster
+##  only:
+##    - master@kohaaloha/koha-testing-docker
+#
+#
