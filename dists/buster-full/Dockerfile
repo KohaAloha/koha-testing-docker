@@ -93,7 +93,8 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 RUN rabbitmq-plugins enable rabbitmq_stomp
-RUN service rabbitmq-server restart
+#RUN service rabbitmq-server restart
+RUN service rabbitmq-server start
 RUN rabbitmq-plugins list
 
 RUN mkdir /kohadevbox
