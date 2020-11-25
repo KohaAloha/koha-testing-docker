@@ -83,7 +83,7 @@ RUN wget -O- http://deb.kohaaloha.com/koha/gpg.asc | apt-key add -
 #RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 RUN echo "deb http://deb.kohaaloha.com/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-core
+# Install koha-full
 RUN apt-get -y update \
    && apt-get -y install \
         gettext-base \
@@ -92,8 +92,8 @@ RUN apt-get -y update \
         rabbitmq-server \
         memcached \
         idzebra-2.0 \
-        koha-core \
-   && /etc/init.d/koha-core stop \
+        koha-full \
+   && /etc/init.d/koha-full stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
