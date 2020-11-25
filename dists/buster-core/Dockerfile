@@ -124,7 +124,7 @@ RUN cpanm -i -n  --force \
        Selenium::Remote::Driver \
        Locale::XGettext::TT2 \
        Test::Mojo \
-       DBIx::RunSQL \
+       DBIx::RunSQL 
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
