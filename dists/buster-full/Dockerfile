@@ -106,7 +106,7 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-RUN cpanm -i --force \
+RUN cpanm -i --force -n \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -162,7 +162,7 @@ RUN cd /kohadevbox \
         libtext-multimarkdown-perl \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force \
+    && cpanm -i --force -n \
         File::FindLib \
         REST::Client
 

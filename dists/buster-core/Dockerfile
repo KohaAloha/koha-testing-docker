@@ -105,13 +105,13 @@ RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
 # Install testing extras, packages and cpan
-RUN apt-get -y update \
-   && apt-get -y install \
-         libexpat1-dev \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
+#RUN apt-get -y update \
+#   && apt-get -y install \
+#         libexpat1-dev \
+#   && rm -rf /var/cache/apt/archives/* \
+#   && rm -rf /var/lib/api/lists/*
 
-RUN cpanm -i --force \
+RUN cpanm -i -n  --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -167,7 +167,7 @@ RUN cd /kohadevbox \
         libtext-multimarkdown-perl \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force \
+    && cpanm -i --force -n \
         File::FindLib \
         REST::Client
 
