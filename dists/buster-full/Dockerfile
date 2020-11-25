@@ -94,7 +94,7 @@ RUN apt-get -y update \
 
 RUN rabbitmq-plugins enable rabbitmq_stomp
 #RUN service rabbitmq-server restart
-RUN service rabbitmq-server start
+#RUN service rabbitmq-server start
 RUN rabbitmq-plugins list
 
 RUN mkdir /kohadevbox
