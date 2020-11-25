@@ -81,7 +81,7 @@ RUN wget -O- http://deb.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 # Add Koha development repositories
 #RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://deb.kohaaloha.com/ka/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes]  http://deb3.kohaaloha.com/ka/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-core
 RUN apt-get -y update \
