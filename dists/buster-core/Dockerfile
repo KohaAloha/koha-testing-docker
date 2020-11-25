@@ -108,6 +108,7 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
+         libmarc-record-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -122,7 +123,8 @@ RUN cpanm -i -n  --force \
        WebService::ILS \
        Selenium::Remote::Driver \
        Locale::XGettext::TT2 \
-       Test::Mojo
+       Test::Mojo \
+       DBIx::RunSQL \
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
