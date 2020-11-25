@@ -80,13 +80,14 @@ RUN a2enmod rewrite \
 RUN wget -O- http://deb.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 # Add Koha development repositories
-RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb.kohaaloha.com/ka/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-common
+# Install koha-core
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-common \
-   && /etc/init.d/koha-common stop \
+         koha-core \
+   && /etc/init.d/koha-core stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
