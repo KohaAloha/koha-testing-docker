@@ -2,7 +2,7 @@
 FROM debian:buster
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+#LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -86,6 +86,7 @@ RUN echo "deb http://deb.kohaaloha.com/koha-staging dev main" >> /etc/apt/source
 # Install koha-core
 RUN apt-get -y update \
    && apt-get -y install \
+        gettext-base \
         apache2 \
         libapache2-mpm-itk \
         rabbitmq-server \
