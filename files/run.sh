@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+#set -e
+set -x
 
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
