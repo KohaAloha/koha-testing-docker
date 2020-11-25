@@ -87,13 +87,8 @@ RUN echo "deb http://deb.kohaaloha.com/koha-staging dev main" >> /etc/apt/source
 RUN apt-get -y update \
    && apt-get -y install \
         gettext-base \
-        apache2 \
-        libapache2-mpm-itk \
-        rabbitmq-server \
-        memcached \
-        idzebra-2.0 \
         koha-full \
-   && /etc/init.d/koha-full stop \
+   && /etc/init.d/koha-core stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
