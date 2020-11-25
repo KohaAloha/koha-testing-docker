@@ -86,10 +86,19 @@ RUN echo "deb http://deb.kohaaloha.com/ka/koha-staging dev main" >> /etc/apt/sou
 # Install koha-core
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-core \
+        apache2 \
+        libapache2-mpm-itk \
+        rabbitmq-server \
+        memcached \
+        idzebra-2.0 \
+        koha-core \
    && /etc/init.d/koha-core stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+RUN rabbitmq-plugins enable rabbitmq_stomp
+RUN service rabbitmq-server restart
+RUN rabbitmq-plugins list
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
