@@ -21,13 +21,23 @@ variables:
 ##    - master@kohaaloha/koha-testing-docker
 #
 
-buster:
+buster-core:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:master-buster-core --no-cache --rm -f dists/buster-core/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster
-  - docker image rm kohaaloha/koha-testing:master-buster
+  - docker push kohaaloha/koha-testing:master-buster-core
+  - docker image rm kohaaloha/koha-testing:master-buster-core
+#  only:
+#    - master@kohaaloha/koha-testing-docker
+
+buster-full:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-full --no-cache --rm -f dists/buster-full/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-full
+  - docker image rm kohaaloha/koha-testing:master-buster-full
 #  only:
 #    - master@kohaaloha/koha-testing-docker
 
