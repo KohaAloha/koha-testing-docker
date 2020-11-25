@@ -182,6 +182,9 @@ RUN cd /kohadevbox \
 
 VOLUME /kohadevbox/koha
 
+RUN dpkg -l
+RUN dpkg -l | grep koha
+
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
