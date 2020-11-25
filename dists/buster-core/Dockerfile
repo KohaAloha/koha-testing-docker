@@ -121,7 +121,8 @@ RUN cpanm -i -n  --force \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver \
-       Locale::XGettext::TT2
+       Locale::XGettext::TT2 \
+       Test::Mojo
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
