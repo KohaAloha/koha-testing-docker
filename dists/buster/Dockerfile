@@ -81,7 +81,7 @@ RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev ma
 
 # Install koha-full
 RUN apt-get -y update \
-   && apt-get -y install \
+   && apt-get -y --install-suggests install \
          koha-core  \
          koha-full  \
          libnet-oauth2-authorizationserver-perl \
