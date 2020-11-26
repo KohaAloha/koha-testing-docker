@@ -28,8 +28,8 @@ buster-core:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:master-buster-core
   - docker image rm kohaaloha/koha-testing:master-buster-core
-#  only:
-#    - master@kohaaloha/koha-testing-docker
+  only:
+    - master-ka6-core@kohaaloha/koha-testing-docker
 
 buster-full:
   stage: build
@@ -38,7 +38,7 @@ buster-full:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:master-buster-full
   - docker image rm kohaaloha/koha-testing:master-buster-full
-#  only:
-#    - master@kohaaloha/koha-testing-docker
+  only:
+    - master-ka6-core@kohaaloha/koha-testing-docker
 
 
