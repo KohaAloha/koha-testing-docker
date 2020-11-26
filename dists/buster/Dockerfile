@@ -82,6 +82,7 @@ RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev ma
 # Install koha-full
 RUN apt-get -y update \
    && apt-get -y install \
+         koha-core  \
          koha-full  \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
