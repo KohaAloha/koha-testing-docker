@@ -13,6 +13,16 @@ services:
 stages:
   - build
 
+buster-common:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-common --no-cache --rm -f dists/buster-common/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-common
+  - docker image rm kohaaloha/koha-testing:master-buster-common
+#  only:
+#    - master-ka-full@kohaaloha/koha-testing-docker
+
 buster-full:
   stage: build
   script:
