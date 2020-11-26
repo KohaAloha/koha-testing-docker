@@ -49,10 +49,6 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
-      gettext-base \
-        libdbix-runsql-perl \
-        xsltproc \
-        libmojolicious-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -80,9 +76,22 @@ RUN a2enmod rewrite \
 #RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 RUN echo "deb [trusted=yes] http://deb3.kohaaloha.com/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-full
+# Install koha-core
 RUN apt-get -y update \
    && apt-get -y install \
+ apache2 \
+ libapache2-mpm-itk \
+ idzebra-2.0 \
+ memcached \
+ virtual-mysql-server \
+ rabbitmq-server \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
+# Install koha-core
+RUN apt-get -y update \
+   && apt-get -y install \
+         koha-full  \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
          libcatmandu-store-elasticsearch-perl \
@@ -94,13 +103,6 @@ RUN apt-get -y update \
          libnet-netmask-perl \
          libarray-utils-perl \
          libemail-messageid-perl \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-
-# Install koha-full
-RUN apt-get -y update \
-   && apt-get -y install \
-         koha-full  \
    && /etc/init.d/koha-core  stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -171,7 +173,8 @@ RUN dpkg -l
 
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
+#COPY files/run.sh /kohadevbox
+COPY files/run-core.sh /kohadevbox/run.sh
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
