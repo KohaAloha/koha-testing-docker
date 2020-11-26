@@ -155,6 +155,9 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+RUN dpkg -l | grep koha
+RUN dpkg -l
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
