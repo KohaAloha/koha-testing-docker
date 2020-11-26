@@ -50,7 +50,8 @@ RUN apt-get -y update \
       apt-transport-https \
       mlocate \
       gettext-base \
- libdbix-runsql-perl \
+        libdbix-runsql-perl \
+        xsltproc \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
