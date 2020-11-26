@@ -1,8 +1,8 @@
 # Base it on Debian 10
-FROM debian:buster-slim
+FROM debian:buster
 
 # File Author / Maintainer
-#LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
-ENV REFRESHED_AT 2019-05-24-1
+ENV REFRESHED_AT 2019-10-01-0
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -24,14 +24,10 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
-      libdatetimex-easy-perl \
-      libdbd-sqlite2-perl \
-      libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
-      libmoo-perl \
       libperl-critic-perl \
       libsmart-comments-perl \
       libtest-differences-perl \
@@ -49,6 +45,14 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
+
+# Temporary dependencies
+RUN apt-get -y update \
+    && apt-get -y install \
+      libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -74,39 +78,26 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
-#RUN echo "deb [trusted=yes] http://deb3.kohaaloha.com/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-full
+# Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libnet-oauth2-authorizationserver-perl \
-         libcatmandu-marc-perl \
-         libcatmandu-store-elasticsearch-perl \
-         libwww-youtube-download-perl \
-         libtest-mocktime-perl \
-         libintl-perl \
-         libppi-perl \
-         libnet-z3950-simpleserver-perl \
-         libnet-netmask-perl \
-         libarray-utils-perl \
-         libemail-messageid-perl \
+         koha-full \
+   && /etc/init.d/koha-core stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-# Install koha-full
-RUN apt-get -y update \
-   && apt-get -y install \
-         koha-full  \
-   && /etc/init.d/koha-core  stop \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-# Install testing extras
-RUN cpanm -i --force -n \
+# Install testing extras, packages and cpan
+RUN apt-get -y update \
+   && apt-get -y install \
+         libexpat1-dev \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
+RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -115,7 +106,8 @@ RUN cpanm -i --force -n \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
+       Selenium::Remote::Driver \
+       Locale::XGettext::TT2
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
@@ -128,7 +120,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_8.x buster main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
@@ -137,6 +129,9 @@ RUN apt-get update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+# Install gulp
+RUN npm install gulp-cli -g
 
 # Add git-bz
 RUN cd /usr/local/share \
@@ -158,22 +153,21 @@ RUN cd /kohadevbox \
         libtext-multimarkdown-perl \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force -n \
+    && cpanm -i --force \
         File::FindLib \
         REST::Client
 
-RUN dpkg -l | grep koha
-RUN dpkg -l
+# Remote debugger
+RUN cd /kohadevbox \
+    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
+    && tar xvzf dbgp.tar.gz \
+    && rm dbgp.tar.gz
 
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
-
-#RUN ["useradd", "kohadev"]
-#USER "kohadev"
-#CMD ["/bin/bash"]
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
