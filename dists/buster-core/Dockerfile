@@ -173,8 +173,7 @@ RUN dpkg -l
 
 VOLUME /kohadevbox/koha
 
-#COPY files/run.sh /kohadevbox
-COPY files/run-core.sh /kohadevbox/run.sh
+COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
