@@ -101,8 +101,8 @@ RUN apt-get -y update \
 # Install koha-full
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-full  \
-   && /etc/init.d/koha-core  stop \
+         koha-common  \
+   && /etc/init.d/koha-common  stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
