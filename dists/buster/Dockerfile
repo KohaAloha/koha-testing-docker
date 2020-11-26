@@ -52,6 +52,7 @@ RUN apt-get -y update \
       gettext-base \
         libdbix-runsql-perl \
         xsltproc \
+        libmojolicious-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
