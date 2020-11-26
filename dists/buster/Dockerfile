@@ -99,7 +99,7 @@ RUN apt-get -y update \
 
 # Install koha-full
 RUN apt-get -y update \
-   && apt-get -y --install-suggests install \
+   && apt-get -y install \
          koha-full  \
    && /etc/init.d/koha-core  stop \
    && rm -rf /var/cache/apt/archives/* \
