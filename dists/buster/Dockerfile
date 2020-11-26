@@ -81,9 +81,7 @@ RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev ma
 
 # Install koha-full
 RUN apt-get -y update \
-   && apt-get -y --install-suggests install \
-         koha-core  \
-         koha-full  \
+   && apt-get -y install \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
          libcatmandu-store-elasticsearch-perl \
@@ -95,9 +93,17 @@ RUN apt-get -y update \
          libnet-netmask-perl \
          libarray-utils-perl \
          libemail-messageid-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
+# Install koha-full
+RUN apt-get -y update \
+   && apt-get -y --install-suggests install \
+         koha-full  \
    && /etc/init.d/koha-core  stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
