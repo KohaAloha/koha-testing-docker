@@ -49,10 +49,6 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
-      gettext-base \
-        libdbix-runsql-perl \
-        xsltproc \
-        libmojolicious-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -77,8 +73,8 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-#RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://deb3.kohaaloha.com/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb [trusted=yes] http://deb3.kohaaloha.com/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-full
 RUN apt-get -y update \
