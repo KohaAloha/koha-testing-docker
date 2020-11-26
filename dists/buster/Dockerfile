@@ -75,10 +75,10 @@ RUN a2enmod rewrite \
 # Add Koha development repositories
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-common
+# Install koha-full
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-common \
+         koha-full  \
          libnet-oauth2-authorizationserver-perl \
          libcatmandu-marc-perl \
          libcatmandu-store-elasticsearch-perl \
@@ -90,7 +90,7 @@ RUN apt-get -y update \
          libnet-netmask-perl \
          libarray-utils-perl \
          libemail-messageid-perl \
-   && /etc/init.d/koha-common stop \
+   && /etc/init.d/koha-core  stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
