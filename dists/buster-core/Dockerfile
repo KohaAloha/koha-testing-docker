@@ -172,7 +172,7 @@ RUN cd /kohadevbox \
 
 VOLUME /kohadevbox/koha
 
-COPY files/run-core.sh /kohadevbox
+COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
