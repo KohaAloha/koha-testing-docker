@@ -82,8 +82,14 @@ RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev ma
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-common \
-   && /etc/init.d/koha-common stop \
+            koha-core \
+            apache2 \
+            libapache2-mpm-itk \
+            idzebra-2.0 \
+            memcached \
+            virtual-mysql-server \
+            rabbitmq-server \
+   && /etc/init.d/koha-core stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
