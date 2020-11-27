@@ -13,16 +13,6 @@ services:
 stages:
   - build
 
-stretch-common:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-stretch-common --no-cache --rm -f dists/stretch-common/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-stretch-common
-  - docker image rm kohaaloha/koha-testing:master-stretch-common
-  only:
-    - master-ka-full@mjames/koha-testing-docker
-
 buster-common:
   stage: build
   script:
@@ -32,6 +22,18 @@ buster-common:
   - docker image rm kohaaloha/koha-testing:master-buster-common
   only:
     - master-ka-full@mjames/koha-testing-docker
+
+buster-core:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-core --no-cache --rm -f dists/buster-core/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-core
+  - docker image rm kohaaloha/koha-testing:master-buster-core
+  only:
+    - master-ka-full@mjames/koha-testing-docker
+
+# -----------------------
 
 bullseye-common:
   stage: build
@@ -65,13 +67,13 @@ buster-full:
   only:
     - master-ka-full@mjames/koha-testing-docker
 
-buster-core:
+stretch-common:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:master-buster-core --no-cache --rm -f dists/buster-core/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:master-stretch-common --no-cache --rm -f dists/stretch-common/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster-core
-  - docker image rm kohaaloha/koha-testing:master-buster-core
+  - docker push kohaaloha/koha-testing:master-stretch-common
+  - docker image rm kohaaloha/koha-testing:master-stretch-common
   only:
     - master-ka-full@mjames/koha-testing-docker
 
