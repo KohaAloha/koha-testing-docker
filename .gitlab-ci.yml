@@ -43,38 +43,4 @@ buster-core:
   only:
     - master-ka-full@mjames/koha-testing-docker
 
-# -----------------------
-
-bullseye-common:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-bullseye-common --no-cache --rm -f dists/bullseye-common/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-bullseye-common
-  - docker image rm kohaaloha/koha-testing:master-bullseye-common
-  only:
-    - master-ka-full@mjames/koha-testing-docker
-
-# -------------------------------
-
-buster:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-buster
-  - docker image rm kohaaloha/koha-testing:master-buster
-  only:
-    - master-ka-full@mjames/koha-testing-docker
-
-stretch-common:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:master-stretch-common --no-cache --rm -f dists/stretch-common/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:master-stretch-common
-  - docker image rm kohaaloha/koha-testing:master-stretch-common
-  only:
-    - master-ka-full@mjames/koha-testing-docker
-
 
