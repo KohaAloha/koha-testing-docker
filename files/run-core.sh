@@ -2,8 +2,6 @@
 
 set -e
 
-ulimit -n 65536
-
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
 
@@ -13,10 +11,15 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Set a fixed hostname
+echo "kohadevbox" > /etc/hostname
+echo "127.0.0.1 kohadevbox" >> /etc/hosts
+hostname kohadevbox
+
 # Clone before calling cp_debian_files.pl
-if [ ${DEBUG_GIT_REPO_MISC4DEV_URL} ]; then
-    rm -rf misc4dev
-    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} misc4dev
+if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
+    rm -rf ${BUILD_DIR}/misc4dev
+    git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} ${BUILD_DIR}/misc4dev
 fi
 
 # Make sure we use the files from the git clone for creating the instance
@@ -68,17 +71,16 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 chmod +x ${BUILD_DIR}/bin/*
 
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
-
 # Fix UID
-#if [ ${LOCAL_USER_ID} ]; then
-#    usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
-#    # Fix permissions due to UID change
+if [ ${LOCAL_USER_ID} ]; then
+    usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
+    # Fix permissions due to UID change
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/lock/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
-#fi
+fi
 
 # This needs to be done ONCE koha-create has run (i.e. kohadev-koha user exists)
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars > /etc/apache2/envvars
@@ -109,13 +111,16 @@ git config --global apply.whitespace fix
 git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
 git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
 
-if [ ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ]; then
-    rm -rf qa-test-tools
-    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} qa-test-tools
+if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
+    rm -rf ${BUILD_DIR}/qa-test-tools
+    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
 fi
 
+if [ -n "$KOHA_ELASTICSEARCH" ]; then
+    ES_FLAG="--elasticsearch"
+fi
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
-            --instance          ${KOHA_INSTANCE} \
+            --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
             --userid            ${KOHA_USER} \
             --password          ${KOHA_PASS} \
             --marcflavour       ${KOHA_MARC_FLAVOUR} \
@@ -136,15 +141,14 @@ service apache2 stop
 
 chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
 
-# Configure and start koha-plack
-koha-plack --enable ${KOHA_INSTANCE} 
-koha-plack --start ${KOHA_INSTANCE} 
-# Start Zebra and the Indexer
-koha-zebra --start ${KOHA_INSTANCE} 
-koha-indexer --start ${KOHA_INSTANCE}
+# Enable and start koha-plack and koha-z3950-responder
+koha-plack           --enable ${KOHA_INSTANCE}
+koha-z3950-responder --enable ${KOHA_INSTANCE}
+service koha-common start
 
-# Start apache
+# Start apache and rabbitmq-server
 service apache2 start
+service rabbitmq-server start
 
 # if KOHA_PROVE_CPUS is not set, then use nproc
 if [ -z ${KOHA_PROVE_CPUS} ]; then
@@ -168,7 +172,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove -j ${KOHA_PROVE_CPUS} \
+                                  prove -j ${KOHA_PROVE_CPUS} -v \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
                                   --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
@@ -186,7 +190,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove -j ${KOHA_PROVE_CPUS} \
+                                  prove -j ${KOHA_PROVE_CPUS} -v \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
                                   --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
