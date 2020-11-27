@@ -32,9 +32,12 @@ alias cp_debian_files="sudo perl /kohadevbox/misc4dev/cp_debian_files.pl --insta
 function reset_all(){
 
     # MARC_FLAVOUR passed in argument, or env var $KOHA_MARC_FLAVOUR or 'marc21'
-    if [ -z "$MARC_FLAVOUR" ]; then
-        MARC_FLAVOUR=$KOHA_MARC_FLAVOUR
-        if [ -z "$MARC_FLAVOUR" ]; then
+    if [ -n "$1" ]; then
+        MARC_FLAVOUR=$1
+    else
+        if [ -n "$KOHA_MARC_FLAVOUR" ]; then
+            MARC_FLAVOUR=$KOHA_MARC_FLAVOUR
+        else
             MARC_FLAVOUR="marc21"
         fi
     fi
@@ -54,7 +57,7 @@ function reset_all(){
                    --instance ${KOHA_INSTANCE} ${ES_FLAG} \
                    --userid ${KOHA_USER} \
                    --password ${KOHA_PASS} \
-                   --marcflavour ${KOHA_MARC_FLAVOUR} \
+                   --marcflavour ${MARC_FLAVOUR} \
                    --koha_dir /kohadevbox/koha \
                    --opac-base-url http://${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}:${KOHA_OPAC_PORT} \
                    --intranet-base-url http://${KOHA_INTRANET_PREFIX}${KOHA_INSTANCE}${KOHA_INTRANET_SUFFIX}${KOHA_DOMAIN}:${KOHA_INTRANET_PORT} \
@@ -71,7 +74,7 @@ alias reset_all_unimarc='reset_all "unimarc"';
 
 alias start_plack_debug='sudo koha-plack --start \
                                          --debugger \
-                                         --debugger-path "${REMOTE_DEBUGGER_DIR}/${REMOTE_DEBUGGER_PACKAGE}" \
+                                         --debugger-path "/kohadevbox/dbgp" \
                                          --debugger-location "${REMOTE_DEBUGGER_LOCATION}" \
                                          --debugger-key "${REMOTE_DEBUGGER_KEY}" \
                                          ${KOHA_INSTANCE}'
