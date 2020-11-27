@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+#set -e
+set -x
 
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
@@ -155,9 +156,15 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
 
+
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
+
+figlet `pwd`
+    ls -l 
+rm -rf qa-test-tools
+    ls -l 
 
     if [ ${COVERAGE} ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;
