@@ -147,8 +147,8 @@ RUN cd /usr/local/share \
 # Clone helper repositories
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev \
-    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
-    && git clone https://gitlab.com/koha-community/qa-test-tools.git
+    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify 
+#    && git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 # release-tools
 RUN cd /kohadevbox \
@@ -171,7 +171,7 @@ RUN cd /kohadevbox \
 
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
+COPY files/run-core.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 

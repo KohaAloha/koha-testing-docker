@@ -111,10 +111,10 @@ git config --global apply.whitespace fix
 git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
 git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
 
-if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
-    rm -rf ${BUILD_DIR}/qa-test-tools
-    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
-fi
+##if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
+##    rm -rf ${BUILD_DIR}/qa-test-tools
+##    git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
+##fi
 
 if [ -n "$KOHA_ELASTICSEARCH" ]; then
     ES_FLAG="--elasticsearch"
@@ -144,7 +144,7 @@ chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INS
 # Enable and start koha-plack and koha-z3950-responder
 koha-plack           --enable ${KOHA_INSTANCE}
 koha-z3950-responder --enable ${KOHA_INSTANCE}
-service koha-common start
+service koha-core start
 
 # Start apache and rabbitmq-server
 service apache2 start
