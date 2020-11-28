@@ -117,7 +117,7 @@ RUN cpanm -i --force \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver \
+       Selenium::Remote::Driver
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
