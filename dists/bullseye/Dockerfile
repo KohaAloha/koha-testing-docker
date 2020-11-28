@@ -109,6 +109,7 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
+         libtemplate-plugin-gettext-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -122,7 +123,6 @@ RUN cpanm -i --force \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver \
-       Locale::XGettext::TT2
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
