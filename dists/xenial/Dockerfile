@@ -7,7 +7,7 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV REFRESHED_AT 2020-06-06-1
+ENV REFRESHED_AT 2019-05-24-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -20,14 +20,10 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
-      libdatetimex-easy-perl \
-      libdbd-sqlite2-perl \
-      libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
-      libmoo-perl \
       libperl-critic-perl \
       libsmart-comments-perl \
       libtest-differences-perl \
@@ -68,13 +64,35 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-# Add Koha 20.11 repository
-RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha-staging 20.11 main xenial" > /etc/apt/sources.list.d/koha.list
+# Add Koha development repositories
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main xenial" >> /etc/apt/sources.list.d/koha.list
+RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
+# Temporary dependencies
+RUN apt-get -y update \
+    && apt-get -y install \
+      libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
 
 # Install koha-common
 RUN apt-get -y update \
-   && apt-get -y install koha-common \
+   && apt-get -y install \
+         koha-common \
+         libnet-oauth2-authorizationserver-perl \
+         libcatmandu-marc-perl \
+         libcatmandu-store-elasticsearch-perl \
+         libwww-youtube-download-perl \
+         libtest-mocktime-perl \
+         libintl-perl \
+         libppi-perl \
+         libnet-z3950-simpleserver-perl \
+         libnet-netmask-perl \
+         libarray-utils-perl \
+         libcache-memcached-fast-safe-perl \
+         libcpan-meta-perl \
+         libemail-messageid-perl \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -82,7 +100,14 @@ RUN apt-get -y update \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-# Install testing extras
+# Install testing extras, packages and cpan
+RUN apt-get -y update \
+   && apt-get -y install \
+         libexpat1-dev \
+         libtemplate-plugin-gettext-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
 RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
@@ -105,7 +130,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_8.x xenial main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x xenial main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
@@ -115,6 +140,9 @@ RUN apt-get update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
+# Install gulp
+RUN npm install gulp-cli -g
+
 # Add git-bz
 RUN cd /usr/local/share \
     && git clone --depth 1 --branch apply_on_cascade https://gitlab.com/koha-community/git-bz git-bz \
@@ -123,7 +151,7 @@ RUN cd /usr/local/share \
 # Clone helper repositories
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev \
-    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
+    && git clone https://github.com/mkfifo/koha-gitify.git gitify \
     && git clone https://gitlab.com/koha-community/qa-test-tools.git
 
 # release-tools
@@ -139,10 +167,17 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+# Remote debugger
+RUN cd /kohadevbox \
+    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
+    && tar xvzf dbgp.tar.gz \
+    && rm dbgp.tar.gz
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
+RUN  sed -i "s|/usr/share/doc/koha-common|/kohadevbox/koha/docs|g" /kohadevbox/templates/koha-conf-site.xml.in
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]

@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set suitable debian sources
 RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
 
-ENV REFRESHED_AT 2020-06-06-1
+ENV REFRESHED_AT 2019-05-24-1
 
 #RUN apt-get -y update
 
@@ -25,19 +25,16 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
-      libdatetimex-easy-perl \
-      libdbd-sqlite2-perl \
-      libdbix-class-timestamp-perl \
       libgit-repository-perl \
       liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
-      libmoo-perl \
       libperl-critic-perl \
       libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
       libtest-perl-critic-progressive-perl \
+      libfile-chdir-perl \
       libdata-printer-perl \
       pmtools \
       locales \
@@ -49,6 +46,14 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
+
+# Temporary dependencies
+RUN apt-get -y update \
+    && apt-get -y install \
+      libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -73,13 +78,24 @@ RUN a2enmod rewrite \
             cgi
 
 
-# Add Koha 20.11 repository
-RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha-staging 20.11 main bullseye" > /etc/apt/sources.list.d/koha.list
+# Add Koha development repositories
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main bullseye" >> /etc/apt/sources.list.d/koha.list
+RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
+
+RUN apt-get -y update
+
+RUN apt-cache policy koha-common
+RUN apt-cache policy libmojolicious-perl
+RUN apt-cache policy libjson-validator-perl
+RUN apt-cache policy libmojolicious-plugin-openapi-perl
+RUN apt-cache policy libyaml-libyaml-perl
+
+#RUN apt-get -y install koha-common --simulate
 
 # Install koha-common
 RUN apt-get -y update \
-   && apt-get -y install koha-common \
+   && apt-get -y install \
+         koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -87,7 +103,14 @@ RUN apt-get -y update \
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
 
-# Install testing extras
+# Install testing extras, packages and cpan
+RUN apt-get -y update \
+   && apt-get -y install \
+         libexpat1-dev \
+         libtemplate-plugin-gettext-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
 RUN cpanm -i --force \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
@@ -110,7 +133,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_8.x sid main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x sid main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
@@ -119,6 +142,9 @@ RUN apt-get update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+# Install gulp
+RUN npm install gulp-cli -g
 
 # Add git-bz
 RUN cd /usr/local/share \
@@ -143,6 +169,12 @@ RUN cd /kohadevbox \
     && cpanm -i --force \
         File::FindLib \
         REST::Client
+
+# Remote debugger
+RUN cd /kohadevbox \
+    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
+    && tar xvzf dbgp.tar.gz \
+    && rm dbgp.tar.gz
 
 VOLUME /kohadevbox/koha
 
