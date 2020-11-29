@@ -72,9 +72,9 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-# Add Koha 20.05 repository
+# Add Koha 20.11 repository
 RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
-RUN echo "deb http://debian.koha-community.org/koha-staging 20.05 main" > /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 20.11 main" > /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
