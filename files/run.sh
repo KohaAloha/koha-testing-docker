@@ -11,6 +11,11 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Set a fixed hostname
+echo "kohadevbox" > /etc/hostname
+echo "127.0.0.1 kohadevbox" >> /etc/hosts
+hostname kohadevbox
+
 # Clone before calling cp_debian_files.pl
 if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/misc4dev
@@ -111,8 +116,11 @@ if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
 fi
 
+if [ -n "$KOHA_ELASTICSEARCH" ]; then
+    ES_FLAG="--elasticsearch"
+fi
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
-            --instance          ${KOHA_INSTANCE} \
+            --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
             --userid            ${KOHA_USER} \
             --password          ${KOHA_PASS} \
             --marcflavour       ${KOHA_MARC_FLAVOUR} \
@@ -133,15 +141,14 @@ service apache2 stop
 
 chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
 
-# Configure and start koha-plack
-koha-plack --enable ${KOHA_INSTANCE} 
-koha-plack --start ${KOHA_INSTANCE} 
-# Start Zebra and the Indexer
-koha-zebra --start ${KOHA_INSTANCE} 
-koha-indexer --start ${KOHA_INSTANCE}
+# Enable and start koha-plack and koha-z3950-responder
+koha-plack           --enable ${KOHA_INSTANCE}
+koha-z3950-responder --enable ${KOHA_INSTANCE}
+service koha-common start
 
-# Start apache
+# Start apache and rabbitmq-server
 service apache2 start
+service rabbitmq-server start
 
 # if KOHA_PROVE_CPUS is not set, then use nproc
 if [ -z ${KOHA_PROVE_CPUS} ]; then
