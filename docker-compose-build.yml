@@ -59,9 +59,10 @@ services:
         networks:
             - kohanet
     selenium:
-        image: selenium/standalone-firefox:2.53.1-americium
+        image: selenium/standalone-firefox
         networks:
             - kohanet
+        shm_size: 1gb
 
 networks:
     kohanet:
