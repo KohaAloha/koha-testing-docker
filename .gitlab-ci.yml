@@ -23,6 +23,7 @@ stages:
 #  only:
 #    - master-ka-full@mjames/koha-testing-docker
 #
+
 buster-full:
   stage: build
   script:
@@ -43,6 +44,16 @@ buster-full-i386:
   only:
     - master-ka-full@mjames/koha-testing-docker
 
+buster-full-armhf:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-buster-full-armhf --no-cache --rm -f dists/buster-full-armhf/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-buster-full-armhf
+  - docker image rm kohaaloha/koha-testing:master-buster-full-armhf
+  only:
+    - master-ka-full@mjames/koha-testing-docker
+
 buster-core:
   stage: build
   script:
@@ -52,5 +63,3 @@ buster-core:
   - docker image rm kohaaloha/koha-testing:master-buster-core
   only:
     - master-ka-full@mjames/koha-testing-docker
-
-
