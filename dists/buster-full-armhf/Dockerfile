@@ -10,8 +10,10 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
+#RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
 #RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
+
+RUN echo "deb [trusted=yes] http://archive.raspbian.org/raspbian buster  main contrib non-free rpi" >>  /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-10-01-0
 
