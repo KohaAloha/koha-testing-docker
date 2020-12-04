@@ -1,8 +1,9 @@
 # Base it on Debian 10
-FROM debian:buster
+#FROM debian:buster
+FROM i386/debian:buster
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+#LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
