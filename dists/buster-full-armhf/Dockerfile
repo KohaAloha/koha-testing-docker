@@ -49,6 +49,7 @@ RUN apt-get -y update \
       mlocate \
     wget  \
     gnupg \
+    npm \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 

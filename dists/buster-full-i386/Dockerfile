@@ -46,6 +46,7 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+    npm \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
