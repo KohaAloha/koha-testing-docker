@@ -47,6 +47,8 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+    wget  \
+    gnupg \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -78,8 +80,10 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
+RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+
 # Add Koha development repositories
-RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
