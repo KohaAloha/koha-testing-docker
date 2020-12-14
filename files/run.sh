@@ -148,7 +148,7 @@ service koha-common start
 
 # Start apache and rabbitmq-server
 service apache2 start
-service rabbitmq-server start
+service rabbitmq-server start || true # Don't crash if rabbitmq-server didn't start
 
 # if KOHA_PROVE_CPUS is not set, then use nproc
 if [ -z ${KOHA_PROVE_CPUS} ]; then
