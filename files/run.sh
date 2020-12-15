@@ -118,7 +118,7 @@ if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
 fi
 
 if [ -n "$KOHA_ELASTICSEARCH" ]; then
-    ES_FLAG="--elasticsearch"
+#    ES_FLAG="--elasticsearch"
 fi
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
