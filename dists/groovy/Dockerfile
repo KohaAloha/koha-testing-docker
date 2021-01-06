@@ -157,7 +157,7 @@ RUN cd /kohadevbox \
 
 # Remote debugger
 RUN cd /kohadevbox \
-    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
+    && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download \
     && tar xvzf dbgp.tar.gz \
     && rm dbgp.tar.gz
 
