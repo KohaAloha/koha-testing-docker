@@ -46,6 +46,7 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
+      iproute2 \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
