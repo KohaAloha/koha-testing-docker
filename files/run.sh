@@ -179,7 +179,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
-    else if [ "LIGHT_TEST_SUITE" = "1" ]; then
+    elif [ "LIGHT_TEST_SUITE" = "1" ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
