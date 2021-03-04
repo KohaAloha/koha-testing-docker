@@ -179,6 +179,23 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
+    else if [ "LIGHT_TEST_SUITE" = "1" ]; then
+        koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
+                                  KOHA_USER=${KOHA_USER} \
+                                  KOHA_PASS=${KOHA_PASS} \
+                                  TEST_QA=1 \
+                                  find t xt -name '*.t' \
+                                    -not -path \"t/db_dependent/www/*\" \
+                                    -not -path \"t/db_dependent/selenium/*\" \
+                                | prove -j ${KOHA_PROVE_CPUS}
+                                  --rules='par=t/db_dependent/00-strict.t' \
+                                  --rules='seq=t/db_dependent/**.t' --rules='par=**' \
+                                  --timer --harness=TAP::Harness::JUnit -s -r \
+                                  && touch testing.success"
     else
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
