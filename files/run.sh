@@ -191,10 +191,10 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   find t xt -name '*.t' \
                                     -not -path \"t/db_dependent/www/*\" \
                                     -not -path \"t/db_dependent/selenium/*\" \
-                                | prove -j ${KOHA_PROVE_CPUS}
+                                | prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r \
+                                  --timer --harness=TAP::Harness::JUnit -s \
                                   && touch testing.success"
     else
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
