@@ -191,7 +191,9 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   find t xt -name '*.t' \
                                     -not -path \"t/db_dependent/www/*\" \
                                     -not -path \"t/db_dependent/selenium/*\" \
-                                | prove -j ${KOHA_PROVE_CPUS} \
+                                    -not -path \"t/db_dependent/Koha/SearchEngine/Elasticsearch/*\" \
+                                    -not -path \"t/db_dependent/Koha/SearchEngine/*\" \
+                                | xargs prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
                                   --timer --harness=TAP::Harness::JUnit -s \
