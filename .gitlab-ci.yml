@@ -81,3 +81,13 @@ focal:
   - docker image rm koha/koha-testing:19.11-focal
   only:
     - 19.11@koha-community/koha-testing-docker
+
+groovy:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:19.11-groovy --no-cache --rm -f dists/groovy/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:19.11-groovy
+  - docker image rm koha/koha-testing:19.11-groovy
+  only:
+    - 19.11@koha-community/koha-testing-docker
