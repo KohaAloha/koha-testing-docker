@@ -2,7 +2,7 @@
 FROM debian:buster
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+#LABEL maintainer="tomascohen@theke.io"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
@@ -83,10 +83,11 @@ RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main bu
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         koha-full \
-   && /etc/init.d/koha-core stop \
+         koha-deps \
+         koha-perldeps \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+#   && /etc/init.d/koha-core stop \
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
