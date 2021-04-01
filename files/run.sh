@@ -25,9 +25,9 @@ fi
 
 banner 000
 
-ls -l /etc/koha
-mkdir /etc/koha
-mkdir /etc/koha/sites
+#ls -l /etc/koha
+#mkdir /etc/koha
+mkdir -p  /etc/koha/sites
 
 banner 111
 
