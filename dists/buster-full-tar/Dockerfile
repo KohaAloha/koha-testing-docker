@@ -19,6 +19,11 @@ ENV REFRESHED_AT 2019-10-01-0
 RUN apt-get -y update \
     && apt-get -y install \
         mariadb-server \
+
+RUN while ! nc -z db 3306; do sleep 1; done
+
+RUN apt-get -y update \
+    && apt-get -y install \
         netcat \
         procps
 
@@ -34,6 +39,11 @@ RUN apt-get -y update \
 #RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
 #RUN mysqladmin password password \
+
+RUN which mysql
+RUN ls -l /usr/bin/mysql
+RUN dpkg -l | grep mysql
+
 RUN mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
 
 
