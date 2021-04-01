@@ -15,6 +15,16 @@ ENV REFRESHED_AT 2019-10-01-0
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
+
+RUN apt-get -y update \
+    && apt-get -y install \
+      mariadb-server
+
+# make a db
+RUN /etc/init.d/mysql start
+RUN /etc/init.d/mysql restart
+
+
 RUN apt-get -y update \
     && apt-get -y install \
       apache2 \
@@ -48,6 +58,11 @@ RUN apt-get -y update \
       mariadb-server \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
+
+# make a db
+RUN /etc/init.d/mysql start
+RUN /etc/init.d/mysql restart
+
 
 # Temporary dependencies
 RUN apt-get -y update \
@@ -117,6 +132,12 @@ RUN cpanm \
 
 
 # make a db
+RUN /etc/init.d/mysql start
+RUN /etc/init.d/mysql restart
+
+
+
+
 RUN mysqladmin password changeme \
  && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
  && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
