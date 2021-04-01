@@ -18,11 +18,14 @@ ENV REFRESHED_AT 2019-10-01-0
 
 RUN apt-get -y update \
     && apt-get -y install \
+        procps\
       mariadb-server
 
 # make a db
+RUN ps -ef | grep mysql
 RUN /etc/init.d/mysql start
-RUN /etc/init.d/mysql status
+RUN ps -ef | grep mysql
+#RUN /etc/init.d/mysql status
 RUN mysqladmin password changeme \
  && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
  && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
