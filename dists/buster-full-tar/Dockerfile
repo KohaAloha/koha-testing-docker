@@ -147,6 +147,7 @@ RUN wget http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
  && ls \
  && ./koha_perl_deps.pl -m -u
 
+#RUN cpanm --self-upgrade
 RUN cpanm -f \
     DBIx::Class::Schema::PopulateMore
 
