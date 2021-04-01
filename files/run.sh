@@ -100,7 +100,8 @@ export ZEBRA_SRU_HOST='localhost'
 export ZEBRA_TOKENIZER='chr'
 export ZEBRA_USER='koha_kohadev'
 
-cd /tmp-koha/koha*
+ls -l /
+cd /kohadev/tar/koha-20.11.04
 pwd
 ls
 

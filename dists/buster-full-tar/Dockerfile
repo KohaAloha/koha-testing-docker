@@ -13,6 +13,12 @@ RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sourc
 
 ENV REFRESHED_AT 2019-10-01-0
 
+RUN mkdir /kohadevbox
+RUN mkdir /kohadevbox/tar
+
+WORKDIR /kohadevbox
+
+
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 
@@ -141,23 +147,27 @@ RUN adduser koha \
  && locale 
 
 # && cd /tmp \
-RUN mkdir /tmp-koha
-WORKDIR /tmp-koha
+#RUN mkdir /tmp-koha
+#WORKDIR /tmp-koha
+
+WORKDIR /kohadevbox/tar
+
+RUN pwd
 
 #RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
 RUN wget http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
- && tar xvf koha*tar.gz \
- && cd koha* \
+ && tar xvf koha-20.11.04.tar.gz \
+ && cd koha-20.11.04 \
  && pwd \
  && ls \
  && ./koha_perl_deps.pl -m -u
 
-#RUN cpanm --self-upgrade
-RUN cpanm -f -v \
-    DBD::SQLite \
-    DBIx::Class::Schema::PopulateMore
+WORKDIR /kohadevbox
 
+#RUN cpanm --self-upgrade
 RUN cpanm \
+    DBD::SQLite \
+    DBIx::Class::Schema::PopulateMore \
     Text::CSV::Unicode \
     HTTPD::Bench::ApacheBench \
     Test::DBIx::Class \
@@ -237,9 +247,6 @@ RUN cpanm \
 #        --run_database_tests no \
 #        --template-cache-dir /var/cache/koha 
 #
-
-RUN mkdir /kohadevbox
-WORKDIR /kohadevbox
 
 # Install testing extras, packages and cpan
 RUN apt-get -y update \
