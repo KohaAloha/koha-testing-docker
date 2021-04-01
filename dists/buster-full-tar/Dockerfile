@@ -32,8 +32,8 @@ RUN apt-get -y update \
 
 RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
-RUN mysqladmin password password \
- && mysql -u root -ppassword  -e "CREATE DATABASE koha_kohadev;" \
+#RUN mysqladmin password password \
+RUN mysql -u root -ppassword  -e "CREATE DATABASE koha_kohadev;" \
  && mysql -u root -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
  && mysql -u root -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha_kohadev'@'localhost' IDENTIFIED BY 'password';" \
  && mysql -u root -ppassword  -e "SHOW DATABASES;"
