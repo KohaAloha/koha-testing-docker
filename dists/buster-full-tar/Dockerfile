@@ -116,13 +116,37 @@ RUN cpanm \
 
 
 # make a db
-RUN mysqladmin password changeme
- && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;'
- && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';"
- && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';"
+RUN mysqladmin password changeme \
+ && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
+ && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
+ && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';" \
  && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
- && 
 # ---------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 RUN perl ./Makefile.PL  \
         --install_mode standard \
         --db_type mysql \
