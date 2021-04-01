@@ -142,7 +142,6 @@ pwd
 
 figlet 444
 make
-make test
 make install
 
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
