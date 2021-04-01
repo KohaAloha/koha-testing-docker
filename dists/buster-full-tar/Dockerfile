@@ -18,8 +18,7 @@ ENV REFRESHED_AT 2019-10-01-0
 
 RUN apt-get -y update \
     && apt-get -y install \
-        procps\
-      mariadb-server
+        procps
 
 # make a db
 #RUN ps -ef | grep mysql
@@ -30,16 +29,17 @@ RUN apt-get -y update \
 #RUN mysql -u root -e "SHOW DATABASES;"
 
 
-RUN ps -ef | grep mysql
+#RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
 #RUN mysqladmin password password \
-RUN mysql -u root -ppassword  -e "CREATE DATABASE koha_kohadev;" \
- && mysql -u root -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
- && mysql -u root -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha_kohadev'@'localhost' IDENTIFIED BY 'password';" \
- && mysql -u root -ppassword  -e "SHOW DATABASES;"
+RUN mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
+
+
+RUN mysql -u root -h db  -ppassword  -e "CREATE DATABASE koha_kohadev;" \
+ && mysql -u root -h db  -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
+ && mysql -u root -h db  -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha_kohadev'@'localhost' IDENTIFIED BY 'password';" \
+ && mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
 # ---------
-
-
 
 RUN apt-get -y update \
     && apt-get -y install \
