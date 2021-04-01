@@ -18,7 +18,7 @@ ENV REFRESHED_AT 2019-10-01-0
 
 RUN apt-get -y update \
     && apt-get -y install \
-        mariadb-server \
+        mariadb-server
 
 #RUN while ! nc -z db 3306; do sleep 1; done
 
