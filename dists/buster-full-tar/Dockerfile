@@ -124,8 +124,8 @@ RUN mysqladmin password changeme \
  && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
 # ---------
 
-RUN export
-RUN export | wc -l
+#RUN export
+#RUN export | wc -l
 
 ENV DB_HOST localhost
 ENV DB_NAME koha
@@ -165,8 +165,8 @@ ENV ZEBRA_SRU_HOST localhost
 ENV ZEBRA_TOKENIZER chr
 ENV ZEBRA_USER kohauser
 
-RUN export
-RUN export | wc -l
+#RUN export
+#RUN export | wc -l
 
 RUN perl ./Makefile.PL  \
         --install_mode standard \
