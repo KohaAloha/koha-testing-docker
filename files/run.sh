@@ -23,13 +23,13 @@ if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} ${BUILD_DIR}/misc4dev
 fi
 
-banner 000
+figlet 000
 
 #ls -l /etc/koha
 #mkdir /etc/koha
 mkdir -p  /etc/koha/sites
 
-banner 111
+figlet 111
 
 # Make sure we use the files from the git clone for creating the instance
 perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
@@ -60,7 +60,7 @@ echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 # -----------------------------------
 
 
-banner 222
+figlet 222
 
 export DB_HOST='localhost'
 export DB_NAME='koha_kohadev'

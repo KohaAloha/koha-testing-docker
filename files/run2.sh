@@ -16,17 +16,17 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 # -------------------------------
 # -------------------------------
 
-banner 333
+figlet 333
 
 cd /tmp-koha/koha*
 pwd
 
-banner 444
+figlet 444
 make
 make test
 make install
 
-banner 555
+figlet 555
 
 # -----------------------------------
 # Get rid of Apache warnings
