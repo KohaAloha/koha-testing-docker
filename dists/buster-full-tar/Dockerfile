@@ -34,6 +34,7 @@ RUN apt-get -y update \
         figlet \
         wget \
         gnupg2 \
+        gettext-base \
         procps
 
 # make a db
