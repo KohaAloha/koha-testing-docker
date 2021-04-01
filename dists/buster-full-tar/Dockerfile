@@ -22,20 +22,21 @@ RUN apt-get -y update \
       mariadb-server
 
 # make a db
-RUN ps -ef | grep mysql
-RUN /etc/init.d/mysql start
+#RUN ps -ef | grep mysql
+#RUN /etc/init.d/mysql start
 
 
-RUN mysql -u root -e "SHOW DATABASES;"
+#RUN mysql -u root -e "SHOW DATABASES;"
+#RUN mysql -u root -e "SHOW DATABASES;"
 
 
 RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
-RUN mysqladmin password changeme \
- && mysql -u root -pchangeme  -e "CREATE DATABASE kohadata;" \
- && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
- && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';" \
- && mysql -u root -pchangeme  -e "SHOW DATABASES;"
+RUN mysqladmin password password \
+ && mysql -u root -ppassword  -e "CREATE DATABASE kohadata;" \
+ && mysql -u root -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
+ && mysql -u root -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha'@'localhost' IDENTIFIED BY 'password';" \
+ && mysql -u root -ppassword  -e "SHOW DATABASES;"
 # ---------
 
 
@@ -147,42 +148,42 @@ RUN cpanm \
 #RUN export | wc -l
 
 ENV DB_HOST localhost
-ENV DB_NAME koha
-ENV DB_PASS changeme
+ENV DB_NAME koha_kohadev
+ENV DB_PASS password
 ENV DB_PORT 3306
 ENV DB_TYPE mysql
-ENV DB_USER kohaadmin
+ENV DB_USER koha_kohadev
 ENV DB_USE_TLS no
 ENV FONT_DIR /usr/share/fonts/truetype/dejavu
 ENV INSTALL_BASE /usr/share/koha
 ENV INSTALL_MODE standard
 ENV INSTALL_PAZPAR2 no
 ENV INSTALL_SRU yes
-ENV KOHA_GROUP koha
+ENV KOHA_GROUP koha_kohadev
 ENV KOHA_INSTALLED_VERSION 20.11.04.000
-ENV KOHA_USER koha
+ENV KOHA_USER koha_kohadev
 ENV MEMCACHED_NAMESPACE KOHA
 ENV MEMCACHED_SERVERS 127.0.0.1:11211
 ENV PATH_TO_ZEBRA /usr/bin
 ENV RUN_DATABASE_TESTS no
 ENV SMTP_DEBUG 0
 ENV SMTP_HOST localhost
-ENV SMTP_PASSWORD changeme
+ENV SMTP_PASSWORD password
 ENV SMTP_PORT 25
 ENV SMTP_SSL_MODE disabled
 ENV SMTP_TIMEOUT 120
-ENV SMTP_USER_NAME koha
+ENV SMTP_USER_NAME koha_kohadev
 ENV TEMPLATE_CACHE_DIR /var/cache/koha
 ENV USE_ELASTICSEARCH no
 ENV USE_MEMCACHED yes
 ENV ZEBRA_LANGUAGE en
 ENV ZEBRA_MARC_FORMAT marc21
-ENV ZEBRA_PASS changeme
+ENV ZEBRA_PASS password
 ENV ZEBRA_SRU_AUTHORITIES_PORT 9999
 ENV ZEBRA_SRU_BIBLIOS_PORT 9998
 ENV ZEBRA_SRU_HOST localhost
 ENV ZEBRA_TOKENIZER chr
-ENV ZEBRA_USER kohauser
+ENV ZEBRA_USER koha_kohadev
 
 #RUN export
 #RUN export | wc -l
@@ -192,22 +193,22 @@ RUN perl ./Makefile.PL  \
         --db_type mysql \
         --db_host localhost \
         --install_base /usr/share/koha \
-        --koha_user koha \
-        --koha_group koha \
+        --koha_user koha_kohadev \
+        --koha_group koha_kohadev \
         --db_port 3306 \
-        --db_name koha \
-        --db_user kohaadmin \
-        --db_pass changeme \
+        --db_name koha_kohadev \
+        --db_user koha_kohadev \
+        --db_pass password \
         --zebra_marc_format marc21 \
         --zebra_language en \
         --zebra_tokenizer chr \
-        --zebra_user kohauser \
-        --zebra_pass changeme \
+        --zebra_user koha_kohadev \
+        --zebra_pass password \
         --zebra_sru_host localhost \
         --zebra_sru_biblios_port 9998 \
         --zebra_sru_authorities_port 9999 \
-        --koha_user koha \
-        --koha_group koha \
+        --koha_user koha_kohadev \
+        --koha_group koha_kohadev \
         --install_sru yes \
         --install_pazpar2 no \
         --use_memcached yes \
