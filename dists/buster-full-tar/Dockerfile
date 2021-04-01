@@ -124,46 +124,49 @@ RUN mysqladmin password changeme \
  && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
 # ---------
 
+RUN export
+RUN export | wc -l
 
-export DB_HOST='localhost'
-export DB_NAME='koha'
-export DB_PASS='changeme'
-export DB_PORT='3306'
-export DB_TYPE='mysql'
-export DB_USER='kohaadmin'
-export DB_USE_TLS='no'
-export FONT_DIR='/usr/share/fonts/truetype/dejavu'
-export INSTALL_BASE='/usr/share/koha'
-export INSTALL_MODE='standard'
-export INSTALL_PAZPAR2='no'
-export INSTALL_SRU='yes'
-export KOHA_GROUP='koha'
-export KOHA_INSTALLED_VERSION='20.11.04.000'
-export KOHA_USER='koha'
-export MEMCACHED_NAMESPACE='KOHA'
-export MEMCACHED_SERVERS='127.0.0.1:11211'
-export PATH_TO_ZEBRA='/usr/bin'
-export RUN_DATABASE_TESTS='no'
-export SMTP_DEBUG='0'
-export SMTP_HOST='localhost'
-export SMTP_PASSWORD=''
-export SMTP_PORT='25'
-export SMTP_SSL_MODE='disabled'
-export SMTP_TIMEOUT='120'
-export SMTP_USER_NAME=''
-export TEMPLATE_CACHE_DIR='/var/cache/koha'
-export USE_ELASTICSEARCH='no'
-export USE_MEMCACHED='yes'
-export ZEBRA_LANGUAGE='en'
-export ZEBRA_MARC_FORMAT='marc21'
-export ZEBRA_PASS='changeme'
-export ZEBRA_SRU_AUTHORITIES_PORT='9999'
-export ZEBRA_SRU_BIBLIOS_PORT='9998'
-export ZEBRA_SRU_HOST='localhost'
-export ZEBRA_TOKENIZER='chr'
-export ZEBRA_USER='kohauser'
+ENV DB_HOST localhost
+ENV DB_NAME koha
+ENV DB_PASS changeme
+ENV DB_PORT 3306
+ENV DB_TYPE mysql
+ENV DB_USER kohaadmin
+ENV DB_USE_TLS no
+ENV FONT_DIR /usr/share/fonts/truetype/dejavu
+ENV INSTALL_BASE /usr/share/koha
+ENV INSTALL_MODE standard
+ENV INSTALL_PAZPAR2 no
+ENV INSTALL_SRU yes
+ENV KOHA_GROUP koha
+ENV KOHA_INSTALLED_VERSION 20.11.04.000
+ENV KOHA_USER koha
+ENV MEMCACHED_NAMESPACE KOHA
+ENV MEMCACHED_SERVERS 127.0.0.1:11211
+ENV PATH_TO_ZEBRA /usr/bin
+ENV RUN_DATABASE_TESTS no
+ENV SMTP_DEBUG 0
+ENV SMTP_HOST localhost
+ENV SMTP_PASSWORD
+ENV SMTP_PORT 25
+ENV SMTP_SSL_MODE disabled
+ENV SMTP_TIMEOUT 120
+ENV SMTP_USER_NAME
+ENV TEMPLATE_CACHE_DIR /var/cache/koha
+ENV USE_ELASTICSEARCH no
+ENV USE_MEMCACHED yes
+ENV ZEBRA_LANGUAGE en
+ENV ZEBRA_MARC_FORMAT marc21
+ENV ZEBRA_PASS changeme
+ENV ZEBRA_SRU_AUTHORITIES_PORT 9999
+ENV ZEBRA_SRU_BIBLIOS_PORT 9998
+ENV ZEBRA_SRU_HOST localhost
+ENV ZEBRA_TOKENIZER chr
+ENV ZEBRA_USER kohauser
 
-
+RUN export
+RUN export | wc -l
 
 RUN perl ./Makefile.PL  \
         --install_mode standard \
