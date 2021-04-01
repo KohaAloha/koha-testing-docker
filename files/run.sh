@@ -101,7 +101,7 @@ export ZEBRA_TOKENIZER='chr'
 export ZEBRA_USER='koha_kohadev'
 
 ls -l /
-cd /kohadev/tar/koha-20.11.04
+cd /kohadevbox/tar/koha-20.11.04
 pwd
 ls
 
