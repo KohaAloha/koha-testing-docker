@@ -93,37 +93,38 @@ RUN apt-get -y update \
 
 # Install koha-common from tar
 
-adduser koha
-update-locale LANG=en_US.UTF-8
-locale
+RUN adduser koha \
+ && update-locale LANG=en_US.UTF-8 \
+ && locale 
 
-cd /tmp
-wget https://download.koha-community.org/koha-20.11.04.tar.gz
-tar xvf koha*tar.gz
-cd koha*
-pwd
-ls
-./koha_perl_deps.pl -m -u
+# && cd /tmp \
+WORKDIR /tmp
 
+RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
+ && tar xvf koha*tar.gz \
+ && cd koha* \
+ && pwd \
+ && ls \
+ && ./koha_perl_deps.pl -m -u
+ && 
 
-cpanm \
-Text::CSV::Unicode \
-HTTPD::Bench::ApacheBench \
-Test::DBIx::Class \
-Selenium::Remote::Driver \
-Locale::XGettext::TT2
+RUN cpanm \
+    Text::CSV::Unicode \
+    HTTPD::Bench::ApacheBench \
+    Test::DBIx::Class \
+    Selenium::Remote::Driver \
+    Locale::XGettext::TT2
 
 
 # make a db
-mysqladmin password changeme
-
-mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;'
-mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';"
-mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';"
-mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
-
+RUN mysqladmin password changeme
+ && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;'
+ && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';"
+ && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';"
+ && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
+ && 
 # ---------
-perl ./Makefile.PL  \
+RUN perl ./Makefile.PL  \
         --install_mode standard \
         --db_type mysql \
         --db_host localhost \
