@@ -36,6 +36,10 @@ perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
 # Wait for the DB server startup
 while ! nc -z db 3306; do sleep 1; done
 
+echo '----------------------------------'
+echo '----------------------------------'
+echo '----------------------------------'
+
 # TODO: Have bugs pushed so all this is a koha-create parameter
 echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INSTANCE}" > /etc/koha/passwd
 # TODO: Get rid of this hack with the relevant bug
