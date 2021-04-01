@@ -106,6 +106,8 @@ cd /kohadevbox/tar/koha-20.11.04
 pwd
 ls
 
+figlet perl ./Makefile.PL
+
 perl ./Makefile.PL  \
         --install_mode standard \
         --db_type mysql \
@@ -143,6 +145,9 @@ pwd
 figlet 444
 make
 #make test
+
+export
+figlet make install
 make install
 
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh

@@ -16,6 +16,9 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 # -------------------------------
 # -------------------------------
 figlet run2
+export
+
+figlet chown
 
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
