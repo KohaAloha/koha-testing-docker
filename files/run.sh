@@ -23,6 +23,10 @@ if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} ${BUILD_DIR}/misc4dev
 fi
 
+ls -l /etc/koha
+mkdir /etc/koha
+mkdir /etc/koha/sites
+
 # Make sure we use the files from the git clone for creating the instance
 perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
             --instance          ${KOHA_INSTANCE} \
