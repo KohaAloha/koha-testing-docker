@@ -25,6 +25,7 @@ RUN apt-get -y update \
 RUN apt-get -y update \
     && apt-get -y install \
         netcat \
+        banner \
         procps
 
 # make a db
