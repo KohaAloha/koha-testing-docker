@@ -23,6 +23,8 @@ if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_MISC4DEV_BRANCH} ${DEBUG_GIT_REPO_MISC4DEV_URL} ${BUILD_DIR}/misc4dev
 fi
 
+banner 000
+
 ls -l /etc/koha
 mkdir /etc/koha
 mkdir /etc/koha/sites
@@ -57,6 +59,8 @@ echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 
 # -----------------------------------
 
+
+banner 222
 
 export DB_HOST='localhost'
 export DB_NAME='koha_kohadev'
@@ -129,6 +133,13 @@ perl ./Makefile.PL  \
         --template-cache-dir /var/cache/koha·
 
 while ! nc -z db 3306; do sleep 1; done
+
+banner 444
+make
+make test
+make install
+
+banner 555
 
 # -----------------------------------
 # Get rid of Apache warnings
