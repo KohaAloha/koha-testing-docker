@@ -142,7 +142,7 @@ RUN apt-get -y update \
 
 # Install koha-common from tar
 
-RUN adduser koha \
+RUN adduser koha_kohadev \
  && update-locale LANG=en_US.UTF-8 \
  && locale 
 
