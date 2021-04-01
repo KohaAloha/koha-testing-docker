@@ -135,4 +135,53 @@ perl ./Makefile.PL  \
         --template-cache-dir /var/cache/koha
 
 
+figlet 333
+
+cd /kohadevbox/tar/koha-20.11.04
+pwd
+
+figlet 444
+make
+make test
+make install
+
+cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
+figlet 555
+
+
+
+# -----------------------------------
+# Get rid of Apache warnings
+echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
+echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
+echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
+
+# Pull the names of the environment variables to substitute from defaults.env and convert them to a string of the format "$VAR1:$VAR2:$VAR3", etc.
+VARS_TO_SUB=`cut -d '=' -f1 ${BUILD_DIR}/templates/defaults.env  | tr '\n' ':' | sed -e 's/:/:$/g' | awk '{print "$"$1}' | sed -e 's/:\$$//'`
+# Add additional vars to sub from this script that are not in defaults.env
+VARS_TO_SUB="\$BUILD_DIR:$VARS_TO_SUB";
+
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/vimrc                 > /root/.vimrc
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
+
+# bin
+mkdir -p ${BUILD_DIR}/bin
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/dbic > ${BUILD_DIR}/bin/dbic
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_DIR}/bin/flush_memcached
+
+
+# Make sure things are executable on /bin.
+chmod +x ${BUILD_DIR}/bin/*
+
+figlet koha-create
+
+koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
+
+koha-list
+
+
 /bin/bash -c "trap : TERM INT; sleep infinity & wait"
