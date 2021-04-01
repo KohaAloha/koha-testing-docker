@@ -80,14 +80,77 @@ RUN a2enmod rewrite \
 #RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha-common
+# Install koha deps
 RUN apt-get -y update \
    && apt-get -y install \
          koha-deps \
          koha-perldeps \
+         make \
+         cpanminus \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 #   && /etc/init.d/koha-core stop \
+
+# Install koha-common from tar
+
+adduser koha
+update-locale LANG=en_US.UTF-8
+locale
+
+cd /tmp
+wget https://download.koha-community.org/koha-20.11.04.tar.gz
+tar xvf koha*tar.gz
+cd koha*
+pwd
+ls
+./koha_perl_deps.pl -m -u
+
+
+cpanm \
+Text::CSV::Unicode \
+HTTPD::Bench::ApacheBench \
+Test::DBIx::Class \
+Selenium::Remote::Driver \
+Locale::XGettext::TT2
+
+
+# make a db
+mysqladmin password changeme
+
+mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;'
+mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';"
+mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';"
+mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
+
+# ---------
+perl ./Makefile.PL  \
+        --install_mode standard \
+        --db_type mysql \
+        --db_host localhost \
+        --install_base /usr/share/koha \
+        --koha_user koha \
+        --koha_group koha \
+        --db_port 3306 \
+        --db_name koha \
+        --db_user kohaadmin \
+        --db_pass changeme \
+        --zebra_marc_format marc21 \
+        --zebra_language en \
+        --zebra_tokenizer chr \
+        --zebra_user kohauser \
+        --zebra_pass changeme \
+        --zebra_sru_host localhost \
+        --zebra_sru_biblios_port 9998 \
+        --zebra_sru_authorities_port 9999 \
+        --koha_user koha \
+        --koha_group koha \
+        --install_sru yes \
+        --install_pazpar2 no \
+        --use_memcached yes \
+        --font_dir /usr/share/fonts/truetype/dejavu \
+        --run_database_tests no \
+        --template-cache-dir /var/cache/koha 
+
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
