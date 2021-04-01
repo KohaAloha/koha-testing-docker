@@ -46,6 +46,80 @@ echo "host     = ${DB_HOSTNAME}"        >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "user     = koha_${KOHA_INSTANCE}" >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 
+# -----------------------------------
+
+
+export DB_HOST='localhost'
+export DB_NAME='koha_kohadev'
+export DB_PASS='password'
+export DB_PORT='3306'
+export DB_TYPE='mysql'
+export DB_USER='koha_kohadev'
+export DB_USE_TLS='no'
+export FONT_DIR='/usr/share/fonts/truetype/dejavu'
+export INSTALL_BASE='/usr/share/koha'
+export INSTALL_MODE='standard'
+export INSTALL_PAZPAR2='no'
+export INSTALL_SRU='yes'
+export KOHA_GROUP='koha_kohadev'
+export KOHA_INSTALLED_VERSION='20.11.04.000'
+export KOHA_USER='koha_kohadev'
+export MEMCACHED_NAMESPACE='KOHA'
+export MEMCACHED_SERVERS='127.0.0.1:11211'
+export PATH_TO_ZEBRA='/usr/bin'
+export RUN_DATABASE_TESTS='no'
+export SMTP_DEBUG='0'
+export SMTP_HOST='localhost'
+export SMTP_PASSWORD='password'
+export SMTP_PORT='25'
+export SMTP_SSL_MODE='disabled'
+export SMTP_TIMEOUT='120'
+export SMTP_USER_NAME='koha_kohadev'
+export TEMPLATE_CACHE_DIR='/var/cache/koha'
+export USE_ELASTICSEARCH='no'
+export USE_MEMCACHED='yes'
+export ZEBRA_LANGUAGE='en'
+export ZEBRA_MARC_FORMAT='marc21'
+export ZEBRA_PASS='password'
+export ZEBRA_SRU_AUTHORITIES_PORT='9999'
+export ZEBRA_SRU_BIBLIOS_PORT='9998'
+export ZEBRA_SRU_HOST='localhost'
+export ZEBRA_TOKENIZER='chr'
+export ZEBRA_USER='koha_kohadev'
+
+cd /tmp-koha/koha*
+pwd
+ls
+
+perl ./Makefile.PL  \
+        --install_mode standard \
+        --db_type mysql \
+        --db_host localhost \
+        --install_base /usr/share/koha \
+        --koha_user koha_kohadev \
+        --koha_group koha_kohadev \
+        --db_port 3306 \
+        --db_name koha_kohadev \
+        --db_user koha_kohadev \
+        --db_pass password \
+        --zebra_marc_format marc21 \
+        --zebra_language en \
+        --zebra_tokenizer chr \
+        --zebra_user koha_kohadev \
+        --zebra_pass password \
+        --zebra_sru_host localhost \
+        --zebra_sru_biblios_port 9998 \
+        --zebra_sru_authorities_port 9999 \
+        --koha_user koha_kohadev \
+        --koha_group koha_kohadev \
+        --install_sru yes \
+        --install_pazpar2 no \
+        --use_memcached yes \
+        --font_dir /usr/share/fonts/truetype/dejavu \
+        --run_database_tests no \
+        --template-cache-dir /var/cache/koha·
+
+# -----------------------------------
 # Get rid of Apache warnings
 echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
 echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
