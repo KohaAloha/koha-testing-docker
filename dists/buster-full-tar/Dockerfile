@@ -18,6 +18,7 @@ ENV REFRESHED_AT 2019-10-01-0
 
 RUN apt-get -y update \
     && apt-get -y install \
+        netcat \
         procps
 
 # make a db
