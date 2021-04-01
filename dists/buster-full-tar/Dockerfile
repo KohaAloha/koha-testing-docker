@@ -26,16 +26,16 @@ RUN ps -ef | grep mysql
 RUN /etc/init.d/mysql start
 
 
-RUN mysql -u root -e ‘SHOW DATABASES;'
+RUN mysql -u root -e 'SHOW DATABASES;'
 
 
 RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
 RUN mysqladmin password changeme \
- && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
+ && mysql -u root -pchangeme  -e "CREATE DATABASE kohadata;" \
  && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
  && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';" \
- && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
+ && mysql -u root -pchangeme  -e "SHOW DATABASES;"
 # ---------
 
 
