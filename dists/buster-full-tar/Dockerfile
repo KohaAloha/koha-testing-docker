@@ -151,7 +151,8 @@ RUN cpanm \
     HTTPD::Bench::ApacheBench \
     Test::DBIx::Class \
     Selenium::Remote::Driver \
-    Locale::XGettext::TT2
+    Locale::XGettext::TT2 \
+    DBIx::Class::Schema::PopulateMore 
 
 #RUN export
 #RUN export | wc -l
