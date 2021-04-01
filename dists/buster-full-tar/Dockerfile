@@ -144,12 +144,10 @@ RUN apt-get -y update \
 # Install koha-common from tar
 
 #RUN adduser koha_kohadev \
-RUN update-locale LANG=en_US.UTF-8 \
- && locale 
 
-# && cd /tmp \
-#RUN mkdir /tmp-koha
-#WORKDIR /tmp-koha
+RUN adduser koha \
+ && update-locale LANG=en_US.UTF-8 \
+ && locale
 
 WORKDIR /kohadevbox/tar
 
