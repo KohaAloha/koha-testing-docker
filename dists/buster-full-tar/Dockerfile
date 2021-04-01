@@ -24,6 +24,11 @@ RUN apt-get -y update \
 # make a db
 RUN ps -ef | grep mysql
 RUN /etc/init.d/mysql start
+
+
+RUN mysql -u root -e ‘SHOW DATABASES;'
+
+
 RUN ps -ef | grep mysql
 #RUN /etc/init.d/mysql status
 RUN mysqladmin password changeme \
