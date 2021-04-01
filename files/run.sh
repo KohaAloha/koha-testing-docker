@@ -12,6 +12,10 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+
+#export KOHA_CONF=/etc/koha/koha-conf.xml
+export PERL5LIB=/usr/share/koha/lib
+
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 echo "127.0.0.1 kohadevbox" >> /etc/hosts
@@ -108,7 +112,7 @@ ls
 
 figlet perl ./Makefile.PL
 
-perl ./Makefile.PL  
+perl ./Makefile.PL > dev/null
 
 #        --install_mode standard \
 #        --db_type mysql \
@@ -143,12 +147,12 @@ cd /kohadevbox/tar/koha-20.11.04
 pwd
 
 figlet 444
-time make
+time make > /dev/null
 #make test
 
 export
 figlet make install
-time make install
+time make install > dev/null
 
 figlet 555
 
