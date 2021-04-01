@@ -90,13 +90,15 @@ fi
 
 # Stop apache2
 service apache2 stop
+a2enmod headers proxy_http
 
 chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
 
 # Enable and start koha-plack and koha-z3950-responder
 koha-plack           --enable ${KOHA_INSTANCE}
 koha-z3950-responder --enable ${KOHA_INSTANCE}
-service koha-common start
+
+#service koha-common start
 
 # Start apache and rabbitmq-server
 service apache2 start
