@@ -146,13 +146,16 @@ RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
  && ls \
  && ./koha_perl_deps.pl -m -u
 
+RUN cpanm -f \
+    DBIx::Class::Schema::PopulateMore
+
 RUN cpanm \
     Text::CSV::Unicode \
     HTTPD::Bench::ApacheBench \
     Test::DBIx::Class \
     Selenium::Remote::Driver \
-    Locale::XGettext::TT2 \
-    DBIx::Class::Schema::PopulateMore 
+    Locale::XGettext::TT2
+
 
 #RUN export
 #RUN export | wc -l
