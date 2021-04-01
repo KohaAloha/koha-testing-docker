@@ -145,7 +145,7 @@ RUN apt-get -y update \
 
 #RUN adduser koha_kohadev \
 
-RUN adduser koha \
+RUN adduser --uid 3000 --gid 3000 koha \
  && update-locale LANG=en_US.UTF-8 \
  && locale
 
