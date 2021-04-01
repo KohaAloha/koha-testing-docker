@@ -35,6 +35,7 @@ RUN apt-get -y update \
         wget \
         gnupg2 \
         gettext-base \
+        xsltproc \
         procps
 
 # make a db
