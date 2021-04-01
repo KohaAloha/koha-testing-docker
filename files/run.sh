@@ -142,13 +142,6 @@ figlet 333
 cd /kohadevbox/tar/koha-20.11.04
 pwd
 
-cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
-cp /kohadevbox/tar/koha-20.11.04/debian/bin/koha-create /usr/sbin/koha-create
-
-figlet koha-create
-koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
-koha-list
-
 figlet 444
 make
 #make test
@@ -158,6 +151,13 @@ figlet make install
 make install
 
 figlet 555
+
+cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
+cp /kohadevbox/tar/koha-20.11.04/debian/bin/koha-create /usr/sbin/koha-create
+
+figlet koha-create
+koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
+koha-list
 
 
 # -----------------------------------
