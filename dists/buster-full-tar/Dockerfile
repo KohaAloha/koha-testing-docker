@@ -26,6 +26,8 @@ RUN apt-get -y update \
     && apt-get -y install \
         netcat \
         figlet \
+        wget \
+        gnupg2 \
         procps
 
 # make a db
@@ -116,7 +118,9 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
+RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
+
 #RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha deps
