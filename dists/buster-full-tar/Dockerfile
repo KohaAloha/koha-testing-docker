@@ -26,7 +26,7 @@ RUN ps -ef | grep mysql
 RUN /etc/init.d/mysql start
 
 
-RUN mysql -u root -e 'SHOW DATABASES;'
+RUN mysql -u root -e "SHOW DATABASES;"
 
 
 RUN ps -ef | grep mysql
