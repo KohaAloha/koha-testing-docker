@@ -20,7 +20,7 @@ RUN apt-get -y update \
     && apt-get -y install \
         mariadb-server \
 
-RUN while ! nc -z db 3306; do sleep 1; done
+#RUN while ! nc -z db 3306; do sleep 1; done
 
 RUN apt-get -y update \
     && apt-get -y install \
@@ -40,17 +40,15 @@ RUN apt-get -y update \
 #RUN /etc/init.d/mysql status
 #RUN mysqladmin password password \
 
-RUN which mysql
-RUN ls -l /usr/bin/mysql
-RUN dpkg -l | grep mysql
-
-RUN mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
-
-
-RUN mysql -u root -h db  -ppassword  -e "CREATE DATABASE koha_kohadev;" \
- && mysql -u root -h db  -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
- && mysql -u root -h db  -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha_kohadev'@'localhost' IDENTIFIED BY 'password';" \
- && mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
+#RUN which mysql
+#RUN ls -l /usr/bin/mysql
+#RUN dpkg -l | grep mysql
+#RUN mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
+#RUN mysql -u root -h db  -ppassword  -e "CREATE DATABASE koha_kohadev;" \
+# && mysql -u root -h db  -ppassword  -e "CREATE user 'koha_kohadev'@'localhost' IDENTIFIED by 'password';" \
+# && mysql -u root -h db  -ppassword  -e "GRANT ALL ON 'koha_kohadev.*' TO 'koha_kohadev'@'localhost' IDENTIFIED BY 'password';" \
+# && mysql -u root -h db  -ppassword  -e "SHOW DATABASES;"
+#
 # ---------
 
 RUN apt-get -y update \
@@ -117,8 +115,8 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-#RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha deps
 RUN apt-get -y update \
@@ -138,7 +136,8 @@ RUN adduser koha \
  && locale 
 
 # && cd /tmp \
-WORKDIR /tmp
+RUN mkdir /tmp-koha
+WORKDIR /tmp-koha
 
 RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
  && tar xvf koha*tar.gz \
@@ -154,80 +153,78 @@ RUN cpanm \
     Selenium::Remote::Driver \
     Locale::XGettext::TT2
 
-
-
 #RUN export
 #RUN export | wc -l
 
-ENV DB_HOST localhost
-ENV DB_NAME koha_kohadev
-ENV DB_PASS password
-ENV DB_PORT 3306
-ENV DB_TYPE mysql
-ENV DB_USER koha_kohadev
-ENV DB_USE_TLS no
-ENV FONT_DIR /usr/share/fonts/truetype/dejavu
-ENV INSTALL_BASE /usr/share/koha
-ENV INSTALL_MODE standard
-ENV INSTALL_PAZPAR2 no
-ENV INSTALL_SRU yes
-ENV KOHA_GROUP koha_kohadev
-ENV KOHA_INSTALLED_VERSION 20.11.04.000
-ENV KOHA_USER koha_kohadev
-ENV MEMCACHED_NAMESPACE KOHA
-ENV MEMCACHED_SERVERS 127.0.0.1:11211
-ENV PATH_TO_ZEBRA /usr/bin
-ENV RUN_DATABASE_TESTS no
-ENV SMTP_DEBUG 0
-ENV SMTP_HOST localhost
-ENV SMTP_PASSWORD password
-ENV SMTP_PORT 25
-ENV SMTP_SSL_MODE disabled
-ENV SMTP_TIMEOUT 120
-ENV SMTP_USER_NAME koha_kohadev
-ENV TEMPLATE_CACHE_DIR /var/cache/koha
-ENV USE_ELASTICSEARCH no
-ENV USE_MEMCACHED yes
-ENV ZEBRA_LANGUAGE en
-ENV ZEBRA_MARC_FORMAT marc21
-ENV ZEBRA_PASS password
-ENV ZEBRA_SRU_AUTHORITIES_PORT 9999
-ENV ZEBRA_SRU_BIBLIOS_PORT 9998
-ENV ZEBRA_SRU_HOST localhost
-ENV ZEBRA_TOKENIZER chr
-ENV ZEBRA_USER koha_kohadev
-
-#RUN export
-#RUN export | wc -l
-
-RUN perl ./Makefile.PL  \
-        --install_mode standard \
-        --db_type mysql \
-        --db_host localhost \
-        --install_base /usr/share/koha \
-        --koha_user koha_kohadev \
-        --koha_group koha_kohadev \
-        --db_port 3306 \
-        --db_name koha_kohadev \
-        --db_user koha_kohadev \
-        --db_pass password \
-        --zebra_marc_format marc21 \
-        --zebra_language en \
-        --zebra_tokenizer chr \
-        --zebra_user koha_kohadev \
-        --zebra_pass password \
-        --zebra_sru_host localhost \
-        --zebra_sru_biblios_port 9998 \
-        --zebra_sru_authorities_port 9999 \
-        --koha_user koha_kohadev \
-        --koha_group koha_kohadev \
-        --install_sru yes \
-        --install_pazpar2 no \
-        --use_memcached yes \
-        --font_dir /usr/share/fonts/truetype/dejavu \
-        --run_database_tests no \
-        --template-cache-dir /var/cache/koha 
-
+#ENV DB_HOST localhost
+#ENV DB_NAME koha_kohadev
+#ENV DB_PASS password
+#ENV DB_PORT 3306
+#ENV DB_TYPE mysql
+#ENV DB_USER koha_kohadev
+#ENV DB_USE_TLS no
+#ENV FONT_DIR /usr/share/fonts/truetype/dejavu
+#ENV INSTALL_BASE /usr/share/koha
+#ENV INSTALL_MODE standard
+#ENV INSTALL_PAZPAR2 no
+#ENV INSTALL_SRU yes
+#ENV KOHA_GROUP koha_kohadev
+#ENV KOHA_INSTALLED_VERSION 20.11.04.000
+#ENV KOHA_USER koha_kohadev
+#ENV MEMCACHED_NAMESPACE KOHA
+#ENV MEMCACHED_SERVERS 127.0.0.1:11211
+#ENV PATH_TO_ZEBRA /usr/bin
+#ENV RUN_DATABASE_TESTS no
+#ENV SMTP_DEBUG 0
+#ENV SMTP_HOST localhost
+#ENV SMTP_PASSWORD password
+#ENV SMTP_PORT 25
+#ENV SMTP_SSL_MODE disabled
+#ENV SMTP_TIMEOUT 120
+#ENV SMTP_USER_NAME koha_kohadev
+#ENV TEMPLATE_CACHE_DIR /var/cache/koha
+#ENV USE_ELASTICSEARCH no
+#ENV USE_MEMCACHED yes
+#ENV ZEBRA_LANGUAGE en
+#ENV ZEBRA_MARC_FORMAT marc21
+#ENV ZEBRA_PASS password
+#ENV ZEBRA_SRU_AUTHORITIES_PORT 9999
+#ENV ZEBRA_SRU_BIBLIOS_PORT 9998
+#ENV ZEBRA_SRU_HOST localhost
+#ENV ZEBRA_TOKENIZER chr
+#ENV ZEBRA_USER koha_kohadev
+#
+##RUN export
+##RUN export | wc -l
+#
+#RUN perl ./Makefile.PL  \
+#        --install_mode standard \
+#        --db_type mysql \
+#        --db_host localhost \
+#        --install_base /usr/share/koha \
+#        --koha_user koha_kohadev \
+#        --koha_group koha_kohadev \
+#        --db_port 3306 \
+#        --db_name koha_kohadev \
+#        --db_user koha_kohadev \
+#        --db_pass password \
+#        --zebra_marc_format marc21 \
+#        --zebra_language en \
+#        --zebra_tokenizer chr \
+#        --zebra_user koha_kohadev \
+#        --zebra_pass password \
+#        --zebra_sru_host localhost \
+#        --zebra_sru_biblios_port 9998 \
+#        --zebra_sru_authorities_port 9999 \
+#        --koha_user koha_kohadev \
+#        --koha_group koha_kohadev \
+#        --install_sru yes \
+#        --install_pazpar2 no \
+#        --use_memcached yes \
+#        --font_dir /usr/share/fonts/truetype/dejavu \
+#        --run_database_tests no \
+#        --template-cache-dir /var/cache/koha 
+#
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
