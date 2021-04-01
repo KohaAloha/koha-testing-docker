@@ -139,7 +139,8 @@ RUN adduser koha \
 RUN mkdir /tmp-koha
 WORKDIR /tmp-koha
 
-RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
+#RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
+RUN wget http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
  && tar xvf koha*tar.gz \
  && cd koha* \
  && pwd \
