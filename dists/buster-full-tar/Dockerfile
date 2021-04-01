@@ -63,6 +63,18 @@ RUN apt-get -y update \
 RUN /etc/init.d/mysql start
 RUN /etc/init.d/mysql restart
 
+# make a db
+RUN /etc/init.d/mysql start
+RUN /etc/init.d/mysql restart
+
+RUN mysqladmin password changeme \
+ && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
+ && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
+ && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';" \
+ && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
+# ---------
+
+
 
 # Temporary dependencies
 RUN apt-get -y update \
@@ -131,19 +143,6 @@ RUN cpanm \
     Locale::XGettext::TT2
 
 
-# make a db
-RUN /etc/init.d/mysql start
-RUN /etc/init.d/mysql restart
-
-
-
-
-RUN mysqladmin password changeme \
- && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
- && mysql -u root -pchangeme  -e "CREATE user 'koha'@'localhost' IDENTIFIED by 'changeme';" \
- && mysql -u root -pchangeme  -e "GRANT ALL ON kohadata.* TO 'koha'@'localhost' IDENTIFIED BY 'changeme';" \
- && mysql -u root -pchangeme  -e ‘SHOW DATABASES;'
-# ---------
 
 #RUN export
 #RUN export | wc -l
