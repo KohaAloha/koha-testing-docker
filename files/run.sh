@@ -27,6 +27,8 @@ ls -l /etc/koha
 mkdir /etc/koha
 mkdir /etc/koha/sites
 
+banner 111
+
 # Make sure we use the files from the git clone for creating the instance
 perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
             --instance          ${KOHA_INSTANCE} \
@@ -34,7 +36,6 @@ perl ${BUILD_DIR}/misc4dev/cp_debian_files.pl \
             --gitify_dir        ${BUILD_DIR}/gitify
 
 # Wait for the DB server startup
-while ! nc -z db 3306; do sleep 1; done
 
 echo '----------------------------------'
 echo '----------------------------------'
@@ -126,6 +127,8 @@ perl ./Makefile.PL  \
         --font_dir /usr/share/fonts/truetype/dejavu \
         --run_database_tests no \
         --template-cache-dir /var/cache/koha·
+
+while ! nc -z db 3306; do sleep 1; done
 
 # -----------------------------------
 # Get rid of Apache warnings
