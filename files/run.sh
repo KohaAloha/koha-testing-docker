@@ -108,39 +108,46 @@ ls
 
 figlet perl ./Makefile.PL
 
-perl ./Makefile.PL  \
-        --install_mode standard \
-        --db_type mysql \
-        --db_host db \
-        --install_base /usr/share/koha \
-        --koha_user koha \
-        --koha_group koha \
-        --db_port 3306 \
-        --db_name koha \
-        --db_user koha \
-        --db_pass password \
-        --zebra_marc_format marc21 \
-        --zebra_language en \
-        --zebra_tokenizer chr \
-        --zebra_user koha \
-        --zebra_pass password \
-        --zebra_sru_host localhost \
-        --zebra_sru_biblios_port 9998 \
-        --zebra_sru_authorities_port 9999 \
-        --koha_user koha \
-        --koha_group koha \
-        --install_sru yes \
-        --install_pazpar2 no \
-        --use_memcached yes \
-        --font_dir /usr/share/fonts/truetype/dejavu \
-        --run_database_tests no \
-        --template-cache-dir /var/cache/koha
+perl ./Makefile.PL  
 
+#        --install_mode standard \
+#        --db_type mysql \
+#        --db_host db \
+#        --install_base /usr/share/koha \
+#        --koha_user koha \
+#        --koha_group koha \
+#        --db_port 3306 \
+#        --db_name koha \
+#        --db_user koha \
+#        --db_pass password \
+#        --zebra_marc_format marc21 \
+#        --zebra_language en \
+#        --zebra_tokenizer chr \
+#        --zebra_user koha \
+#        --zebra_pass password \
+#        --zebra_sru_host localhost \
+#        --zebra_sru_biblios_port 9998 \
+#        --zebra_sru_authorities_port 9999 \
+#        --koha_user koha \
+#        --koha_group koha \
+#        --install_sru yes \
+#        --install_pazpar2 no \
+#        --use_memcached yes \
+#        --font_dir /usr/share/fonts/truetype/dejavu \
+#        --run_database_tests no \
+#        --template-cache-dir /var/cache/koha
 
 figlet 333
 
 cd /kohadevbox/tar/koha-20.11.04
 pwd
+
+cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
+cp /kohadevbox/tar/koha-20.11.04/debian/bin/koha-create /usr/sbin/koha-create
+
+figlet koha-create
+koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
+koha-list
 
 figlet 444
 make
@@ -150,9 +157,7 @@ export
 figlet make install
 make install
 
-cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
 figlet 555
-
 
 
 # -----------------------------------
@@ -182,11 +187,8 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 # Make sure things are executable on /bin.
 chmod +x ${BUILD_DIR}/bin/*
 
-figlet koha-create
 
-koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 
-koha-list
 
 
 /bin/bash -c "trap : TERM INT; sleep infinity & wait"
