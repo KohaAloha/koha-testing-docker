@@ -106,7 +106,6 @@ RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
  && pwd \
  && ls \
  && ./koha_perl_deps.pl -m -u
- && 
 
 RUN cpanm \
     Text::CSV::Unicode \
