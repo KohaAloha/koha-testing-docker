@@ -22,8 +22,7 @@ RUN apt-get -y update \
 
 # make a db
 RUN /etc/init.d/mysql start
-RUN /etc/init.d/mysql restart
-
+RUN /etc/init.d/mysql status
 
 RUN apt-get -y update \
     && apt-get -y install \
@@ -58,14 +57,6 @@ RUN apt-get -y update \
       mariadb-server \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
-
-# make a db
-RUN /etc/init.d/mysql start
-RUN /etc/init.d/mysql restart
-
-# make a db
-RUN /etc/init.d/mysql start
-RUN /etc/init.d/mysql restart
 
 RUN mysqladmin password changeme \
  && mysql -u root -pchangeme  -e ‘CREATE DATABASE kohadata;' \
