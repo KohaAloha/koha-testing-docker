@@ -109,24 +109,24 @@ ls
 perl ./Makefile.PL  \
         --install_mode standard \
         --db_type mysql \
-        --db_host localhost \
+        --db_host db \
         --install_base /usr/share/koha \
-        --koha_user koha_kohadev \
-        --koha_group koha_kohadev \
+        --koha_user koha \
+        --koha_group koha \
         --db_port 3306 \
-        --db_name koha_kohadev \
-        --db_user koha_kohadev \
+        --db_name koha \
+        --db_user koha \
         --db_pass password \
         --zebra_marc_format marc21 \
         --zebra_language en \
         --zebra_tokenizer chr \
-        --zebra_user koha_kohadev \
+        --zebra_user koha \
         --zebra_pass password \
         --zebra_sru_host localhost \
         --zebra_sru_biblios_port 9998 \
         --zebra_sru_authorities_port 9999 \
-        --koha_user koha_kohadev \
-        --koha_group koha_kohadev \
+        --koha_user koha \
+        --koha_group koha \
         --install_sru yes \
         --install_pazpar2 no \
         --use_memcached yes \
@@ -142,6 +142,7 @@ pwd
 
 figlet 444
 make
+make test
 make install
 
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
