@@ -112,7 +112,7 @@ ls
 
 figlet perl ./Makefile.PL
 
-perl ./Makefile.PL > dev/null
+perl ./Makefile.PL > /dev/null
 
 #        --install_mode standard \
 #        --db_type mysql \
@@ -152,7 +152,7 @@ time make > /dev/null
 
 export
 figlet make install
-time make install > dev/null
+time make install > /dev/null
 
 figlet 555
 
