@@ -14,7 +14,7 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
 
 #export KOHA_CONF=/etc/koha/koha-conf.xml
-export PERL5LIB=/usr/share/koha/lib
+#export PERL5LIB=/usr/share/koha/lib
 
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
