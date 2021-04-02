@@ -112,7 +112,8 @@ ls
 
 figlet perl ./Makefile.PL
 
-perl ./Makefile.PL > /tmp/make-perl.log
+#perl ./Makefile.PL > /tmp/make-perl.log
+perl ./Makefile.PL
 
 #        --install_mode standard \
 #        --db_type mysql \
@@ -147,12 +148,14 @@ cd /kohadevbox/tar/koha-20.11.04
 pwd
 
 figlet 444
-time make > /tmp/make.log
+#time make > /tmp/make.log
+time make
 #make test
 
 export
 figlet make install
-time make install > /tmp/make-install.log
+#time make install > /tmp/make-install.log
+time make install
 
 figlet 555
 
