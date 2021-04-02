@@ -162,8 +162,8 @@ figlet 555
 mkdir -p /usr/share/koha/lib/t/lib
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
 
-cp  /kohadevbox/koha/t/lib/TestBuilder.pm  /usr/share/koha/lib/t/lib/
-ls -l  /usr/share/koha/lib/t/lib/*
+#cp  /kohadevbox/koha/t/lib/TestBuilder.pm  /usr/share/koha/lib/t/lib/
+#ls -l  /usr/share/koha/lib/t/lib/*
 
 
 #cp /kohadevbox/tar/koha-20.11.04/debian/bin/koha-create /usr/sbin/koha-create
