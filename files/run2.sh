@@ -152,5 +152,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     fi
 else
     # TODO: We could use supervise as the main loop
-#    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+    #    /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+    figlet end
 fi

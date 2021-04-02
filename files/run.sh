@@ -147,7 +147,7 @@ figlet 333
 cd /kohadevbox/tar/koha-20.11.04
 pwd
 
-figlet 444
+figlet make
 #time make > /tmp/make.log
 time make
 #make test
