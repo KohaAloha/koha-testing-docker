@@ -147,12 +147,12 @@ cd /kohadevbox/tar/koha-20.11.04
 pwd
 
 figlet 444
-time make > /dev/null
+time make > /tmp/make.log
 #make test
 
 export
 figlet make install
-time make install > /dev/null
+time make install > /tmp/make-install.log
 
 figlet 555
 
