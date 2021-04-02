@@ -264,7 +264,9 @@ if [ -n "$KOHA_ELASTICSEARCH" ]; then
 fi
 
 figlet do_all
-
+pwd
+cd ${BUILD_DIR}/koha
+pwd
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
             --userid            ${KOHA_USER} \
