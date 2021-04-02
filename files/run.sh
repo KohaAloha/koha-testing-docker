@@ -112,7 +112,7 @@ ls
 
 figlet perl ./Makefile.PL
 
-perl ./Makefile.PL > /dev/null
+perl ./Makefile.PL > /tmp/make-perl.log
 
 #        --install_mode standard \
 #        --db_type mysql \
