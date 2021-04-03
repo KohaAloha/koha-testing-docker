@@ -333,7 +333,8 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     else
         figlet prove
 pwd
-        koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
+        koha-shell ${KOHA_INSTANCE} -p -c "pwd \
+&& JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
@@ -352,6 +353,7 @@ pwd
 else
     # TODO: We could use supervise as the main loop
   figlet end
+  pwd
   /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 fi
 
