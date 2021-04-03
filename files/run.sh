@@ -170,6 +170,12 @@ cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koh
 
 mkdir  /usr/share/koha/C4/SIP/t
 cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/C4/SIP/t/SIPtest.pm
+cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib
+
+tree -f /usr/share/koha
+figlet tree2
+tree -f /usr/share/koha/lib
+
 
 #cp  /kohadevbox/koha/t/lib/TestBuilder.pm  /usr/share/koha/lib/t/lib/
 #ls -l  /usr/share/koha/lib/t/lib/*
