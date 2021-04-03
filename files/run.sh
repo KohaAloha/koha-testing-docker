@@ -12,6 +12,8 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+figlet xml
+cat /etc/perl/XML/SAX/ParserDetails.ini
 
 #export KOHA_CONF=/etc/koha/koha-conf.xml
 #export PERL5LIB=/usr/share/koha/lib
@@ -158,9 +160,9 @@ figlet make install
 time make install
 
 
-tree -f /usr/share/koha
+#tree -f /usr/share/koha
 figlet tree
-tree -f /usr/share/koha/lib
+#tree -f /usr/share/koha/lib
 
 
 figlet 555
@@ -172,9 +174,9 @@ mkdir -p /usr/share/koha/lib/C4/SIP/t
 cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm
 cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib
 
-tree -f /usr/share/koha
+#tree -f /usr/share/koha
 figlet tree2
-tree -f /usr/share/koha/lib
+#tree -f /usr/share/koha/lib
 
 
 #cp  /kohadevbox/koha/t/lib/TestBuilder.pm  /usr/share/koha/lib/t/lib/
@@ -309,7 +311,16 @@ chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INS
 koha-plack           --enable ${KOHA_INSTANCE}
 koha-z3950-responder --enable ${KOHA_INSTANCE}
 
-#service koha-common start
+#koha-plack           --start ${KOHA_INSTANCE}
+
+#/etc/init.d/koha-common status
+#/etc/init.d/koha-common stop
+#/etc/init.d/koha-common status
+#/etc/init.d/koha-common start
+#/etc/init.d/koha-common status
+
+service koha-common start
+service koha-common status
 
 # Start apache and rabbitmq-server
 service apache2 start
@@ -362,7 +373,7 @@ pwd
                                   prove -j ${KOHA_PROVE_CPUS} -v \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  --timer --harness=TAP::Harness::JUnit -r t/ xt/ \
                                   && touch testing.success"
     fi
 else
