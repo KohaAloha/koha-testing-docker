@@ -37,6 +37,7 @@ RUN apt-get -y update \
         gettext-base \
         xsltproc \
         tree \
+        libxml2-utils \
         procps
 
 # make a db
