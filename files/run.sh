@@ -169,7 +169,7 @@ figlet 555
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
 
 mkdir -p /usr/share/koha/C4/SIP/t
-cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/C4/SIP/t/SIPtest.pm
+cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm
 cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib
 
 tree -f /usr/share/koha
