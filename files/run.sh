@@ -165,7 +165,7 @@ tree -f /usr/share/koha/lib
 
 figlet 555
 
-mkdir -p /usr/share/koha/lib/t/lib
+#mkdir -p /usr/share/koha/lib/t/lib
 cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
 
 mkdir  /usr/share/koha/C4/SIP/t
