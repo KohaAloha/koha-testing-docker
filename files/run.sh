@@ -305,6 +305,7 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
 
+pwd
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
@@ -331,6 +332,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   cover -report clover"
     else
         figlet prove
+pwd
         koha-shell ${KOHA_INSTANCE} -p -c "JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
