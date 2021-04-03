@@ -157,6 +157,12 @@ figlet make install
 #time make install > /tmp/make-install.log
 time make install
 
+
+tree -f /usr/share/koha
+figlet tree
+tree -f /usr/share/koha/lib
+
+
 figlet 555
 
 mkdir -p /usr/share/koha/lib/t/lib
