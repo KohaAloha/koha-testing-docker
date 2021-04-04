@@ -1,5 +1,5 @@
 # Base it on Debian 10
-FROM debian:buster
+FROM fedora:latest
 
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
