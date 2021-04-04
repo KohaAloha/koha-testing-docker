@@ -30,57 +30,35 @@ WORKDIR /kohadevbox
 
 RUN dnf -y update \
     && dnf -y install \
-apache2 \
-apt-transport-https \
+httpd \
 at \
-build-essential \
 codespell \
 cpanminus \
-cron \
+cronie \
 curl \
-daemon \
-debconf \
+libdaemon \
 figlet \
-fonts-dejavu \
+dejavu-fonts-all \
 gcc \
-gettext-base \
+gettext \
 git \
 gnupg2 \
-idzebra-2.0 \
-libapache2-mpm-itk \
-libcarp-always-perl \
-libdata-printer-perl \
-libemail-stuffer-perl \
-libexpat1-dev \
-libfile-chdir-perl \
-libfribidi0 \
-libfribidi-dev \
-libgd3 \
-libgd-dev \
-libgit-repository-perl \
-libgraphics-magick-perl \
-libhtml-tableextract-perl \
-libhtml-tidy-perl \
-liblist-compare-perl \
-libmariadb-dev-compat \
-libmemcached-tools \
-libmodule-install-perl \
-libnet-z3950-simpleserver-perl \
-libperl-critic-perl \
-libplack-middleware-logwarn-perl \
-libsmart-comments-perl \
-libtest-differences-perl \
-libtest-perl-critic-perl \
-libtest-perl-critic-progressive-perl \
-libtext-multimarkdown-perl \
+idzebra \
+libidzebra \
+expat \
+expat-devel \
+fribidi \
+fribidi-devel \
+gd \
+gd-devel \
+mariadb-server \
+mariadb-devel \
+libmemcached \
 libxml2 \
-libxml2-dev \
-libxml2-utils \
-libxml-libxml-perl \
-libxml-libxslt-perl \
-libxslt1-dev \
-libyaz-dev \
-locales \
+libxml2-devel \
+libxslt \
+libxslt-devel \
+libyaz-devel \
 lynx \
 make \
 mariadb-server \
@@ -93,24 +71,19 @@ pkg-config \
 pmtools \
 procps \
 pwgen \
-python-gdbm \
 rabbitmq-server \
-starman \
+perl-Starman \
 sudo \
 tig \
 tmux \
 tree \
-ttf-dejavu \
 unzip \
 vim \
-virtual-mysql-client \
-virtual-mysql-server \
+mariadb-server \
 wget \
 xmlstarlet \
-xsltproc \
-yarn \
-yaz 
-
+yarnpkg \
+yaz
 
 
 # ------------------------------------
@@ -119,22 +92,6 @@ yaz
 
 
 #RUN while ! nc -z db 3306; do sleep 1; done
-
-RUN dnf -y update \
-    && dnf -y install \
-        netcat \
-        figlet \
-        wget \
-        gnupg2 \
-        gettext-base \
-        xsltproc \
-        tree \
-        libxml2-utils \
-        libxml2 \
-        libxml-libxml-perl \
-        xmlstarlet \
-        lynx \
-        procps
 
 # make a db
 #RUN ps -ef | grep mysql
@@ -160,48 +117,6 @@ RUN dnf -y update \
 #
 # ---------
 
-RUN dnf -y update \
-    && dnf -y install \
-      apache2 \
-      build-essential \
-      codespell \
-      cpanminus \
-      git \
-      tig \
-      libcarp-always-perl \
-      libgit-repository-perl \
-      liblist-compare-perl \
-      libmemcached-tools \
-      libmodule-install-perl \
-      libperl-critic-perl \
-      libsmart-comments-perl \
-      libtest-differences-perl \
-      libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
-      libfile-chdir-perl \
-      libdata-printer-perl \
-      pmtools \
-      locales \
-      netcat \
-      python-gdbm \
-      vim \
-      tmux \
-      wget \
-      curl \
-      apt-transport-https \
-      mlocate \
-      mariadb-server \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
-
-
-# Temporary dependencies
-RUN dnf -y update \
-    && dnf -y install \
-      libplack-middleware-logwarn-perl \
-      libemail-stuffer-perl \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
 
 # Set locales
 RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -229,16 +144,6 @@ RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc
 
 #RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
-# Install koha deps
-RUN dnf -y update \
-   && dnf -y install \
-         perl \
-         koha-deps \
-         make \
-         cpanminus \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-#   && /etc/init.d/koha-core stop \
 
 # Install koha-common from tar
 
@@ -260,34 +165,7 @@ RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
  && ls
 
 # --------------------------
-RUN dpkg -l
-
-# Install koha deps
-RUN dnf -y update \
-   && dnf -y install \
-\
-libgraphics-magick-perl \
- libhtml-tidy-perl \
- libnet-z3950-simpleserver-perl \
- libxml-libxslt-perl \
- libxslt1-dev \
- libxml2 \
- libxml2-dev \
- libxml2-utils \
- libfribidi0 \
- libfribidi-dev \
- libgd3 \
- libgd-dev \
- build-essential \
-libmariadb-dev-compat \
-libyaz-dev \
-yaz \
-gcc \
- pkg-config \
-\
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-#
+RUN dnf list installed
 
 
 # --------------------------
@@ -567,13 +445,6 @@ WORKDIR /kohadevbox
 #        --template-cache-dir /var/cache/koha 
 #
 
-# Install testing extras, packages and cpan
-RUN dnf -y update \
-   && dnf -y install \
-         libexpat1-dev \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
-
 RUN cpanm -i --force -n \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
@@ -594,18 +465,8 @@ RUN wget -O Devel-Cover.tar.gz \
     && cd Devel-Cover-1.26/ \
     && cpanm -i -n .
 
-## Add Yarn
-# Add node repo
-RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/node.list
-# Add yarn repo
-RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
-RUN dnf update \
-   && dnf -y install nodejs yarn \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
+RUN dnf -y install nodejs yarn \
 
 # Install gulp
 RUN npm install gulp-cli -g
@@ -624,16 +485,12 @@ RUN cd /kohadevbox \
 # release-tools
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
-    && dnf update \
-    && dnf -y install \
-        libhtml-tableextract-perl \
-        libtext-multimarkdown-perl \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
     && cpanm -i --force -n \
         File::FindLib \
         REST::Client
-
+        HTML::TableExtract \
+        Text::MultiMarkdown \
+\
 # Remote debugger
  RUN cd /kohadevbox  \
     && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download   \
