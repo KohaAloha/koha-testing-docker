@@ -57,6 +57,8 @@ mariadb-devel \
 libmemcached \
 libtidy \
 libtidy-devel \
+libtidyp \
+libtidyp-devel \
 libxml2 \
 libxml2-devel \
 libxslt \
