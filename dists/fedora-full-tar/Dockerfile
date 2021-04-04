@@ -8,8 +8,8 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
+#RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
+#RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-10-01-0
 
@@ -22,16 +22,16 @@ WORKDIR /kohadevbox
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 
-RUN dnf -y install apt
+#RUN dnf -y install apt
 
-RUN apt-get -y update \
-    && apt-get -y install \
+RUN dnf -y update \
+    && dnf -y install \
         mariadb-server
 
 #RUN while ! nc -z db 3306; do sleep 1; done
 
-RUN apt-get -y update \
-    && apt-get -y install \
+RUN dnf -y update \
+    && dnf -y install \
         netcat \
         figlet \
         wget \
@@ -70,8 +70,8 @@ RUN apt-get -y update \
 #
 # ---------
 
-RUN apt-get -y update \
-    && apt-get -y install \
+RUN dnf -y update \
+    && dnf -y install \
       apache2 \
       build-essential \
       codespell \
@@ -106,8 +106,8 @@ RUN apt-get -y update \
 
 
 # Temporary dependencies
-RUN apt-get -y update \
-    && apt-get -y install \
+RUN dnf -y update \
+    && dnf -y install \
       libplack-middleware-logwarn-perl \
       libemail-stuffer-perl \
    && rm -rf /var/cache/apt/archives/* \
@@ -140,8 +140,8 @@ RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc
 #RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha deps
-RUN apt-get -y update \
-   && apt-get -y install \
+RUN dnf -y update \
+   && dnf -y install \
          perl \
          koha-deps \
          make \
@@ -173,8 +173,8 @@ RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
 RUN dpkg -l
 
 # Install koha deps
-RUN apt-get -y update \
-   && apt-get -y install \
+RUN dnf -y update \
+   && dnf -y install \
 \
 libgraphics-magick-perl \
  libhtml-tidy-perl \
@@ -478,8 +478,8 @@ WORKDIR /kohadevbox
 #
 
 # Install testing extras, packages and cpan
-RUN apt-get -y update \
-   && apt-get -y install \
+RUN dnf -y update \
+   && dnf -y install \
          libexpat1-dev \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
@@ -512,8 +512,8 @@ RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/source
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
-RUN apt-get update \
-   && apt-get -y install nodejs yarn \
+RUN dnf update \
+   && dnf -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -534,8 +534,8 @@ RUN cd /kohadevbox \
 # release-tools
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
-    && apt-get update \
-    && apt-get -y install \
+    && dnf update \
+    && dnf -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
     && rm -rf /var/cache/apt/archives/* \
