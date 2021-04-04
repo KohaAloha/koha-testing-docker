@@ -23,10 +23,100 @@ WORKDIR /kohadevbox
 # netcat: used for checking the DB is up
 
 #RUN dnf -y install apt
+# ------------------------------------
+# ------------------------------------
+# ------------------------------------
+
 
 RUN dnf -y update \
     && dnf -y install \
-        mariadb-server
+apache2 \
+apt-transport-https \
+at \
+build-essential \
+codespell \
+cpanminus \
+cron \
+curl \
+daemon \
+debconf \
+figlet \
+fonts-dejavu \
+gcc \
+gettext-base \
+git \
+gnupg2 \
+idzebra-2.0 \
+libapache2-mpm-itk \
+libcarp-always-perl \
+libdata-printer-perl \
+libemail-stuffer-perl \
+libexpat1-dev \
+libfile-chdir-perl \
+libfribidi0 \
+libfribidi-dev \
+libgd3 \
+libgd-dev \
+libgit-repository-perl \
+libgraphics-magick-perl \
+libhtml-tableextract-perl \
+libhtml-tidy-perl \
+liblist-compare-perl \
+libmariadb-dev-compat \
+libmemcached-tools \
+libmodule-install-perl \
+libnet-z3950-simpleserver-perl \
+libperl-critic-perl \
+libplack-middleware-logwarn-perl \
+libsmart-comments-perl \
+libtest-differences-perl \
+libtest-perl-critic-perl \
+libtest-perl-critic-progressive-perl \
+libtext-multimarkdown-perl \
+libxml2 \
+libxml2-dev \
+libxml2-utils \
+libxml-libxml-perl \
+libxml-libxslt-perl \
+libxslt1-dev \
+libyaz-dev \
+locales \
+lynx \
+make \
+mariadb-server \
+mlocate \
+netcat \
+nodejs \
+perl \
+perl-doc \
+pkg-config \
+pmtools \
+procps \
+pwgen \
+python-gdbm \
+rabbitmq-server \
+starman \
+sudo \
+tig \
+tmux \
+tree \
+ttf-dejavu \
+unzip \
+vim \
+virtual-mysql-client \
+virtual-mysql-server \
+wget \
+xmlstarlet \
+xsltproc \
+yarn \
+yaz 
+
+
+
+# ------------------------------------
+# ------------------------------------
+# ------------------------------------
+
 
 #RUN while ! nc -z db 3306; do sleep 1; done
 
