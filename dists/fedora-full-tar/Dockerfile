@@ -412,7 +412,7 @@ RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
     && cpanm -i --force -n \
         File::FindLib \
-        REST::Client
+        REST::Client \
         HTML::TableExtract \
         Text::MultiMarkdown \
 \
