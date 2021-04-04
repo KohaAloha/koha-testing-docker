@@ -91,7 +91,8 @@ yarnpkg \
 yaz \
 \
 uuid \
-uuid-devel
+uuid-devel \
+mariadb-connector-c-devel
 
 
 # ------------------------------------
