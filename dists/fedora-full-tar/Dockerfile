@@ -2,6 +2,11 @@
 #FROM fedora:latest
 FROM fedora:33
 
+
+RUN yum reinstall glibc-common -y 
+    && localedef -c -i fr_FR -f ISO-8859-15 fr_FR.ISO-8859-15 \
+    &&  echo "LANG=fr_FR.ISO-8859-15" > /etc/locale.conf
+
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
 
