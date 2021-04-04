@@ -1,5 +1,6 @@
 # Base it on Debian 10
-FROM fedora:latest
+#FROM fedora:latest
+FROM fedora:33
 
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
@@ -119,11 +120,7 @@ yaz
 
 
 # Set locales
-RUN    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-    && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
-    && locale-gen \
-    && dpkg-reconfigure locales \
-    && /usr/sbin/update-locale LANG=en_US.UTF-8
+#RUN localectl set-locale LANG=en_US.utf8
 
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
