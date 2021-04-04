@@ -461,6 +461,7 @@ RUN cd /kohadevbox  \
 VOLUME /kohadevbox/koha
 
 COPY files/run-fed.sh /kohadevbox
+COPY files/run-fed2.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
