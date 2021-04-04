@@ -158,7 +158,6 @@ RUN apt-get -y update \
    rabbitmq-server \
    starman \
    sudo \
-   sudo-ldap \
    fonts-dejavu \
    ttf-dejavu \
    unzip \
