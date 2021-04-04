@@ -3,10 +3,6 @@
 FROM fedora:33
 
 
-RUN yum reinstall glibc-common -y 
-    && localedef -c -i fr_FR -f ISO-8859-15 fr_FR.ISO-8859-15 \
-    &&  echo "LANG=fr_FR.ISO-8859-15" > /etc/locale.conf
-
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
 
@@ -134,6 +130,13 @@ mariadb-connector-c-devel
 
 # Set locales
 #RUN localectl set-locale LANG=en_US.utf8
+# localedef -f UTF-8 -i fi_FI fi_FI.UTF-8
+
+RUN yum reinstall glibc-common -y \
+    && localedef -c \
+        -i en_US \
+        -f UTF-8 \
+    &&  echo "LANG=en_US.utf8" > /etc/locale.conf
 
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
