@@ -88,9 +88,9 @@ mariadb-server \
 wget \
 xmlstarlet \
 yarnpkg \
-yaz
-/
-uuid /
+yaz \
+\
+uuid \
 uuid-devel
 
 
