@@ -27,7 +27,7 @@ stages:
 20.11-fedora-full-tar:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:20.11-fedora-full-tar --no-cache --rm -f dists/buster-full-tar/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:20.11-fedora-full-tar --no-cache --rm -f dists/fedora-full-tar/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:20.11-fedora-full-tar
   - docker image rm kohaaloha/koha-testing:20.11-fedora-full-tar
