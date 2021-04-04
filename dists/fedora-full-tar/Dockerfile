@@ -131,6 +131,8 @@ mariadb-connector-c-devel
 #RUN localectl set-locale LANG=en_US.utf8
 # localedef -f UTF-8 -i fi_FI fi_FI.UTF-8
 RUN export
+RUN locale \
+    && locale -a
 
 RUN echo "LANG=en_US.utf8" > /etc/locale.conf
 RUN yum reinstall glibc-common -y \
