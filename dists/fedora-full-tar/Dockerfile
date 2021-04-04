@@ -2,7 +2,6 @@
 #FROM fedora:latest
 FROM fedora:33
 
-
 # File Author / Maintainer
 #LABEL maintainer="tomascohen@theke.io"
 
@@ -131,6 +130,7 @@ mariadb-connector-c-devel
 # Set locales
 #RUN localectl set-locale LANG=en_US.utf8
 # localedef -f UTF-8 -i fi_FI fi_FI.UTF-8
+RUN export
 
 RUN yum reinstall glibc-common -y \
     && localedef -c \
@@ -142,6 +142,8 @@ ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV LC_CTYPE en_US.UTF-8
+
+RUN export
 
 # Prepare apache configuration
 #RUN a2dismod mpm_event
