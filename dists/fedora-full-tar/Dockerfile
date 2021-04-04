@@ -135,8 +135,8 @@ RUN locale \
     && locale -a
 
 RUN echo "LANG=en_US.utf8" > /etc/locale.conf
-RUN yum reinstall glibc-common -y \
-    && localedef -c -f UTF-8 -i en_US en_US.UTF-8
+RUN yum reinstall glibc-common -y 
+#    && localedef -c -f UTF-8 -i en_US en_US.UTF-8
 
 #    && localedef -c \
 #        -i en_US \
