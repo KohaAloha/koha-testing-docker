@@ -22,6 +22,8 @@ WORKDIR /kohadevbox
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 
+RUN dnf -y install apt
+
 RUN apt-get -y update \
     && apt-get -y install \
         mariadb-server
