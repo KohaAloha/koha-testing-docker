@@ -132,11 +132,13 @@ mariadb-connector-c-devel
 # localedef -f UTF-8 -i fi_FI fi_FI.UTF-8
 RUN export
 
+RUN echo "LANG=en_US.utf8" > /etc/locale.conf
 RUN yum reinstall glibc-common -y \
-    && localedef -c \
-        -i en_US \
-        -f UTF-8 \
-    &&  echo "LANG=en_US.utf8" > /etc/locale.conf
+    && localedef -c -f UTF-8 -i en_US en_US.UTF-8
+
+#    && localedef -c \
+#        -i en_US \
+#        -f UTF-8 \
 
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
