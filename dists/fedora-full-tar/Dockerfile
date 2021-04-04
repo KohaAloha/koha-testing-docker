@@ -139,6 +139,7 @@ RUN echo "LANG=en_US.utf8" > /etc/locale.conf \
  && echo "LC_CTYPE=en_US.UTF-8" >> /etc/environment \
  && echo "LANGUAGE=en_US.UTF-8" >> /etc/environment
 
+RUN cat /etc/environment
 RUN yum reinstall glibc-common -y
 #    && localedef -c -f UTF-8 -i en_US en_US.UTF-8
 

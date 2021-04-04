@@ -217,11 +217,7 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 # Make sure things are executable on /bin.
 chmod +x ${BUILD_DIR}/bin/*
 
-
 # run2
-
-
-
 
 # -------------------------------
 # -------------------------------
