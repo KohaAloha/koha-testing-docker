@@ -459,10 +459,10 @@ RUN cd /kohadevbox  \
 
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
+COPY files/run-fed.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
-CMD ["/bin/bash", "/kohadevbox/run.sh"]
+CMD ["/bin/bash", "/kohadevbox/run-fed.sh"]
 
 EXPOSE 8080 8081
