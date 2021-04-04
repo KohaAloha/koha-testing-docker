@@ -55,6 +55,7 @@ gd-devel \
 mariadb-server \
 mariadb-devel \
 libmemcached \
+libtidy \
 libxml2 \
 libxml2-devel \
 libxslt \
