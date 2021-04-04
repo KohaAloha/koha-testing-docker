@@ -141,9 +141,30 @@ RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc
 RUN apt-get -y update \
    && apt-get -y install \
          perl \
-         koha-deps \
          make \
          cpanminus \
+\
+   apache2 \
+   libapache2-mpm-itk \
+   at \
+   cron \
+   daemon \
+   debconf \
+   idzebra-2.0 \
+   virtual-mysql-client \
+   virtual-mysql-server \
+   perl-doc \
+   pwgen \
+   rabbitmq-server \
+   starman \
+   sudo \
+   sudo-ldap \
+   fonts-dejavu \
+   ttf-dejavu \
+   unzip \
+   xmlstarlet \
+   yaz \
+\
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 #   && /etc/init.d/koha-core stop \
