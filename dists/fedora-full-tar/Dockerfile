@@ -89,6 +89,9 @@ wget \
 xmlstarlet \
 yarnpkg \
 yaz
+/
+uuid /
+uuid-devel
 
 
 # ------------------------------------
