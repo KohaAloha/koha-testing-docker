@@ -192,6 +192,12 @@ RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
 # --------------------------
 RUN dnf list installed
 
+RUN cpanm -i --force -n \
+        File::FindLib \
+        REST::Client \
+        HTML::TableExtract \
+        Text::MultiMarkdown
+
 
 # --------------------------
 RUN cpanm -n Data::Validate::Domain \
@@ -443,8 +449,8 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client \
         HTML::TableExtract \
-        Text::MultiMarkdown \
-\
+        Text::MultiMarkdown
+
 # Remote debugger
  RUN cd /kohadevbox  \
     && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download   \
