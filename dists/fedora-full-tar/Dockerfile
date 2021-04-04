@@ -416,7 +416,7 @@ RUN wget -O Devel-Cover.tar.gz \
     && cpanm -i -n .
 
 # Install Node.js and Yarn
-RUN dnf -y install nodejs yarn
+RUN dnf -y install nodejs yarnpkg
 
 # Install gulp
 RUN npm install gulp-cli -g
