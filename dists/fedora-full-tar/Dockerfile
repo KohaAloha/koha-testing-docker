@@ -90,6 +90,7 @@ xmlstarlet \
 yarnpkg \
 yaz \
 \
+glibc-langpack-en \
 hostname \
 uuid \
 uuid-devel \
