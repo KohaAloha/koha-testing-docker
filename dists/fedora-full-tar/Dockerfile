@@ -470,14 +470,7 @@ RUN cd /kohadevbox  \
     && rm dbgp.tar.gz
 
 
-
-
-
-
-
-
-
-
+RUN mkdir -p /etc/mysql
 
 VOLUME /kohadevbox/koha
 
