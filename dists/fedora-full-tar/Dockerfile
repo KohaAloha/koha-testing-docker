@@ -136,23 +136,23 @@ RUN export
 RUN locale \
     && locale -a
 
-RUN echo "LANG=en_US.utf8" > /etc/locale.conf \
- && echo "LC_ALL=en_US.UTF-8"  >> /etc/environment \
- && echo "LC_CTYPE=en_US.UTF-8" >> /etc/environment \
- && echo "LANGUAGE=en_US.UTF-8" >> /etc/environment
+#RUN echo "LANG=en_US.utf8" > /etc/locale.conf \
+# && echo "LC_ALL=en_US.UTF-8"  >> /etc/environment \
+# && echo "LC_CTYPE=en_US.UTF-8" >> /etc/environment \
+# && echo "LANGUAGE=en_US.UTF-8" >> /etc/environment
 
 RUN cat /etc/environment
-RUN yum reinstall glibc-common -y
+#RUN yum reinstall glibc-common -y
 #    && localedef -c -f UTF-8 -i en_US en_US.UTF-8
 
 #    && localedef -c \
 #        -i en_US \
 #        -f UTF-8 \
 
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LC_CTYPE en_US.UTF-8
+#ENV LANGUAGE en_US.UTF-8
+#ENV LANG en_US.UTF-8
+#ENV LC_ALL en_US.UTF-8
+#ENV LC_CTYPE en_US.UTF-8
 
 RUN export
 RUN locale \
