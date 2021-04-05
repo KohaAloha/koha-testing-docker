@@ -115,7 +115,7 @@ ls
 figlet perl ./Makefile.PL
 
 #perl ./Makefile.PL > /tmp/make-perl.log
-perl ./Makefile.PL
+perl ./Makefile.PL \
         --install_mode standard \
         --db_type mysql \
         --db_host db \
