@@ -116,33 +116,32 @@ figlet perl ./Makefile.PL
 
 #perl ./Makefile.PL > /tmp/make-perl.log
 perl ./Makefile.PL
-
-#        --install_mode standard \
-#        --db_type mysql \
-#        --db_host db \
-#        --install_base /usr/share/koha \
-#        --koha_user koha \
-#        --koha_group koha \
-#        --db_port 3306 \
-#        --db_name koha \
-#        --db_user koha \
-#        --db_pass password \
-#        --zebra_marc_format marc21 \
-#        --zebra_language en \
-#        --zebra_tokenizer chr \
-#        --zebra_user koha \
-#        --zebra_pass password \
-#        --zebra_sru_host localhost \
-#        --zebra_sru_biblios_port 9998 \
-#        --zebra_sru_authorities_port 9999 \
-#        --koha_user koha \
-#        --koha_group koha \
-#        --install_sru yes \
-#        --install_pazpar2 no \
-#        --use_memcached yes \
-#        --font_dir /usr/share/fonts/truetype/dejavu \
-#        --run_database_tests no \
-#        --template-cache-dir /var/cache/koha
+        --install_mode standard \
+        --db_type mysql \
+        --db_host db \
+        --install_base /usr/share/koha \
+        --koha_user koha \
+        --koha_group koha \
+        --db_port 3306 \
+        --db_name koha \
+        --db_user koha \
+        --db_pass password \
+        --zebra_marc_format marc21 \
+        --zebra_language en \
+        --zebra_tokenizer chr \
+        --zebra_user koha \
+        --zebra_pass password \
+        --zebra_sru_host localhost \
+        --zebra_sru_biblios_port 9998 \
+        --zebra_sru_authorities_port 9999 \
+        --koha_user koha \
+        --koha_group koha \
+        --install_sru yes \
+        --install_pazpar2 no \
+        --use_memcached yes \
+        --font_dir /usr/share/fonts/truetype/dejavu \
+        --run_database_tests no \
+        --template-cache-dir /var/cache/koha
 
 figlet 333
 
