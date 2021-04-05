@@ -90,6 +90,7 @@ xmlstarlet \
 yarnpkg \
 yaz \
 \
+hostname \
 uuid \
 uuid-devel \
 mariadb-connector-c-devel
