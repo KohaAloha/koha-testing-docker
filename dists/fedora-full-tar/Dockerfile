@@ -94,7 +94,10 @@ glibc-langpack-en \
 hostname \
 uuid \
 uuid-devel \
-mariadb-connector-c-devel
+mariadb-connector-c-devel \
+GraphicsMagick-devel \
+GraphicsMagick \
+GraphicsMagick-perl
 
 
 # ------------------------------------
@@ -393,7 +396,8 @@ RUN cpanm -n  Text::Iconv  \
 &&  cpanm -n  DateTime::Format::MySQL  \
 &&  cpanm -n  Net::Netmask  \
 &&  cpanm -n  Class::Factory::Util
-
+&&  cpanm -n XML::LibXSLT \
+&&  cpanm -n  Net::Z3950::SimpleServer
 
 # --------------------------
 WORKDIR /kohadevbox/tar/koha-20.11.04
