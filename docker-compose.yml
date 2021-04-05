@@ -24,6 +24,7 @@ services:
         networks:
             - kohanet
     koha:
+        hostname: kohadevbox
         image: kohaaloha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
