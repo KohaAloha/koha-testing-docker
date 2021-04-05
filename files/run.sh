@@ -185,10 +185,6 @@ figlet tree2
 
 #cp /kohadevbox/tar/koha-20.11.04/debian/bin/koha-create /usr/sbin/koha-create
 
-figlet koha-create
-koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
-koha-list
-
 
 # -----------------------------------
 # Get rid of Apache warnings
@@ -216,6 +212,14 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 
 # Make sure things are executable on /bin.
 chmod +x ${BUILD_DIR}/bin/*
+
+
+
+figlet koha-create
+koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
+koha-list
+
+
 
 
 # run2
