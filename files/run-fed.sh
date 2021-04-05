@@ -21,7 +21,7 @@ figlet xml
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 echo "127.0.0.1 kohadevbox" >> /etc/hosts
-hostname kohadevbox
+#hostname kohadevbox
 
 # Clone before calling cp_debian_files.pl
 if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
