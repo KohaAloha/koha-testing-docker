@@ -356,7 +356,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   xargs prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s \
+                                  --timer --harness=TAP::Harness::JUnit \
                                   && touch testing.success"
 else
   figlet end
