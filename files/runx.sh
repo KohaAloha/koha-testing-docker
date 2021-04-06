@@ -29,7 +29,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
-    else if [ "LIGHT_TEST_SUITE" = "1" ]; then
+    elif [ "LIGHT_TEST_SUITE" = "1" ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "find t xt -name '*.t' \
                                     -not -path \"t/db_dependent/www/*\" \
                                     -not -path \"t/db_dependent/selenium/*\" \
