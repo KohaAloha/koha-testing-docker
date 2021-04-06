@@ -334,7 +334,6 @@ service rabbitmq-server start
 if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
-
 pwd
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
@@ -366,8 +365,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                     -not -path \"t/db_dependent/selenium/*\" \
                                     -not -path \"t/db_dependent/Koha/SearchEngine/Elasticsearch/*\" \
                                     -not -path \"t/db_dependent/Koha/SearchEngine/*\" \
-                                |
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
+                                | JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
@@ -399,10 +397,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
     fi
 else
-    # TODO: We could use supervise as the main loop
   figlet end
-  pwd
   /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 fi
-
-
