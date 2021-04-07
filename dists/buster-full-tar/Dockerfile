@@ -213,8 +213,7 @@ yaz \
 gcc \
  pkg-config \
 koha-deps \
-koha-perldeps
-\
+koha-perldeps \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 #
