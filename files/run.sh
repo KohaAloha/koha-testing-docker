@@ -219,6 +219,14 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 chmod +x ${BUILD_DIR}/bin/*
 
 
+# ---------------------------
+# ---------------------------
+# ---------------------------
+# ---------------------------
+
+# Wait for the DB server startup
+while ! nc -z db 3306; do sleep 1; done
+
 
 figlet koha-create
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
@@ -288,6 +296,17 @@ fi
 if [ -n "$KOHA_ELASTICSEARCH" ]; then
     ES_FLAG="--elasticsearch"
 fi
+
+
+
+
+
+
+# --------------------
+# --------------------
+# --------------------
+# --------------------
+# --------------------
 
 figlet do_all
 pwd
