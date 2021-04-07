@@ -644,7 +644,7 @@ RUN figlet perl ./Makefile.PL \
 # && #        --run_database_tests no \
 # && #        --template-cache-dir /var/cache/koha
 
-RUN figlet make
+RUN figlet make \
  && time make
 
 RUN figlet make install \
