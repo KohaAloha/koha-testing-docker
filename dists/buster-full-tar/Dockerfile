@@ -645,10 +645,10 @@ RUN figlet perl ./Makefile.PL \
 # && #        --template-cache-dir /var/cache/koha
 
 RUN figlet make \
- && time make
+ && make
 
 RUN figlet make install \
- && time make install \
+ && make install \
  && cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh \
  && mkdir -p /usr/share/koha/lib/C4/SIP/t \
  && cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm \
