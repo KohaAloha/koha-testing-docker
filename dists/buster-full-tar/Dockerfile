@@ -568,25 +568,6 @@ RUN cd /kohadevbox \
     && tar xvzf dbgp.tar.gz  \
     && rm dbgp.tar.gz
 
-
-
-
-# TODO: Have bugs pushed so all this is a koha-create parameter
-echo "${KOHA_INSTANCE}:koha_${KOHA_INSTANCE}:${KOHA_DB_PASSWORD}:koha_${KOHA_INSTANCE}" > /etc/koha/passwd
-# TODO: Get rid of this hack with the relevant bug
-echo "[client]"                   > /etc/mysql/koha-common.cnf
-echo "host     = ${DB_HOSTNAME}" >> /etc/mysql/koha-common.cnf
-echo "user     = root"           >> /etc/mysql/koha-common.cnf
-echo "password = password"       >> /etc/mysql/koha-common.cnf
-
-
-echo "[client]"                          > /etc/mysql/koha_${KOHA_INSTANCE}.cnf
-echo "host     = ${DB_HOSTNAME}"        >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
-echo "user     = koha_${KOHA_INSTANCE}" >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
-echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
-
-
-
 # ----------------------------------
 # ----------------------------------
 # ----------------------------------
