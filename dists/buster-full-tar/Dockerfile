@@ -614,9 +614,9 @@ RUN figlet make-start \
 
 WORKDIR /kohadevbox/tar/koha-20.11.04
 
-RUN figlet perl ./Makefile.PL
+RUN figlet perl ./Makefile.PL \
+    && perl ./Makefile.PL
 
-# && perl ./Makefile.PL
 # && #        --install_mode standard \
 # && #        --db_type mysql \
 # && #        --db_host db \
@@ -643,10 +643,10 @@ RUN figlet perl ./Makefile.PL
 # && #        --font_dir /usr/share/fonts/truetype/dejavu \
 # && #        --run_database_tests no \
 # && #        --template-cache-dir /var/cache/koha
-#
+
 RUN figlet make
  && time make
-#
+
 RUN figlet make install \
  && time make install \
  && cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh \
