@@ -63,10 +63,11 @@ echo "host     = ${DB_HOSTNAME}"        >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "user     = koha_${KOHA_INSTANCE}" >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 
-# -----------------------------------
+# ----------------------------------
+# ----------------------------------
+# ----------------------------------
 
-
-figlet 222
+figlet make-start
 
 export DB_HOST='localhost'
 export DB_NAME='koha'
@@ -178,6 +179,10 @@ cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib
 figlet tree2
 #tree -f /usr/share/koha/lib
 
+figlet make-stop
+# ----------------------------------
+# ----------------------------------
+# ----------------------------------
 
 #cp  /kohadevbox/koha/t/lib/TestBuilder.pm  /usr/share/koha/lib/t/lib/
 #ls -l  /usr/share/koha/lib/t/lib/*
