@@ -35,22 +35,22 @@ if ( $ENV{DBMS_YML} ) {
 }
 
 for my $yml ( @docker_compose_yml ) {
-    run(qq{wget -O $yml $GITLAB_RAW_URL/$yml}, 'or die');
+    run(qq{wget -O $yml $GITLAB_RAW_URL/$yml}, { exit_on_error => 1 });
 }
 
 my $docker_compose_env = "$GITLAB_RAW_URL/env/defaults.env";
-run(qq{wget -O .env $docker_compose_env}, 'or die');
+run(qq{wget -O .env $docker_compose_env}, { exit_on_error => 1 });
 
 run(q{docker system prune -a -f});
 my $cmd = 'docker-compose ' . join( ' ', map { "-f $_" } @docker_compose_yml ) . ' pull';
-run($cmd, 'or die');
+run($cmd, { exit_on_error => 1 });
 
 # Run tests
 $cmd =
     'docker-compose '
   . join( ' ', map { "-f $_" } @docker_compose_yml )
   . ' -p koha up --abort-on-container-exit --no-color --force-recreate';
-run($cmd, 'or die');
+run($cmd, { exit_on_error => 1, use_pipe => 1 });
 
 # Post cleanup
 run(q{docker-compose down});
@@ -63,14 +63,24 @@ run(qq{rm $_}) for @docker_compose_yml;
 run(q{rm -rf .env});
 
 sub run {
-    my ( $cmd, $exit_on_error ) = @_;
-    $cmd .= " 2>&1";
-    my $fh;
-    if ( $exit_on_error ) {
-        open($fh, '-|', $cmd) or die "Failed to execute: $cmd ($!)";
+    my ( $cmd, $params ) = @_;
+    my $exit_on_error = $params->{exit_on_error};
+    my $use_pipe      = $params->{use_pipe};
+    if ( $use_pipe ) {
+        $cmd .= " 2>&1";
+        my $fh;
+        if ( $exit_on_error ) {
+            open($fh, '-|', $cmd) or die "Failed to execute: $cmd ($!)";
+        } else {
+            open($fh, '-|', $cmd);
+            if ($!) { warn "Failed to execute: $cmd ($!)"; return; }
+        }
+        while (my $line = <$fh>) { print $line }
     } else {
-        open($fh, '-|', $cmd);
-        if ($!) { warn "Failed to execute: $cmd ($!)"; return; }
+        if ( $exit_on_error ) {
+            say qx{$cmd} or die "Failed to execute $cmd";
+        } else {
+            say qx{$cmd};
+        }
     }
-    while (my $line = <$fh>) { print $line }
 }
