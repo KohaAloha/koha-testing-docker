@@ -4,7 +4,7 @@ use Modern::Perl;
 
 my $env_vars = {
     RUN_TESTS_AND_EXIT => 'yes',
-    SYNC_REPO     => '.',
+    SYNC_REPO     => $ENV{SYNC_REPO} || '.',
     LOCAL_USER_ID => qx{id -u},
     COVERAGE      => $ENV{COVERAGE},
     KOHA_IMAGE    => $ENV{KOHA_IMAGE} || 'master',
@@ -64,9 +64,13 @@ run(q{rm -rf .env});
 
 sub run {
     my ( $cmd, $exit_on_error ) = @_;
+    $cmd .= " 2>&1";
+    my $fh;
     if ( $exit_on_error ) {
-        say qx{$cmd} or die "Failed to execute $cmd";
+        open($fh, '-|', $cmd) or die "Failed to execute: $cmd ($!)";
     } else {
-        say qx{$cmd};
+        open($fh, '-|', $cmd);
+        if ($!) { warn "Failed to execute: $cmd ($!)"; return; }
     }
+    while (my $line = <$fh>) { print $line }
 }
