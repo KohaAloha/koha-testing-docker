@@ -21,3 +21,13 @@ buster:
 #  only:
 #    - master@koha-community/koha-testing-docker
 
+hirsute:
+  stage: build
+  script:
+  - docker build -t kohaaloha/koha-testing:master-hirsute --no-cache --rm -f dists/hirsute/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push kohaaloha/koha-testing:master-hirsute
+  - docker image rm kohaaloha/koha-testing:master-hirsute
+#  only:
+#    - master@koha-community/koha-testing-docker
+

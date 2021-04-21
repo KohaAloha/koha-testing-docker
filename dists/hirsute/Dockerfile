@@ -1,5 +1,5 @@
-# Base it on Debian 10
-FROM debian:buster
+# Base it on Ubuntu 21.04
+FROM ubuntu:21.04
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
@@ -7,11 +7,7 @@ LABEL maintainer="tomascohen@theke.io"
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
-# Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
-
-ENV REFRESHED_AT 2019-10-01-0
+ENV REFRESHED_AT 2021-04-22-1
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -77,7 +73,7 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 # Install koha-common
@@ -121,7 +117,7 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x hirsute main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
