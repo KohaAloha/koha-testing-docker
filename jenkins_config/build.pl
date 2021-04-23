@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-use Modern::Perl;
+use strict;
+use warnings;
 
 my $env_vars = {
     RUN_TESTS_AND_EXIT => 'yes',
@@ -78,9 +79,9 @@ sub run {
         while (my $line = <$fh>) { print $line }
     } else {
         if ( $exit_on_error ) {
-            say qx{$cmd} or die "Failed to execute $cmd";
+            print qx{$cmd} . "\n" or die "Failed to execute $cmd";
         } else {
-            say qx{$cmd};
+            print qx{$cmd} . "\n";
         }
     }
 }
