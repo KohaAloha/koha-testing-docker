@@ -13,6 +13,7 @@ The *docker-compose.yml* file is self explanatory.
 - Docker
 - Docker Compose
 - If Docker is installed as root, you need to add your user to the docker group.
+- At least 2.6 GiB of free RAM (not counting web browser)
 
 ```
   $ sudo usermod -aG docker ${USER}
