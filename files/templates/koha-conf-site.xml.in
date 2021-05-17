@@ -265,6 +265,7 @@ __END_SRU_PUBLICSERVER__
 <config>
  <db_scheme>mysql</db_scheme>
  <database>__DB_NAME__</database>
+ <database_test>__DB_NAME___test</database_test>
  <hostname>__DB_HOST__</hostname>
  <port>3306</port>
  <user>__DB_USER__</user>
@@ -343,8 +344,8 @@ __END_SRU_PUBLICSERVER__
  <sms_send_config>__KOHA_CONF_DIR__/sms_send/</sms_send_config>
 
  <!-- Configuration for Plack -->
- <plack_max_requests>50</plack_max_requests>
- <plack_workers>2</plack_workers>
+ <plack_max_requests>${PLACK_MAX_REQUESTS}</plack_max_requests>
+ <plack_workers>${PLACK_WORKERS}</plack_workers>
 
  <!-- Configuration for X-Forwarded-For -->
  <!--
