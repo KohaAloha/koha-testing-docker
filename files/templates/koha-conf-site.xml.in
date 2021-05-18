@@ -265,7 +265,6 @@ __END_SRU_PUBLICSERVER__
 <config>
  <db_scheme>mysql</db_scheme>
  <database>__DB_NAME__</database>
- <database_test>__DB_NAME___test</database_test>
  <hostname>__DB_HOST__</hostname>
  <port>3306</port>
  <user>__DB_USER__</user>
