@@ -38,7 +38,7 @@ stretch:
   - docker build -t koha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:master-stretch
-  - docker image rm koha/koha-testing:master-stretch koha/koha-testing:master
+  - docker image rm koha/koha-testing:master-stretch
   only:
     - master@koha-community/koha-testing-docker
 
