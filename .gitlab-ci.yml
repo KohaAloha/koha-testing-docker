@@ -26,6 +26,7 @@ buster:
   - docker build -t koha/koha-testing:master-buster --no-cache --rm -f dists/buster/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:master-buster
+  - docker tag  koha/koha-testing:master-buster koha/koha-testing:master
   - docker push koha/koha-testing:master
   - docker image rm koha/koha-testing:master-buster
   only:
@@ -37,7 +38,6 @@ stretch:
   - docker build -t koha/koha-testing:master-stretch --no-cache --rm -f dists/stretch/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:master-stretch
-  - docker tag  koha/koha-testing:master-stretch koha/koha-testing:master
   - docker image rm koha/koha-testing:master-stretch koha/koha-testing:master
   only:
     - master@koha-community/koha-testing-docker
