@@ -77,6 +77,14 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
+RUN apt-get -y install \
+    ca-certificates \
+    wget \
+    gnupg2 \
+    sudo
+
+RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
+
 # Add Koha development repositories
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging 21.05 main buster" >> /etc/apt/sources.list.d/koha.list
 #RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging stable main buster" >> /etc/apt/sources.list.d/koha.list
