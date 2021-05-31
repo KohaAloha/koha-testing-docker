@@ -83,7 +83,10 @@ RUN apt-get -y install \
     gnupg2 \
     sudo
 
-RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
+#RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
+
+RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc > /etc/apt/trusted.gpg.d/koha.gpg
+
 
 # Add Koha development repositories
 RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging 21.05 main buster" >> /etc/apt/sources.list.d/koha.list
