@@ -78,8 +78,8 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-#RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes] http://deb.kohaaloha.com/kc/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes] http://debian.koha-community.org/koha-staging 21.05 main buster" >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://deb.kohaaloha.com/kc/koha-staging stable main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
@@ -160,7 +160,7 @@ RUN cd /kohadevbox \
         REST::Client
 
 # Remote debugger
- RUN cd /kohadevbox  \
+RUN cd /kohadevbox  \
     && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download   \
     && tar xvzf dbgp.tar.gz  \
     && rm dbgp.tar.gz
