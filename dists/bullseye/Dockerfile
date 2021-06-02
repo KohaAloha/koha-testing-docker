@@ -164,6 +164,7 @@ RUN cd /kohadevbox \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
+        libyaml-syck-perl \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
     && cpanm -i --force \
