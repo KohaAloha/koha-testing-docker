@@ -81,3 +81,13 @@ groovy:
   - docker image rm koha/koha-testing:20.11-groovy
   only:
     - 20.11@koha-community/koha-testing-docker
+
+hirsute:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:20.11-hirsute --no-cache --rm -f dists/hirsute/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:20.11-hirsute
+  - docker image rm koha/koha-testing:20.11-hirsute
+  only:
+    - 20.11@koha-community/koha-testing-docker
