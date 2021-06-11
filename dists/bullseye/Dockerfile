@@ -178,6 +178,12 @@ RUN cd /kohadevbox \
     && tar xvzf dbgp.tar.gz \
     && rm dbgp.tar.gz
 
+# FIXME: Temporary fix
+RUN apt-get update \
+   && apt-get -y install libyaml-syck-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
