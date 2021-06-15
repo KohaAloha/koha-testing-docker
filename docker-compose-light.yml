@@ -11,7 +11,7 @@ services:
         networks:
             - kohanet
     koha:
-        image: koha/koha-testing:${KOHA_IMAGE}
+        image: kohaaloha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
             - memcached
