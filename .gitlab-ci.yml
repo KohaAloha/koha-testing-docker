@@ -28,7 +28,7 @@ buster:
   - docker push kohaaloha/koha-testing:21.05-buster
   - docker image rm kohaaloha/koha-testing:21.05-buster
   only:
-    - 21.05@kohaaloha/koha-testing-docker
+    - 21.05-ka@kohaaloha/koha-testing-docker
 #
 #stretch:
 #  stage: build
