@@ -27,8 +27,8 @@ buster:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:21.05-buster
   - docker image rm kohaaloha/koha-testing:21.05-buster
-  only:
-    - 21.05-ka@kohaaloha/koha-testing-docker
+#  only:
+#    - 21.05-ka@kohaaloha/koha-testing-docker
 #
 #stretch:
 #  stage: build
