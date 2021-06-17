@@ -63,7 +63,7 @@ $cmd =
 run($cmd, { exit_on_error => 1, use_pipe => 1 });
 
 # Post cleanup
-run(q{docker-compose down});
+run(q{docker-compose -p koha down});
 run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
 run(q{docker volume prune -f});
 run(q{docker image  prune -f});
