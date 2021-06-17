@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian stretch main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ stretch/updates main" >> /etc/apt/sources.list
 
-ENV REFRESHED_AT 2019-05-24-1
+ENV REFRESHED_AT 2021-06-17
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
