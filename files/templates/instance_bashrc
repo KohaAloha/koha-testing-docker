@@ -4,7 +4,7 @@ export KOHA_INTRANET_URL=http://koha:8081
 export KOHA_OPAC_URL=http://koha:8080
 export SELENIUM_ADDR=${SELENIUM_ADDR}
 export SELENIUM_PORT=${SELENIUM_PORT}
-export PERL5LIB="/kohadevbox/koha:/kohadevbox/qa-test-tools"
+export PERL5LIB="/kohadevbox/koha:/kohadevbox/koha/lib:/kohadevbox/qa-test-tools"
 export TEST_QA=1
 
 alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
