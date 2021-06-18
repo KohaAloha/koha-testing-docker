@@ -79,7 +79,7 @@ RUN a2enmod rewrite \
 
 RUN apt-get -y install \
     ca-certificates \
-    apt-key
+    apt
 
 RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
 
