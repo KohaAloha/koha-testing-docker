@@ -81,7 +81,7 @@ RUN apt-get -y install \
     ca-certificates \
     apt
 
-RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
+RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
 
 #RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc > /etc/apt/trusted.gpg.d/koha.gpg
 
