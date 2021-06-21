@@ -50,8 +50,8 @@ for my $yml ( @docker_compose_yml ) {
 my $docker_compose_env = "$GITLAB_RAW_URL/env/defaults.env";
 run(qq{wget -O .env $docker_compose_env}, { exit_on_error => 1 });
 
-run(q{docker-compose down});
-run(q{docker system prune -a -f});
+docker_cleanup();
+
 my $cmd = 'docker-compose ' . join( ' ', map { "-f $_" } @docker_compose_yml ) . ' pull';
 run($cmd, { exit_on_error => 1 });
 
@@ -63,11 +63,7 @@ $cmd =
 run($cmd, { exit_on_error => 1, use_pipe => 1 });
 
 # Post cleanup
-run(q{docker-compose -p koha down});
-run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
-run(q{docker volume prune -f});
-run(q{docker image  prune -f});
-run(q{docker system prune -a -f});
+docker_cleanup();
 
 run(qq{rm $_}) for @docker_compose_yml;
 run(q{rm -rf .env});
@@ -93,4 +89,12 @@ sub run {
             print qx{$cmd} . "\n";
         }
     }
+}
+
+sub docker_cleanup {
+    run(q{docker-compose -p koha down});
+    run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
+    run(q{docker volume prune -f});
+    run(q{docker image  prune -f});
+    run(q{docker system prune -a -f});
 }
