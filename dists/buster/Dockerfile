@@ -24,14 +24,8 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
-      libgit-repository-perl \
       libmemcached-tools \
-      libmodule-install-perl \
-      libperl-critic-perl \
-      libtest-differences-perl \
-      libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
-      libfile-chdir-perl \
+      libdevel-cover-perl \
       libdata-printer-perl \
       pmtools \
       locales \
@@ -98,15 +92,8 @@ RUN cpanm -i --force \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
-
-# Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
+       Selenium::Remote::Driver \
+    && rm -r /root/.cpanm
 
 ## Add Yarn
 # Add node repo
@@ -132,8 +119,21 @@ RUN cd /usr/local/share \
 # Clone helper repositories
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-misc4dev.git misc4dev \
-    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
-    && git clone https://gitlab.com/koha-community/qa-test-tools.git
+    && git clone https://gitlab.com/koha-community/koha-gitify.git gitify
+
+# qa-test-tools and its deps
+RUN cd /kohadevbox \
+    && git clone https://gitlab.com/koha-community/qa-test-tools.git \
+    && apt-get update \
+    && apt-get -y install \
+        libgit-repository-perl \
+        libperl-critic-perl \
+        libperl-critic-perl \
+        libtest-perl-critic-perl \
+        libtest-perl-critic-progressive-perl \
+        libfile-chdir-perl \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/api/lists/*
 
 # release-tools and koha-howto
 RUN cd /kohadevbox \
