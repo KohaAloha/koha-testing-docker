@@ -16,6 +16,20 @@ echo "kohadevbox" > /etc/hostname
 echo "127.0.0.1 kohadevbox" >> /etc/hosts
 hostname kohadevbox
 
+# Remove packages for developers if it's a Jenkins run (CI_RUN=1)
+if [ "${CI_RUN}" = "yes" ]; then
+    apt-get -y remove \
+      libcarp-always-perl \
+      libgit-repository-perl \
+      libmemcached-tools \
+      libperl-critic-perl \
+      libtest-perl-critic-perl \
+      libtest-perl-critic-progressive-perl \
+      libfile-chdir-perl \
+      libdata-printer-perl \
+      pmtools
+fi
+
 # Clone before calling cp_debian_files.pl
 if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/misc4dev
