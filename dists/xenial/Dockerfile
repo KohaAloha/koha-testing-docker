@@ -66,14 +66,6 @@ RUN a2enmod rewrite \
 RUN echo "deb http://debian.koha-community.org/koha-staging dev main xenial" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
-# Temporary dependencies
-RUN apt-get -y update \
-    && apt-get -y install \
-      libplack-middleware-logwarn-perl \
-      libemail-stuffer-perl \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
-
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
