@@ -25,7 +25,6 @@ RUN apt-get -y update \
       tig \
       libcarp-always-perl \
       libgit-repository-perl \
-      liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
       libperl-critic-perl \
