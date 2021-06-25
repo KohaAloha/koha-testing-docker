@@ -28,7 +28,6 @@ RUN apt-get -y update \
       libmemcached-tools \
       libmodule-install-perl \
       libperl-critic-perl \
-      libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
       libtest-perl-critic-progressive-perl \
