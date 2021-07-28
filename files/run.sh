@@ -194,7 +194,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   prove -j ${KOHA_PROVE_CPUS} -v \
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
+                                  --timer --harness=TAP::Harness::JUnit -s t/db_dependent/Search.t \
                                   && touch testing.success"
     fi
 else
