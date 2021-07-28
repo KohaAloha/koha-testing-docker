@@ -13,26 +13,6 @@ services:
 stages:
   - build
 
-buster-common:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:20.11-buster-common --no-cache --rm -f dists/buster-common/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:20.11-buster-common
-  - docker image rm kohaaloha/koha-testing:20.11-buster-common
-  only:
-    - 20.11-ka-full@mjames/koha-testing-docker
-
-buster-full:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:20.11-buster-full --no-cache --rm -f dists/buster-full/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:20.11-buster-full
-  - docker image rm kohaaloha/koha-testing:20.11-buster-full
-  only:
-    - 20.11-ka-full@mjames/koha-testing-docker
-
 buster-full-i386:
   stage: build
   script:
@@ -40,16 +20,7 @@ buster-full-i386:
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push kohaaloha/koha-testing:20.11-buster-full-i386
   - docker image rm kohaaloha/koha-testing:20.11-buster-full-i386
-  only:
-    - 20.11-ka-full@mjames/koha-testing-docker
+#  only:
+#    - 20.11-ka-full@mjames/koha-testing-docker
 
-buster-core:
-  stage: build
-  script:
-  - docker build -t kohaaloha/koha-testing:20.11-buster-core --no-cache --rm -f dists/buster-core/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:20.11-buster-core
-  - docker image rm kohaaloha/koha-testing:20.11-buster-core
-  only:
-    - 20.11-ka-full@mjames/koha-testing-docker
 
