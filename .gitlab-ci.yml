@@ -16,11 +16,11 @@ stages:
 buster-full-i386:
   stage: build
   script:
-  - docker build -t kohaaloha/koha-testing:20.11-buster-full-i386 --no-cache --rm -f dists/buster-full-i386/Dockerfile .
+  - docker build -t kohaaloha/koha-testing:21.05-buster-full-i386 --no-cache --rm -f dists/buster-full-i386/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push kohaaloha/koha-testing:20.11-buster-full-i386
-  - docker image rm kohaaloha/koha-testing:20.11-buster-full-i386
+  - docker push kohaaloha/koha-testing:21.05-buster-full-i386
+  - docker image rm kohaaloha/koha-testing:21.05-buster-full-i386
 #  only:
-#    - 20.11-ka-full@mjames/koha-testing-docker
+#    - 21.05-ka-full@mjames/koha-testing-docker
 
 
