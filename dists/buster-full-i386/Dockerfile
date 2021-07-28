@@ -161,10 +161,10 @@ RUN cd /kohadevbox \
         REST::Client
 
 # Remote debugger
-RUN cd /kohadevbox \
-    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
-    && tar xvzf dbgp.tar.gz \
-    && rm dbgp.tar.gz
+#RUN cd /kohadevbox \
+#    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
+#    && tar xvzf dbgp.tar.gz \
+#    && rm dbgp.tar.gz
 
 VOLUME /kohadevbox/koha
 
