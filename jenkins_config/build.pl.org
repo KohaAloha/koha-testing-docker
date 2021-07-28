@@ -59,7 +59,7 @@ run($cmd, { exit_on_error => 1 });
 $cmd =
     'docker-compose '
   . join( ' ', map { "-f $_" } @docker_compose_yml )
-  . ' -p koha up --abort-on-container-exit --no-color --force-recreate';
+  . ' -p koha up --abort-on-container-exit --no-color --force-recreate ';
 run($cmd, { exit_on_error => 1, use_pipe => 1 });
 
 # Post cleanup
