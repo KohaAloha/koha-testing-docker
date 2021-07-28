@@ -97,5 +97,5 @@ sub docker_cleanup {
     run(q{docker volume prune -f});
     run(q{docker image  prune -f});
     run(q{docker system prune -a -f});
-    run(q{rm -rf /srv/jenkins-ka/workspace/  });
+    run(q{rm -rf /srv/jenkins-ka/workspace/*  });
 }
