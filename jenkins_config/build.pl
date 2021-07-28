@@ -52,7 +52,7 @@ run(qq{wget -O .env $docker_compose_env}, { exit_on_error => 1 });
 
 docker_cleanup();
 
-my $cmd = 'docker-compose ' . join( ' ', map { "-f $_" } @docker_compose_yml ) . ' pull';
+my $cmd = 'docker-compose --verbose ' . join( ' ', map { "-f $_" } @docker_compose_yml ) . ' pull';
 run($cmd, { exit_on_error => 1 });
 
 # Run tests
