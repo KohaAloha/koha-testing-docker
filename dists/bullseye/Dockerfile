@@ -8,7 +8,7 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
+#RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
 
 ENV REFRESHED_AT 2020-06-06-1
 
