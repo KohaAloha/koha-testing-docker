@@ -143,6 +143,12 @@ koha-indexer --start ${KOHA_INSTANCE}
 # Start apache
 service apache2 start
 
+# Dump versions for problematic modules
+apt-cache policy libmojolicious-perl
+apt-cache policy libjson-validator-perl
+apt-cache policy libmojolicious-plugin-openapi-perl
+apt-cache policy libyaml-libyaml-perl
+
 # if KOHA_PROVE_CPUS is not set, then use nproc
 if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
