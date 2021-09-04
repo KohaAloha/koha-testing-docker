@@ -10,6 +10,16 @@ variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
 
+bookworm:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-bookworm --no-cache --rm -f dists/bookworm/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-bookworm
+  - docker image rm koha/koha-testing:master-bookworm
+  only:
+    - master@koha-community/koha-testing-docker
+
 bullseye:
   stage: build
   script:
