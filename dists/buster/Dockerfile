@@ -25,7 +25,6 @@ RUN apt-get -y update \
       tig \
       libcarp-always-perl \
       libmemcached-tools \
-      libdevel-cover-perl \
       libdata-printer-perl \
       pmtools \
       locales \
@@ -80,6 +79,7 @@ RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
          libtemplate-plugin-gettext-perl \
+         libdevel-cover-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 

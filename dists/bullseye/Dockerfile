@@ -99,6 +99,7 @@ RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
          libtemplate-plugin-gettext-perl \
+         libdevel-cover-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -111,15 +112,8 @@ RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
-
-# Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
+       Selenium::Remote::Driver \
+    && rm -r /root/.cpanm
 
 # Install temporary package
 RUN apt-get -y update \
