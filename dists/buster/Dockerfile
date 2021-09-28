@@ -95,6 +95,13 @@ RUN cpanm -i --force \
        Selenium::Remote::Driver \
     && rm -r /root/.cpanm
 
+# Install temporary package
+RUN apt-get -y update \
+   && apt-get -y install \
+         libemail-address-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
+
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
