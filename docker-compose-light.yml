@@ -1,4 +1,8 @@
 version: '3'
+
+variables:
+  FF_NETWORK_PER_BUILD: 1
+
 services:
     db:
         image: mariadb:10.1
