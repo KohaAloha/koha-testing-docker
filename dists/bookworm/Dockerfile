@@ -82,12 +82,6 @@ RUN apt-cache policy libyaml-libyaml-perl
 
 #RUN apt-get -y install koha-common --simulate
 
-
-# pull rabbitmq from sid, until 3.9.4-1.1 arrives in bookworm
-RUN echo 'deb http://deb.debian.org/debian sid main' >> /etc/apt/sources.list \
-    && apt-get -y update \
-    && apt-get -y install -t sid rabbitmq-server
-
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
