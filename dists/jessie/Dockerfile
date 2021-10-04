@@ -72,7 +72,7 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha 19.11 repository
-RUN wget -q -O- https://debian.koha-community.org/koha/gpg.asc | apt-key add -
+RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN echo "deb http://debian.koha-community.org/koha-staging 19.11 main jessie" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
