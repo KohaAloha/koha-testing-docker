@@ -38,7 +38,7 @@ RUN apt-get -y update \
       libdata-printer-perl \
       pmtools \
       locales \
-      netcat \
+      netcat-openbsd \
       python-gdbm \
       vim \
       tmux \
