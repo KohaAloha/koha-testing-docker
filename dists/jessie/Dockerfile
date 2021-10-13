@@ -155,6 +155,11 @@ RUN cd /kohadevbox \
         File::FindLib \
         REST::Client
 
+# patch /etc/ca-certificates.conf to handle expired mozilla/DST_Root_CA_X3.crt
+#  https://serverfault.com/questions/1079199/client-on-debian-9-erroneously-reports-expired-certificate-for-letsencrypt-issue
+RUN sed -i '/^mozilla\/DST_Root_CA_X3/s/^/!/' /etc/ca-certificates.conf \
+    && update-ca-certificates -f
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
