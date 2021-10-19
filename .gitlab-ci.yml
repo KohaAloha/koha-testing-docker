@@ -102,3 +102,13 @@ hirsute:
   - docker image rm koha/koha-testing:master-hirsute
   only:
     - master@koha-community/koha-testing-docker
+
+impish:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-impish --no-cache --rm -f dists/impish/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-impish
+  - docker image rm koha/koha-testing:master-impish
+  only:
+    - master@koha-community/koha-testing-docker
