@@ -149,7 +149,7 @@ RUN cd /kohadevbox \
 
 # Remote debugger
 RUN cd /kohadevbox \
-    && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download \
+    && wget -q -O dbgp.tar.gz https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
     && tar xvzf dbgp.tar.gz \
     && rm dbgp.tar.gz
 
