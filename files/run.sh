@@ -218,7 +218,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
 
         # restart_all
-        flush_memcached
+        echo flush_all > /dev/tcp/memcached/11211
         sudo service apache2 restart
         sudo service koha-common restart
 
@@ -239,7 +239,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
 
         # restart_all
-        flush_memcached
+        echo flush_all > /dev/tcp/memcached/11211
         sudo service apache2 restart
         sudo service koha-common restart
 
