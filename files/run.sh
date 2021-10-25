@@ -216,7 +216,12 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
-        restart_all
+
+        # restart_all
+        flush_memcached
+        sudo service apache2 restart
+        sudo service koha-common restart
+
         koha-shell ${KOHA_INSTANCE} -p -c "
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
@@ -232,6 +237,11 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
+
+        # restart_all
+        flush_memcached
+        sudo service apache2 restart
+        sudo service koha-common restart
 
         koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
                                 |
