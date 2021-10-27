@@ -93,6 +93,7 @@ sub run {
 
 sub docker_cleanup {
     run(q{docker-compose -p koha down});
+    run(qq{docker stop \$(docker ps -a -f "name=koha_" -q)});
     run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
     run(q{docker volume prune -f});
     run(q{docker image  prune -f});
