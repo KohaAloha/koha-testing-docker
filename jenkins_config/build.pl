@@ -68,9 +68,6 @@ docker_cleanup();
 run(qq{rm $_}) for @docker_compose_yml;
 run(q{rm -rf .env});
 
-# force deletion of workspace dir, as jenkins [WS-CLEANUP] plugin sometimes fails
-run(qq{rm -rf $ENV{WORKSPACE}}) unless $ENV{WORKSPACE} =~ /Koha_Source$/;
-
 sub run {
     my ( $cmd, $params ) = @_;
     my $exit_on_error = $params->{exit_on_error};
