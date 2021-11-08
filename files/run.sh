@@ -219,6 +219,8 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
         # restart_all
         echo flush_all > /dev/tcp/memcached/11211
+
+        sudo service --status-all
         sudo service apache2 restart
         sudo service koha-common restart
 
