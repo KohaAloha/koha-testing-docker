@@ -30,6 +30,9 @@ if [ "${CI_RUN}" = "yes" ]; then
       pmtools
 fi
 
+# debug failing apache --restart
+sudo service --status-all
+
 # Clone before calling cp_debian_files.pl
 if [ "${DEBUG_GIT_REPO_MISC4DEV}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/misc4dev
@@ -220,7 +223,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         # restart_all
         echo flush_all > /dev/tcp/memcached/11211
 
-        sudo service --status-all
         sudo service apache2 restart
         sudo service koha-common restart
 
