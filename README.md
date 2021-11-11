@@ -16,6 +16,8 @@ The *docker-compose.yml* file is self explanatory.
 - At least 2.6 GiB of free RAM (not counting web browser)
 
 ```
+  $ sudo apt update
+  $ sudo apt install docker.io docker-compose
   $ sudo usermod -aG docker ${USER}
 ```
 
@@ -241,3 +243,9 @@ Increase *vm.max_map_count* kernel setting to at least 262144:
   $ sysctl -w vm.max_map_count=262144
 ```
 If the screen command doesn't work try: find ~/Library/Containers/com.docker.docker/Data/ -name 'tty'
+
+## Problems?
+If you see the following error on 'ku' after initial setup, try a reboot
+```
+   "ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?'
+```
