@@ -201,199 +201,198 @@ RUN wget -q  https://download.koha-community.org/koha-20.11-latest.tar.gz \
 # --------------------------
 RUN dnf list installed
 
-RUN cpanm -i --force -n \
-        File::FindLib \
-        REST::Client \
-        HTML::TableExtract \
-        Text::MultiMarkdown
+#RUN cpanm -i --force -n \
+#        File::FindLib \
+#        REST::Client \
+#        HTML::TableExtract \
+#        Text::MultiMarkdown
 
 
 # --------------------------
-RUN cpanm -n Data::Validate::Domain \
-    && cpanm -n Net::IDN::Encode \
-    && cpanm -n Data::Validate::IP \
-    && cpanm -n -f JSON::Validator@3.25 \
-    && cpanm -n -f Mojolicious@8.12  \
-    && cpanm -n -f Mojolicious::Plugin::OpenAPI@2.16
+RUN cpanm -n -f JSON::Validator@3.25 \
+    Mojolicious@8.12  \
+    Mojolicious::Plugin::OpenAPI@2.16
 
-RUN cpanm -n  Text::Unidecode \
- &&  cpanm -n  Test::DBIx::Class  \
- &&  cpanm -n  AnyEvent::HTTP  \
- &&  cpanm -n  Net::LDAP::Filter  \
- &&  cpanm -n  CGI::Session::Driver::memcached  \
- &&  cpanm -n  Net::LDAP  \
- &&  cpanm -n  File::Copy  \
- &&  cpanm -n  Lingua::Ispell  \
- &&  cpanm -n  Test::MockTime  \
- &&  cpanm -n  Moo  \
- &&  cpanm -n  Net::Server  \
- &&  cpanm -n  HTTPD::Bench::ApacheBench  \
- &&  cpanm -n  Net::SFTP::Foreign  \
- &&  cpanm -n  Test::MockObject  \
- &&  cpanm -n  SMS::Send  \
- &&  cpanm -n  Archive::Extract  \
- &&  cpanm -n  File::Path  \
- &&  cpanm -n  Archive::Zip  \
- &&  cpanm -n  Text::CSV::Unicode  \
- &&  cpanm -n  Test::Strict  \
- &&  cpanm -n  Test::Deep  \
- &&  cpanm -n  Module::Load::Conditional  \
- &&  cpanm -n  XML::Writer  \
- &&  cpanm -n  Test::Exception  \
- &&  cpanm -n  Test::Warn  \
- &&  cpanm -n  Sys::CPU  \
- &&  cpanm -n  Test::WWW::Mechanize  \
- &&  cpanm -n  Time::Fake  \
- &&  cpanm -n  Net::OAuth2::AuthorizationServer  \
- &&  cpanm -n  File::Temp  \
- &&  cpanm -n  Module::Pluggable  \
- &&  cpanm -n  AnyEvent  \
- &&  cpanm -n  Parallel::ForkManager  \
- &&  cpanm -n  Module::Bundled::Files  \
- &&  cpanm -n  DBD::SQLite2  \
- &&  cpanm -n  Test::YAML::Valid  \
- &&  cpanm -n  PDF::FromHTML  \
- &&  cpanm -n  Locale::XGettext::TT2  \
- &&  cpanm -n  Devel::Cover  \
- &&  cpanm -n  Selenium::Remote::Driver  \
- &&  cpanm -n  WebService::ILS  \
- &&  cpanm -n  Gravatar::URL  \
- &&  cpanm -n  UNIVERSAL::require  \
- &&  cpanm -n  Template::Plugin::Stash  \
- &&  cpanm -n  LWP::Protocol::https  \
- &&  cpanm -n  Crypt::Eksblowfish::Bcrypt  \
- &&  cpanm -n  Data::ICal  \
- &&  cpanm -n  Authen::CAS::Client  \
- &&  cpanm -n  XML::Dumper  \
- &&  cpanm -n  Digest::MD5  \
- &&  cpanm -n  Locale::Language  \
- &&  cpanm -n  DateTime::Event::ICal  \
- &&  cpanm -n  GD::Barcode::UPCE  \
- &&  cpanm -n  Class::Accessor  \
- &&  cpanm -n  Email::Sender  \
- &&  cpanm -n  PDF::Reuse  \
- &&  cpanm -n  Log::Log4perl  \
- &&  cpanm -n  DBI  \
- &&  cpanm -n  String::Random  \
- &&  cpanm -n  Test  \
- &&  cpanm -n  XML::RSS  \
- &&  cpanm -n  Number::Format  \
- &&  cpanm -n  DBIx::RunSQL  \
- &&  cpanm -n  List::MoreUtils  \
- &&  cpanm -n  Text::CSV  \
- &&  cpanm -n  Time::HiRes  \
- &&  cpanm -n  Email::Stuffer  \
- &&  cpanm -n  MIME::Base64  \
- &&  cpanm -n  Bytes::Random::Secure  \
- &&  cpanm -n  DBD::Mock  \
- &&  cpanm -n  IPC::Cmd  \
- &&  cpanm -n  Modern::Perl  \
- &&  cpanm -n  Test::MockModule  \
- &&  cpanm -n  Email::MessageID  \
- &&  cpanm -n  YAML::Syck  \
- &&  cpanm -n  PDF::Reuse::Barcode  \
- &&  cpanm -n  Storable  \
- &&  cpanm -n  GD  \
- &&  cpanm -n  Readonly  \
- &&  cpanm -n  MIME::QuotedPrint  \
- &&  cpanm -n  CGI  \
- &&  cpanm -n  Module::CPANfile  \
- &&  cpanm -n  URI::Escape  \
- &&  cpanm -n  Text::Bidi  \
- &&  cpanm -n  Cache::Memcached::Fast::Safe  \
- &&  cpanm -n  Date::Manip  \
- &&  cpanm -n  DateTime::Format::ICal  \
- &&  cpanm -n  Plack::Middleware::LogWarn  \
- &&  cpanm -n  DBD::mysql  \
- &&  cpanm -n  HTTP::Cookies  \
- &&  cpanm -n  MARC::Record::MiJ  \
- &&  cpanm -n  Unicode::Normalize  \
- &&  cpanm -n  UUID  \
- &&  cpanm -n  DateTime  \
- &&  cpanm -n  HTTP::Request::Common  \
- &&  cpanm -n  CPAN::Meta  \
- &&  cpanm -n  HTML::Scrubber  \
- &&  cpanm -n  Sereal::Encoder  \
- &&  cpanm -n  Net::CIDR  \
- &&  cpanm -n  LWP::UserAgent  \
- &&  cpanm -n  Schedule::At  \
- &&  cpanm -n  Time::localtime  \
- &&  cpanm -n  Text::PDF  
+RUN cpanm -n Data::Validate::Domain \
+     Net::IDN::Encode \
+     Data::Validate::IP \
+     Text::Unidecode \
+     Test::DBIx::Class  \
+     AnyEvent::HTTP  \
+     Net::LDAP::Filter  \
+     CGI::Session::Driver::memcached  \
+     Net::LDAP  \
+     File::Copy  \
+     Lingua::Ispell  \
+     Test::MockTime  \
+     Moo  \
+     Net::Server  \
+     HTTPD::Bench::ApacheBench  \
+     Net::SFTP::Foreign  \
+     Test::MockObject  \
+     SMS::Send  \
+     Archive::Extract  \
+     File::Path  \
+     Archive::Zip  \
+     Text::CSV::Unicode  \
+     Test::Strict  \
+     Test::Deep  \
+     Module::Load::Conditional  \
+     XML::Writer  \
+     Test::Exception  \
+     Test::Warn  \
+     Sys::CPU  \
+     Test::WWW::Mechanize  \
+     Time::Fake  \
+     Net::OAuth2::AuthorizationServer  \
+     File::Temp  \
+     Module::Pluggable  \
+     AnyEvent  \
+     Parallel::ForkManager  \
+     Module::Bundled::Files  \
+     DBD::SQLite2  \
+     Test::YAML::Valid  \
+     PDF::FromHTML  \
+     Locale::XGettext::TT2  \
+     Selenium::Remote::Driver  \
+     WebService::ILS  \
+     Gravatar::URL  \
+     UNIVERSAL::require  \
+     Template::Plugin::Stash  \
+     LWP::Protocol::https  \
+     Crypt::Eksblowfish::Bcrypt  \
+     Data::ICal  \
+     Authen::CAS::Client  \
+     XML::Dumper  \
+     Digest::MD5  \
+     Locale::Language  \
+     DateTime::Event::ICal  \
+     GD::Barcode::UPCE  \
+     Class::Accessor  \
+     Email::Sender  \
+     PDF::Reuse  \
+     Log::Log4perl  \
+     DBI  \
+     String::Random  \
+     Test  \
+     XML::RSS  \
+     Number::Format  \
+     DBIx::RunSQL  \
+     List::MoreUtils  \
+     Text::CSV  \
+     Time::HiRes  \
+     Email::Stuffer  \
+     MIME::Base64  \
+     Bytes::Random::Secure  \
+     DBD::Mock  \
+     IPC::Cmd  \
+     Modern::Perl  \
+     Test::MockModule  \
+     Email::MessageID  \
+     YAML::Syck  \
+     PDF::Reuse::Barcode  \
+     Storable  \
+     GD  \
+     Readonly  \
+     MIME::QuotedPrint  \
+     CGI  \
+     Module::CPANfile  \
+     URI::Escape  \
+     Text::Bidi  \
+     Cache::Memcached::Fast::Safe  \
+     Date::Manip  \
+     DateTime::Format::ICal  \
+     Plack::Middleware::LogWarn  \
+     DBD::mysql  \
+     HTTP::Cookies  \
+     MARC::Record::MiJ  \
+     Unicode::Normalize  \
+     UUID  \
+     DateTime  \
+     HTTP::Request::Common  \
+     CPAN::Meta  \
+     HTML::Scrubber  \
+     Sereal::Encoder  \
+     Net::CIDR  \
+     LWP::UserAgent  \
+     Schedule::At  \
+     Time::localtime  \
+     Text::PDF
 
 
 RUN cpanm -n  Text::Iconv  \
-&&  cpanm -n  Lingua::Stem::Snowball  \
-&&  cpanm -n  YAML  \
-&&  cpanm -n  MIME::Lite  \
-&&  cpanm -n  HTTP::OAI  \
-&&  cpanm -n  Locale::Messages  \
-&&  cpanm -n  JSON  \
-&&  cpanm -n  WWW::CSRF  \
-&&  cpanm -n  MARC::Record  \
-&&  cpanm -n  XML::SAX::ParserFactory  \
-&&  cpanm -n  Business::ISBN  \
-&&  cpanm -n  PDF::API2  \
-&&  cpanm -n  Text::CSV::Encoded  \
-&&  cpanm -n  DBIx::Class::Schema::Loader  \
-&&  cpanm -n  HTML::FormatText  \
-&&  cpanm -n  OpenOffice::OODoc  \
-&&  cpanm -n  Search::Elasticsearch  \
-&&  cpanm -n  Lingua::Stem  \
-&&  cpanm -n  POSIX  \
-&&  cpanm -n  UNIVERSAL::can  \
-&&  cpanm -n  Sereal::Decoder  \
-&&  cpanm -n  Getopt::Std  \
-&&  cpanm -n  Biblio::EndnoteStyle  \
-&&  cpanm -n  CGI::Session::Serialize::yaml  \
-&&  cpanm -n  Email::Valid  \
-&&  cpanm -n  Text::Wrap  \
-&&  cpanm -n  XML::Simple  \
-&&  cpanm -n  File::Slurp  \
-&&  cpanm -n  MARC::Charset  \
-&&  cpanm -n  Try::Tiny  \
-&&  cpanm -n  XML::LibXML  \
-&&  cpanm -n  Algorithm::CheckDigits  \
-&&  cpanm -n  Font::TTF  \
-&&  cpanm -n  CGI::Emulate::PSGI  \
-&&  cpanm -n  Data::Dumper  \
-&&  cpanm -n  DateTime::TimeZone  \
-&&  cpanm -n  CGI::Compile  \
-&&  cpanm -n  XML::SAX::Writer  \
-&&  cpanm -n  LWP::Simple  \
-&&  cpanm -n  Template  \
-&&  cpanm -n  Business::ISSN  \
-&&  cpanm -n  Text::CSV_XS  \
-&&  cpanm -n  Class::Inspector  \
-&&  cpanm -n  Exception::Class  \
-&&  cpanm -n  Locale::Currency::Format  \
-&&  cpanm -n  CGI::Carp  \
-&&  cpanm -n  List::Util  \
-&&  cpanm -n  Date::Calc  \
-&&  cpanm -n  MARC::File::XML  \
-&&  cpanm -n  Plack::Middleware::ReverseProxy  \
-&&  cpanm -n  HTML::Entities  \
-&&  cpanm -n  PDF::Table  \
-&&  cpanm -n  Email::Date  \
-&&  cpanm -n  Clone  \
-&&  cpanm -n  Test::More  \
-&&  cpanm -n  Net::Stomp  \
-&&  cpanm -n  Template::Plugin::HtmlToText  \
-&&  cpanm -n  Library::CallNumber::LC  \
-&&  cpanm -n  Array::Utils  \
-&&  cpanm -n  Term::ANSIColor  \
-&&  cpanm -n  Test::Harness  \
-&&  cpanm -n  Cache::Memcached  \
-&&  cpanm -n  Template::Plugin::JSON::Escape  \
-&&  cpanm -n  Net::Z3950::ZOOM  \
-&&  cpanm -n  Digest::SHA  \
-&&  cpanm -n  Getopt::Long  \
-&&  cpanm -n  CGI::Session  \
-&&  cpanm -n  Locale::PO  \
-&&  cpanm -n  DateTime::Format::MySQL  \
-&&  cpanm -n  Net::Netmask  \
-&&  cpanm -n  Class::Factory::Util \
-&&  cpanm -n XML::LibXSLT \
-&&  cpanm -n  Net::Z3950::SimpleServer
+    Lingua::Stem::Snowball  \
+    YAML  \
+    MIME::Lite  \
+    HTTP::OAI  \
+    Locale::Messages  \
+    JSON  \
+    WWW::CSRF  \
+    MARC::Record  \
+    XML::SAX::ParserFactory  \
+    Business::ISBN  \
+    PDF::API2  \
+    Text::CSV::Encoded  \
+    DBIx::Class::Schema::Loader  \
+    HTML::FormatText  \
+    OpenOffice::OODoc  \
+    Search::Elasticsearch  \
+    Lingua::Stem  \
+    POSIX  \
+    UNIVERSAL::can  \
+    Sereal::Decoder  \
+    Getopt::Std  \
+    Biblio::EndnoteStyle  \
+    CGI::Session::Serialize::yaml  \
+    Email::Valid  \
+    Text::Wrap  \
+    XML::Simple  \
+    File::Slurp  \
+    MARC::Charset  \
+    Try::Tiny  \
+    XML::LibXML  \
+    Algorithm::CheckDigits  \
+    Font::TTF  \
+    CGI::Emulate::PSGI  \
+    Data::Dumper  \
+    DateTime::TimeZone  \
+    CGI::Compile  \
+    XML::SAX::Writer  \
+    LWP::Simple  \
+    Template  \
+    Business::ISSN  \
+    Text::CSV_XS  \
+    Class::Inspector  \
+    Exception::Class  \
+    Locale::Currency::Format  \
+    CGI::Carp  \
+    List::Util  \
+    Date::Calc  \
+    MARC::File::XML  \
+    Plack::Middleware::ReverseProxy  \
+    HTML::Entities  \
+    PDF::Table  \
+    Email::Date  \
+    Clone  \
+    Test::More  \
+    Net::Stomp  \
+    Template::Plugin::HtmlToText  \
+    Library::CallNumber::LC  \
+    Array::Utils  \
+    Term::ANSIColor  \
+    Test::Harness  \
+    Cache::Memcached  \
+    Template::Plugin::JSON::Escape  \
+    Net::Z3950::ZOOM  \
+    Digest::SHA  \
+    Getopt::Long  \
+    CGI::Session  \
+    Locale::PO  \
+    DateTime::Format::MySQL  \
+    Net::Netmask  \
+    Class::Factory::Util \
+    XML::LibXSLT \
+    Net::Z3950::SimpleServer
 
 # --------------------------
 WORKDIR /kohadevbox/tar/koha-20.11
@@ -402,7 +401,7 @@ RUN  ./koha_perl_deps.pl -a
 RUN  ./koha_perl_deps.pl -m -u
 
 #RUN cpanm --self-upgrade
-RUN cpanm \
+RUN cpanm -n \
     DBD::SQLite \
     DBIx::Class::Schema::PopulateMore \
     Text::CSV::Unicode \
@@ -412,23 +411,14 @@ RUN cpanm \
     CGI::Session::Serialize::yaml \
     Email::Valid \
     YAML::Syck \
-    Locale::XGettext::TT2
-
+    Locale::XGettext::TT2 \
+    Devel::Cover::Report::Clover \
+    MooseX::Attribute::ENV \
+    TAP::Harness::JUnit \
+    WebService::ILS
 
 WORKDIR /kohadevbox
 RUN export
-
-RUN cpanm -i --force -n \
-       DBD::SQLite \
-       HTTPD::Bench::ApacheBench \
-       MooseX::Attribute::ENV \
-       Test::DBIx::Class \
-       TAP::Harness::JUnit \
-       Text::CSV::Unicode \
-       Devel::Cover::Report::Clover \
-       WebService::ILS \
-       Selenium::Remote::Driver \
-       Locale::XGettext::TT2
 
 
 # Patch Devel::Cover to skip exec
