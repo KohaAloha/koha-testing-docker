@@ -569,7 +569,7 @@ RUN cd /kohadevbox \
 
 # Remote debugger
  RUN cd /kohadevbox  \
-    && wget -q -O dbgp.tar.gz wget http://gw1.kohaaloha.com/pub/dbgp.tar.gz \
+    && wget -q https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
     && tar xvzf dbgp.tar.gz  \
     && rm dbgp.tar.gz
 
