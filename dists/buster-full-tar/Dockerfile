@@ -525,6 +525,9 @@ RUN cpanm -i --force -n \
        Devel::Cover::Report::Clover \
        WebService::ILS \
        Selenium::Remote::Driver \
+       CGI::Session::Serialize::yaml \
+       Email::Valid \
+       YAML::Syck \
        Locale::XGettext::TT2
 
 ## Add Yarn
