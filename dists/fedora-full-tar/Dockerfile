@@ -467,8 +467,9 @@ RUN cd /kohadevbox \
 
 # Remote debugger
  RUN cd /kohadevbox  \
-    && wget -q https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
-    && tar xvzf dbgp.tar.gz  \                                                            && rm dbgp.tar.gz
+    && wget -q -O dbgp.tar.gz https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
+    && tar xvzf dbgp.tar.gz  \
+    && rm dbgp.tar.gz
 
 RUN mkdir -p /etc/mysql
 
