@@ -420,6 +420,9 @@ RUN  ./koha_perl_deps.pl -a
 RUN  ./koha_perl_deps.pl -m -u
 
 #RUN cpanm --self-upgrade
+
+RUN cpanm --force DateTimeX::Easy
+
 RUN cpanm \
     DBD::SQLite \
     DBIx::Class::Schema::PopulateMore \
