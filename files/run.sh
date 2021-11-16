@@ -153,6 +153,11 @@ if [ ${CPAN} ]; then
     cpan-outdated --exclude-core -p | cpanm
 fi
 
+# Install everything in Koha's cpanfile, may include libs for extra patches being tested
+if [ "${INSTALL_MISSING_FROM_CPANFILE}" = "yes" ]; then
+    cpanm --skip-installed --installdeps ${BUILD_DIR}/koha/
+fi
+
 # Stop apache2
 service apache2 stop
 
