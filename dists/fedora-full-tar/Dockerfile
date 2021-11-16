@@ -481,6 +481,6 @@ COPY files/run-fed2.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
-CMD ["/bin/bash", "/kohadevbox/run-fed.sh"]
+CMD ["/bin/bash", "/kohadevbox/run-fed1.sh"]
 
 EXPOSE 8080 8081
