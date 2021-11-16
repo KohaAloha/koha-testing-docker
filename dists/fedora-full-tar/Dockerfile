@@ -391,7 +391,7 @@ RUN cpanm -n  Text::Iconv  \
 &&  cpanm -n  Locale::PO  \
 &&  cpanm -n  DateTime::Format::MySQL  \
 &&  cpanm -n  Net::Netmask  \
-&&  cpanm -n  Class::Factory::Util
+&&  cpanm -n  Class::Factory::Util \
 &&  cpanm -n XML::LibXSLT \
 &&  cpanm -n  Net::Z3950::SimpleServer
 
