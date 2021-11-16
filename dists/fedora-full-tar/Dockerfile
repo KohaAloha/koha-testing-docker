@@ -422,15 +422,15 @@ RUN export
 
 
 # Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
+#RUN wget -O Devel-Cover.tar.gz \
+#       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
+#    && tar xvzf Devel-Cover.tar.gz \
+#    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
+#    && cd Devel-Cover-1.26/ \
+#    && cpanm -i -n .
 
 # Install Node.js and Yarn
-RUN dnf -y install nodejs yarnpkg
+RUN dnf -y install nodejs yarnpkg perl-Devel-Cover
 
 # Install gulp
 RUN npm install gulp-cli -g
