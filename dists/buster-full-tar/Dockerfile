@@ -181,10 +181,11 @@ WORKDIR /kohadevbox/tar
 RUN pwd
 
 #RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
-RUN wget https://download.koha-community.org/koha-20.11-latest.tar.gz \
+RUN wget -q  https://download.koha-community.org/koha-20.11-latest.tar.gz \
  && tar xfz koha-20.11-latest.tar.gz \
  && rm koha-20.11-latest.tar.gz \
- && cd koha-20.11* \
+ && mv koha-20.11* koha-20.11 \
+ && cd koha-20.11 \
  && pwd \
  && ls
 
@@ -413,7 +414,7 @@ koha-perldeps \
 # --------------------------
 # --------------------------
 
-WORKDIR /kohadevbox/tar/koha-20.11.04
+WORKDIR /kohadevbox/tar/koha-20.11*
 RUN pwd
 RUN  ./koha_perl_deps.pl -a
 RUN  ./koha_perl_deps.pl -m -u
@@ -507,6 +508,7 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
+         libdevel-cover-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
@@ -521,14 +523,6 @@ RUN cpanm -i --force -n \
        WebService::ILS \
        Selenium::Remote::Driver \
        Locale::XGettext::TT2
-
-# Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
 
 ## Add Yarn
 # Add node repo
@@ -572,7 +566,7 @@ RUN cd /kohadevbox \
 
 # Remote debugger
  RUN cd /kohadevbox  \
-    && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download   \
+    && wget -q -O dbgp.tar.gz wget http://gw1.kohaaloha.com/pub/dbgp.tar.gz \
     && tar xvzf dbgp.tar.gz  \
     && rm dbgp.tar.gz
 
@@ -593,7 +587,7 @@ RUN figlet make-start \
  && export INSTALL_PAZPAR2='no' \
  && export INSTALL_SRU='yes' \
  && export KOHA_GROUP='koha' \
- && export KOHA_INSTALLED_VERSION='20.11.04.000' \
+ && export KOHA_INSTALLED_VERSION='20.11.11.000' \
  && export KOHA_USER='koha' \
  && export MEMCACHED_NAMESPACE='KOHA' \
  && export MEMCACHED_SERVERS='memcached:11211' \
@@ -620,7 +614,7 @@ RUN figlet make-start \
  && export
 
 
-WORKDIR /kohadevbox/tar/koha-20.11.04
+WORKDIR /kohadevbox/tar/koha-20.11
 
 RUN figlet perl ./Makefile.PL \
     && perl ./Makefile.PL
@@ -657,10 +651,10 @@ RUN figlet make \
 
 RUN figlet make install \
  && make install \
- && cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh \
+ && cp /kohadevbox/tar/koha-20.11/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh \
  && mkdir -p /usr/share/koha/lib/C4/SIP/t \
- && cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm \
- && cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib \
+ && cp /kohadevbox/tar/koha-20.11/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm \
+ && cp -a /kohadevbox/tar/koha-20.11/t  /usr/share/koha/lib \
  && figlet make-stop
 
 # ----------------------------------
