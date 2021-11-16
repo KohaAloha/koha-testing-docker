@@ -190,6 +190,22 @@ pwd
 # -------------------------
 
 figlet koha-create
+
+
+
+/bin/bash -c "trap : TERM INT; sleep infinity & wait"
+
+# -------------------------
+# -------------------------
+# -------------------------
+
+
+# -------------------------
+# -------------------------
+# -------------------------
+
+
+
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 koha-list
 
