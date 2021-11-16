@@ -414,7 +414,7 @@ koha-perldeps \
 # --------------------------
 # --------------------------
 
-WORKDIR /kohadevbox/tar/koha-20.11*
+WORKDIR /kohadevbox/tar/koha-20.11
 RUN pwd
 RUN  ./koha_perl_deps.pl -a
 RUN  ./koha_perl_deps.pl -m -u
