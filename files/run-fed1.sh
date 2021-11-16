@@ -81,7 +81,7 @@ export INSTALL_MODE='standard'
 export INSTALL_PAZPAR2='no'
 export INSTALL_SRU='yes'
 export KOHA_GROUP='koha'
-export KOHA_INSTALLED_VERSION='20.11.04.000'
+export KOHA_INSTALLED_VERSION='20.11.11.000'
 export KOHA_USER='koha'
 export MEMCACHED_NAMESPACE='KOHA'
 export MEMCACHED_SERVERS='memcached:11211'
@@ -108,7 +108,7 @@ export ZEBRA_USER='koha'
 
 ls -l /
 ls -l  /kohadevbox
-cd /kohadevbox/tar/koha-20.11.04
+cd /kohadevbox/tar/koha-20.11
 pwd
 ls
 
@@ -145,7 +145,7 @@ perl ./Makefile.PL \
 
 figlet 333
 
-cd /kohadevbox/tar/koha-20.11.04
+cd /kohadevbox/tar/koha-20.11
 pwd
 
 figlet make
@@ -167,11 +167,11 @@ figlet tree
 figlet 555
 
 #mkdir -p /usr/share/koha/lib/t/lib
-cp /kohadevbox/tar/koha-20.11.04/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
+cp /kohadevbox/tar/koha-20.11/debian/scripts/koha-functions.sh /usr/share/koha/bin/koha-functions.sh
 
 mkdir -p /usr/share/koha/lib/C4/SIP/t
-cp /kohadevbox/tar/koha-20.11.04/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm
-cp -a /kohadevbox/tar/koha-20.11.04/t  /usr/share/koha/lib
+cp /kohadevbox/tar/koha-20.11/C4/SIP/t/SIPtest.pm  /usr/share/koha/lib/C4/SIP/t/SIPtest.pm
+cp -a /kohadevbox/tar/koha-20.11/t  /usr/share/koha/lib
 
 #tree -f /usr/share/koha
 figlet tree2

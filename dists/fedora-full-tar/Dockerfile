@@ -188,18 +188,14 @@ WORKDIR /kohadevbox/tar
 
 RUN pwd
 
-#RUN wget https://download.koha-community.org/koha-20.11.04.tar.gz \
-RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
- && tar xf koha-20.11.04.tar.gz \
- && cd koha-20.11.04 \
+#RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
+RUN wget -q  https://download.koha-community.org/koha-20.11-latest.tar.gz \
+ && tar xfz koha-20.11-latest.tar.gz \
+ && rm koha-20.11-latest.tar.gz \
+ && mv koha-20.11* koha-20.11 \
+ && cd koha-20.11 \
  && pwd \
  && ls
-
-
-
-
-
-
 
 
 # --------------------------
@@ -400,7 +396,7 @@ RUN cpanm -n  Text::Iconv  \
 &&  cpanm -n  Net::Z3950::SimpleServer
 
 # --------------------------
-WORKDIR /kohadevbox/tar/koha-20.11.04
+WORKDIR /kohadevbox/tar/koha-20.11
 RUN pwd
 RUN  ./koha_perl_deps.pl -a
 RUN  ./koha_perl_deps.pl -m -u
@@ -413,6 +409,9 @@ RUN cpanm \
     HTTPD::Bench::ApacheBench \
     Test::DBIx::Class \
     Selenium::Remote::Driver \
+    CGI::Session::Serialize::yaml \
+    Email::Valid \
+    YAML::Syck \
     Locale::XGettext::TT2
 
 
@@ -430,8 +429,6 @@ RUN cpanm -i --force -n \
        WebService::ILS \
        Selenium::Remote::Driver \
        Locale::XGettext::TT2
-
-
 
 
 # Patch Devel::Cover to skip exec
@@ -469,11 +466,9 @@ RUN cd /kohadevbox \
         Text::MultiMarkdown
 
 # Remote debugger
-RUN cd /kohadevbox  \
-    && wget -q -O dbgp.tar.gz http://cloud.theke.io/index.php/s/pEgS35T3MktNffk/download   \
-    && tar xvzf dbgp.tar.gz  \
-    && rm dbgp.tar.gz
-
+ RUN cd /kohadevbox  \
+    && wget -q https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
+    && tar xvzf dbgp.tar.gz  \                                                            && rm dbgp.tar.gz
 
 RUN mkdir -p /etc/mysql
 
