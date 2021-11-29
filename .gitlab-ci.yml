@@ -29,7 +29,7 @@ bullseye:
   - docker push koha/koha-testing:21.11-bullseye
   - docker tag  koha/koha-testing:21.11-bullseye koha/koha-testing:21.11
   - docker push koha/koha-testing:21.11
-  - docker image rm koha/koha-testing:21.11-bullseye
+  - docker image rm koha/koha-testing:21.11-bullseye koha/koha-testing:21.11
   only:
     - 21.11@koha-community/koha-testing-docker
 
@@ -49,7 +49,7 @@ stretch:
   - docker build -t koha/koha-testing:21.11-stretch --no-cache --rm -f dists/stretch/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:21.11-stretch
-  - docker image rm koha/koha-testing:21.11-stretch koha/koha-testing:21.11
+  - docker image rm koha/koha-testing:21.11-stretch
   only:
     - 21.11@koha-community/koha-testing-docker
 
