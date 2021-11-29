@@ -39,7 +39,7 @@ services:
             - /cover_db
             - /tmp
         env_file:
-            - ./env/defaults.env
+            - .env
         environment:
             COVERAGE: ${COVERAGE}
             CPAN: ${CPAN}
@@ -59,7 +59,7 @@ services:
         networks:
             - kohanet
     selenium:
-        image: selenium/standalone-firefox:3.141
+        image: selenium/standalone-firefox:3
         networks:
             - kohanet
         shm_size: 1gb

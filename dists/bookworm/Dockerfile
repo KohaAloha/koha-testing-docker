@@ -1,4 +1,4 @@
-# Base it on Debian 10
+# Base it on Debian 11
 FROM debian:bookworm
 
 # File Author / Maintainer
@@ -8,9 +8,9 @@ ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
-#RUN echo "deb http://httpredir.debian.org/debian bookworm main" > /etc/apt/sources.list
+#RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
 
-ENV REFRESHED_AT 2019-05-24-1
+ENV REFRESHED_AT 2021-08-04
 
 #RUN apt-get -y update
 
@@ -26,11 +26,9 @@ RUN apt-get -y update \
       tig \
       libcarp-always-perl \
       libgit-repository-perl \
-      liblist-compare-perl \
       libmemcached-tools \
       libmodule-install-perl \
       libperl-critic-perl \
-      libsmart-comments-perl \
       libtest-differences-perl \
       libtest-perl-critic-perl \
       libtest-perl-critic-progressive-perl \
@@ -46,14 +44,7 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
-
-# Temporary dependencies
-RUN apt-get -y update \
-    && apt-get -y install \
-      libplack-middleware-logwarn-perl \
-      libemail-stuffer-perl \
+      iproute2 \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -79,9 +70,8 @@ RUN a2enmod rewrite \
 
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha-staging 21.11 main bookworm" >> /etc/apt/sources.list.d/koha.list
-RUN wget -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
-
+RUN echo "deb http://debian.koha-community.org/koha-staging 21.11 main" >> /etc/apt/sources.list.d/koha.list
+RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update
 
 RUN apt-cache policy koha-common
@@ -108,10 +98,11 @@ RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
          libtemplate-plugin-gettext-perl \
+         libdevel-cover-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-RUN cpanm -i --force \
+RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
        DBD::SQLite \
        HTTPD::Bench::ApacheBench \
        MooseX::Attribute::ENV \
@@ -120,15 +111,15 @@ RUN cpanm -i --force \
        Text::CSV::Unicode \
        Devel::Cover::Report::Clover \
        WebService::ILS \
-       Selenium::Remote::Driver
+       Selenium::Remote::Driver \
+    && rm -r /root/.cpanm
 
-# Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
+# Install temporary package
+RUN apt-get -y update \
+   && apt-get -y install \
+         libemail-address-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/api/lists/*
 
 ## Add Yarn
 # Add node repo
@@ -157,17 +148,17 @@ RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
     && git clone https://gitlab.com/koha-community/qa-test-tools.git
 
-# release-tools
+# release-tools and koha-howto
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
     && apt-get update \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
-        libyaml-syck-perl \
+        bugz \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force \
+    && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
         File::FindLib \
         REST::Client
 

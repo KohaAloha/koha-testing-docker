@@ -343,8 +343,8 @@ __END_SRU_PUBLICSERVER__
  <sms_send_config>__KOHA_CONF_DIR__/sms_send/</sms_send_config>
 
  <!-- Configuration for Plack -->
- <plack_max_requests>50</plack_max_requests>
- <plack_workers>2</plack_workers>
+ <plack_max_requests>${PLACK_MAX_REQUESTS}</plack_max_requests>
+ <plack_workers>${PLACK_WORKERS}</plack_workers>
 
  <!-- Configuration for X-Forwarded-For -->
  <!--
@@ -353,7 +353,7 @@ __END_SRU_PUBLICSERVER__
 
  <!-- Elasticsearch Configuration -->
  <elasticsearch>
-     <server>es:9200</server>
+     <server>${ELASTIC_SERVER}</server>
      <index_name>koha___KOHASITE__</index_name>
  </elasticsearch>
  <!-- Uncomment the following line if you want to override the Elasticsearch default index settings -->
@@ -371,6 +371,13 @@ __END_SRU_PUBLICSERVER__
      <!-- Path to where Illbackends are located on the system
           - This setting should normally not be touched -->
      <backend_directory>/usr/share/koha/lib/Koha/Illbackends</backend_directory>
+     <!-- At least one <branch> block is required. -->
+     <branch>
+         <!-- The code of this branch -->
+         <code>CPL</code>
+         <!-- An optional prefix for all ILL request IDs for this branch -->
+         <prefix>ILL</prefix>
+     </branch>
      <!-- How should we treat staff comments?
           - hide: don't show in OPAC
           - show: show in OPAC -->

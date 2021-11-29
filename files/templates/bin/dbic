@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 mysql -h ${DB_HOSTNAME} -p${KOHA_DB_PASSWORD} -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic'
 cd '/kohadevbox/koha'
