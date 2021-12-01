@@ -139,7 +139,7 @@ RUN cd /kohadevbox \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
-        libyaml-syck-perl bugz \
+        bugz \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
     && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
