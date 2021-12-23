@@ -90,9 +90,8 @@ export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
 source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
 ```
 
-[^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will
-fail to load if you don't export the variable first.
-[^2]: To force Koha to load plugins after import: perl -e 'use Koha::Plugins; my $plugin = Koha::Plugins->new(); $plugin->InstallPlugins;'
+[^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will fail to load if you don't export the variable first.
+[^2]: Once started, you need to edit the kohadev koha-conf commenting the pluginsdir default and uncommenting the kohadev lines and then load the plugin using kshell ./misc/devel/install_plugins.pl
 
 #### Manually
 
