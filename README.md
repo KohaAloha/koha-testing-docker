@@ -232,7 +232,7 @@ Increase *vm.max_map_count* kernel setting to at least 262144:
   # Increase vm.max_map_count
   $ sudo sysctl -w vm.max_map_count=262144
   # Make it permanent
-  $ sudo echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+  $ echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 
 ```
 
