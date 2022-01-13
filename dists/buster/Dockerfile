@@ -15,6 +15,9 @@ ENV REFRESHED_AT 2019-10-01-0
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
+RUN dpkg --print-architecture
+
+
 RUN apt-get -y update \
     && apt-get -y install \
       apache2 \
@@ -24,6 +27,7 @@ RUN apt-get -y update \
       git \
       tig \
       libcarp-always-perl \
+      libemail-address-perl \
       libgit-repository-perl \
       liblist-compare-perl \
       libmemcached-tools \
