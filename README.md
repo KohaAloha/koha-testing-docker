@@ -10,16 +10,24 @@ The *docker-compose.yml* file is self explanatory.
 
 ## Requirements
 
-- Docker
-- Docker Compose
-- If Docker is installed as root, you need to add your user to the docker group.
-- At least 2.6 GiB of free RAM (not counting web browser)
+### Software
 
-```shell
-sudo apt update
-sudo apt install docker.io docker-compose
-sudo usermod -aG docker ${USER}
-```
+This project is self contained and all you need is:
+
+- A text editor to tweak configuration files
+- Docker ([install instructions](https://docs.docker.com/engine/install/))
+- Docker Compose ([install instructions](https://docs.docker.com/compose/install/#install-compose-on-linux-systems))
+
+You can choose to use [Docker Compose V2](https://docs.docker.com/compose/cli-command/#install-on-linux).
+In that case, follow the version-specific instructions we put in place (specially the _shell aliases_) and notice that every
+command that involves calling `docker-compose` should have it replaced by `docker compose`.
+
+Note: **Windows** and **macOS** users get _Docker Compose V2_.
+
+### Hardware
+
+- At least 2.6 GiB of free RAM (not counting web browser)
+- If you want to try Elastic, count at least 2 GiB more of free RAM.
 
 ## Usage
 
@@ -154,14 +162,6 @@ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-
 
 ## Getting into the container
 
-Getting into the _koha_ container:
-
-```shell
-docker exec -it koha_koha_1 bash
-```
-
-Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
-
 **Alias**: `kshell`
 
 Once you are left on the shell, you can run Koha tests as you would on KohaDevBox:
@@ -171,6 +171,18 @@ kshell
 cd koha
 prove t/db_dependent/Search.t
 ```
+
+### Explaining kshell, useful for other containers as well
+
+Getting into the _koha_ container implies:
+
+```shell
+docker exec -it koha_koha_1 bash
+```
+
+(In _Docker Compose V2_ it would be `docker exec -it koha-koha-1 bash`).
+
+Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
 
 ## Getting to the web interface
 
