@@ -15,20 +15,20 @@ The *docker-compose.yml* file is self explanatory.
 - If Docker is installed as root, you need to add your user to the docker group.
 - At least 2.6 GiB of free RAM (not counting web browser)
 
-```
-  $ sudo apt update
-  $ sudo apt install docker.io docker-compose
-  $ sudo usermod -aG docker ${USER}
+```shell
+sudo apt update
+sudo apt install docker.io docker-compose
+sudo usermod -aG docker ${USER}
 ```
 
 ## Usage
 
 * First, fetch this project:
 
-```
-  $ mkdir ~/git ; cd ~/git
-  $ git clone https://gitlab.com/koha-community/koha-testing-docker.git
-  $ cd koha-testing-docker
+```shell
+mkdir ~/git ; cd ~/git
+git clone https://gitlab.com/koha-community/koha-testing-docker.git
+cd koha-testing-docker
 ```
 
 ## Launch
@@ -38,10 +38,10 @@ for a Koha's git repository clone.
 
 This can be made permanent by adding the following to your user's .bashrc (using the correct path to your Koha clone):
 
-```
-  # ENV variables for kohadevbox
-  export SYNC_REPO="/home/user/kohaclone"
-  export LOCAL_USER_ID=$(id -u)
+```shell
+# ENV variables for kohadevbox
+export SYNC_REPO="/home/user/kohaclone"
+export LOCAL_USER_ID=$(id -u)
 ```
 Note you will need to log out and log back in (or start a new terminal window) for this to take effect.
 
@@ -49,15 +49,15 @@ Note you will need to log out and log back in (or start a new terminal window) f
 
 Copy the _env/defaults.env_ file into the running directory:
 
-```
-  $ cp env/defaults.env .env
+```shell
+cp env/defaults.env .env
 ```
 
 Some variables need to be set to run this:
 
-```
-  $ export SYNC_REPO=/path/to/kohaclone
-  $ export LOCAL_USER_ID=$(id -u)
+```shell
+export SYNC_REPO=/path/to/kohaclone
+export LOCAL_USER_ID=$(id -u)
 ```
 
 ### Running
@@ -85,9 +85,17 @@ This project includes some handy aliases for easy startup, opening a shell insid
 
 In order to use this aliases you need to edit your _~/.bashrc_ ( or _~/.profile_ if using Git for Windows ) file adding:
 
-```
+```shell
 export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
 source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
+```
+
+**Note**: If you are using [Docker Compose V2](https://docs.docker.com/compose/cli-command/#install-on-linux) use this
+command instead:
+
+```shell
+export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
+source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases_v2
 ```
 
 [^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will fail to load if you don't export the variable first.
@@ -95,23 +103,23 @@ source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
 
 #### Manually
 
-```
-  $ docker-compose -p koha up
+```shell
+docker-compose -p koha up
 ```
 
 Alternatively, you can have it run all the tests and exit, like this:
 
-```
-  $ export RUN_TESTS_AND_EXIT="yes"
-  # Optionally you can add COVERAGE=1 so the tests generate coverage data
-  # Optionally you can add CPAN=1 to pull the latest versions of perl dependancies directly from cpan
-  $ docker-compose -p koha up --abort-on-container-exit
+```shell
+export RUN_TESTS_AND_EXIT="yes"
+# Optionally you can add COVERAGE=1 so the tests generate coverage data
+# Optionally you can add CPAN=1 to pull the latest versions of perl dependancies directly from cpan
+docker-compose -p koha up --abort-on-container-exit
 ```
 
 #### Update images
 
-```
-  $ docker-compose -f docker-compose.yml pull
+```shell
+docker-compose -f docker-compose.yml pull
 ```
 
 #### Database persistence
@@ -119,8 +127,8 @@ Alternatively, you can have it run all the tests and exit, like this:
 If you need to keep the DB between your different uses of the containers, you can
 run
 
-```
-  $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
+```shell
+docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
 ```
 
 **Alias**: `kp`
@@ -130,15 +138,16 @@ run
 If you would like to use Kibana for testing/interacting with ES directly you can include
 an extra compose file
 
-```
-  $ docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up
+```shell
+docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up
 ```
 
 **Alias**: `kk`
 
 It is possible to combine this with persistence
-```
-  $ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up
+
+```shell
+docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up
 ```
 
 **Alias**: `kpk`
@@ -147,8 +156,8 @@ It is possible to combine this with persistence
 
 Getting into the _koha_ container:
 
-```
-  $ docker exec -it koha_koha_1 bash
+```shell
+docker exec -it koha_koha_1 bash
 ```
 
 Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
@@ -157,17 +166,18 @@ Note: the first _koha_ should match the _-p_ parameter used in _docker-compose u
 
 Once you are left on the shell, you can run Koha tests as you would on KohaDevBox:
 
-```
-  $ sudo koha-shell kohadev
-  $ cd koha
-  $ prove t/db_dependent/Search.t
+```shell
+kshell
+cd koha
+prove t/db_dependent/Search.t
 ```
 
 ## Getting to the web interface
 
 The IP address of the web server in your docker group will be variable. Once you are in with SSH, issuing a
-```
-$ip a
+
+```shell
+ip a
 ```
 should display the IP address of the webserver. At this point the web interface of Koha can be accessed by going to
 http://<the displayed IP>:8080 for the OPAC
@@ -181,8 +191,8 @@ depending on the user in which the alias is defined.
 Aliases for the *instance* user require that you start a shell with that user in
 order to be used. This is done like this:
 
-```
-  $ kshell
+```shell
+kshell
 ```
 
 ### **root** user
@@ -227,24 +237,28 @@ In order for Elasticsearch to run, changes to the host OS need to be made. Pleas
 Increase *vm.max_map_count* kernel setting to at least 262144:
 
 * On Linux:
-```
-  # Increase vm.max_map_count
-  $ sudo sysctl -w vm.max_map_count=262144
-  # Make it permanent
-  $ echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 
+```shell
+# Increase vm.max_map_count
+sudo sysctl -w vm.max_map_count=262144
+# Make it permanent
+echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 ```
 
 * On MacOS:
+  
+```shell
+screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+# login with root and no password
+sysctl -w vm.max_map_count=262144
 ```
-  $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
-  # login with root and no password
-  $ sysctl -w vm.max_map_count=262144
-```
+
 If the screen command doesn't work try: find ~/Library/Containers/com.docker.docker/Data/ -name 'tty'
 
 ## Problems?
+
 If you see the following error on 'ku' after initial setup, try a reboot
+
 ```
-   "ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?'
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
 ```
