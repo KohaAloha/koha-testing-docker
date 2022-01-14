@@ -13,8 +13,20 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
-echo "127.0.0.1 kohadevbox" >> /etc/hosts
+
+append_if_absent()
+{
+    local string=$1
+    local file=$2
+
+    if grep -q -x -v "$string" $file; then
+        echo $string >> $file
+    fi
+}
+
+append_if_absent "127.0.0.1 kohadevbox" /etc/hosts
 hostname kohadevbox
+
 
 # Remove packages for developers if it's a Jenkins run (CI_RUN=1)
 if [ "${CI_RUN}" = "yes" ]; then
@@ -63,9 +75,9 @@ echo "user     = koha_${KOHA_INSTANCE}" >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 
 # Get rid of Apache warnings
-echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
-echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
-echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
+append_if_absent "ServerName kohadevbox"        /etc/apache2/apache2.conf
+append_if_absent "Listen ${KOHA_INTRANET_PORT}" /etc/apache2/ports.conf
+append_if_absent "Listen ${KOHA_OPAC_PORT}"     /etc/apache2/ports.conf
 
 # Pull the names of the environment variables to substitute from defaults.env and convert them to a string of the format "$VAR1:$VAR2:$VAR3", etc.
 VARS_TO_SUB=`cut -d '=' -f1 ${BUILD_DIR}/templates/defaults.env  | tr '\n' ':' | sed -e 's/:/:$/g' | awk '{print "$"$1}' | sed -e 's/:\$$//'`
