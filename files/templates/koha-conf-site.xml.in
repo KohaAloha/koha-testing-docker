@@ -355,6 +355,7 @@ __END_SRU_PUBLICSERVER__
  <elasticsearch>
      <server>${ELASTIC_SERVER}</server>
      <index_name>koha___KOHASITE__</index_name>
+     ${ELASTIC_OPTIONS}
  </elasticsearch>
  <!-- Uncomment the following line if you want to override the Elasticsearch default index settings -->
  <!-- <elasticsearch_index_config>__KOHA_CONF_DIR__/searchengine/elasticsearch/index_config.yaml</elasticsearch_index_config> -->
