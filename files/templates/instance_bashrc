@@ -11,3 +11,6 @@ alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
                    PERL5DB="BEGIN { require q(/kohadevbox/dbgp/perl5db.pl) }" \
                    PERLDB_OPTS="RemotePort=${REMOTE_DEBUGGER_LOCATION} async=1 LogFile=/var/lib/koha/${KOHA_INSTANCE}/plack-debug.log" \
                    perl -d'
+
+# Alias for the Koha QA tool
+alias qa="/kohadevbox/qa-test-tools/koha-qa.pl -v 2 --failures"
