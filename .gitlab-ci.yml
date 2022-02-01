@@ -72,16 +72,6 @@ focal:
   only:
     - 20.05@koha-community/koha-testing-docker
 
-groovy:
-  stage: build
-  script:
-  - docker build -t koha/koha-testing:20.05-groovy --no-cache --rm -f dists/groovy/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:20.05-groovy
-  - docker image rm koha/koha-testing:20.05-groovy
-  only:
-    - 20.05@koha-community/koha-testing-docker
-
 hirsute:
   stage: build
   script:
