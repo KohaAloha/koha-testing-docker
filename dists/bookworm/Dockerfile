@@ -101,8 +101,6 @@ RUN apt-get -y update \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
 \
-         libdbd-sqlite-perl \
-         libhttpd-bench-apachebench-perl \
          libmoosex-attribute-env-perl \
          libtest-dbix-class-perl \
          libtap-harness-junit-perl \
@@ -112,6 +110,11 @@ RUN apt-get -y update \
          libselenium-remote-driver-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
+
+RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
+       DBD::SQLite \
+       HTTPD::Bench::ApacheBench \
+    && rm -r /root/.cpanm
 
 # Install temporary package
 RUN apt-get -y update \
