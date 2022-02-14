@@ -1,4 +1,5 @@
 alias ku='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -p koha up --force-recreate'
+alias kul='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose-light.yml -p koha up --force-recreate'
 alias ku-es5='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es5.yml -p koha up --force-recreate'
 alias ku-es6='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es6.yml -p koha up --force-recreate'
 alias ku-es7='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es7.yml -p koha up --force-recreate'

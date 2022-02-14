@@ -77,6 +77,7 @@ This project includes some handy aliases for easy startup, opening a shell insid
 | Alias   | Function                                                   |
 |---------|------------------------------------------------------------|
 | ku      | Start the whole thing, using MariaDB 10.1 with Debian 9    |
+| kul     | Light mode (no ES, no nothing)                             |
 | ku-es5  | As above, plus ES5                                         |
 | ku-es6  | As above, replacing ES5 with ES6                           |
 | ku-es7  | As above, replacing ES6 with ES7                           |
