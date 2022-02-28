@@ -17,6 +17,7 @@ ENV REFRESHED_AT 2021-08-04
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
 RUN apt-get -y update \
+    && apt-get -y upgrade \
     && apt-get -y install \
       apache2 \
       build-essential \
@@ -71,7 +72,7 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes]  http://deb.kohaaloha.com/koha-deps stable main bookworm" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bookworm" >> /etc/apt/sources.list.d/koha.list
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update
 
