@@ -101,7 +101,6 @@ RUN apt-get -y update \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
 \
-         libdbd-sqlite-perl \
          libhttpd-bench-apachebench-perl \
          libmoosex-attribute-env-perl \
          libtest-dbix-class-perl \
