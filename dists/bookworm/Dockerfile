@@ -69,11 +69,15 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
-
 # Add Koha development repositories
+RUN curl -s http://debian.koha-community.org/koha/gpg.asc  | \
+        gpg --no-default-keyring \
+         --keyring gnupg-ring:/etc/apt/trusted.gpg.d/koha.gpg --import \
+    && chmod 644 /etc/apt/trusted.gpg.d/koha.gpg
+
 RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bookworm" >> /etc/apt/sources.list.d/koha.list
-RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+
 RUN apt-get -y update
 
 RUN apt-cache policy koha-common
@@ -81,8 +85,6 @@ RUN apt-cache policy libmojolicious-perl
 RUN apt-cache policy libjson-validator-perl
 RUN apt-cache policy libmojolicious-plugin-openapi-perl
 RUN apt-cache policy libyaml-libyaml-perl
-
-#RUN apt-get -y install koha-common --simulate
 
 # Install koha-common
 RUN apt-get -y update \
