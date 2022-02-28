@@ -71,7 +71,7 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb [trusted=yes]  http://deb.kohaaloha.com/koha-deps stable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb [trusted=yes]  http://deb.kohaaloha.com/koha-deps stable main bookworm" >> /etc/apt/sources.list.d/koha.list
 RUN wget -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update
 
@@ -101,6 +101,8 @@ RUN apt-get -y update \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
 \
+         libdbd-sqlite-perl \
+         libhttpd-bench-apachebench-perl \
          libmoosex-attribute-env-perl \
          libtest-dbix-class-perl \
          libtap-harness-junit-perl \
@@ -110,11 +112,6 @@ RUN apt-get -y update \
          libselenium-remote-driver-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
-       DBD::SQLite \
-       HTTPD::Bench::ApacheBench \
-    && rm -r /root/.cpanm
 
 # Install temporary package
 RUN apt-get -y update \
