@@ -143,11 +143,10 @@ RUN cd /kohadevbox \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
         bugz \
+        libfile-findlib-perl \
+        librest-client-perl \
     && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
-        File::FindLib \
-        REST::Client
+    && rm -rf /var/lib/api/lists/*
 
 # Remote debugger
 RUN cd /kohadevbox \

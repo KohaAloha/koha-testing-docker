@@ -131,18 +131,18 @@ RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/koha-gitify.git gitify \
     && git clone https://gitlab.com/koha-community/qa-test-tools.git
 
-# release-tools
+# release-tools and koha-howto
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
     && apt-get update \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
+        bugz \
+        libfile-findlib-perl \
+        librest-client-perl \
     && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
-        File::FindLib \
-        REST::Client
+    && rm -rf /var/lib/api/lists/*
 
 # Remote debugger
 RUN cd /kohadevbox \
