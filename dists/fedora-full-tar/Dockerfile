@@ -188,8 +188,8 @@ WORKDIR /kohadevbox/tar
 
 RUN pwd
 
-#RUN wget -q http://deb3.kohaaloha.com/koha-20.11.04.tar.gz \
-RUN wget -q  https://download.koha-community.org/koha-20.11-latest.tar.gz \
+#RUN wget -q  https://download.koha-community.org/koha-20.11-latest.tar.gz \
+RUN wget -q  http://deb3.kohaaloha.com/koha-20.11-latest.tar.gz \
  && tar xfz koha-20.11-latest.tar.gz \
  && rm koha-20.11-latest.tar.gz \
  && mv koha-20.11* koha-20.11 \
