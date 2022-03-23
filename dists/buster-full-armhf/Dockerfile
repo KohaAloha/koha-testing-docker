@@ -2,10 +2,10 @@
 #FROM debian:buster
 #FROM i386/debian:buster
 #FROM kohaaloha/raspbian:buster-slim
-FROM arm64v8/debian
+FROM arm64v8/debian:buster
 
 # File Author / Maintainer
-LABEL maintainer="tomascohen@theke.io"
+LABEL maintainer="mtj@kohaaloha.com"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
