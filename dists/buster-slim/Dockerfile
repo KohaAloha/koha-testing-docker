@@ -23,24 +23,9 @@ ENV REFRESHED_AT 2019-10-01-0
 RUN apt-get -y update \
     && apt-get -y install \
       apache2 \
-      build-essential \
-      codespell \
       cpanminus \
       git \
-      tig \
-      libcarp-always-perl \
-      libgit-repository-perl \
-      liblist-compare-perl \
-      libmemcached-tools \
-      libmodule-install-perl \
-      libperl-critic-perl \
-      libsmart-comments-perl \
-      libtest-differences-perl \
-      libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
-      libfile-chdir-perl \
-      libdata-printer-perl \
-      pmtools \
+     pmtools \
       locales \
       netcat \
       python-gdbm \
@@ -110,38 +95,6 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-RUN cpanm -i --force -n \
-       DBD::SQLite \
-       HTTPD::Bench::ApacheBench \
-       MooseX::Attribute::ENV \
-       Test::DBIx::Class \
-       TAP::Harness::JUnit \
-       Text::CSV::Unicode \
-       Devel::Cover::Report::Clover \
-       WebService::ILS \
-       Selenium::Remote::Driver \
-       Locale::XGettext::TT2
-
-# Patch Devel::Cover to skip exec
-RUN wget -O Devel-Cover.tar.gz \
-       http://search.cpan.org/CPAN/authors/id/P/PJ/PJCJ/Devel-Cover-1.26.tar.gz \
-    && tar xvzf Devel-Cover.tar.gz \
-    && sed -i 's/PL_ppaddr\[OP_EXEC\]      = dc_exec;//' Devel-Cover-1.26/Cover.xs \
-    && cd Devel-Cover-1.26/ \
-    && cpanm -i -n .
-
-## Add Yarn
-# Add node repo
-RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/node.list
-# Add yarn repo
-RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
-# Install Node.js and Yarn
-RUN apt-get update \
-   && apt-get -y install nodejs yarn \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
 
 # Install gulp
 RUN npm install gulp-cli -g
