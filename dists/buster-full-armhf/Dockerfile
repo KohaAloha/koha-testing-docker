@@ -1,7 +1,8 @@
 # Base it on Debian 10
 #FROM debian:buster
 #FROM i386/debian:buster
-FROM kohaaloha/raspbian:buster-slim
+#FROM kohaaloha/raspbian:buster-slim
+FROM arm64v8/debian
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
