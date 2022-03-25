@@ -96,7 +96,7 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-UN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
+RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
        HTTPD::Bench::ApacheBench \
     && rm -r /root/.cpanm
 
