@@ -102,3 +102,13 @@ impish:
   - docker image rm koha/koha-testing:master-impish
   only:
     - master@koha-community/koha-testing-docker
+
+jammy:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-jammy --no-cache --rm -f dists/jammy/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-jammy
+  - docker image rm koha/koha-testing:master-jammy
+  only:
+    - master@koha-community/koha-testing-docker
