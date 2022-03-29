@@ -53,15 +53,15 @@ stretch:
   only:
     - master@koha-community/koha-testing-docker
 
-xenial:
-  stage: build
-  script:
-  - docker build -t koha/koha-testing:master-xenial --no-cache --rm -f dists/xenial/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:master-xenial
-  - docker image rm koha/koha-testing:master-xenial
-  only:
-    - master@koha-community/koha-testing-docker
+#xenial:
+#  stage: build
+#  script:
+#  - docker build -t koha/koha-testing:master-xenial --no-cache --rm -f dists/xenial/Dockerfile .
+#  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+#  - docker push koha/koha-testing:master-xenial
+#  - docker image rm koha/koha-testing:master-xenial
+#  only:
+#    - master@koha-community/koha-testing-docker
 
 bionic:
   stage: build
