@@ -12,5 +12,5 @@ alias kup='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml 
 alias kp='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up --force-recreate'
 alias kk='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up --force-recreate'
 alias kpk='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up --force-recreate'
-alias kd='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -p koha down'
+alias kd='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -p koha down --timeout 0'
 alias kshell="docker exec -it koha_koha_1 bash"
