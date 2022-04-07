@@ -39,16 +39,25 @@ git clone https://gitlab.com/koha-community/koha-testing-docker.git
 cd koha-testing-docker
 ```
 
+### If you don't have a clone of Koha's code downloaded already
+```
+  $ cd ~/git
+  # be patient, it's a >3GiB download
+  $ git clone https://git.koha-community.org/Koha-community/Koha.git kohaclone
+  $ cd ~/git/koha-testing-docker
+```
+
 ## Launch
 
 *Requirement*: The SYNC_REPO variable needs to be defined and contain the full path
-for a Koha's git repository clone.
+for a Koha's git repository clone. If you just downloaded it from the above instructions, the value should be "~/git/kohaclone"
 
 This can be made permanent by adding the following to your user's .bashrc (using the correct path to your Koha clone):
 
 ```shell
 # ENV variables for kohadevbox
 export SYNC_REPO="/home/user/kohaclone"
+export SYNC_REPO="/home/user/REPLACE_ME_WITH/KOHACLONE/PATH"
 export LOCAL_USER_ID=$(id -u)
 ```
 Note you will need to log out and log back in (or start a new terminal window) for this to take effect.
