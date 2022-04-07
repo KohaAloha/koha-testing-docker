@@ -40,6 +40,10 @@ if ( $ENV{DBMS_YML} ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d10.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|bullseye| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d11.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|bookworm| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_d12.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|sid| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_latest.yml';
     }
 }
 
