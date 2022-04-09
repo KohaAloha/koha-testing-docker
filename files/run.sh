@@ -71,6 +71,9 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bin/flush_memcached > ${BUILD_D
 # Make sure things are executable on /bin.
 chmod +x ${BUILD_DIR}/bin/*
 
+apachectl -S
+apachectl -M
+
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
