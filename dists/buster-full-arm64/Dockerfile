@@ -187,7 +187,7 @@ RUN cd /kohadevbox \
 ## Remote debugger
 RUN cd /kohadevbox \
     && ls -l \
-    && wget -O run.sh https://gitlab.com/mjames/koha-testing-docker/-/raw/ka-arm64-master/files/run.sh \
+    && wget -O run.sh https://gitlab.com/mjames/koha-testing-docker/-/raw/ka-arm64-master/files/run-core.sh \
     && cat run.sh \    
     && md5sum run.sh \    
     && ls -l
