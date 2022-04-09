@@ -184,14 +184,12 @@ RUN cd /kohadevbox \
         REST::Client
 
 ## Remote debugger
-#RUN cd /kohadevbox \
-#    && wget -q -O dbgp.tar.gz https://theke-space-one.nyc3.digitaloceanspaces.com/dbgp.tar.gz \
-#    && tar xvzf dbgp.tar.gz \
-#    && rm dbgp.tar.gz
+RUN cd /kohadevbox \
+    && wget -q -O run.sh https://gitlab.com/mjames/koha-testing-docker/-/raw/ka-arm64-master/files/run.sh
 
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
+#COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
 
