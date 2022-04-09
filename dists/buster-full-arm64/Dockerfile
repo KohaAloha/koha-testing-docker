@@ -2,13 +2,23 @@
 #FROM debian:buster
 #FROM i386/debian:buster
 #FROM kohaaloha/raspbian:buster-slim
-FROM arm64v8/debian:buster
+#FROM arm64v8/debian:buster
+FROM arm64v8/debian:unstable-slim
+#FROM arm64v8/debian:latest
+#FROM arm64v8/debian:latest-slim
 
 # File Author / Maintainer
 LABEL maintainer="mtj@kohaaloha.com"
 
 ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get -y update \
+    && apt-get -y install \
+    ca-certificates \
+    wget \
+    gnupg2 \
+    sudo
 
 # Set suitable debian sources
 #RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
@@ -17,6 +27,23 @@ ENV DEBIAN_FRONTEND noninteractive
 ##RUN echo "deb [trusted=yes] http://archive.raspbian.org/raspbian buster  main contrib non-free rpi" >>  /etc/apt/sources.list
 
 ENV REFRESHED_AT 2019-10-01-0
+RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+
+# Add Koha development repositories
+#RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
+#RUN echo "deb http://debian.koha-community.org/koha 21.05 main" >> /etc/apt/sources.list.d/koha.list
+
+RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
+
+
+# Temporary dependencies
+RUN apt-get -y update \
+    && apt-get -y install koha-core \
+      libplack-middleware-logwarn-perl \
+      libemail-stuffer-perl \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/*
+
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -43,7 +70,7 @@ RUN apt-get -y update \
       libdata-printer-perl \
       pmtools \
       locales \
-      netcat \
+      netcat-openbsd \
       python-gdbm \
       vim \
       tmux \
@@ -57,14 +84,6 @@ RUN apt-get -y update \
     wget  \
     gnupg \
     npm \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/*
-
-# Temporary dependencies
-RUN apt-get -y update \
-    && apt-get -y install \
-      libplack-middleware-logwarn-perl \
-      libemail-stuffer-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/*
 
@@ -86,20 +105,6 @@ RUN a2enmod rewrite \
             headers \
             proxy_http \
             cgi
-
-RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
-
-# Add Koha development repositories
-#RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
-#RUN echo "deb http://debian.koha-community.org/koha 21.05 main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
-
-# Install koha-common
-RUN apt-get -y update \
-   && apt-get -y install \
-         koha-common \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox

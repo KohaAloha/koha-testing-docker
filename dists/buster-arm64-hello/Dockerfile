@@ -22,22 +22,6 @@ RUN apt-get -y update \
       rabbitmq-server \
       apache2 \
       build-essential \
-      codespell \
-      cpanminus \
-      git \
-      tig \
-      libcarp-always-perl \
-      libgit-repository-perl \
-      liblist-compare-perl \
-      libmemcached-tools \
-      libmodule-install-perl \
-      libperl-critic-perl \
-      libsmart-comments-perl \
-      libtest-differences-perl \
-      libtest-perl-critic-perl \
-      libtest-perl-critic-progressive-perl \
-      libfile-chdir-perl \
-      libdata-printer-perl \
       pmtools \
       locales \
       netcat \
@@ -48,9 +32,7 @@ RUN apt-get -y update \
       curl \
       apt-transport-https \
       mlocate \
-        memcached \
- mariadb-client \
- mariadb-server \
+      memcached \
     wget  \
     gnupg \
     npm \
@@ -68,20 +50,12 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV LC_CTYPE en_US.UTF-8
 
-# Prepare apache configuration
-RUN a2dismod mpm_event
-RUN a2dissite 000-default
-RUN a2enmod rewrite \
-            headers \
-            proxy_http \
-            cgi
-
 VOLUME /kohadevbox/koha
 
-COPY files/run.sh /kohadevbox
-COPY files/templates /kohadevbox/templates
-COPY env/defaults.env /kohadevbox/templates/defaults.env
+#COPY files/run.sh /kohadevbox
+#COPY files/templates /kohadevbox/templates
+#COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 #CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
-EXPOSE 8080 8081
+#EXPOSE 8080 8081

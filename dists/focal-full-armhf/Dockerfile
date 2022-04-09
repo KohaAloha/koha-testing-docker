@@ -1,8 +1,5 @@
 # Base it on Debian 10
-#FROM debian:buster
-#FROM i386/debian:buster
-#FROM kohaaloha/raspbian:buster-slim
-FROM arm64v8/debian:buster
+FROM arm64v8/ubuntu:focal
 
 # File Author / Maintainer
 LABEL maintainer="mtj@kohaaloha.com"
@@ -91,7 +88,7 @@ RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Add Koha development repositories
 #RUN echo "deb http://debian.koha-community.org/koha-staging dev main buster" >> /etc/apt/sources.list.d/koha.list
 #RUN echo "deb http://debian.koha-community.org/koha 21.05 main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.koha-community.org/koha stable main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
 
 # Install koha-common
 RUN apt-get -y update \
@@ -134,10 +131,10 @@ RUN wget -O Devel-Cover.tar.gz \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x focal main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN echo "deb https://dl.yarnpkg.com/ubuntu/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
 RUN apt-get update \
    && apt-get -y install nodejs yarn \
