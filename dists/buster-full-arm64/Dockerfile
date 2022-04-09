@@ -39,7 +39,7 @@ RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 #RUN echo "deb http://debian.koha-community.org/koha 21.05 main" >> /etc/apt/sources.list.d/koha.list
 
 RUN echo "deb http://debian.koha-community.org/koha-staging stable main" >> /etc/apt/sources.list.d/koha.list
-
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main buster" >> /etc/apt/sources.list.d/koha.list
 
 # Temporary dependencies
 RUN apt-get -y update \
@@ -120,20 +120,18 @@ WORKDIR /kohadevbox
 RUN apt-get -y update \
    && apt-get -y install \
          libexpat1-dev \
+         libtemplate-plugin-gettext-perl \
+         libdevel-cover-perl \
+\
+         libmoosex-attribute-env-perl \
+         libtest-dbix-class-perl \
+         libtap-harness-junit-perl \
+         libtext-csv-unicode-perl \
+         libdevel-cover-report-clover-perl \
+         libwebservice-ils-perl \
+         libselenium-remote-driver-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-RUN cpanm -i --force -n \
-       DBD::SQLite \
-       HTTPD::Bench::ApacheBench \
-       MooseX::Attribute::ENV \
-       Test::DBIx::Class \
-       TAP::Harness::JUnit \
-       Text::CSV::Unicode \
-       Devel::Cover::Report::Clover \
-       WebService::ILS \
-       Selenium::Remote::Driver \
-       Locale::XGettext::TT2
 
 # Patch Devel::Cover to skip exec
 RUN wget -O Devel-Cover.tar.gz \
