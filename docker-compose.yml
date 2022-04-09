@@ -16,7 +16,6 @@ services:
         image: kohaaloha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
-            - es
             - memcached
             - selenium
         cap_add:
