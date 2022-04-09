@@ -1,7 +1,9 @@
 version: '3'
 services:
     db:
-        image: mariadb:10.1
+#        image: mariadb:10.1
+#        image: arm64v8/mariadb:latest
+        image: arm64v8/mariadb:10.1
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: password
@@ -57,12 +59,12 @@ services:
             - "8080:8080"
             - "8081:8081"
     memcached:
-        image: memcached
+        image: arm64v8/memcached
         command: memcached -m 64m
         networks:
             - kohanet
     selenium:
-        image: selenium/standalone-firefox:2.53.1-americium
+        image: seleniarm/standalone-firefox
         networks:
             - kohanet
 
