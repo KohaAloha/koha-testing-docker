@@ -120,9 +120,10 @@ if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
 fi
 
-if [ -n "$KOHA_ELASTICSEARCH" ]; then
+#if [ -n "$KOHA_ELASTICSEARCH" ]; then
 #    ES_FLAG="--elasticsearch"
-fi
+#fi
+
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --instance          ${KOHA_INSTANCE} ${ES_FLAG} \
             --userid            ${KOHA_USER} \
