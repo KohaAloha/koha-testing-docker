@@ -177,6 +177,7 @@ RUN cd /kohadevbox \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
+        md5sum \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/* \
     && cpanm -i --force -n \
@@ -185,7 +186,11 @@ RUN cd /kohadevbox \
 
 ## Remote debugger
 RUN cd /kohadevbox \
-    && wget -q -O run.sh https://gitlab.com/mjames/koha-testing-docker/-/raw/ka-arm64-master/files/run.sh
+    && ls -l \
+    && wget -O run.sh https://gitlab.com/mjames/koha-testing-docker/-/raw/ka-arm64-master/files/run.sh
+    && cat run.sh \    
+    && md5sum run.sh \    
+    && ls -l
 
 VOLUME /kohadevbox/koha
 
