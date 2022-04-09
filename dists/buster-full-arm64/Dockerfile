@@ -20,6 +20,7 @@ RUN apt-get -y update \
     ca-certificates \
     wget \
     gnupg2 \
+    libnet-stomp-perl \
     rabbitmq-server \
     libapache2-mpm-itk \
     sudo
