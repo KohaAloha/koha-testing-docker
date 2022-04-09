@@ -15,9 +15,13 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -y update \
     && apt-get -y install \
+    idzebra* \
+    libidzebra* \
     ca-certificates \
     wget \
     gnupg2 \
+    rabbitmq-server \
+    libapache2-mpm-itk \
     sudo
 
 # Set suitable debian sources
@@ -51,6 +55,7 @@ RUN apt-get -y update \
     && apt-get -y install \
       rabbitmq-server \
       apache2 \
+      libapache2-mpm-itk \
       build-essential \
       codespell \
       cpanminus \
@@ -104,6 +109,7 @@ RUN a2dissite 000-default
 RUN a2enmod rewrite \
             headers \
             proxy_http \
+	    mpm_itk \
             cgi
 
 RUN mkdir /kohadevbox
