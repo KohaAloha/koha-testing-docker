@@ -129,6 +129,7 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha
 
 # Configure git-bz
 cd /kohadevbox/koha
+git config --global --add safe.directory /kohadevbox/koha
 git config --global user.name "${GIT_USER_NAME}"
 git config --global user.email "${GIT_USER_EMAIL}"
 git config bz.default-tracker bugs.koha-community.org
