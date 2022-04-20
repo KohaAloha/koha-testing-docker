@@ -110,13 +110,13 @@ RUN cpanm -i --force \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x focal main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_12.x impish main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 # Install Node.js and Yarn
 RUN apt-get update \
-   && apt-get -y install nodejs yarn npm \
+   && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
