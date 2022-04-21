@@ -125,6 +125,23 @@ export RUN_TESTS_AND_EXIT="yes"
 docker-compose -p koha up --abort-on-container-exit
 ```
 
+#### Running the right branch
+
+By default the k-t-d that will start up is configured to work for the master branch of Koha.  If you want to run an image
+to test code against another koha branch you should use the `KOHA_IMAGE` environment variable before starting the image 
+as above.
+
+```shell
+KOHA_IMAGE=21.05 kul
+```
+
+or 
+
+```shell
+export KOHA_IMAGE=21.05
+docker-compose -p koha up
+```
+
 #### Update images
 
 ```shell
