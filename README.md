@@ -242,7 +242,7 @@ kshell
 * **kshell**:            get into the instance user, on the kohaclone dir
 * **koha-user**:         get the db/admin username from koha-conf.xml
 * **koha-pass**:         get the db/admin password from koha-conf.xml
-* **dbic**:              recreate the schema files using a fresh DB
+* **dbic**:              recreate the schema files using a fresh DB. Accepts the *--force* parameter
 * **flush_memcached**:   Flush all key/value stored on memcached
 * **restart_all**:       restarts memcached, apache and plack
 * **reset_all**:         Drop and recreate the koha database [*]
