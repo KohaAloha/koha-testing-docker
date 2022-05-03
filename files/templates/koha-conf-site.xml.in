@@ -401,6 +401,8 @@ __END_SRU_PUBLICSERVER__
       server. e.g. Antarctica/South_Pole -->
  <timezone>__TIMEZONE__</timezone>
 
+ <encryption_key>t0P_secret</encryption_key>
+
  <dev_install>1</dev_install>
  <strict_sql_modes>1</strict_sql_modes>
 
