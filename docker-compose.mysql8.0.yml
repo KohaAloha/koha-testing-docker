@@ -9,6 +9,8 @@ services:
             MYSQL_DATABASE: koha_kohadev
             MYSQL_USER: koha_kohadev
             MYSQL_PASSWORD: password
+        cap_add:
+            - SYS_NICE
         networks:
             - kohanet
 
