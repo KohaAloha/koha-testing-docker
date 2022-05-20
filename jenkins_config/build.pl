@@ -50,11 +50,18 @@ if ( $ENV{DBMS_YML} ) {
     }
 }
 
-if ( $ENV{ES_YML} =~ m|es7| ) {
+
+if ( $ENV{ES_YML} ) {
+    push @docker_compose_yml, $ENV{ES_YML};
+} else {
+ if ( $ENV{ES_YML} =~ m|es7| ) {
     push @docker_compose_yml, 'docker-compose.es7.yml';
-} elsif ( $ENV{ES_YML} =~ m|os7| ) {
+ } elsif ( $ENV{ES_YML} =~ m|os7| ) {
     push @docker_compose_yml, 'docker-compose.os7.yml';
+ }
 }
+
+
 
 for my $yml ( @docker_compose_yml ) {
     run(qq{wget -O $yml $GITLAB_RAW_URL/$yml}, { exit_on_error => 1 });
