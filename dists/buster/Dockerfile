@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "deb http://httpredir.debian.org/debian buster main" > /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
 
-ENV REFRESHED_AT 2021-06-17
+ENV REFRESHED_AT 2022-06-01
 
 # Install apache2 and testting deps
 # netcat: used for checking the DB is up
@@ -60,7 +60,7 @@ RUN a2enmod rewrite \
             cgi
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha-staging 21.11 main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 22.05 main" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 
 # Install koha-common

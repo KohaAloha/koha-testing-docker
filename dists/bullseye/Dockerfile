@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set suitable debian sources
 #RUN echo "deb http://httpredir.debian.org/debian bullseye main" > /etc/apt/sources.list
 
-ENV REFRESHED_AT 2021-06-17
+ENV REFRESHED_AT 2022-06-01
 
 #RUN apt-get -y update
 
@@ -70,7 +70,7 @@ RUN a2enmod rewrite \
 
 
 # Add Koha development repositories
-RUN echo "deb http://debian.koha-community.org/koha-staging 21.11 main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 22.05 main" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 
 RUN apt-get -y update
