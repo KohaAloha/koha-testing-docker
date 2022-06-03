@@ -43,6 +43,16 @@ buster:
   only:
     - 22.05@koha-community/koha-testing-docker
 
+stretch:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:22.05-stretch --no-cache --rm -f dists/stretch/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:22.05-stretch
+  - docker image rm koha/koha-testing:22.05-stretch
+  only:
+    - 22.05@koha-community/koha-testing-docker
+
 bionic:
   stage: build
   script:
