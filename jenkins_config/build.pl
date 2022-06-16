@@ -48,17 +48,8 @@ if ( $ENV{DBMS_YML} ) {
     }
 }
 
-if ( $ENV{ES_YML} =~ m|es5| ) {
-    push @docker_compose_yml, 'docker-compose.es5.yml';
-}
-elsif ( $ENV{ES_YML} =~ m|es6| ) {
-    push @docker_compose_yml, 'docker-compose.es6.yml';
-}
-elsif ( $ENV{ES_YML} =~ m|es7| ) {
-    push @docker_compose_yml, 'docker-compose.es7.yml';
-}
-elsif ( $ENV{ES_YML} =~ m|os7| ) {
-    push @docker_compose_yml, 'docker-compose.os7.yml';
+if ( $ENV{ES_YML} ) {
+    push @docker_compose_yml, $ENV{ES_YML};
 }
 
 for my $yml ( @docker_compose_yml ) {
