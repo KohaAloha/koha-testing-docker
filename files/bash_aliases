@@ -3,6 +3,7 @@ alias kul='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose-ligh
 alias ku-es5='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es5.yml -p koha up --force-recreate'
 alias ku-es6='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es6.yml -p koha up --force-recreate'
 alias ku-es7='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.es7.yml -p koha up --force-recreate'
+alias ku-os7='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.os7.yml -p koha up --force-recreate'
 alias ku-mdb='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.mariadb_latest.yml -p koha up --force-recreate'
 alias ku-md9='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.mariadb_d9.yml -p koha up --force-recreate'
 alias ku-md10='cd "$KOHA_TESTING_DOCKER_HOME"; docker-compose -f docker-compose.yml -f docker-compose.mariadb_d10.yml -p koha up --force-recreate'
