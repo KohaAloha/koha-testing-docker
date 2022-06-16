@@ -12,6 +12,7 @@ my $env_vars = {
     KTD_BRANCH    => $ENV{KTD_BRANCH} || 'master',
     LIGHT_RUN     => $ENV{LIGHT_RUN} // 1,
     DBMS_YML      => $ENV{DBMS_YML} || '',
+    ES_YML        => $ENV{ES_YML} || '',
 };
 while ( my ( $var, $value ) = each %$env_vars ) {
     $ENV{$var} = $value;
@@ -41,6 +42,19 @@ if ( $ENV{DBMS_YML} ) {
     } elsif ( $ENV{KOHA_IMAGE} =~ m|bullseye| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d11.yml';
     }
+}
+
+if ( $ENV{ES_YML} =~ m|es5| ) {
+    push @docker_compose_yml, 'docker-compose.es5.yml';
+}
+elsif ( $ENV{ES_YML} =~ m|es6| ) {
+    push @docker_compose_yml, 'docker-compose.es6.yml';
+}
+elsif ( $ENV{ES_YML} =~ m|es7| ) {
+    push @docker_compose_yml, 'docker-compose.es7.yml';
+}
+elsif ( $ENV{ES_YML} =~ m|os7| ) {
+    push @docker_compose_yml, 'docker-compose.os7.yml';
 }
 
 for my $yml ( @docker_compose_yml ) {
