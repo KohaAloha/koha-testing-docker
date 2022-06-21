@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# ktd - koha-testing-docker management script
+#
+#              Copyright 2022 Theke Solutions
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+set -e
+
+usage()
+{
+    local scriptname=$0
+
+    cat <<EOF
+
+This script lets you manage your KTD environment.
+
+Usage:
+
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium] up -d
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium] down
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium] pull
+    $scriptname -h|--help
+
+Options:
+
+    --es6                 Use an Elasticsearch 6.x container
+    --es7                 Use an Elasticsearch 7.x container
+    --os7                 Use an OpenSearch 7.x container
+    --plugin              Enable plugin development environment
+    --selenium            Use a Selenium container
+    --help|-h             Display this help message
+
+Environment variables:
+
+    KTD_HOME              Mandatory. Needs to point to a clone of koha-testing-docker
+    KTD_PROJECT           Optional. For using with the compose -p option (default: 'koha')
+
+Note: --es6, --es7 and --os7 are mutually exclussive.
+
+EOF
+}
+
+set_searchengine()
+{
+    if [ "$ENABLED_SEARCHENGINE" = "" ]; then
+        ENABLED_SEARCHENGINE=$1
+    else
+        printf "\nError: only one search engine option is allowed (you passed $ENABLED_SEARCHENGINE and $1)\n\n"
+        usage
+        exit 1
+    fi
+}
+
+ENABLED_SEARCHENGINE=""
+
+ENABLE_PLUGIN="no"
+ENABLE_SELENIUM="no"
+
+DOCKER_PROJECT="koha"
+
+# Read command line parameters
+while [ $# -gt 0 ]; do
+
+    case "$1" in
+        -h|--help)
+            usage ; exit 0 ;;
+        -v|--verbose)
+            verbose="yes"
+            shift ;;
+        --es6)
+            set_searchengine "es6"
+            shift ;;
+        --es7)
+            set_searchengine "es7"
+            shift ;;
+        --os7)
+            set_searchengine "os7"
+            shift ;;
+        --plugin)
+            ENABLE_PLUGIN="yes"
+            shift ;;
+        --selenium)
+            ENABLE_SELENIUM="yes"
+            shift ;;
+        -*)
+            printf "\nError: expected a docker compose action and got '$1' instead\n\n"
+            exit 1 ;;
+        *)
+            # We expect the remaining stuff are the instance names
+            break ;;
+    esac
+
+done
+
+# run the KTD command
+if [ -n "$KTD_HOME" ]; then
+
+    if [ -d "$KTD_HOME" ]; then
+        # All good :-D
+
+        # save current working directory
+        current_dir=$(pwd)
+        cd "${KTD_HOME}"
+
+        COMPOSE_OPTIONS='-f docker-compose-light.yml'
+
+        if [ "$ENABLED_SEARCHENGINE" != "" ]; then
+            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ENABLED_SEARCHENGINE}.yml"
+        fi
+
+        if [ "$ENABLE_PLUGIN" != "no" ]; then
+            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.plugin.yml"
+        fi
+
+        if [ "$ENABLE_SELENIUM" != "no" ]; then
+            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.selenium.yml"
+        fi
+
+        if [ "${KTD_PROJECT}" != "" ]; then
+            DOCKER_PROJECT=${KTD_PROJECT}
+        fi
+
+        COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -p ${DOCKER_PROJECT}"
+
+        docker compose ${COMPOSE_OPTIONS} $@
+
+        # back to the original working directory
+        cd "${current_dir}"
+    else
+        printf "\nThe mandatory \$KTD_HOME variable points to an invalid directory.\nIt needs to point to a KTD clone directory.\n\n"
+        usage
+        exit 1
+    fi
+else
+    printf "\nThe mandatory \$KTD_HOME variable is not defined. It needs to point to a KTD clone directory.\n\n"
+    usage
+    exit 1
+fi
+
+exit 0
