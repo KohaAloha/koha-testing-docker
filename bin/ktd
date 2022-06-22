@@ -41,6 +41,7 @@ Options:
     --os7                 Use an OpenSearch 7.x container
     --plugin              Enable plugin development environment
     --selenium            Use a Selenium container
+    --shell               Get into the Koha container
     --help|-h             Display this help message
 
 Environment variables:
@@ -71,6 +72,8 @@ ENABLE_SELENIUM="no"
 
 DOCKER_PROJECT="koha"
 
+SHELL_ACCESS="no"
+
 # Read command line parameters
 while [ $# -gt 0 ]; do
 
@@ -95,6 +98,9 @@ while [ $# -gt 0 ]; do
         --selenium)
             ENABLE_SELENIUM="yes"
             shift ;;
+        --shell)
+            SHELL_ACCESS="yes"
+            break ;;
         -*)
             printf "\nError: expected a docker compose action and got '$1' instead\n\n"
             exit 1 ;;
@@ -105,49 +111,54 @@ while [ $# -gt 0 ]; do
 
 done
 
-# run the KTD command
-if [ -n "$KTD_HOME" ]; then
+if [ "$SHELL_ACCESS" != "no" ]; then
 
-    if [ -d "$KTD_HOME" ]; then
-        # All good :-D
+    docker exec -it koha-koha-1 bash
+else
+    # run the KTD command
+    if [ -n "$KTD_HOME" ]; then
 
-        # save current working directory
-        current_dir=$(pwd)
-        cd "${KTD_HOME}"
+        if [ -d "$KTD_HOME" ]; then
+            # All good :-D
 
-        COMPOSE_OPTIONS='-f docker-compose-light.yml'
+            # save current working directory
+            current_dir=$(pwd)
+            cd "${KTD_HOME}"
 
-        if [ "$ENABLED_SEARCHENGINE" != "" ]; then
-            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ENABLED_SEARCHENGINE}.yml"
+            COMPOSE_OPTIONS='-f docker-compose-light.yml'
+
+            if [ "$ENABLED_SEARCHENGINE" != "" ]; then
+                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ENABLED_SEARCHENGINE}.yml"
+            fi
+
+            if [ "$ENABLE_PLUGIN" != "no" ]; then
+                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.plugin.yml"
+            fi
+
+            if [ "$ENABLE_SELENIUM" != "no" ]; then
+                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.selenium.yml"
+            fi
+
+            if [ "${KTD_PROJECT}" != "" ]; then
+                DOCKER_PROJECT=${KTD_PROJECT}
+            fi
+
+            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -p ${DOCKER_PROJECT}"
+
+            docker compose ${COMPOSE_OPTIONS} $@
+
+            # back to the original working directory
+            cd "${current_dir}"
+        else
+            printf "\nThe mandatory \$KTD_HOME variable points to an invalid directory.\nIt needs to point to a KTD clone directory.\n\n"
+            usage
+            exit 1
         fi
-
-        if [ "$ENABLE_PLUGIN" != "no" ]; then
-            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.plugin.yml"
-        fi
-
-        if [ "$ENABLE_SELENIUM" != "no" ]; then
-            COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.selenium.yml"
-        fi
-
-        if [ "${KTD_PROJECT}" != "" ]; then
-            DOCKER_PROJECT=${KTD_PROJECT}
-        fi
-
-        COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -p ${DOCKER_PROJECT}"
-
-        docker compose ${COMPOSE_OPTIONS} $@
-
-        # back to the original working directory
-        cd "${current_dir}"
     else
-        printf "\nThe mandatory \$KTD_HOME variable points to an invalid directory.\nIt needs to point to a KTD clone directory.\n\n"
+        printf "\nThe mandatory \$KTD_HOME variable is not defined. It needs to point to a KTD clone directory.\n\n"
         usage
         exit 1
     fi
-else
-    printf "\nThe mandatory \$KTD_HOME variable is not defined. It needs to point to a KTD clone directory.\n\n"
-    usage
-    exit 1
 fi
 
 exit 0
