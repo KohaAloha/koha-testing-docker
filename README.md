@@ -1,4 +1,4 @@
-# koha-testing-docker
+# koha-testing-docker (a.k.a. KTD)
 
 This project provides a dockered solution for running a Koha ILS development 
 environment inside Docker containers.
@@ -29,55 +29,92 @@ Note: **Windows** and **macOS** users get _Docker Compose V2_.
 - At least 2.6 GiB of free RAM (not counting web browser)
 - If you want to try Elastic, count at least 2 GiB more of free RAM.
 
-## Usage
+## Setup
 
-* First, fetch this project:
-
-```shell
-mkdir ~/git ; cd ~/git
-git clone https://gitlab.com/koha-community/koha-testing-docker.git
-cd koha-testing-docker
-```
-
-### If you don't have a clone of Koha's code downloaded already
-```
-  $ cd ~/git
-  # be patient, it's a >3GiB download
-  $ git clone https://git.koha-community.org/Koha-community/Koha.git kohaclone
-  $ cd ~/git/koha-testing-docker
-```
-
-## Launch
-
-*Requirement*: The SYNC_REPO variable needs to be defined and contain the full path
-for a Koha's git repository clone. If you just downloaded it from the above instructions, the value should be "~/git/kohaclone"
-
-This can be made permanent by adding the following to your user's .bashrc (using the correct path to your Koha clone):
+It is not a bad idea to organize your projects on a directory. For the purpose
+of simplifying the instructions we will pick `~/git` as the place in which to
+put all the repository clones:
 
 ```shell
-# ENV variables for kohadevbox
-export SYNC_REPO="/home/user/kohaclone"
-export SYNC_REPO="/home/user/REPLACE_ME_WITH/KOHACLONE/PATH"
-export LOCAL_USER_ID=$(id -u)
+mkdir -p ~/git
+export PROJECTS_DIR=~/git
 ```
-Note you will need to log out and log back in (or start a new terminal window) for this to take effect.
 
-### Setup
-
-Copy the _env/defaults.env_ file into the running directory:
+* Clone the `koha-testing-docker` project:
 
 ```shell
+cd $PROJECTS_DIR
+git clone https://gitlab.com/koha-community/koha-testing-docker.git koha-testing-docker
+```
+
+* Clone the `koha` project (skip and adjust the paths if you already have it):
+
+```shell
+cd $PROJECTS_DIR
+# be patient, it's a >3GiB download
+git clone https://git.koha-community.org/Koha-community/Koha.git koha
+```
+
+* Set some **mandatory** environment variables:
+
+```shell
+echo 'export SYNC_REPO=$PROJECTS_DIR/koha' >> ~/.bashrc
+echo 'export KTD_HOME=$PROJECTS_DIR/koha-testing-docker' >> ~/.bashrc
+echo 'export PATH=$PATH:$KTD_HOME/bin' >> ~/.bashrc
+echo 'export LOCAL_USER_ID=$(id -u)' >> ~/.bashrc
+```
+
+**Note:** you will need to log out and log back in (or start a new terminal window) for this to take effect.
+
+* Generate your personal _.env_ file:
+
+```shell
+cd $PROJECTS_DIR/koha-testing-docker
 cp env/defaults.env .env
 ```
 
-Some variables need to be set to run this:
+## Usage
+
+In order to launch _KTD_, you can use the `ktd` wrapper command. It is a wrapper around the
+`docker compose` command so it accepts its parameters:
+
+* Starting:
 
 ```shell
-export SYNC_REPO=/path/to/kohaclone
-export LOCAL_USER_ID=$(id -u)
+ktd up -d
 ```
 
-### Running
+* Get into the Koha container shell
+
+```shell
+ktd --shell
+```
+
+* Updating the used images:
+
+```shell
+ktd pull
+```
+
+* Shutting it down
+
+```shell
+ktd down
+```
+
+Several option switches are provided for more fine-grained control:
+
+```shell
+ktd --es7 up
+ktd --selenium --os7 --plugin up
+...
+```
+
+For a complete list of the option switches, run the command with the _--help_ option:
+
+```shell
+ktd --help
+```
 
 #### Aliases
 
@@ -104,16 +141,14 @@ This project includes some handy aliases for easy startup, opening a shell insid
 In order to use this aliases you need to edit your _~/.bashrc_ ( or _~/.profile_ if using Git for Windows ) file adding:
 
 ```shell
-export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
-source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases
+echo 'source ${KTD_HOME}/files/bash_aliases' >> ~/.bashrc
 ```
 
 **Note**: If you are using [Docker Compose V2](https://docs.docker.com/compose/cli-command/#install-on-linux) use this
 command instead:
 
 ```shell
-export KOHA_TESTING_DOCKER_HOME=/path/to/your/koha-testing-docker/clone
-source ${KOHA_TESTING_DOCKER_HOME}/files/bash_aliases_v2
+echo 'source ${KTD_HOME}/files/bash_aliases_v2' >> ~/.bashrc
 ```
 
 [^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will fail to load if you don't export the variable first.
