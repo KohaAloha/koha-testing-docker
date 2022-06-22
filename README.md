@@ -58,6 +58,7 @@ git clone https://git.koha-community.org/Koha-community/Koha.git koha
 * Set some **mandatory** environment variables:
 
 ```shell
+echo "export PROJECTS_DIR=$PROJECTS_DIR" >> ~/.bashrc
 echo 'export SYNC_REPO=$PROJECTS_DIR/koha' >> ~/.bashrc
 echo 'export KTD_HOME=$PROJECTS_DIR/koha-testing-docker' >> ~/.bashrc
 echo 'export PATH=$PATH:$KTD_HOME/bin' >> ~/.bashrc
