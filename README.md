@@ -82,13 +82,19 @@ In order to launch _KTD_, you can use the `ktd` wrapper command. It is a wrapper
 * Starting:
 
 ```shell
-ktd up -d
+ktd up
 ```
 
 * Get into the Koha container shell
 
 ```shell
 ktd --shell
+```
+
+* Watching the _koha_ container logs
+
+```shell
+ktd --logs
 ```
 
 * Updating the used images:
@@ -116,6 +122,22 @@ For a complete list of the option switches, run the command with the _--help_ op
 ```shell
 ktd --help
 ```
+
+### Docker parameters
+
+With some exceptions (when using `--shell` or `--logs`) the `ktd` script is mostly a wrapper for
+the `docker compose` tool. So all trailing options after the shipped option switches will be passed
+to the underlying `docker compose` command.
+
+For example, if you want to run _KTD_ in daemon mode, so it doesn't take over the terminal or die
+if you close it, you can run it like this:
+
+```shell
+ktd <options> up -d
+```
+
+where `<options>` are the valid `ktd` option switches. If your usage requires more options you should
+check `docker compose --help` or refer to the [Docker compose documentation](https://docs.docker.com/compose/).
 
 #### Aliases
 
@@ -172,7 +194,7 @@ docker-compose -p koha up --abort-on-container-exit
 
 #### Running the right branch
 
-By default the k-t-d that will start up is configured to work for the master branch of Koha.  If you want to run an image
+By default the _KTD_ that will start up is configured to work for the master branch of Koha.  If you want to run an image
 to test code against another koha branch you should use the `KOHA_IMAGE` environment variable before starting the image 
 as above.
 
