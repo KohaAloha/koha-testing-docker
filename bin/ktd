@@ -32,6 +32,8 @@ Usage:
     $scriptname [--es6|--es7|--os7|--plugin|--selenium] up -d
     $scriptname [--es6|--es7|--os7|--plugin|--selenium] down
     $scriptname [--es6|--es7|--os7|--plugin|--selenium] pull
+    $scriptname --shell
+    $scriptname --logs
     $scriptname -h|--help
 
 Options:
@@ -42,6 +44,7 @@ Options:
     --plugin              Enable plugin development environment
     --selenium            Use a Selenium container
     --shell               Get into the Koha container
+    --logs                Follow the koha container logs
     --help|-h             Display this help message
 
 Environment variables:
@@ -73,6 +76,7 @@ ENABLE_SELENIUM="no"
 DOCKER_PROJECT="koha"
 
 SHELL_ACCESS="no"
+FOLLOW_LOGS="no"
 
 # Read command line parameters
 while [ $# -gt 0 ]; do
@@ -83,6 +87,9 @@ while [ $# -gt 0 ]; do
         -v|--verbose)
             verbose="yes"
             shift ;;
+        --logs)
+            FOLLOW_LOGS="yes"
+            break ;;
         --es6)
             set_searchengine "es6"
             shift ;;
@@ -114,6 +121,9 @@ done
 if [ "$SHELL_ACCESS" != "no" ]; then
 
     docker exec -it koha-koha-1 bash
+elif [ "$FOLLOW_LOGS" != "no" ]; then
+
+    docker logs -f koha-koha-1
 else
     # run the KTD command
     if [ -n "$KTD_HOME" ]; then
