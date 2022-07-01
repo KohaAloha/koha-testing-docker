@@ -110,6 +110,7 @@ while [ $# -gt 0 ]; do
             break ;;
         -*)
             printf "\nError: expected a docker compose action and got '$1' instead\n\n"
+            usage
             exit 1 ;;
         *)
             # We expect the remaining stuff are the instance names
