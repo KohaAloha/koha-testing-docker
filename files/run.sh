@@ -248,7 +248,14 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
-                                  prove -v --timer --harness=TAP::Harness::JUnit -r t/db_dependent/Koha/SearchEngine \
+                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
+                                    t/Koha/SearchEngine \
+                                    t/db_dependent/Koha/SearchEngine \
+                                    t/db_dependent/Koha_Elasticsearch.t \
+                                    t/db_dependent/SuggestionEngine_ExplodedTerms.t \
+                                    t/SuggestionEngine.t \
+                                    t/SuggestionEngine_AuthorityFile.t \
+                                    t/Koha_SearchEngine_Elasticsearch_Browse.t \
                                   && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
