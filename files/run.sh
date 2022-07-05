@@ -240,6 +240,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
         koha-shell ${KOHA_INSTANCE} -p -c "
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
@@ -247,7 +248,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
-                                  prove -j --timer --harness=TAP::Harness::JUnit -r t/db_dependent/Koha/SearchEngine \
+                                  prove --timer --harness=TAP::Harness::JUnit -r t/db_dependent/Koha/SearchEngine \
                                   && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
