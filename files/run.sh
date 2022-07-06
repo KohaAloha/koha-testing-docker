@@ -223,7 +223,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                     -not -path \"t/db_dependent/Koha/SearchEngine/*\" \
                                 |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
@@ -240,7 +239,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
         koha-shell ${KOHA_INSTANCE} -p -c "
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
                                   KOHA_INTRANET_URL=http://koha:8081 \
