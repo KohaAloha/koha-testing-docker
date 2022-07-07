@@ -35,7 +35,7 @@ RUN apt-get -y update \
 #ENV LC_ALL en_US.UTF-8
 #ENV LC_CTYPE en_US.UTF-8
 
-VOLUME /kohadevbox/koha
+#VOLUME /kohadevbox/koha
 
 COPY files/run-hello.sh /kohadevbox
 #COPY files/templates /kohadevbox/templates
