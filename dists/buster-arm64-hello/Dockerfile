@@ -37,10 +37,13 @@ RUN apt-get -y update \
 
 #VOLUME /kohadevbox/koha
 
-COPY files/run-hello.sh /kohadevbox
+RUN figlet 11
+
+COPY files/payload-hello.sh /kohadevbox
 #COPY files/templates /kohadevbox/templates
 #COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 #CMD ["/bin/bash", "/kohadevbox/run.sh"]
+CMD ["/bin/bash", "/kohadevbox/payload-hello.sh"]
 
 #EXPOSE 8080 8081
