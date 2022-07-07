@@ -40,8 +40,8 @@ RUN apt-get -y update \
 RUN figlet 11
 
 COPY files/payload-hello.sh /kohadevbox
-#COPY files/templates /kohadevbox/templates
-#COPY env/defaults.env /kohadevbox/templates/defaults.env
+COPY files/templates /kohadevbox/templates
+COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 #CMD ["/bin/bash", "/kohadevbox/run.sh"]
 CMD ["/bin/bash", "/kohadevbox/payload-hello.sh"]
