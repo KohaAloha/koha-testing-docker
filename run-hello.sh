@@ -3,8 +3,8 @@
 # Pre cleanup
 docker-compose down
 docker stop $(docker ps -a -f "name=koha_" -q)
-#docker rm $(docker ps -a -f "name=koha_" -q)
-#docker volume prune -f
+docker rm $(docker ps -a -f "name=koha_" -q)
+docker volume prune -f
 
 # Pull the latest image
 docker-compose -f docker-compose-hello.yml pull
