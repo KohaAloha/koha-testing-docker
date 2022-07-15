@@ -206,6 +206,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success; \
                                   mkdir cover_db; cp -r /cover_db/* cover_db;
                                   cover -report clover"
+
     elif [ "$LIGHT_TEST_SUITE" = "1" ]; then
         koha-shell ${KOHA_INSTANCE} -p -c "find t xt -name '*.t' \
                                     -not -path \"t/db_dependent/www/*\" \
@@ -225,6 +226,28 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   --rules='par=t/db_dependent/00-strict.t' \
                                   --rules='seq=t/db_dependent/**.t' --rules='par=**' \
                                   --timer --harness=TAP::Harness::JUnit -r -s \
+                                  && touch testing.success"
+
+    elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
+        koha-shell ${KOHA_INSTANCE} -p -c "
+                                  JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
+                                  KOHA_USER=${KOHA_USER} \
+                                  KOHA_PASS=${KOHA_PASS} \
+                                  TEST_QA=1 \
+                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
+                                    t/Koha/Config.t \
+                                    t/Koha/SearchEngine \                                                                                                                                                           t/db_dependent/Biblio.t \
+                                    t/db_dependent/Koha/Authorities.t \                                                                                                                                             t/db_dependent/Koha/Z3950Responder/GenericSession.t \
+                                    t/db_dependent/Koha/SearchEngine \
+                                    t/db_dependent/Koha_Elasticsearch.t \
+                                    t/db_dependent/SuggestionEngine_ExplodedTerms.t \
+                                    t/SuggestionEngine.t \
+                                    t/SuggestionEngine_AuthorityFile.t \
+                                    t/Koha_SearchEngine_Elasticsearch_Browse.t \
                                   && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
