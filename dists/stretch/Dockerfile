@@ -73,6 +73,9 @@ RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
+         libhttp-tiny-perl \
+         libsearch-elasticsearch-perl \
+         libsearch-elasticsearch-client-6-0-perl \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \

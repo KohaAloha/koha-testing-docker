@@ -86,6 +86,8 @@ RUN apt-cache policy libyaml-libyaml-perl
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
+         libsearch-elasticsearch-perl \
+         libsearch-elasticsearch-client-6-0-perl \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
