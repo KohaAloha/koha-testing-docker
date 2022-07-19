@@ -16,13 +16,9 @@ This project is self contained and all you need is:
 
 - A text editor to tweak configuration files
 - Docker ([install instructions](https://docs.docker.com/engine/install/))
-- Docker Compose ([install instructions](https://docs.docker.com/compose/install/#install-compose-on-linux-systems))
+- Docker Compose v2 ([install instructions](https://docs.docker.com/compose/install/compose-plugin/#install-using-the-repository))
 
-You can choose to use [Docker Compose V2](https://docs.docker.com/compose/cli-command/#install-on-linux).
-In that case, follow the version-specific instructions we put in place (specially the _shell aliases_) and notice that every
-command that involves calling `docker-compose` should have it replaced by `docker compose`.
-
-Note: **Windows** and **macOS** users get _Docker Compose V2_.
+Note: **Windows** and **macOS** users use [Docker Desktop](https://docs.docker.com/compose/install/compose-desktop/) which already ships Docker Compose v2.
 
 ### Hardware
 
