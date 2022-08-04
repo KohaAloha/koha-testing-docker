@@ -205,6 +205,13 @@ export KOHA_IMAGE=21.05
 docker-compose -p koha up
 ```
 
+Please note that you can only use branches defined
+[here](https://hub.docker.com/r/koha/koha-testing/tags). If you want to work on
+a local feature branch in Koha, make sure that `SYNC_REPO` points to the
+correct directory on your machine, and that you are in the correct branch
+there. Please also note that the Koha sources are installed to
+`/kohadevbox/koha` (via `koha-gitify`) and not `/usr/share/koha`!
+
 #### Update images
 
 ```shell
