@@ -1,0 +1,17 @@
+version: '3'
+services:
+    es:
+#        image: koha/elasticsearch-icu:8.x
+        image: elastic/elasticsearch:8.4.0
+        environment:
+            - cluster.name=docker-cluster
+            - discovery.type=single-node
+            - bootstrap.memory_lock=true
+            - xpack.security.enabled=false
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        networks:
+            - kohanet
