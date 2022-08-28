@@ -250,6 +250,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                     t/Koha/Config.t \
                                     t/Koha/SearchEngine \
                                     t/db_dependent/Biblio.t \
+                                    t/db_dependent/Search.t \
                                     t/db_dependent/Koha/Authorities.t \
                                     t/db_dependent/Koha/Z3950Responder/GenericSession.t \
                                     t/db_dependent/Koha/SearchEngine \
