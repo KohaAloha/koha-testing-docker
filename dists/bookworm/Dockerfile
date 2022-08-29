@@ -157,6 +157,7 @@ RUN cd /kohadevbox \
     && apt-get -y install \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
+        libyaml-syck-perl \
         bugz \
         libfile-findlib-perl \
         librest-client-perl \
