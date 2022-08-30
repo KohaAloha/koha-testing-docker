@@ -157,11 +157,10 @@ RUN cd /kohadevbox \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
         libyaml-syck-perl \
+        librest-client-perl \
+        libfile-findlib-perl \
     && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force \
-        File::FindLib \
-        REST::Client
+    && rm -rf /var/lib/api/lists/*
 
 # Remote debugger
 RUN cd /kohadevbox \
