@@ -84,7 +84,6 @@ RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libdbd-sqlite3-perl \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
