@@ -74,6 +74,7 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha-staging 21.05 main bionic" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bionic" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.kohaaloha.com/koha/gpg.asc | apt-key add -
 
 # Install koha-common
