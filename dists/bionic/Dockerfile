@@ -64,6 +64,7 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 RUN echo "deb http://debian.koha-community.org/koha-staging 22.05 main bionic" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bionic" >> /etc/apt/sources.list.d/koha.list
 RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 
 # Install koha-common
@@ -86,20 +87,17 @@ RUN apt-get -y update \
          libexpat1-dev \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
+\
+         libhttpd-bench-apachebench-perl \
+         libmoosex-attribute-env-perl \
+         libtest-dbix-class-perl \
+         libtap-harness-junit-perl \
+         libtext-csv-unicode-perl \
+         libdevel-cover-report-clover-perl \
+         libwebservice-ils-perl \
+         libselenium-remote-driver-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-RUN cpanm -i --force --mirror http://cpan.cpantesters.org/ \
-       DBD::SQLite \
-       HTTPD::Bench::ApacheBench \
-       MooseX::Attribute::ENV \
-       Test::DBIx::Class \
-       TAP::Harness::JUnit \
-       Text::CSV::Unicode \
-       Devel::Cover::Report::Clover \
-       WebService::ILS \
-       Selenium::Remote::Driver \
-    && rm -r /root/.cpanm
 
 RUN apt-get -y update \
    && apt-get -y install \
@@ -147,11 +145,10 @@ RUN cd /kohadevbox \
         libhtml-tableextract-perl \
         libtext-multimarkdown-perl \
         bugz \
+        libfile-findlib-perl \
+        librest-client-perl \
     && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
-    && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
-        File::FindLib \
-        REST::Client
+    && rm -rf /var/lib/api/lists/*
 
 # Remote debugger
 RUN cd /kohadevbox \
