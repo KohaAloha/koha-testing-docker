@@ -281,7 +281,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove t/db_dependent/selenium/00-onboarding.t"
+                                  prove -v t/db_dependent/selenium/00-onboarding.t"
 
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
