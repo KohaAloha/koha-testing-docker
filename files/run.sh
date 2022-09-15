@@ -272,7 +272,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
                                   prove -v --timer --harness=TAP::Harness::JUnit -r \
-                                    /t/db_dependent/selenium \
+                                    t/db_dependent/selenium \
                                   && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
