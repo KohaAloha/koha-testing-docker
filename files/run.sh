@@ -260,21 +260,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                     t/SuggestionEngine_AuthorityFile.t \
                                     t/Koha_SearchEngine_Elasticsearch_Browse.t \
                                   && touch testing.success"
-
-    elif [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
-        koha-shell ${KOHA_INSTANCE} -p -c "find t/db_dependent/selenium -name '*.t' \
-                                    -not -name '00-onboarding.t' | sort  \
-                                |
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  TEST_QA=1 \
-                                  xargs prove --timer --harness=TAP::Harness::JUnit -r -v \
-                                  && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
@@ -306,7 +291,26 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         sudo service apache2 restart
         sudo service koha-common restart
 
-        koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
+
+        if [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
+            koha-shell ${KOHA_INSTANCE} -p -c "find t/db_dependent/selenium -name '*.t' \
+                                    -not -name '00-onboarding.t' | sort  \
+                                |
+                                  JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
+                                  KOHA_USER=${KOHA_USER} \
+                                  KOHA_PASS=${KOHA_PASS} \
+                                  SELENIUM_ADDR=selenium \
+                                  SELENIUM_PORT=4444 \
+                                  TEST_QA=1 \
+                                  xargs prove --timer --harness=TAP::Harness::JUnit -r -v \
+                                  && touch testing.success"
+
+        else
+            koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
                                 |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
@@ -323,6 +327,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   --rules='seq=t/db_dependent/**.t' \
                                   --timer --harness=TAP::Harness::JUnit -r \
                                   && touch testing.success"
+        fi
 
     fi
 else
