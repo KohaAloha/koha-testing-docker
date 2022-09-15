@@ -262,7 +262,9 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
 
     elif [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
-        koha-shell ${KOHA_INSTANCE} -p -c "
+        koha-shell ${KOHA_INSTANCE} -p -c "find t/db_dependent/selenium -name '*.t' \
+                                    -not -name '00-onboarding.t' | sort  \
+                                |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
@@ -271,8 +273,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
-                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
-                                    t/db_dependent/selenium \
+                                  xargs prove --timer --harness=TAP::Harness::JUnit -r -v \
                                   && touch testing.success"
     else
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
