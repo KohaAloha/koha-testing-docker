@@ -4,4 +4,4 @@ services:
         image: selenium/standalone-firefox:4
         networks:
             - kohanet
-        shm_size: 1gb
+        shm_size: 2gb
