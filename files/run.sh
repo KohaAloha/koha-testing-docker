@@ -246,7 +246,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
-                                  time prove -v --timer --harness=TAP::Harness::JUnit -r \
+                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
                                     t/Koha/Config.t \
                                     t/Koha/SearchEngine \
                                     t/db_dependent/Biblio.t \
@@ -271,7 +271,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
                                   TEST_QA=1 \
-                                  time prove -v --timer --harness=TAP::Harness::JUnit -r \
+                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
                                     /t/db_dependent/selenium \
                                   && touch testing.success"
     else
