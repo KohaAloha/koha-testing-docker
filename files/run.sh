@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -x
 
 export BUILD_DIR=/kohadevbox
 export TEMP=/tmp
@@ -14,8 +13,20 @@ export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
-echo "127.0.0.1 kohadevbox" >> /etc/hosts
+
+append_if_absent()
+{
+    local string=$1
+    local file=$2
+
+    if grep -q -x -v "$string" $file; then
+        echo $string >> $file
+    fi
+}
+
+append_if_absent "127.0.0.1 kohadevbox" /etc/hosts
 hostname kohadevbox
+
 
 # Remove packages for developers if it's a Jenkins run (CI_RUN=1)
 if [ "${CI_RUN}" = "yes" ]; then
@@ -64,9 +75,9 @@ echo "user     = koha_${KOHA_INSTANCE}" >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 echo "password = ${KOHA_DB_PASSWORD}"   >> /etc/mysql/koha_${KOHA_INSTANCE}.cnf
 
 # Get rid of Apache warnings
-echo "ServerName kohadevdock"       >> /etc/apache2/apache2.conf
-echo "Listen ${KOHA_INTRANET_PORT}" >> /etc/apache2/ports.conf
-echo "Listen ${KOHA_OPAC_PORT}"     >> /etc/apache2/ports.conf
+append_if_absent "ServerName kohadevbox"        /etc/apache2/apache2.conf
+append_if_absent "Listen ${KOHA_INTRANET_PORT}" /etc/apache2/ports.conf
+append_if_absent "Listen ${KOHA_OPAC_PORT}"     /etc/apache2/ports.conf
 
 # Pull the names of the environment variables to substitute from defaults.env and convert them to a string of the format "$VAR1:$VAR2:$VAR3", etc.
 VARS_TO_SUB=`cut -d '=' -f1 ${BUILD_DIR}/templates/defaults.env  | tr '\n' ':' | sed -e 's/:/:$/g' | awk '{print "$"$1}' | sed -e 's/:\$$//'`
@@ -91,7 +102,7 @@ chmod +x ${BUILD_DIR}/bin/*
 koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
-    usermod -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
+    usermod -o -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
     # Fix permissions due to UID change
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}"
@@ -118,10 +129,7 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha
 
 # Configure git-bz
 cd /kohadevbox/koha
-ls -l
 git config --global --add safe.directory /kohadevbox/koha
-git status
-
 git config --global user.name "${GIT_USER_NAME}"
 git config --global user.email "${GIT_USER_EMAIL}"
 git config bz.default-tracker bugs.koha-community.org
@@ -242,6 +250,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                     t/Koha/Config.t \
                                     t/Koha/SearchEngine \
                                     t/db_dependent/Biblio.t \
+                                    t/db_dependent/Search.t \
                                     t/db_dependent/Koha/Authorities.t \
                                     t/db_dependent/Koha/Z3950Responder/GenericSession.t \
                                     t/db_dependent/Koha/SearchEngine \
@@ -272,7 +281,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
-                                  prove t/db_dependent/selenium/00-onboarding.t"
+                                  prove -v t/db_dependent/selenium/00-onboarding.t"
 
         koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
         mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
@@ -282,7 +291,26 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         sudo service apache2 restart
         sudo service koha-common restart
 
-        koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
+
+        if [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
+            koha-shell ${KOHA_INSTANCE} -p -c "find t/db_dependent/selenium -name '*.t' \
+                                    -not -name '00-onboarding.t' | sort  \
+                                |
+                                  JUNIT_OUTPUT_FILE=junit_main.xml \
+                                  KOHA_TESTING=1 \
+                                  KOHA_NO_TABLE_LOCKS=1 \
+                                  KOHA_INTRANET_URL=http://koha:8081 \
+                                  KOHA_OPAC_URL=http://koha:8080 \
+                                  KOHA_USER=${KOHA_USER} \
+                                  KOHA_PASS=${KOHA_PASS} \
+                                  SELENIUM_ADDR=selenium \
+                                  SELENIUM_PORT=4444 \
+                                  TEST_QA=1 \
+                                  xargs prove --timer --harness=TAP::Harness::JUnit -r -v \
+                                  && touch testing.success"
+
+        else
+            koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
                                 |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
@@ -299,6 +327,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   --rules='seq=t/db_dependent/**.t' \
                                   --timer --harness=TAP::Harness::JUnit -r \
                                   && touch testing.success"
+        fi
 
     fi
 else
