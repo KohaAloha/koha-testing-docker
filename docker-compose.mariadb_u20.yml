@@ -1,0 +1,13 @@
+version: '3'
+services:
+    db:
+        image: mariadb:10.3
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: koha_kohadev
+            MYSQL_USER: koha_kohadev
+            MYSQL_PASSWORD: password
+        networks:
+            - kohanet
+
