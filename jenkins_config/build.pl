@@ -37,9 +37,9 @@ if ( $ENV{DBMS_YML} ) {
 } else {
     if (      $ENV{KOHA_IMAGE} =~ m|stretch| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d9.yml';
-    } elsif ( $ENV{KOHA_IMAGE} =~ m|buster| || $ENV{KOHA_IMAGE} eq 'master' ) {
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|buster| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d10.yml';
-    } elsif ( $ENV{KOHA_IMAGE} =~ m|bullseye| ) {
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|bullseye| || $ENV{KOHA_IMAGE} eq 'master' ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d11.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|bookworm| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d12.yml';
