@@ -35,12 +35,22 @@ if ( $ENV{LIGHT_RUN} == 1 ) {
 if ( $ENV{DBMS_YML} ) {
     push @docker_compose_yml, $ENV{DBMS_YML};
 } else {
-    if ( $ENV{KOHA_IMAGE} =~ m|stretch| ) {
+    if (      $ENV{KOHA_IMAGE} =~ m|stretch| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d9.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|buster| || $ENV{KOHA_IMAGE} eq 'master' ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d10.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|bullseye| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d11.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|bookworm| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_d12.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|bionic| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_u18.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|focal| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_u20.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|jammy| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_u22.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|sid| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_latest.yml';
     }
 }
 
