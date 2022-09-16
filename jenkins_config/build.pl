@@ -43,6 +43,10 @@ if ( $ENV{DBMS_YML} ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d11.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|bookworm| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_d12.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|bionic| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_u18.yml';
+    } elsif ( $ENV{KOHA_IMAGE} =~ m|focal| ) {
+        push @docker_compose_yml, 'docker-compose.mariadb_u20.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|jammy| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_u22.yml';
     } elsif ( $ENV{KOHA_IMAGE} =~ m|sid| ) {
