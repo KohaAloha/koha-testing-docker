@@ -14,7 +14,7 @@ variables:
 sid:
   stage: build
   script:
-  - docker build -t koha/koha-testing:master-sid --no-cache --rm -f dists/bookworm/Dockerfile .
+  - docker build -t koha/koha-testing:master-sid --no-cache --rm -f dists/sid/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:master-sid
   - docker image rm koha/koha-testing:master-sid
