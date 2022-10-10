@@ -355,10 +355,20 @@ sysctl -w vm.max_map_count=262144
 
 If the screen command doesn't work try: find ~/Library/Containers/com.docker.docker/Data/ -name 'tty'
 
+## Running commands inside KTD from the host
+Docker compose V2:
+`docker exec -ti koha-koha-1 /bin/bash -c "source /root/.bashrc && restart_all"`
+
+Docker compose V1:
+`docker exec -ti koha_koha_1 /bin/bash -c "source /root/.bashrc && restart_all"`
+
 ## Problems?
 
-If you see the following error on 'ku' after initial setup, try a reboot
+### If you see the following error on 'ku' after initial setup, try a reboot
 
 ```
 ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
 ```
+
+### If starting fails with "database not empty", try running `ktd down` or `kd`
+It's likely that last start of KTD failed and needs cleanup. Or that it was shutdown without `ktd down` or `kd` that are necessary for a clean shutdown.
