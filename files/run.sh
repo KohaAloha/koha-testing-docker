@@ -190,6 +190,11 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
     KOHA_PROVE_CPUS=`nproc`
 fi
 
+# start koha-reload-starman, if we have inotify installed
+if [ -f "/usr/bin/inotifywait" ]; then
+    daemon --verbose=1 -- /usr/sbin/koha-reload-starman
+fi
+
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     cd ${BUILD_DIR}/koha
     rm -rf /cover_db/*
