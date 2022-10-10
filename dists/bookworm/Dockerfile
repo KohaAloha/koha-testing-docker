@@ -171,7 +171,7 @@ RUN cd /kohadevbox \
 
 # download koha-reload-starman
 RUN cd /kohadevbox \
-    wget -q -O /usr/bin/koha-reload-starman  https://gitlab.com/mjames/koha-reload-starman/-/raw/master/koha-reload-starman \
+    wget -q -O /usr/sbin/koha-reload-starman  https://gitlab.com/mjames/koha-reload-starman/-/raw/master/koha-reload-starman \
     chmod 755 /usr/bin/koha-reload-starman \
     && apt-get update \
     && apt-get -y install \
