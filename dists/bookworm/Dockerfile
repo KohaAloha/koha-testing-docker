@@ -171,11 +171,10 @@ RUN cd /kohadevbox \
 
 # download koha-reload-starman
 RUN cd /kohadevbox \
-    wget -q https://gitlab.com/mjames/koha-reload-starman/-/raw/master/koha-reload-starman \
-    chmod 755 koha-reload-starman \
+    && wget https://gitlab.com/mjames/koha-reload-starman/-/raw/master/koha-reload-starman \
+    && chmod 755 koha-reload-starman \
     && apt-get update \
-    && apt-get -y install \
-         inotify-tools \
+    && apt-get -y install inotify-tools \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/*
 
