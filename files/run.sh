@@ -192,7 +192,11 @@ fi
 
 # start koha-reload-starman, if we have inotify installed
 if [ -f "/usr/bin/inotifywait" ]; then
-    daemon --verbose=1 -- /kohadevbox/koha-reload-starman
+    daemon  --verbose=1 \
+            --respawn \
+            --delay=5 \
+            --pidfiles=/var/run/koha/kohadev/ \
+            -- /kohadevbox/koha-reload-starman
 fi
 
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
