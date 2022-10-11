@@ -194,7 +194,7 @@ fi
 if [ -f "/usr/bin/inotifywait" ]; then
     daemon  --verbose=1 \
             --respawn \
-            --delay=5 \
+            --delay=15 \
             --pidfiles=/var/run/koha/kohadev/ \
             -- /kohadevbox/koha-reload-starman
 fi
