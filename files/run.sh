@@ -335,10 +335,10 @@ else
     # start koha-reload-starman, if we have inotify installed
     if [ -f "/usr/bin/inotifywait" ]; then
         daemon  --verbose=1 \
+            --name=reload-starman \
             --respawn \
             --delay=15 \
-            --pidfiles=/var/run/koha/kohadev/ \
-            -- /kohadevbox/koha-reload-starman
+            --pidfiles=/var/run/koha/kohadev/ -- /kohadevbox/koha-reload-starman
     fi
 
     # TODO: We could use supervise as the main loop
