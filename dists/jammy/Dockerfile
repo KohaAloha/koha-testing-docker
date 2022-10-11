@@ -154,6 +154,15 @@ RUN cd /kohadevbox \
     && tar xvzf dbgp.tar.gz \
     && rm dbgp.tar.gz
 
+# download koha-reload-starman
+RUN cd /kohadevbox \
+    && wget https://gitlab.com/mjames/koha-reload-starman/-/raw/master/koha-reload-starman \
+    && chmod 755 koha-reload-starman \
+    && apt-get update \
+    && apt-get -y install inotify-tools \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/api/lists/*
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
