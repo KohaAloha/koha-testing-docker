@@ -332,14 +332,14 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     fi
 else
 
-    # start koha-reload-starman, if we have inotify installed
-    if [ -f "/usr/bin/inotifywait" ]; then
-        daemon  --verbose=1 \
-            --name=reload-starman \
-            --respawn \
-            --delay=15 \
-            --pidfiles=/var/run/koha/kohadev/ -- /kohadevbox/koha-reload-starman
-    fi
+# start koha-reload-starman, if we have inotify installed
+#    if [ -f "/usr/bin/inotifywait" ]; then
+#        daemon  --verbose=1 \
+#            --name=reload-starman \
+#            --respawn \
+#            --delay=15 \
+#            --pidfiles=/var/run/koha/kohadev/ -- /kohadevbox/koha-reload-starman
+#    fi
 
     # TODO: We could use supervise as the main loop
     /bin/bash -c "trap : TERM INT; sleep infinity & wait"
