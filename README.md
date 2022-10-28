@@ -275,9 +275,11 @@ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-
 
 **Alias**: `kshell`
 
-Once you are left on the shell, you can run Koha tests as you would on KohaDevBox:
+Running `kshell` will get you in the container as the root user. You can do most of the operatios here.
+To run the tests, you need to run `kshell` again to got in a koha-shell, then you can run Koha tests as you would on KohaDevBox. It will set KOHA_INTRANET_URL which some tests depend on.
 
 ```shell
+kshell
 kshell
 cd koha
 prove t/db_dependent/Search.t
