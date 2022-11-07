@@ -171,7 +171,8 @@ RUN cd /kohadevbox \
 
 # Install temporary packages
 RUN apt-get update \
-   && apt-get -y libmojolicious-plugin-oauth2-perl \
+   && apt-get -y install \
+       libmojolicious-plugin-oauth2-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
