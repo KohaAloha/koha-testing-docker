@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    sso:
+        image: jboss/keycloak
+
+        networks:
+            - kohanet
+
+        environment:
+            KEYCLOAK_USER: ${KEYCLOAK_USER:-keycloak}
+            KEYCLOAK_PASSWORD: ${KEYCLOAK_PASS:-keycloak}
+            KEYCLOAK_REALM: ${KEYCLOAK_REALM:-koha}
+
+        ports:
+            - "8082:8080"
+
+        volumes:
+            - ./sso/keycloak.sh:/opt/jboss/startup-scripts/keycloak.sh
