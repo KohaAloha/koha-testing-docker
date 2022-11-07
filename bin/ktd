@@ -29,9 +29,9 @@ This script lets you manage your KTD environment.
 
 Usage:
 
-    $scriptname [--es6|--es7|--os7|--plugin|--selenium] up -d
-    $scriptname [--es6|--es7|--os7|--plugin|--selenium] down
-    $scriptname [--es6|--es7|--os7|--plugin|--selenium] pull
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] up -d
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] down
+    $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] pull
     $scriptname --shell
     $scriptname --logs
     $scriptname -h|--help
@@ -43,6 +43,7 @@ Options:
     --os7                 Use an OpenSearch 7.x container
     --plugin              Enable plugin development environment
     --selenium            Use a Selenium container
+    --sso                 Use a Keycloak container
     --shell               Get into the Koha container
     --logs                Follow the koha container logs
     --help|-h             Display this help message
@@ -72,6 +73,7 @@ ENABLED_SEARCHENGINE=""
 
 ENABLE_PLUGIN="no"
 ENABLE_SELENIUM="no"
+ENABLE_SSO="no"
 
 DOCKER_PROJECT="koha"
 
@@ -104,6 +106,9 @@ while [ $# -gt 0 ]; do
             shift ;;
         --selenium)
             ENABLE_SELENIUM="yes"
+            shift ;;
+        --sso)
+            ENABLE_SSO="yes"
             shift ;;
         --shell)
             SHELL_ACCESS="yes"
@@ -148,6 +153,10 @@ else
 
             if [ "$ENABLE_SELENIUM" != "no" ]; then
                 COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.selenium.yml"
+            fi
+
+            if [ "$ENABLE_SSO" != "no" ]; then
+                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.sso.yml"
             fi
 
             if [ "${KTD_PROJECT}" != "" ]; then

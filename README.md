@@ -109,7 +109,7 @@ Several option switches are provided for more fine-grained control:
 
 ```shell
 ktd --es7 up
-ktd --selenium --os7 --plugin up
+ktd --selenium --os7 --plugin --sso up
 ...
 ```
 
