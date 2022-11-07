@@ -8,11 +8,11 @@ function configure_keycloak(){
     while true
     do
         # Attempt to login
-        if /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user ${KEYCLOAK_USER:-keycloak} --password ${KEYCLOAK_PASSWORD:-keycloak}; then
+        if /opt/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user ${KEYCLOAK_USER:-keycloak} --password ${KEYCLOAK_PASSWORD:-keycloak}; then
             # add a realm and the koha user
-            /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=${KEYCLOAK_REALM:-koha} -s enabled=true
-            /opt/jboss/keycloak/bin/kcadm.sh create users -r ${KEYCLOAK_REALM:-koha} -s username=koha -s enabled=true -s email=koha@koha-community.org -s firstName=koha -s lastName=koha
-            /opt/jboss/keycloak/bin/kcadm.sh set-password -r ${KEYCLOAK_REALM:-koha} --username koha --new-password sso
+            /opt/keycloak/bin/kcadm.sh create realms -s realm=${KEYCLOAK_REALM:-koha} -s enabled=true
+            /opt/keycloak/bin/kcadm.sh create users -r ${KEYCLOAK_REALM:-koha} -s username=koha -s enabled=true -s email=koha@koha-community.org -s firstName=koha -s lastName=koha
+            /opt/keycloak/bin/kcadm.sh set-password -r ${KEYCLOAK_REALM:-koha} --username koha --new-password sso
 
             break;
         fi

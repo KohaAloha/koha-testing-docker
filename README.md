@@ -135,6 +135,20 @@ ktd <options> up -d
 where `<options>` are the valid `ktd` option switches. If your usage requires more options you should
 check `docker compose --help` or refer to the [Docker compose documentation](https://docs.docker.com/compose/).
 
+### Keycloak / SSO
+
+The `--sso` option switch will make `ktd` run a Keycloak server for testing _OIDC_, _SAML_, etc.
+
+_Keycloak_ will run on port __8082__ and you will be required to set an alias on `/etc/hosts` like this:
+
+```
+127.0.1.1	sso
+```
+
+It will then be accessible on the following URL: `http://sso:8082`.
+
+If you need more information on how to set it up, refer to the [Keycloak manual](https://www.keycloak.org/getting-started/getting-started-docker).
+
 #### Aliases
 
 This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:

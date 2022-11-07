@@ -2,18 +2,20 @@ version: '3'
 
 services:
     sso:
-        image: jboss/keycloak
+        image: quay.io/keycloak/keycloak
 
         networks:
             - kohanet
 
         environment:
-            KEYCLOAK_USER: ${KEYCLOAK_USER:-keycloak}
-            KEYCLOAK_PASSWORD: ${KEYCLOAK_PASS:-keycloak}
-            KEYCLOAK_REALM: ${KEYCLOAK_REALM:-koha}
+            KEYCLOAK_ADMIN: ${KEYCLOAK_USER:-keycloak}
+            KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASS:-keycloak}
+
+        command:
+            - start-dev
+            - --hostname=sso
+            - --hostname-port=8082
+            - --http-relative-path /auth
 
         ports:
-            - "8082:8080"
-
-        volumes:
-            - ./sso/keycloak.sh:/opt/jboss/startup-scripts/keycloak.sh
+            - 8082:8082
