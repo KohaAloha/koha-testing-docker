@@ -149,6 +149,15 @@ It will then be accessible on the following URL: `http://sso:8082`.
 
 If you need more information on how to set it up, refer to the [Keycloak manual](https://www.keycloak.org/getting-started/getting-started-docker).
 
+##### Notes
+
+* When you configure keycloak as an identity provider in Koha
+  1. The `code` you choose will be part of the URI you need to enter in `Valid redirect URIs` when you configure Koha as client in Keycloak. 
+  So if the code you choose is `kc`, the valid redirect URIs you need to enter are  `http://kohadev.mydnsname.org:8080/api/v1/public/oauth/login/kc/opac` for opac, and `http://kohadev-intra.myDNSname.org:8081/api/v1/public/oauth/login/kc/staff` for staff interface
+  1. Choose OIDC protocol, click on `Add default OIDC configuration` and in the  `well_known_url` parameter put the following: `http://sso:8082/auth/realms/master/.well-known/openid-configuration`
+
+* When you configure Koha as a client in Keycloak you should enable the `Exclude Session State From Authentication Response` in the Advanced settings, because Koha does not support yet the `session_state` parameter
+
 #### Aliases
 
 This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:
