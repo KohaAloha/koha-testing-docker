@@ -122,7 +122,7 @@ RUN apt-get -y update \
 ## Add Yarn
 # Add node repo
 RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_12.x xenial main" > /etc/apt/sources.list.d/node.list
+RUN echo "deb http://deb.nodesource.com/node_14.x xenial main" > /etc/apt/sources.list.d/node.list
 # Add yarn repo
 RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
