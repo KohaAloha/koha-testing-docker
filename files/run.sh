@@ -11,6 +11,9 @@ export KOHA_INTRANET_URL=http://${KOHA_INTRANET_FQDN}:${KOHA_INTRANET_PORT}
 export KOHA_OPAC_FQDN=${KOHA_OPAC_PREFIX}${KOHA_INSTANCE}${KOHA_OPAC_SUFFIX}${KOHA_DOMAIN}
 export KOHA_OPAC_URL=http://${KOHA_OPAC_FQDN}:${KOHA_OPAC_PORT}
 
+# Node stuff
+export NODE_PATH=/kohadevbox/node_modules:$NODE_PATH
+
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 
@@ -204,6 +207,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
@@ -229,6 +233,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   TEST_QA=1 \
                                   xargs prove -j ${KOHA_PROVE_CPUS} \
                                   --rules='par=t/db_dependent/00-strict.t' \
@@ -245,6 +250,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   TEST_QA=1 \
                                   prove -v --timer --harness=TAP::Harness::JUnit -r \
                                     t/Koha/Config.t \
@@ -278,6 +284,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
@@ -303,6 +310,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
@@ -319,6 +327,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   KOHA_OPAC_URL=http://koha:8080 \
                                   KOHA_USER=${KOHA_USER} \
                                   KOHA_PASS=${KOHA_PASS} \
+                                  NODE_PATH=${NODE_PATH} \
                                   SELENIUM_ADDR=selenium \
                                   SELENIUM_PORT=4444 \
                                   TEST_QA=1 \
