@@ -1,0 +1,3 @@
+Package: nodejs
+Pin: version 14.*
+Pin-Priority: 999

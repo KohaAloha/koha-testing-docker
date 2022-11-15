@@ -109,19 +109,23 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-## Add Yarn
-# Add node repo
-RUN wget -q -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb http://deb.nodesource.com/node_14.x bionic main" > /etc/apt/sources.list.d/node.list
+# Add Node.js
+RUN wget -O- -q https://deb.nodesource.com/setup_14.x | bash -
+# Pin Node.js v14
+COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
+
 # Add yarn repo
-RUN wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
-# Install Node.js and Yarn
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
+   && wget -O- -q https://dl.yarnpkg.com/debian/pubkey.gpg \
+      | gpg --dearmor \
+      | tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
+   && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# Install Node.js (includes npm) and Yarn
 RUN apt-get update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
 # Install gulp
 RUN npm install gulp-cli -g
 
