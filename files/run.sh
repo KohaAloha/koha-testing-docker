@@ -92,9 +92,10 @@ VARS_TO_SUB="\$BUILD_DIR:$VARS_TO_SUB";
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/vimrc                 > /root/.vimrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
-envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/gitconfig             > /root/.gitconfig
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
+# .gitconfig shouldn't get GIT_USER_* variables replaced
+cp ${BUILD_DIR}/templates/gitconfig /root/.gitconfig
 
 # bin
 mkdir -p ${BUILD_DIR}/bin
