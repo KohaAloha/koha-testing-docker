@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
 
-ENV PATH /usr/bin:/bin:/usr/sbin:/sbin:/kohadevbox/node_modules/.bin
+ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV REFRESHED_AT 2021-06-17
