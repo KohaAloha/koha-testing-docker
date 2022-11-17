@@ -4,7 +4,7 @@ FROM debian:bookworm
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
 
-ENV PATH /usr/bin:/bin:/usr/sbin:/sbin
+ENV PATH /usr/bin:/bin:/usr/sbin:/sbin:/kohadevbox/node_modules/.bin
 ENV DEBIAN_FRONTEND noninteractive
 
 # Set suitable debian sources
