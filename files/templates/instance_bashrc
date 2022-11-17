@@ -7,6 +7,8 @@ export SELENIUM_PORT=${SELENIUM_PORT}
 export PERL5LIB="/kohadevbox/koha:/kohadevbox/koha/lib:/kohadevbox/qa-test-tools"
 export TEST_QA=1
 
+export PATH=${PATH}:/kohadevbox/bin:/kohadevbox/koha/node_modules/.bin/:/kohadevbox/node_modules/.bin/
+
 alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
                    PERL5DB="BEGIN { require q(/kohadevbox/dbgp/perl5db.pl) }" \
                    PERLDB_OPTS="RemotePort=${REMOTE_DEBUGGER_LOCATION} async=1 LogFile=/var/lib/koha/${KOHA_INSTANCE}/plack-debug.log" \
@@ -14,3 +16,4 @@ alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
 
 # Alias for the Koha QA tool
 alias qa="/kohadevbox/qa-test-tools/koha-qa.pl -v 2 --failures"
+
