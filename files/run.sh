@@ -202,7 +202,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     rm -rf /cover_db/*
 
     if [ ${COVERAGE} ]; then
-        koha-shell ${KOHA_INSTANCE} -p -c "rm -rf cover_db;
+        koha-shell ${KOHA_INSTANCE} -c "rm -rf cover_db;
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   PERL5OPT=-MDevel::Cover=-db,/cover_db \
                                   KOHA_TESTING=1 \
@@ -224,7 +224,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   cover -report clover"
 
     elif [ "$LIGHT_TEST_SUITE" = "1" ]; then
-        koha-shell ${KOHA_INSTANCE} -p -c "find t xt -name '*.t' \
+        koha-shell ${KOHA_INSTANCE} -c "find t xt -name '*.t' \
                                     -not -path \"t/db_dependent/www/*\" \
                                     -not -path \"t/db_dependent/selenium/*\" \
                                     -not -path \"t/db_dependent/Koha/SearchEngine/Elasticsearch/*\" \
@@ -246,7 +246,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
 
     elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
-        koha-shell ${KOHA_INSTANCE} -p -c "
+        koha-shell ${KOHA_INSTANCE} -c "
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
@@ -280,7 +280,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         sudo service apache2 restart
         sudo service koha-common restart
 
-        koha-shell ${KOHA_INSTANCE} -p -c "
+        koha-shell ${KOHA_INSTANCE} -c "
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
                                   KOHA_NO_TABLE_LOCKS=1 \
@@ -304,7 +304,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
 
         if [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
-            koha-shell ${KOHA_INSTANCE} -p -c "find t/db_dependent/selenium -name '*.t' \
+            koha-shell ${KOHA_INSTANCE} -c "find t/db_dependent/selenium -name '*.t' \
                                     -not -name '00-onboarding.t' | sort  \
                                 |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
@@ -322,7 +322,7 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
                                   && touch testing.success"
 
         else
-            koha-shell ${KOHA_INSTANCE} -p -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
+            koha-shell ${KOHA_INSTANCE} -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
                                 |
                                   JUNIT_OUTPUT_FILE=junit_main.xml \
                                   KOHA_TESTING=1 \
