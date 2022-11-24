@@ -11,16 +11,6 @@ variables:
   DOCKER_DRIVER: overlay2
   FF_NETWORK_PER_BUILD: 1
 
-sid:
-  stage: build
-  script:
-  - docker build -t koha/koha-testing:22.11-sid --no-cache --rm -f dists/sid/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:22.11-sid
-  - docker image rm koha/koha-testing:22.11-sid
-  only:
-    - 22.11@koha-community/koha-testing-docker
-
 bookworm:
   stage: build
   script:
