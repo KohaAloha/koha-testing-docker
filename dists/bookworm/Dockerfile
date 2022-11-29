@@ -101,7 +101,6 @@ RUN apt-get -y update \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
 \
-         libhttpd-bench-apachebench-perl \
          libmoosex-attribute-env-perl \
          libtest-dbix-class-perl \
          libtap-harness-junit-perl \
@@ -110,7 +109,9 @@ RUN apt-get -y update \
          libwebservice-ils-perl \
          libselenium-remote-driver-perl \
    && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
+   && rm -rf /var/lib/api/lists/* \
+   && cpanm -i --force --mirror http://cpan.cpantesters.org/ \
+         HTTPD::Bench::ApacheBench
 
 # Install temporary package
 RUN apt-get -y update \
