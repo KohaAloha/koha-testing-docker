@@ -145,7 +145,7 @@ _Keycloak_ will run on port __8082__ and you will be required to set an alias on
 127.0.1.1	sso
 ```
 
-It will then be accessible on the following URL: `http://sso:8082`.
+It will then be accessible on the following URL: `http://sso:8082/auth`.
 
 If you need more information on how to set it up, refer to the [Keycloak manual](https://www.keycloak.org/getting-started/getting-started-docker).
 
