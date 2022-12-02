@@ -1,6 +1,3 @@
-# Alias for the Koha QA tool
-alias qa="/kohadevbox/qa-test-tools/koha-qa.pl -v 2 --failures"
-
 # Aliases for reading logs
 alias koha-opac-err="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/opac-error.log"
 alias koha-intra-err="sudo tail -f /var/log/koha/${KOHA_INSTANCE}/intranet-error.log"
