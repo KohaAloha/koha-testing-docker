@@ -120,7 +120,6 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/lock/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
-    chown -R "${KOHA_INSTANCE}-koha" "/kohadevbox/node_modules"
 fi
 
 # This needs to be done ONCE koha-create has run (i.e. kohadev-koha user exists)
