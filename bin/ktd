@@ -75,6 +75,8 @@ ENABLE_PLUGIN="no"
 ENABLE_SELENIUM="no"
 ENABLE_SSO="no"
 
+KOHA_ELASTICSEARCH="no"
+
 DOCKER_PROJECT="koha"
 
 SHELL_ACCESS="no"
@@ -145,6 +147,7 @@ else
 
             if [ "$ENABLED_SEARCHENGINE" != "" ]; then
                 COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ENABLED_SEARCHENGINE}.yml"
+                KOHA_ELASTICSEARCH="yes"
             fi
 
             if [ "$ENABLE_PLUGIN" != "no" ]; then
@@ -162,6 +165,8 @@ else
             if [ "${KTD_PROJECT}" != "" ]; then
                 DOCKER_PROJECT=${KTD_PROJECT}
             fi
+
+            export KOHA_ELASTICSEARCH="${KOHA_ELASTICSEARCH}"
 
             COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -p ${DOCKER_PROJECT}"
 
