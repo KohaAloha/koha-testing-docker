@@ -153,7 +153,7 @@ if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
     git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
 fi
 
-if [ -n "$KOHA_ELASTICSEARCH" ]; then
+if [ "${KOHA_ELASTICSEARCH}" = "yes" ]; then
     ES_FLAG="--elasticsearch"
 fi
 perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
@@ -167,7 +167,7 @@ perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --gitify_dir        ${BUILD_DIR}/gitify
 
 # Latest Depends
-if [ ${CPAN} ]; then
+if [ "${CPAN}" = "yes" ]; then
     echo "Installing latest versions of dependancies from cpan"
     apt install cpanoutdated
     cpan-outdated --exclude-core -p | cpanm
