@@ -38,7 +38,7 @@ RUN apt-get -y update \
       pmtools \
       locales \
       netcat-openbsd \
-      python-gdbm \
+      python3-gdbm \
       vim \
       tmux \
       wget \
