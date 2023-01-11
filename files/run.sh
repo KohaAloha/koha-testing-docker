@@ -154,6 +154,8 @@ git config --global apply.whitespace fix
 git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
 git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
 
+cp /root/.gitconfig /var/lib/koha/${KOHA_INSTANCE}/.gitconfig
+
 if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/qa-test-tools
     git clone -b ${DEBUG_GIT_REPO_QATESTTOOLS_BRANCH} ${DEBUG_GIT_REPO_QATESTTOOLS_URL} ${BUILD_DIR}/qa-test-tools
