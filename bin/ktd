@@ -32,7 +32,7 @@ Usage:
     $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] up -d
     $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] down
     $scriptname [--es6|--es7|--os7|--plugin|--selenium|--sso] pull
-    $scriptname --shell
+    $scriptname [--root] --shell
     $scriptname --logs
     $scriptname -h|--help
 
@@ -79,7 +79,9 @@ KOHA_ELASTICSEARCH="no"
 
 DOCKER_PROJECT="koha"
 
+ROOT_ACCESS="no"
 SHELL_ACCESS="no"
+
 FOLLOW_LOGS="no"
 
 # Read command line parameters
@@ -112,9 +114,12 @@ while [ $# -gt 0 ]; do
         --sso)
             ENABLE_SSO="yes"
             shift ;;
+        --root)
+            ROOT_ACCESS="yes"
+            shift ;;
         --shell)
             SHELL_ACCESS="yes"
-            break ;;
+            shift ;;
         -*)
             printf "\nError: expected a docker compose action and got '$1' instead\n\n"
             usage
@@ -128,7 +133,11 @@ done
 
 if [ "$SHELL_ACCESS" != "no" ]; then
 
-    docker exec -it koha-koha-1 bash
+    if [ "$ROOT_ACCESS" != "no" ]; then
+        docker exec -it koha-koha-1 bash
+    else
+        docker exec --user kohadev-koha -ti koha-koha-1 bash
+    fi
 elif [ "$FOLLOW_LOGS" != "no" ]; then
 
     docker logs -f koha-koha-1

@@ -70,7 +70,7 @@ cd $PROJECTS_DIR/koha-testing-docker
 cp env/defaults.env .env
 ```
 
-## Usage
+## Basic usage
 
 In order to launch _KTD_, you can use the `ktd` wrapper command. It is a wrapper around the
 `docker compose` command so it accepts its parameters:
@@ -81,10 +81,16 @@ In order to launch _KTD_, you can use the `ktd` wrapper command. It is a wrapper
 ktd up
 ```
 
-* Get into the Koha container shell
+* Get into the Koha container shell (instance user)
 
 ```shell
 ktd --shell
+```
+
+* Get into the Koha container shell (root user)
+
+```shell
+ktd --root --shell
 ```
 
 * Watching the _koha_ container logs
@@ -105,6 +111,8 @@ ktd pull
 ktd down
 ```
 
+* Adding services to our stack
+
 Several option switches are provided for more fine-grained control:
 
 ```shell
@@ -113,11 +121,101 @@ ktd --selenium --os7 --plugin --sso up
 ...
 ```
 
+Note: the `pull` command would also work if you add several option switches. So running:
+
+```shell
+ktd --es7 pull
+```
+
+will also download/update the Elasticsearch 7.x image to be used.
+
 For a complete list of the option switches, run the command with the _--help_ option:
 
 ```shell
 ktd --help
 ```
+
+## Getting to the web interface
+
+The IP address of the web server in your docker group will be variable. Once you are in with SSH, issuing a
+
+```shell
+ip a
+```
+should display the IP address of the webserver. At this point the web interface of Koha can be accessed by going to
+http://<the displayed IP>:8080 for the OPAC
+http://<the displayed IP>:8081 for the Staff interface.
+
+## Available commands and aliases
+
+The Koha container ships with some aliases to improve productivity. They are divided in two,
+depending on the user for which the alias is defined.
+
+Aliases for the *instance* user require that you start a shell with that user in
+order to be used. This is done like this:
+
+```shell
+ktd --shell
+```
+
+or, from the root user using `kshell`:
+
+```shell
+ktd --root --shell
+kshell
+```
+
+### **root** user
+* **koha-intra-err**:    tail the intranet error log
+* **koha-opac-err**:     tail the OPAC error log
+* **koha-plack-log**:    tail the Plack access log
+* **koha-plack-err**:    tail de Plack error log
+* **kshell**:            get into the instance user, on the kohaclone dir
+* **koha-user**:         get the db/admin username from koha-conf.xml
+* **koha-pass**:         get the db/admin password from koha-conf.xml
+* **dbic**:              recreate the schema files using a fresh DB. Accepts the *--force* parameter
+* **flush_memcached**:   Flush all key/value stored on memcached
+* **restart_all**:       restarts memcached, apache and plack
+* **reset_all**:         Drop and recreate the koha database [*]
+* **reset_all_marc21**:  Same as **reset_all**, but forcing MARC21
+* **reset_all_unimarc**: Same as **reset_all**, but forcing UNIMARC
+* **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
+* **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
+
+Note: it is recommended to run __start_plack_debug__ on a separate terminal
+because it doesn't free the prompt until the process is stopped.
+
+[*] **reset_all** actually:
+* Drops the instance's database, and creates an empty one.
+* Calls the misc4dev/do_all_you_can_do.pl script.
+* Populates the DB with the sample data, using the configured MARC flavour.
+* Create a superlibrarian user.
+* Updates the debian files in the VM (overwrites the ones shipped by the koha-common package).
+* Updates the plack configuration file for the instance.
+* Calls **restart_all**
+
+### **kohadev** user
+* **qa**:          Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
+* **prove_debug**: Run the *prove* command with all parameters needed for starting a remote debugging session.
+
+#### Running the right branch
+
+By default the _KTD_ that will start up is configured to work for the master branch of Koha.  If you want to run an image
+to test code against another koha branch you should use the `KOHA_IMAGE` environment variable before starting the image 
+as above.
+
+```shell
+KOHA_IMAGE=21.05 ktd up
+```
+
+Please note that you can only use branches defined
+[here](https://hub.docker.com/r/koha/koha-testing/tags). If you want to work on
+a local feature branch in Koha, make sure that `SYNC_REPO` points to the
+correct directory on your machine, and that you are in the correct branch
+there. Please also note that the Koha sources are installed to
+`/kohadevbox/koha` (via `koha-gitify`) and not `/usr/share/koha`!
+
+## Advanced usage
 
 ### Docker parameters
 
@@ -211,30 +309,6 @@ export RUN_TESTS_AND_EXIT="yes"
 docker-compose -p koha up --abort-on-container-exit
 ```
 
-#### Running the right branch
-
-By default the _KTD_ that will start up is configured to work for the master branch of Koha.  If you want to run an image
-to test code against another koha branch you should use the `KOHA_IMAGE` environment variable before starting the image 
-as above.
-
-```shell
-KOHA_IMAGE=21.05 kul
-```
-
-or 
-
-```shell
-export KOHA_IMAGE=21.05
-docker-compose -p koha up
-```
-
-Please note that you can only use branches defined
-[here](https://hub.docker.com/r/koha/koha-testing/tags). If you want to work on
-a local feature branch in Koha, make sure that `SYNC_REPO` points to the
-correct directory on your machine, and that you are in the correct branch
-there. Please also note that the Koha sources are installed to
-`/kohadevbox/koha` (via `koha-gitify`) and not `/usr/share/koha`!
-
 #### Update images
 
 ```shell
@@ -270,88 +344,6 @@ docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-
 ```
 
 **Alias**: `kpk`
-
-## Getting into the container
-
-**Alias**: `kshell`
-
-Running `kshell` will get you in the container as the root user. You can do most of the operatios here.
-To run the tests, you need to run `kshell` again to got in a koha-shell, then you can run Koha tests as you would on KohaDevBox. It will set KOHA_INTRANET_URL which some tests depend on.
-
-```shell
-kshell
-kshell
-cd koha
-prove t/db_dependent/Search.t
-```
-
-### Explaining kshell, useful for other containers as well
-
-Getting into the _koha_ container implies:
-
-```shell
-docker exec -it koha_koha_1 bash
-```
-
-(In _Docker Compose V2_ it would be `docker exec -it koha-koha-1 bash`).
-
-Note: the first _koha_ should match the _-p_ parameter used in _docker-compose up_
-
-## Getting to the web interface
-
-The IP address of the web server in your docker group will be variable. Once you are in with SSH, issuing a
-
-```shell
-ip a
-```
-should display the IP address of the webserver. At this point the web interface of Koha can be accessed by going to
-http://<the displayed IP>:8080 for the OPAC
-http://<the displayed IP>:8081 for the Staff interface.
-
-## Available commands and aliases
-
-The Koha container ships with some aliases to improve productivity. They are divided in two,
-depending on the user in which the alias is defined.
-
-Aliases for the *instance* user require that you start a shell with that user in
-order to be used. This is done like this:
-
-```shell
-kshell
-```
-
-### **root** user
-* **koha-intra-err**:    tail the intranet error log
-* **koha-opac-err**:     tail the OPAC error log
-* **koha-plack-log**:    tail the Plack access log
-* **koha-plack-err**:    tail de Plack error log
-* **kshell**:            get into the instance user, on the kohaclone dir
-* **koha-user**:         get the db/admin username from koha-conf.xml
-* **koha-pass**:         get the db/admin password from koha-conf.xml
-* **dbic**:              recreate the schema files using a fresh DB. Accepts the *--force* parameter
-* **flush_memcached**:   Flush all key/value stored on memcached
-* **restart_all**:       restarts memcached, apache and plack
-* **reset_all**:         Drop and recreate the koha database [*]
-* **reset_all_marc21**:  Same as **reset_all**, but forcing MARC21
-* **reset_all_unimarc**: Same as **reset_all**, but forcing UNIMARC
-* **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
-* **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
-
-Note: it is recommended to run __start_plack_debug__ on a separate terminal
-because it doesn't free the prompt until the process is stopped.
-
-[*] **reset_all** actually:
-* Drops the instance's database, and creates an empty one.
-* Calls the misc4dev/do_all_you_can_do.pl script.
-* Populates the DB with the sample data, using the configured MARC flavour.
-* Create a superlibrarian user.
-* Updates the debian files in the VM (overwrites the ones shipped by the koha-common package).
-* Updates the plack configuration file for the instance.
-* Calls **restart_all**
-
-### **kohadev** user
-* **qa**:          Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
-* **prove_debug**: Run the *prove* command with all parameters needed for starting a remote debugging session.
 
 ## Having Elasticsearch run
 
