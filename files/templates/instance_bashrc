@@ -1,14 +1,3 @@
-export GIT_USER_EMAIL=${GIT_USER_EMAIL}
-export GIT_USER_NAME=${GIT_USER_NAME}
-export KOHA_USER=${KOHA_USER}
-export KOHA_PASS=${KOHA_PASS}
-export KOHA_INTRANET_URL=http://koha:8081
-export KOHA_OPAC_URL=http://koha:8080
-export SELENIUM_ADDR=${SELENIUM_ADDR}
-export SELENIUM_PORT=${SELENIUM_PORT}
-export PERL5LIB="/kohadevbox/koha:/kohadevbox/koha/lib:/kohadevbox/qa-test-tools"
-export TEST_QA=1
-
 export PATH=${PATH}:/kohadevbox/bin:/kohadevbox/koha/node_modules/.bin/:/kohadevbox/node_modules/.bin/
 
 alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
@@ -19,3 +8,58 @@ alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
 # Alias for the Koha QA tool
 alias qa="/kohadevbox/qa-test-tools/koha-qa.pl -v 2 --failures"
 
+#!/usr/bin/bash
+
+export LANGUAGE='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+shopt -s histappend
+
+# executable -> green
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Completion!
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# Aliases :-D
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+# Load profile
+if [ -f ~/.bash_profile ]; then
+    . ~/.bash_profile
+fi
+
+export PATH=${PATH}:/kohadevbox/bin:/kohadevbox/koha/node_modules/.bin/:/kohadevbox/node_modules/.bin/
+
+export EDITOR=${EDITOR}
+export KOHA_CONF="/etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml"
+export PERL5LIB=${PERL5LIB}
+export GIT_USER_EMAIL=${GIT_USER_EMAIL}
+export GIT_USER_NAME="${GIT_USER_NAME}"
+export KOHA_USER=${KOHA_USER}
+export KOHA_PASS=${KOHA_PASS}
+export KOHA_INTRANET_URL=${KOHA_INTRANET_URL}
+export KOHA_OPAC_URL=${KOHA_OPAC_URL}
+export PERL5LIB="/kohadevbox/koha:/kohadevbox/koha/lib:/kohadevbox/qa-test-tools"
+export SELENIUM_ADDR=${SELENIUM_ADDR}
+export SELENIUM_PORT=${SELENIUM_PORT}
+export TEST_QA=1
+
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$(__git_ps1 "\[\e[1;33m\](%s)\[\e[0m\]")$ '
+
+# function for restarting all needed services
+function restart_all(){
+    flush_memcached
+    sudo service apache2 restart
+    chown -R ${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha /var/log/koha/${KOHA_INSTANCE};
+    sudo service koha-common restart
+}
+
+# function for running updatedatabase.pl
+function updatedatabase(){
+    sudo koha-shell ${KOHA_INSTANCE} -p -c 'perl /kohadevbox/koha/installer/data/mysql/updatedatabase.pl'
+}
