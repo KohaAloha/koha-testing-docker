@@ -73,15 +73,15 @@ buster:
 #  only:
 #    - master@koha-community/koha-testing-docker
 
-bionic:
-  stage: build
-  script:
-  - docker build -t koha/koha-testing:master-bionic --no-cache --rm -f dists/bionic/Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push koha/koha-testing:master-bionic
-  - docker image rm koha/koha-testing:master-bionic
-  only:
-    - master@koha-community/koha-testing-docker
+#bionic:
+#  stage: build
+#  script:
+#  - docker build -t koha/koha-testing:master-bionic --no-cache --rm -f dists/bionic/Dockerfile .
+#  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+#  - docker push koha/koha-testing:master-bionic
+#  - docker image rm koha/koha-testing:master-bionic
+#  only:
+#    - master@koha-community/koha-testing-docker
 
 focal:
   stage: build
