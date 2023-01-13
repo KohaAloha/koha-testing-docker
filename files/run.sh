@@ -211,23 +211,23 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
     if [ ${COVERAGE} ]; then
 
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests --with-coverage
+        koha-shell kohadev --preserve-environment -c 'perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests --with-coverage'
 
     elif [ "$LIGHT_TEST_SUITE" = "1" ]; then
 
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-light-test-suite
+        koha-shell kohadev --preserve-environment -c 'perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-light-test-suite'
 
     elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
 
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-elastic-tests-only
+        koha-shell kohadev --preserve-environment -c 'perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-elastic-tests-only'
 
     elif [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
 
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-selenium-tests-only
+        koha-shell kohadev --preserve-environment -c 'perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-selenium-tests-only'
 
     else
 
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests
+        koha-shell kohadev --preserve-environment -c 'perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests'
 
     fi
 else
