@@ -206,155 +206,28 @@ if [ -z ${KOHA_PROVE_CPUS} ]; then
 fi
 
 if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
-    cd ${BUILD_DIR}/koha
-    rm -rf /cover_db/*
+
+
 
     if [ ${COVERAGE} ]; then
-        koha-shell ${KOHA_INSTANCE} -c "rm -rf cover_db;
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  PERL5OPT=-MDevel::Cover=-db,/cover_db \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  SELENIUM_ADDR=selenium \
-                                  SELENIUM_PORT=4444 \
-                                  TEST_QA=1 \
-                                  prove -j ${KOHA_PROVE_CPUS} \
-                                  --rules='par=t/db_dependent/00-strict.t' \
-                                  --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -s -r t/ xt/ \
-                                  && touch testing.success; \
-                                  mkdir cover_db; cp -r /cover_db/* cover_db;
-                                  cover -report clover"
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests --with-coverage
 
     elif [ "$LIGHT_TEST_SUITE" = "1" ]; then
-        koha-shell ${KOHA_INSTANCE} -c "find t xt -name '*.t' \
-                                    -not -path \"t/db_dependent/www/*\" \
-                                    -not -path \"t/db_dependent/selenium/*\" \
-                                    -not -path \"t/db_dependent/Koha/SearchEngine/Elasticsearch/*\" \
-                                    -not -path \"t/db_dependent/Koha/SearchEngine/*\" \
-                                |
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  TEST_QA=1 \
-                                  xargs prove -j ${KOHA_PROVE_CPUS} \
-                                  --rules='par=t/db_dependent/00-strict.t' \
-                                  --rules='seq=t/db_dependent/**.t' --rules='par=**' \
-                                  --timer --harness=TAP::Harness::JUnit -r -s \
-                                  && touch testing.success"
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-light-test-suite
 
     elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
-        koha-shell ${KOHA_INSTANCE} -c "
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  TEST_QA=1 \
-                                  prove -v --timer --harness=TAP::Harness::JUnit -r \
-                                    t/Koha/Config.t \
-                                    t/Koha/SearchEngine \
-                                    t/db_dependent/Biblio.t \
-                                    t/db_dependent/Search.t \
-                                    t/db_dependent/Koha/Authorities.t \
-                                    t/db_dependent/Koha/Z3950Responder/GenericSession.t \
-                                    t/db_dependent/Koha/SearchEngine \
-                                    t/db_dependent/Koha_Elasticsearch.t \
-                                    t/db_dependent/SuggestionEngine_ExplodedTerms.t \
-                                    t/SuggestionEngine.t \
-                                    t/SuggestionEngine_AuthorityFile.t \
-                                    t/Koha_SearchEngine_Elasticsearch_Browse.t \
-                                  && touch testing.success"
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-elastic-tests-only
+
+    elif [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-selenium-tests-only
+
     else
-        koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
-        mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
 
-        # restart_all
-        echo flush_all > /dev/tcp/memcached/11211
-
-        sudo service apache2 restart
-        sudo service koha-common restart
-
-        koha-shell ${KOHA_INSTANCE} -c "
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  SELENIUM_ADDR=selenium \
-                                  SELENIUM_PORT=4444 \
-                                  TEST_QA=1 \
-                                  prove -v t/db_dependent/selenium/00-onboarding.t"
-
-        koha-mysql ${KOHA_INSTANCE} -e "DROP DATABASE koha_${KOHA_INSTANCE};"
-        mysql -h db -u koha_${KOHA_INSTANCE} -ppassword -e"CREATE DATABASE koha_${KOHA_INSTANCE};"
-
-        # restart_all
-        echo flush_all > /dev/tcp/memcached/11211
-        sudo service apache2 restart
-        sudo service koha-common restart
-
-
-        if [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
-            koha-shell ${KOHA_INSTANCE} -c "find t/db_dependent/selenium -name '*.t' \
-                                    -not -name '00-onboarding.t' | sort  \
-                                |
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  SELENIUM_ADDR=selenium \
-                                  SELENIUM_PORT=4444 \
-                                  TEST_QA=1 \
-                                  xargs prove --timer --harness=TAP::Harness::JUnit -r -v \
-                                  && touch testing.success"
-
-        else
-            koha-shell ${KOHA_INSTANCE} -c "{ ( find t/db_dependent/selenium -name '*.t' -not -name '00-onboarding.t' | sort ) ; ( find t xt -name '*.t' -not -path \"t/db_dependent/selenium/*\" | shuf ) } \
-                                |
-                                  JUNIT_OUTPUT_FILE=junit_main.xml \
-                                  KOHA_TESTING=1 \
-                                  KOHA_NO_TABLE_LOCKS=1 \
-                                  KOHA_INTRANET_URL=http://koha:8081 \
-                                  KOHA_OPAC_URL=http://koha:8080 \
-                                  KOHA_USER=${KOHA_USER} \
-                                  KOHA_PASS=${KOHA_PASS} \
-                                  NODE_PATH=${NODE_PATH} \
-                                  PATH=${PATH} \
-                                  SELENIUM_ADDR=selenium \
-                                  SELENIUM_PORT=4444 \
-                                  TEST_QA=1 \
-                                  xargs prove -j ${KOHA_PROVE_CPUS} \
-                                  --rules='par=t/db_dependent/00-strict.t' \
-                                  --rules='seq=t/db_dependent/**.t' \
-                                  --timer --harness=TAP::Harness::JUnit -r \
-                                  && touch testing.success"
-        fi
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests
 
     fi
 else
