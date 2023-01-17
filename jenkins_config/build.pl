@@ -10,7 +10,7 @@ my $env_vars = {
     COVERAGE      => $ENV{COVERAGE},
     KOHA_IMAGE    => $ENV{KOHA_IMAGE} || 'master',
     KTD_BRANCH    => $ENV{KTD_BRANCH} || 'master',
-    LIGHT_RUN     => $ENV{LIGHT_RUN} // 1,
+    TEST_SUITE    => $ENV{TEST_SUITE} // 'full',
     DBMS_YML      => $ENV{DBMS_YML} || '',
     ES_YML        => $ENV{ES_YML} || '',
 };
@@ -26,7 +26,7 @@ run(q{git clean -f});
 
 my $GITLAB_RAW_URL = "https://gitlab.com/koha-community/koha-testing-docker/raw/" . $ENV{KTD_BRANCH};
 
-if ( $ENV{LIGHT_RUN} == 1 ) {
+if ( $ENV{TEST_SUITE} eq 'light' ) {
     push @docker_compose_yml, 'docker-compose-light.yml';
 } else {
     push @docker_compose_yml, 'docker-compose.yml';

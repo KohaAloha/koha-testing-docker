@@ -213,15 +213,15 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests --with-coverage
 
-    elif [ "$LIGHT_TEST_SUITE" = "1" ]; then
+    elif [ "$TEST_SUITE" = "light" ]; then
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-light-test-suite
 
-    elif [ "$LIGHT_TEST_SUITE" = "2" ]; then # test elastic-search only
+    elif [ "$TEST_SUITE" = "es-only" ]; then # test elastic-search only
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-elastic-tests-only
 
-    elif [ "$LIGHT_TEST_SUITE" = "3" ]; then # selenium tests only
+    elif [ "$TEST_SUITE" = "selenium-only" ]; then # selenium tests only
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-selenium-tests-only
 
