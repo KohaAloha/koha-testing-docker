@@ -107,7 +107,9 @@ sub run {
 }
 
 sub docker_cleanup {
-    run(q{docker-compose -p koha down});
+    run(    q{docker-compose }
+          . join( ' ', map { "-f $_" } @docker_compose_yml )
+          . q{ -p koha down} );
 
     my $containers = qx{docker ps -a -f "name=koha_xx" -q};
     chomp $containers;
