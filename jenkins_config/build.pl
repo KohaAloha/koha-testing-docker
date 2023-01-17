@@ -108,8 +108,14 @@ sub run {
 
 sub docker_cleanup {
     run(q{docker-compose -p koha down});
-    run(qq{docker stop \$(docker ps -a -f "name=koha_" -q)});
-    run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
+
+    my $containers = qx{docker ps -a -f "name=koha_xx" -q};
+    chomp $containers;
+    if ( $containers ) {
+        run(qq{docker stop \$(docker ps -a -f "name=koha_" -q)});
+        run(qq{docker rm \$(docker ps -a -f "name=koha_" -q)});
+    }
+
     run(q{docker volume prune -f});
     run(q{docker image  prune -f});
     run(q{docker system prune -a -f});
