@@ -44,7 +44,7 @@ services:
             CPAN: ${CPAN}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
-            LIGHT_TEST_SUITE: ${LIGHT_TEST_SUITE}
+            TEST_SUITE: ${TEST_SUITE:full}
             KOHA_ELASTICSEARCH: ${KOHA_ELASTICSEARCH:-no}
         ulimits:
             nofile:
