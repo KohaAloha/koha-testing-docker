@@ -41,7 +41,7 @@ services:
             - .env
         environment:
             COVERAGE: ${COVERAGE}
-            CPAN: ${CPAN}
+            CPAN: ${CPAN:-no}
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
             TEST_SUITE: ${TEST_SUITE:-full}
