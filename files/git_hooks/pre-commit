@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+use Modern::Perl;
+
+use File::Basename;
+use File::Slurp qw(read_file);
+use Term::ANSIColor qw(colored);
+
+$ENV{LOG} = "test";
+
+my $nb_errors = 0;
+my @compiled_css = ( "staff-global", "opac" );
+
+for my $filepath (`git diff --cached --name-only`) {
+    chomp $filepath;
+    next if not -f $filepath;
+
+    my @file_infos = fileparse( $filepath, qr/\.[^.]*/ );
+
+    if ( grep( $file_infos[0], @compiled_css ) && $file_infos[2] eq ".css" ) {
+        say colored( "You don't want to commit $filepath", 'red' );
+        $nb_errors++;
+    }
+
+    if ( $file_infos[2] =~ /^.pl|^.pm$/ ) {
+        system( qq{
+            docker exec koha_koha_1 /usr/bin/perl -wc /kohadevbox/koha/$filepath 2>&1 | grep -Pv "Subroutine \\w+ redefined at "
+        } ) == 0
+          or say "\n" and $nb_errors++;
+    }
+    elsif ( $file_infos[2] =~ /^.tt$/ ) {
+
+        #TODO
+    }
+    elsif ( $file_infos[2] =~ /^.js$/ ) {
+
+        #TODO
+    }
+    elsif ( $file_infos[2] =~ /^\.vue$/ ) {
+        qx{yarn --silent run prettier --trailing-comma es5 --semi false --arrow-parens avoid --write $filepath};
+    }
+}
+
+my $filepath;
+for my $l ( split '\n', `git diff-index -p -M --cached HEAD` ) {
+    if ( $l =~ /^diff --git a\/([^ ]*) .*$/ ) {
+        $filepath = $1;
+    }
+    if ( $l =~ /console.log/ ) {
+        say colored( "$filepath contains console.log ($l)", 'red' );
+        $nb_errors++;
+    }
+    elsif ( $l =~ /^\+ *warn Data::Dumper::Dumper / ) {
+        say colored( "$filepath contains warn Data::Dumper::Dumper ($l)",
+            'red' );
+        $nb_errors++;
+    }
+
+    # This one could be uncommented when Koha will have the Logger module
+    elsif ( $l =~ /^\+ *warn / ) {
+        say "$filepath contains warn ($l)";
+        $nb_errors++;
+    }
+
+    elsif( $l =~ /\+ *\t/) { # fail also if there is some space before the tab
+        say colored( "$filepath contains a tab, must use 4 spaces ($l)",
+            'red' );
+        $nb_errors++;
+    }
+
+    elsif ( $l =~ m/^<<<<<<</ or $l =~ m/^>>>>>>>/ or $l =~ m/^=======/ ) {
+        say colored( "$filepath contains $& ($l)", 'red' );
+    }
+}
+
+if ($nb_errors) {
+    say "\nAre you sure you want to commit ?";
+    say "You can commit with the --no-verify argument";
+    exit 1;
+}
+
+say colored( "Success, pre-commit checks passed", 'green' );
+
+exit 0;

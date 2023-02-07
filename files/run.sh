@@ -232,6 +232,12 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
     fi
 else
 
+    # Install and setup git hooks
+    mkdir -p ${BUILD_DIR}/koha/.git/hooks/ktd
+    cp ${BUILD_DIR}/git_hooks/* ${BUILD_DIR}/koha/.git/hooks/ktd
+    cd ${BUILD_DIR}/koha
+    git config --local core.hooksPath .git/hooks/ktd
+
 # start koha-reload-starman, if we have inotify installed
 #    if [ -f "/usr/bin/inotifywait" ]; then
 #        daemon  --verbose=1 \
