@@ -136,7 +136,7 @@ if [ "$SHELL_ACCESS" != "no" ]; then
     if [ "$ROOT_ACCESS" != "no" ]; then
         docker exec -it koha-koha-1 bash
     else
-        docker exec --user kohadev-koha -ti koha-koha-1 bash
+        docker exec --user kohadev-koha --workdir /kohadevbox/koha -ti koha-koha-1 bash
     fi
 elif [ "$FOLLOW_LOGS" != "no" ]; then
 
