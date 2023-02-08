@@ -193,6 +193,7 @@ VOLUME /kohadevbox/koha
 COPY files/run.sh /kohadevbox
 COPY files/templates /kohadevbox/templates
 COPY env/defaults.env /kohadevbox/templates/defaults.env
+COPY files/git_hooks /kohadevbox/git_hooks
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
