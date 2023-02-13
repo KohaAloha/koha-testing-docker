@@ -100,8 +100,6 @@ envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/sudoers               > /etc/sudoers.d/${KOHA_INSTANCE}
-# .gitconfig shouldn't get GIT_USER_* variables replaced
-cp ${BUILD_DIR}/templates/gitconfig /root/.gitconfig
 
 # bin
 mkdir -p ${BUILD_DIR}/bin
@@ -123,6 +121,28 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
 fi
 
+echo "[git] Setting up Git on the instance user"
+sudo koha-shell ${KOHA_INSTANCE} -c "\
+    echo \"    [*] Generating /var/lib/koha/${KOHA_INSTANCE}/.gitconfig\" ; \
+    cp ${BUILD_DIR}/templates/gitconfig /var/lib/koha/${KOHA_INSTANCE}/.gitconfig ; \
+    echo \"    [*] Installing and setting hooks\" ; \
+    mkdir -p ${BUILD_DIR}/koha/.git/hooks/ktd ; \
+    cp ${BUILD_DIR}/git_hooks/* ${BUILD_DIR}/koha/.git/hooks/ktd ; \
+    cd ${BUILD_DIR}/koha ; \
+    git config --local core.hooksPath .git/hooks/ktd ; \
+    echo \"    [*] General setup\" ; \
+    git config --global --add safe.directory ${BUILD_DIR}/koha ; \
+    git config --global user.name  \"${GIT_USER_NAME}\" ; \
+    git config --global user.email \"${GIT_USER_EMAIL}\" ; \
+    git config bz.default-tracker bugs.koha-community.org ; \
+    git config bz.default-product Koha ; \
+    git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3 ; \
+    git config --global bz-tracker.bugs.koha-community.org.https true ; \
+    git config --global core.whitespace trailing-space,space-before-tab ; \
+    git config --global apply.whitespace fix ; \
+    git config --global bz-tracker.bugs.koha-community.org.bz-user     \"${GIT_BZ_USER}\" ; \
+    git config --global bz-tracker.bugs.koha-community.org.bz-password \"${GIT_BZ_PASSWORD}\" "
+
 # This needs to be done ONCE koha-create has run (i.e. kohadev-koha user exists)
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/apache2_envvars > /etc/apache2/envvars
 
@@ -139,22 +159,6 @@ echo "127.0.0.1    ${KOHA_OPAC_FQDN} ${KOHA_INTRANET_FQDN}" >> /etc/hosts
 
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/instance_bashrc > /var/lib/koha/${KOHA_INSTANCE}/.bashrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases    > /var/lib/koha/${KOHA_INSTANCE}/.bash_aliases
-
-# Configure git-bz
-cd /kohadevbox/koha
-git config --global --add safe.directory /kohadevbox/koha
-git config --global user.name "${GIT_USER_NAME}"
-git config --global user.email "${GIT_USER_EMAIL}"
-git config bz.default-tracker bugs.koha-community.org
-git config bz.default-product Koha
-git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
-git config --global bz-tracker.bugs.koha-community.org.https true
-git config --global core.whitespace trailing-space,space-before-tab
-git config --global apply.whitespace fix
-git config --global bz-tracker.bugs.koha-community.org.bz-user "${GIT_BZ_USER}"
-git config --global bz-tracker.bugs.koha-community.org.bz-password "${GIT_BZ_PASSWORD}"
-
-cp /root/.gitconfig /var/lib/koha/${KOHA_INSTANCE}/.gitconfig
 
 if [ "${DEBUG_GIT_REPO_QATESTTOOLS}" = "yes" ]; then
     rm -rf ${BUILD_DIR}/qa-test-tools
@@ -231,13 +235,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
     fi
 else
-
-echo "Install and setup git hooks"
-sudo koha-shell ${KOHA_INSTANCE} -p -c "\
-    mkdir -p ${BUILD_DIR}/koha/.git/hooks/ktd ; \
-    cp ${BUILD_DIR}/git_hooks/* ${BUILD_DIR}/koha/.git/hooks/ktd ; \
-    cd ${BUILD_DIR}/koha ; \
-    git config --local core.hooksPath .git/hooks/ktd"
 
 # start koha-reload-starman, if we have inotify installed
 #    if [ -f "/usr/bin/inotifywait" ]; then
