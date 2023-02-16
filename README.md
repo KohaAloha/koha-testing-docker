@@ -148,39 +148,40 @@ http://<the displayed IP>:8081 for the Staff interface.
 
 ## Available commands and aliases
 
-The Koha container ships with some aliases to improve productivity. They are divided in two,
-depending on the user for which the alias is defined.
+The container comes with some helpful aliases to improve productivity, many of which are available 
+from both the kohadev and root users.
 
-Aliases for the *instance* user require that you start a shell with that user in
-order to be used. This is done like this:
+In most cases you will want to access the container as the kohadev user using:
 
 ```shell
 ktd --shell
 ```
 
-or, from the root user using `kshell`:
+Whilst logged in as this user, the following commands are available
 
-```shell
-ktd --root --shell
-kshell
-```
+### **kohadev only**
+| Command            | Function                                                                                    |
+|--------------------|---------------------------------------------------------------------------------------------|
+| **qa**             | Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*                       |
+| **prove_debug**    | Run the *prove* command with all parameters needed for starting a remote debugging session. |
 
-### **root** user
-* **koha-intra-err**:    tail the intranet error log
-* **koha-opac-err**:     tail the OPAC error log
-* **koha-plack-log**:    tail the Plack access log
-* **koha-plack-err**:    tail de Plack error log
-* **kshell**:            get into the instance user, on the kohaclone dir
-* **koha-user**:         get the db/admin username from koha-conf.xml
-* **koha-pass**:         get the db/admin password from koha-conf.xml
-* **dbic**:              recreate the schema files using a fresh DB. Accepts the *--force* parameter
-* **flush_memcached**:   Flush all key/value stored on memcached
-* **restart_all**:       restarts memcached, apache and plack
-* **reset_all**:         Drop and recreate the koha database [*]
-* **reset_all_marc21**:  Same as **reset_all**, but forcing MARC21
-* **reset_all_unimarc**: Same as **reset_all**, but forcing UNIMARC
-* **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
-* **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
+### **kohadev and root**
+| Command               | Function                                                                    |
+|-----------------------|-----------------------------------------------------------------------------|
+| **koha-intra-err**    | tail the intranet error log                                                 |
+| **koha-opac-err**     | tail the OPAC error log                                                     |
+| **koha-plack-log**    | tail the Plack access log                                                   |
+| **koha-plack-err**    | tail de Plack error log                                                     |
+| **koha-user**         | get the db/admin username from koha-conf.xml                                |
+| **koha-pass**         | get the db/admin password from koha-conf.xml                                |
+| **dbic**              | recreate the schema files using a fresh DB. Accepts the *--force* parameter |
+| **flush_memcached**   | flush all key/value stored on memcached                                     |
+| **restart_all**       | restarts memcached, apache and plack                                        |
+| **reset_all**         | drop and recreate the koha database [*]                                     |
+| **reset_all_marc21**  | same as **reset_all**, but forcing MARC21                                   |               
+| **reset_all_unimarc** | same as **reset_all**, but forcing UNIMARC                                  |
+| **start_plack_debug** | start Plack in debug mode, trying to connect to a remote debugger if set.   |
+| **updatedatabase**    | run the updatedatabase.pl script in the right context (instance user)       |
 
 Note: it is recommended to run __start_plack_debug__ on a separate terminal
 because it doesn't free the prompt until the process is stopped.
@@ -194,11 +195,12 @@ because it doesn't free the prompt until the process is stopped.
 * Updates the plack configuration file for the instance.
 * Calls **restart_all**
 
-### **kohadev** user
-* **qa**:          Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
-* **prove_debug**: Run the *prove* command with all parameters needed for starting a remote debugging session.
+### **root only**
+| Command            | Function                                                                                    |
+|--------------------|---------------------------------------------------------------------------------------------|
+| **kshell**:        | get into the instance user, on the kohaclone dir                                            |
 
-#### Running the right branch
+## Running the right branch
 
 By default the _KTD_ that will start up is configured to work for the master branch of Koha.  If you want to run an image
 to test code against another koha branch you should use the `KOHA_IMAGE` environment variable before starting the image 
