@@ -10,6 +10,7 @@ $ENV{LOG} = "test";
 
 my $nb_errors = 0;
 my @compiled_css = ( "staff-global", "opac" );
+my $modify_files;
 
 for my $filepath (`git diff --cached --name-only`) {
     chomp $filepath;
@@ -37,8 +38,48 @@ for my $filepath (`git diff --cached --name-only`) {
         #TODO
     }
     elsif ( $file_infos[2] =~ /^\.vue$/ ) {
-        qx{yarn --silent run prettier --trailing-comma es5 --semi false --arrow-parens avoid --write $filepath};
+        $modify_files->{$filepath} = qq{yarn --silent run prettier --trailing-comma es5 --semi false --arrow-parens avoid --write $filepath};
     }
+}
+
+if ( $modify_files ) {
+    say colored( "Some files need to be modified", "yellow" );
+
+    # Prevent to reach a stash pop that will fail later
+    # Do not modify files if they have changes that are not added to the git index yet (so part of the current commi)
+    my @local_changes = map{ chomp; $_ } qx(git diff --name-only);
+    my @local_changes_on_files_to_modify = intersect(\@local_changes, [keys %$modify_files]);
+    if ( @local_changes_on_files_to_modify ) {
+        say colored( "Cannot modify files with changes not added to the index yet", "red" );
+        exit 1;
+    }
+
+    # If there are local changes we stash, just in case
+    # It should not be needed, we have the previous check
+    if ( @local_changes ) {
+        say colored( "Stashing local changes", "green" );
+        qx{git stash push -m "pre-commit" --keep-index --quiet};
+    }
+
+    # Do modify the files
+    while ( my ( $filepath, $cmd ) = each %$modify_files ) {
+        qx($cmd);
+    }
+
+    if ( @local_changes ) {
+        say colored( "Unstashing local changes", "green" );
+        my $stash_applied_error = system(q[git stash apply stash^{/pre-commit} --quiet]);
+        # This stash pop should not fail, isn't it?
+        if ( $stash_applied_error ) {
+            say colored( "Cannot unstash properly", "red" );
+            say colored( "Something bad happens, this was not expected!", "red" );
+            exit 1;
+        }
+    }
+
+    # Add changes to the commit
+    my $git_add_cmd = q{git add } . join(' ', keys %$modify_files);
+    qx{$git_add_cmd};
 }
 
 my $filepath;
@@ -82,3 +123,9 @@ if ($nb_errors) {
 say colored( "Success, pre-commit checks passed", 'green' );
 
 exit 0;
+
+sub intersect{
+    my ( $a, $b ) = @_;
+    my %e = map { $_ => undef } @$a;
+    return grep { exists( $e{$_} ) } @$b;
+}
