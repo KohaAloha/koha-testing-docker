@@ -46,7 +46,7 @@ for my $l ( split '\n', `git diff-index -p -M --cached HEAD` ) {
     if ( $l =~ /^diff --git a\/([^ ]*) .*$/ ) {
         $filepath = $1;
     }
-    if ( $l =~ /console.log/ ) {
+    if ( $l =~ /^\+ *console.log/ ) {
         say colored( "$filepath contains console.log ($l)", 'red' );
         $nb_errors++;
     }
