@@ -121,6 +121,16 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
 fi
 
+echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
+
+mv /root/.cache/Cypress/ "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  && echo "    [*] Cypress dir moved to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "    [x] Error moving Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+
+chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  && echo "    [*] Cypress dir chowned correctly" \
+  || echo "    [x] Error running chown on Cypress dir"
+
 echo "[git] Setting up Git on the instance user"
 sudo koha-shell ${KOHA_INSTANCE} -c "\
     echo \"    [*] Generating /var/lib/koha/${KOHA_INSTANCE}/.gitconfig\" ; \
