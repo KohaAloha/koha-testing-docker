@@ -123,7 +123,7 @@ fi
 
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
-mv /root/.cache/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+mv /root/.cache/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/." \
   && echo "    [*] Cypress dir moved to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
   || echo "    [x] Error moving Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
