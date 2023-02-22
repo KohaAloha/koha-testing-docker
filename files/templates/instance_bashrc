@@ -5,6 +5,8 @@ alias prove_debug='PERL5LIB="/kohadevbox/dbgp":$PERL5LIB \
                    PERLDB_OPTS="RemotePort=${REMOTE_DEBUGGER_LOCATION} async=1 LogFile=/var/lib/koha/${KOHA_INSTANCE}/plack-debug.log" \
                    perl -d'
 
+alias run_cypress='yarn cypress run --env KOHA_USER=${KOHA_USER},KOHA_PASS=${KOHA_PASS}'
+
 # Alias for the Koha QA tool
 alias qa="/kohadevbox/qa-test-tools/koha-qa.pl -v 2 --failures"
 
