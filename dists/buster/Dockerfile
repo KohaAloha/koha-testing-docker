@@ -167,6 +167,23 @@ RUN cd /kohadevbox \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/api/lists/*
 
+# cypress tests
+RUN apt-get update \
+    && apt-get -y install \
+        libgtk2.0-0\
+        libgtk-3-0\
+        libgbm-dev\
+        libnotify-dev\
+        libgconf-2-4\
+        libnss3\
+        libxss1\
+        libasound2\
+        libxtst6\
+        xauth\
+        xvfb \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/api/lists/*
+
 # Remote debugger
 RUN cd /kohadevbox \
     && wget -q -O dbgp.tar.gz https://gitlab.com/mjames/dbgp/-/raw/master/dbgp.tar.gz \
