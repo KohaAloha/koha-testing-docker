@@ -75,6 +75,14 @@ RUN a2enmod rewrite \
 RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
 RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bullseye" >> /etc/apt/sources.list.d/koha.list
 
+RUN echo "deb http://debian.koha-community.org/koha-deps exp main" >> /etc/apt/sources.list.d/koha.list
+
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get -y install apache2 \
+    && apt policy apache2 
+
+
 RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update
 
