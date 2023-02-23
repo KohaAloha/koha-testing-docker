@@ -1,0 +1,1157 @@
+commit bf7f1dc489a4c6a91ec37674db084f8736fc5245
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Jan 17 09:54:45 2023 +0100
+
+    Issue #341: Rename LIGHT_RUN and LIGHT_TEST_SUITE with TEST_SUITE
+    
+    There are LIGHT_RUN and LIGHT_TEST_SUITE, both for the same purpose, there is a confusion here.
+    Instead of the code values for LIGHT_TEST_SUITE we should use strings: full, es-only, selenium-only, light.
+
+commit aa2c1b46c72251fdf6122eb8eff394bdb108f080
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Jan 16 10:53:01 2023 +0100
+
+    Revert "Issue #320: Run tests as koha user"
+    
+    This reverts commit e3b717b8ef8e5e7a28f94228f697e8ecf1084d3f.
+    
+    run_tests.pl contains commands that need to be run as root!
+
+commit e3b717b8ef8e5e7a28f94228f697e8ecf1084d3f
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Jan 13 17:49:11 2023 +0100
+
+    Issue #320: Run tests as koha user
+    
+    And not root
+
+commit 9fbd4b0e33d6258763037fdeaa05fe86de94f39c
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Jan 13 17:17:02 2023 +0100
+
+    Issue #320: Add KOHA_TESTING back
+    
+    To make the 00-onboarding.t and 01-installation.t selenium tests run
+    successfully
+
+commit 793de05a9adce163628fe45422097b75be0099db
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Jan 13 14:19:44 2023 +0100
+
+    Issue #320: Clean prove commands and use run_tests from misc4dev
+    
+    With https://gitlab.com/koha-community/koha-misc4dev/-/issues/58 it
+    becomes easy to run tests from here \o/
+
+commit 420f7029422708442a7d83bb4a0508072207893b
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Jan 11 18:25:40 2023 -0300
+
+    Issue #332: Configure Git for the instance user
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 12e0fcc3ff1c91149cf8edc38f0e9c5bc6ba843e
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Jan 11 18:22:31 2023 -0300
+
+    Issue #334: Make  available to the instance user
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit a490aff15b32ff35e20389a2c131ef66ed92adda
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Jan 11 17:25:45 2023 -0300
+
+    Issue #335: Add the instance user to the sudoers (NOPASSW)
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 20b460a7f7aa287b1ee66886c78993347f94bc4c
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon Dec 19 10:48:12 2022 -0300
+
+    Issue #329: Make option switches require 'yes'
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit c5a3bcd363801ac5e4873c6ded7635e6105e4195
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Wed Dec 14 08:03:54 2022 +0100
+
+    Issue #324 - Revert "Set correct permissions for node_modules"
+    
+    This reverts commit 0c7a8028ed2acbeda0105395f3941edadf7964d8.
+    
+    This recursive chown is very slow. Not sure why we need it. I would
+    suggest to keep the permission, see if something is failing, and chown
+    only the paths we need.
+
+commit b20855bd1f83e6d0c41db0aa966c163f3b2af0f8
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Dec 6 09:51:08 2022 +0100
+
+    Issue #326 - Do not override KOHA_INTRANET_URL and KOHA_OPAC_URL
+    
+    We want to pass them from the koha-sandboxes-docker config, but they are
+    hardcoded in ktd.
+    
+    We should not override the env vars if they exist already.
+
+commit f9ae057ced8bfaa83b26eefb396983de7f5272d6
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Nov 24 13:23:31 2022 +0100
+
+    Issue #315 - Pass PATH to koha-shell
+    
+    sudo won't source .bashrc so we need to pass PATH
+
+commit 53ac953cc588862c3f5eaa84d62effc39c7f85d4
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Nov 23 16:44:03 2022 -0300
+
+    Do not inherit root user's env
+    
+    This patch removes the -p parameter for koha-shell when running the
+    tests. It feels wrong to have it, as we are actually passing all
+    environment variables explicitly, and others should be defined on the
+    instance's user .bashrc.
+    
+    Anyhow, this is just an attempt that can be reverted if it has some
+    other side effects, but my suspicion is that we will just fix new issues
+    on .bashrc or adding new env variables
+
+commit 0c7a8028ed2acbeda0105395f3941edadf7964d8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Nov 22 09:15:34 2022 -0300
+
+    Set correct permissions for node_modules
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 3f5124111b7a258167f406b597fbc535bf07412f
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Nov 17 13:12:35 2022 -0300
+
+    Issue #316: Do not replace variables in .gitconfig
+    
+    The only two variables .gitconfig aliases users are `GIT_USER_NAME` and
+    `GIT_USER_EMAIL`.
+    
+    Both shouldn't be replaced at startup, to keep some flexibility here.
+    
+    They are both added to the .bashrc for the root and instance user to
+    keep the current behavior.
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 5fdaca4a22c41f2b03bd4653b5bb517b07340f19
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Nov 17 13:15:06 2022 +0100
+
+    Issue #315 - Adjust PATH in bashrc and run.sh
+
+commit 4e4d9859c63685b2e39bbf813da50d21b019068c
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Nov 15 14:59:23 2022 -0300
+
+    Issue #313: Export updated NODE_PATH so it is picked
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit f4d59daacda4918768d54f3f0410a883b6d02371
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Oct 12 08:43:21 2022 +1300
+
+    disable koha-reload-starman
+
+commit 0d5a920f596e8773271bba64da75bcf72b37d135
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Oct 12 06:19:03 2022 +1300
+
+    add name to daemon
+
+commit 417039989aaa181b1601c15c6efd74919abaa1fd
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Oct 12 06:07:03 2022 +1300
+
+    skip koha-reload-starman from tests
+
+commit 7d9f8daf52eeefdd0af01938f88dc185452bb13d
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Oct 11 16:16:08 2022 +1300
+
+    increase --delay
+
+commit 924f485cbbd09b4aa761a4706b8e1086d6de696a
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Oct 11 15:57:56 2022 +1300
+
+    add respawn
+
+commit 57f136cb1dcb576d4fd43502dff0761c51d1a3e8
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Oct 11 12:26:30 2022 +1300
+
+    fix path typo (2)
+
+commit a767c1327353ce41fb960f5a8dc198d7e4b655a5
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Oct 11 11:45:44 2022 +1300
+
+    add koha-starman-load
+
+commit 50024e7b3dd812a5118fd7b9dfa9ac577bd53ebf
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 03:47:49 2022 +1200
+
+    add 'prove -v t/db_dependent/selenium/00-onboarding.t'
+
+commit 8b39e33e29cc279ea5cdc0e3cfc7700cb36614a9
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 02:58:19 2022 +1200
+
+    move LIGHT_TEST_SUITE=3 block
+
+commit 49247b2ecebfbfcb0270345b7558ce1a6cdbb32c
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 02:41:28 2022 +1200
+
+    remove 00-onboarding.t for selenium tests
+
+commit f4bab96db2a0afe766f148f560ac7422d9f78740
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 01:58:49 2022 +1200
+
+    add LIGHT_TEST_SUITE=3, selenium tests only (3)
+
+commit fcbbc5f9a4454e661a34366b6b606a10ab440c5a
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 01:42:56 2022 +1200
+
+    add LIGHT_TEST_SUITE=3, selenium tests only (2)
+
+commit 532d752185186e644cbb10b4291e3b706fa12ab5
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Fri Sep 16 01:13:50 2022 +1200
+
+    add LIGHT_TEST_SUITE=3, selenium tests only
+
+commit c17d8717baceb386ed30724c627cbc15875cf4f9
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Sun Aug 28 18:27:47 2022 +1200
+
+    add t/db_dependent/Search.t to ES tests
+
+commit 2e3239dcc76ad663e32979e77d32ba38a190566e
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Sat Aug 20 03:52:49 2022 +1200
+
+    add usermod -o to handle root UID=0 dind build
+
+commit 6a53ec1856d46a3dd5ea8227ee61123c7199324a
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Jul 6 15:19:57 2022 +1200
+
+    remove coverage typo
+
+commit 48381d84b86efdc87b16675729770e085e5546be
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Jul 6 02:38:34 2022 +1200
+
+    Issue #301: remove non-ES tests
+
+commit 1087abff66a1ec36d37379a83600e00c0de17603
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 23:25:48 2022 +1200
+
+    Issue #301: add more ES tests (3)
+
+commit 03aa966922a4559dc1311011b2f72d61d5c616c6
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 20:52:38 2022 +1200
+
+    Issue #301: add more ES tests (2)
+
+commit e43b7a1d59258e82aae7b4906a2147b66d426c24
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 19:58:36 2022 +1200
+
+    Issue #301: add more ES tests
+
+commit 60fce9eca7a08fc156c5be883853054f72b89de3
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 18:44:15 2022 +1200
+
+    Issue #301: add --verbose to ES tests, for debugging
+
+commit b3a2e3301171d9d77df6b4fdc3883666d33bc0bb
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 17:02:06 2022 +1200
+
+    add LIGHT_RUN=2 to test elastic-search only (3)
+
+commit 42f1d7ca5abfbff2cf9f0a4926447c7cc3f954c3
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 15:52:12 2022 +1200
+
+    add LIGHT_RUN=2 to test elastic-search only (2)
+
+commit 5931a3ade2057fd299d07bd7f63665c68aa9e056
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Jul 5 05:46:39 2022 +1200
+
+    add LIGHT_RUN=2 to test elastic-search only
+
+commit 3ee31df7860a6821a647167b5437e957f598c4e2
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Sat Apr 16 03:22:00 2022 +1200
+
+    add 'git config --global --add safe.directory /kohadevbox/koha'
+
+commit 28494caa42eb1b4e14ffbe6f349e7b53b30eae00
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Jan 14 20:54:02 2022 -0300
+
+    Issue #282: Only append if absent
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 6942708f39a62e3312746630fe6fd226cdf8f86f
+Author: Kyle M Hall <kyle.m.hall@gmail.com>
+Date:   Tue Nov 16 13:47:15 2021 +0000
+
+    Install all Perl modules in cpanfile, useful for testing patches requiring...
+
+commit 33253a3a4351fe57ec4a2aaca1b526fbc3646f1d
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Nov 9 02:13:30 2021 +1300
+
+    add 'service --status-all' for debugging (2)
+
+commit 245c49bf262fafcd21485d6a066de2852df0a56b
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Tue Nov 9 01:23:18 2021 +1300
+
+    add 'service --status-all' for debugging
+
+commit 3ebbd447f967537cf984132c3ab56b33a05ec557
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Oct 25 13:05:03 2021 +0200
+
+    Issue #279 - copy flush_memcached behaviour
+
+commit ab6d6afe9a9cfe804e98f5c2b1c0e98c72bbd8fb
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Oct 25 12:08:36 2021 +0200
+
+    Issue #279 - copy restart_all behaviour
+    
+    It's not defined there.
+
+commit 3a400c325b00d8b76fbf074d6051a3f198547a0b
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Wed Oct 20 17:18:21 2021 +0200
+
+    Issue #279 - Prepare selenium tests for installer
+    
+    Bug 19185 is going to be pushed and we will get selenium test for the
+    installer and onboarding process.
+    Those 2 files are a bit different as they require an empty database to
+    run correctly.
+    This patch suggests to DROP and CREATE the database to start the
+    selenium tests.
+    We cannot run them one after the other, as each require the DB to be
+    empty.
+    
+    This is not ideal for several reason:
+    1. the env vars are duplicated in several places
+    2. we are dependent on test files in Koha (if we remove or rename them
+    we will need to adjust here)
+    3. We don't run everything within a single prove call and so we won't
+    get the junit file for the first test script
+    
+    I think we should go as it in a first step, at least see how it goes,
+    then iterate to make it better if we need.
+
+commit 931c8ca3065d118db83d855071db2aed7b8119fe
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Jun 25 14:54:53 2021 +0200
+
+    Issue #263 - Remove packages used by developers for Jenkins runs (CI_RUN)
+    
+    This behaviour hide a critical bug when 20.05.00 was released.
+    See https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=28616
+    
+    A use of Data::Printer was introduced, it's not a Koha dependency but
+    is installed by koha-testing-docker, developers didn't notice the problem
+    neither Jenkins.
+
+commit 6fcda74c6f4a931dc1acb211905af365431cf535
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Mar 9 09:21:30 2021 +0100
+
+    Issue #245 - Correctly pass env vars for prove
+
+commit 58bdaec0b95a4be07b2365795d02c777066acb07
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Mar 5 09:24:54 2021 +0100
+
+    Issue #245 - Add more filepaths to ignore
+    
+    Also add missing xargs
+
+commit 33406c62b46c51b91122024914f3e78bdef1155f
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Sat Mar 6 04:25:34 2021 +1300
+
+    Issue #245 - fix '\' and remove --recursive
+
+commit 1c4ec030065bc447fc5e74aa503fed4d14c82d2f
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Mar 5 08:45:18 2021 +0100
+
+    Issue #245 - Add missing $
+    
+    oops...
+
+commit 967edb99fb6e8aa8b5621cf12465523c25565325
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Mar 4 16:06:15 2021 +0100
+
+    Issue #245 - Fix else if syntax error
+
+commit 56ac42fef61500905c25182c4337fe88c25a05ef
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Mar 4 15:22:47 2021 +0100
+
+    Issue #245 - Add a light test suite run solution
+    
+    We have few jenkins' nodes and most of them are small and fail to run the test
+    suite with the elasticsearch container. The whole test suite is not running using
+    ktd on a server with 8G of RAM. That's not acceptable and we should provide a
+    lighter solution.
+    We should have the light solution running on most of the node, and the whole test
+    suite only on a couple of (big) nodes.
+    
+    This patch adds a new docker-compose-light.yml file that does not depend
+    on the es and selenium containers.
+    It set LIGHT_TEST_SUITE to tell run.sh to not run www and selenium
+    tests.
+
+commit 5e62a177b7a6bfac308fd4366296f90bffbbc6ab
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Dec 14 12:08:50 2020 +0100
+
+    Issue #237 - Ignore rabbitmq-server start failure
+    
+    For an unknown reason koha-sandboxes-docker is failing to startup ktd when a new sandbox is requested. rabbitmq-server failed to start:
+    
+    Starting RabbitMQ Messaging Server: rabbitmq-serverFAILED - check /var/log/rabbitmq/startup_{log, _err} ... (warning). failed!
+    
+    We should ignore this failure and continue the startup
+
+commit ea5d4277fa686c9d3a98b2ee9f4881b162811de8
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Wed Oct 14 16:39:20 2020 +0200
+
+    Revert "Issue #220 - Handle invalid SYNC_REPO init"
+    
+    This reverts commit a70a335a66d4f8032b41d4859a44c211c3a2211e.
+
+commit a70a335a66d4f8032b41d4859a44c211c3a2211e
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Oct 12 16:35:15 2020 +0200
+
+    Issue #220 - Handle invalid SYNC_REPO init
+    
+    If the variable is not set or incorrectly set, the container init fails
+    with
+      Cannnot open file No such file or directory at /kohadevbox/misc4dev/cp_debian_files.pl line 35.
+    
+    Which is a bit cryptic.
+
+commit 77518757685a89920cace6a442c909626b9bcf78
+Author: mjames <mjames@kohaaloha.com>
+Date:   Tue Oct 6 12:39:58 2020 +0000
+
+    Add rabbitmq and koha-z3950-responder
+
+commit 432050c4d1d8fdef8bda931538329e19f0074bbe
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Fri Jun 5 10:14:47 2020 +0200
+
+    Issue #176 - Use KOHA_ELASTICSEARCH when the container is created
+    
+    The precedent patch was working only when a reset_all was called from
+    the containery.
+
+commit f01fae460127e20e3dc3586e12032f4c04bfb82b
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Jul 14 08:12:41 2020 -0300
+
+    Issue #209: Make run.sh set a sane and predictable hostname
+    
+    For remote debugging, it is important to be able to determine the
+    running host name, in order to properly define URI mappings. They are
+    usually in the form:
+    
+    Remote: //<hostname>/kohadevbox/koha
+    Local:  /home/tcohen/git/koha
+    
+    In the case of KTD, the hostname is fixed to 'kohadevbox'
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 14f6238b28473e48fa8ff4bb7b646c5e75dba397
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon Jul 6 10:31:35 2020 -0300
+
+    Issue #208: Do not pull misc4dev and qa-test-tools by default
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit dfa40eac4d289bfc79df6716191a020cd30691f6
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Jul 2 16:47:40 2020 +0200
+
+    Issue #206 - Fix clone path for DEBUG_GIT_REPO_MISC4DEV_URL
+    
+    From commit 695986f0 Issue #168 (closed): Call cp_debian_files.pl early
+    
+    Prior to this commit the path was correct (there is a cd $BUILD_DIR after the gitify run), but now it's cloned in /kohadevbox/koha
+    
+    A side-effect is that 00-testcritic.t is failing on some qa-test-tools files.
+
+commit 619aeaaec6bf044a6c9e5db180d64e1ea7a03fb3
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Jun 1 15:03:36 2020 +0200
+
+    Issue #194 - Remove mysql warning about password on the cmd line
+    
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    
+    It does not hurt, but better to remove it.
+
+commit 4efb9412f9ae6a2021a40fba5d7e241734afcc38
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri May 15 10:08:11 2020 -0300
+
+    Issue #170: Quotes around git-bz parameters on the CLI
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 89a8cd6f061b3764c80604f7a8d12133c32e7ca6
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Apr 20 18:48:46 2020 +0200
+
+    Issue #171 - Move git-bz config up in the process
+    
+    Playing with koha-sandboxes-docker I noticed that the "git bz apply" is sometimes done before the setup is done.
+    
+    koha-sandboxes-docker wait for 1 min to make sure the container has been built, but it seems that it can be too low.
+    
+    To prevent sleeping more, we could move the git bz config before the do_all_you_can_do
+
+commit a3e60a69af24481217e607a367a3a52afd8946f8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Apr 17 18:15:39 2020 -0300
+
+    Fix the darn logs permissions
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 695986f05da655eb036e39f51fbfdd0a8fcd2739
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Apr 7 14:35:20 2020 -0300
+
+    Issue #168: Call cp_debian_files.pl early
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit ef2267f1138d8e7bff99fe7c468cb52aa3736309
+Author: Martin Renvoize <martin.renvoize@ptfs-europe.com>
+Date:   Fri Apr 3 13:54:30 2020 +0100
+
+    Revert "Issue #157 - Use KOHA_INTRANET_URL and KOHA_OPAC_URL from .env"
+    
+    This reverts commit a7433bab44e7cd4c5e44d4662279a10030b1a791.
+
+commit a7433bab44e7cd4c5e44d4662279a10030b1a791
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Feb 18 10:46:33 2020 +0100
+
+    Issue #157 - Use KOHA_INTRANET_URL and KOHA_OPAC_URL from .env
+
+commit 9ce20e008ab0bc873d37d2d93042707ba6e02c36
+Author: Martin Renvoize <martin.renvoize@ptfs-europe.com>
+Date:   Mon Mar 30 09:31:47 2020 +0100
+
+    Restore KOHA_NO_TABLE_LOCKS for compatability
+    
+    We need to maintain the KOHA_NO_TABLE_LOCKS env setting to maintain
+    compatability with older Koha versions still being tested.
+    
+    This can be removed when 20.05 is oldoldstable.
+
+commit 12d0b9424ad078f30e0ca2c93dda1d8ae70d7e5b
+Author: Martin Renvoize <martin.renvoize@ptfs-europe.com>
+Date:   Mon Mar 30 09:27:11 2020 +0100
+
+    Replace KOHA_NO_TABLE_LOCKS with KOHA_TESTING
+    
+    We replaced the KOHA_NO_TABLE_LOCKS environment variable with a more
+    aptly names KOHA_TESTING variable. This variable will now be used in two
+    places in the koha code base: The existing case in C4::Circulation where
+    we are using LOCK calls to prevent a race condition and then in the
+    Koha::Database module where we perform the database connect.
+    
+    This closes #167
+
+commit 7c0dfa65fd0c76a096387ea8e699321020dfee4d
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Mar 5 15:23:38 2020 +0100
+
+    Issue #160 - Add a debug var for using specific remote/branch for misc4dev and qa-test-tools
+    
+    I need to test the behavior of misc4dev when the container is starting up, it's painful to have to wait the image to rebuild locally.
+    Moreover, I am not able to run a built container locally as it fails with some errors.
+
+commit f6b7e07bf84110854cd04eccd47ae68369684785
+Author: Martin Renvoize <martin.renvoize@ptfs-europe.com>
+Date:   Wed Feb 26 17:14:22 2020 +0000
+
+    Use cpan-outdated instead of cpanm --installdeps
+    
+    installdeps doesn't check for updates.. doh!
+
+commit da9bf092468d8e1c940d7da1d6149cddcf0ef4a4
+Author: Martin Renvoize <martin.renvoize@ptfs-europe.com>
+Date:   Wed Feb 26 12:12:14 2020 +0000
+
+    Add CPAN option to allow pulling latest dependancies on request
+
+commit 13c6ba9412686ab0a027b5830a92651b4b1456ca
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Nov 27 14:48:51 2019 -0300
+
+    Issue #153: Add MySQL user and password to koha-common.cnf
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit d26a2c5d0148c1d926b72e550e21405090808fe8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Oct 9 14:09:14 2019 -0300
+
+    Issue #138: Quote name and email for Git
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 431a2fb2644d5b7977225a29b388b63582f9d1c8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed May 29 17:07:24 2019 -0300
+
+    Issue #124: Add flush_memcached command
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 181ba94b7a40dc8a3b38884cb4f4707a3f641ab2
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed May 29 16:05:12 2019 -0300
+
+    Issue #122: Git config missing name and email
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 4d23f7b1c521e851b4ebe6c570e18b612a962a83
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon May 27 15:34:44 2019 -0300
+
+    Issue #98: Move git clone tasks to Dockerfile
+    
+    This change will require triggering full rebuilds on changes on the
+    corresponding repositories. That will be done using webhooks.
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit c0d5ba31780f1713041d831d68bd9ef7d4008803
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri May 24 15:38:25 2019 -0300
+
+    Issue #116: Add a 'dbic' shell script to replace the alias
+    
+    Adding the alias eases calling it from outside the container. Like in
+    
+    docker exec koha_koha_1 dbic
+    
+    which is required for the sandboxes.
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 261a4e7c83e8f45a28f3bb146204f8669d64b97c
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Apr 25 16:59:08 2019 -0300
+
+    Issue #114: Revert apache change
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 790354f989e486cb32ce756275f1d6e286ea9f23
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Apr 25 12:54:21 2019 -0300
+
+    Issue #114: Run apache2 as the instance user
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 8e932eb0dc429fcfa65943fb9c2cde9a2e9b445a
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Apr 25 12:15:41 2019 -0300
+
+    Issue #114: Make log dirs writeable
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 483fe3498377bc71a532391a6a71bdd25edad41c
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Jan 29 15:02:49 2019 -0300
+
+    Issue #105: Make Selenium tests run out of the box
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit a491c30672f71c89ee57adde1ab754379e785ad5
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Sun Sep 16 11:51:29 2018 -0700
+
+    Issue #27: Use do_all_you_can_do.pl
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 6c5d19da90f6f4586f5ac87c5503b306fad6f2dd
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Aug 17 12:51:25 2018 -0300
+
+    Issue #94: Add --instance parameter to cp_debian_files call
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit a8afaa488cf777ac7b54a03f57b3b7aeee3ec2d1
+Author: Kyle M Hall <kyle@bywatersolutiosn.com>
+Date:   Mon Aug 13 10:22:46 2018 -0400
+
+    Remove hardcoded uses of 'kohadev' in run.sh to allow env KOHA_INSTANCE to be changed
+
+commit 568c51eb1732a4924aafab08e8307b443ef30651
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Fri Jul 13 06:59:05 2018 -0400
+
+    Add vimrc from Koha wiki
+
+commit f1a4a741fb2923f6cca16b5561d8c03cf106a7fb
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Thu Jul 12 08:17:58 2018 -0400
+
+    Add option to add env vars from run.sh on an as needed basis for templates
+
+commit fb91995e4017aa6467e68336d0862e21d43b8d6e
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Wed Jul 11 11:14:45 2018 -0400
+
+    Remove the need to define all the vars in defaults.env in run.sh as well
+
+commit bff1da741a93547dec03257337d92188ba4e9836
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Tue Jul 10 12:57:57 2018 -0400
+
+    Port git and bash aliases from kohadevbox
+    
+    * Add libtest-perl-critic-progressive-perl to packages installed
+    * Sort packages alphabetially
+    * Add qa test tools repo
+    * Port  git config file with aliases from kohadevbox
+    * Port bash aliases file from kohadevbox
+    * Add bashrc for root user
+    * Add additional envronment variables to defaults.env
+    * Make envsubst only substitute variables defined in defaults.env
+    
+    Add qa test tools, git aliases
+    
+    Port bash aliases from kohadevbox
+
+commit 8aaeffddcd000d62b21f408b5a49c24a5b4fbff1
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Tue Jul 10 09:47:17 2018 -0400
+
+    Add vim and git-bz
+
+commit 1a2abab699b809426e47a8d35b1df6e6a72a7e5c
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Jun 8 11:07:42 2018 -0300
+
+    Die on errors
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit c2c539d6751bd38a18b948540e27d7e38394b516
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Jun 8 11:07:17 2018 -0300
+
+    Remove --use-memcached usage
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 6989776d4d331b8b475f2891e7c39c3e7e85790d
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Sat May 12 18:41:36 2018 -0300
+
+    Revert "Issue #85: Use real FQDN for selenium tests"
+    
+    Selenium tests are being reviewed because they fail with this. Trying to
+    find out if its a selenium docker problem, or library problem too. In
+    the meantime, we revert this change to avoid this false negative.
+    
+    This reverts commit 7b4118fbe34e247da44f24fb0bd066631917ebfa.
+
+commit 7b4118fbe34e247da44f24fb0bd066631917ebfa
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri May 11 17:12:35 2018 -0300
+
+    Issue #85: Use real FQDN for selenium tests
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 84d88caa960b8982a8d3aeed796d756d8353588b
+Author: Mason James <mtj@kohaaloha.com>
+Date:   Wed Apr 11 03:12:29 2018 +1200
+
+    add parallel threading to tests
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit f46ff02ec06a1d2e576d72701d2b9139e34dd7a8
+Merge: 2e887aa 14c34f7
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Feb 27 15:23:42 2018 -0300
+
+    Merge branch 'issue_79'
+
+commit 2e887aa17131912daa007dbaf9dc5d305c6a6e69
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Feb 27 15:21:42 2018 -0300
+
+    Issue #73: Point selenium to the right service
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 9f2d6a7400f3f89ca3fbcfb7f0143a8d02a39e4f
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Feb 22 10:37:55 2018 -0300
+
+    Issue #75: Fix typo in run.sh
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 4771835c3bec019c2a7f01226c8366f48f120fda
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Feb 14 17:05:16 2018 -0300
+
+    Issue #74: Make RUN_TESTS_AND_EXIT not default
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit d8029f8216e9857e071005a76555b6da827213c9
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Feb 14 15:47:19 2018 -0300
+
+    Issue #73: Move Selenium out of our image
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 14c34f785bd50d7c1185d779367337df353b7e21
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Feb 27 11:01:15 2018 -0300
+
+    Fix #79: Move git clones out of Dockerfile
+    
+    We do not want to rebuild the images when an external repo is updated.
+
+commit 097057c5aa10fa969f2699ab2cf31df89903b68a
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon Feb 12 14:34:51 2018 -0300
+
+    Newer koha-common requires special permissions on /var/vache/koha...
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 847b0914208861e53267012706be8c7f202ceb7b
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Mon Feb 12 13:27:37 2018 -0300
+
+    Fix #72: Copy debian files to get the latest apache config files
+    
+    We added a rewrite rule in the apache config, we should then use apache
+    config files from the Koha repo instead of the ones from the package.
+
+commit 59a436017807be37a2273ecd8b54752b994e77d6
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Feb 9 16:58:39 2018 -0300
+
+    Issue #71: (followup) Consistency
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit a2070bcb403fd7598ecd4747b0d00d8385cd6429
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Feb 9 16:46:27 2018 -0300
+
+    Issue #71: Use FQDN in /etc/hosts instead of URLs
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 44254c1fc0d355d72663a9d0ea8552a45a6346f5
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Feb 9 15:54:06 2018 -0300
+
+    Issue #70: Make domain names configurable
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 83217a12a5236636511ec59e428c592ebf5c14cc
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Feb 9 15:33:31 2018 -0300
+
+    Issue #69: Make OPAC and Intranet ports configurable
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit e73ac17281657492aa328449eda33426c92b2380
+Author: Kyle M Hall <kyle@bywatersolutions.com>
+Date:   Mon Nov 27 10:23:37 2017 -0500
+
+    Add testing.success file
+
+commit da7a5600fb08dd181689154ffdb0132a9f47071b
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Sep 27 11:33:23 2017 -0300
+
+    Issue #50: Allow choosing the use of Devel::Cover
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 71f6596cf3852134060af6d47ff4ff7087a565e7
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Wed Sep 27 11:08:02 2017 -0300
+
+    Issue #51: cover does not use the generated cover_db data
+    
+    With issue #57 we moved the cover db to a tmpfs volume (/cover_db), but
+    we did not tell cover.
+    We also need to keep this data for jenkins, so need to be copied.
+
+commit 0b54edee38c84bb8563da287f7058e48d2128e8b
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Sep 26 09:15:02 2017 -0300
+
+    Issue #33: Remove DEBUG with KOHA_DOCKER_DEBUG
+    
+    There is conflict with the $DEBUG env var.
+
+commit 58e0554bffdb39be696fc719bb2e4780b760167b
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Tue Sep 26 08:54:19 2017 -0300
+
+    Issue #47: Mount /tmp and /cover_db as tmpfs volumes
+    
+    We have performance issues, it would be good to see if mounting /tmp and
+    /cover_db as tmpfs volumes will not improve them a bit.
+
+commit 06a565435b60c1ad965c6316e4aea528a7fd8a66
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Thu Sep 21 15:43:15 2017 -0300
+
+    Issue #42: Use memcached
+    
+    We could try memcached:alpine
+
+commit 48ac8ae2152d2a579a9943a93a1ee4f961c992b8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Sep 20 15:18:05 2017 -0300
+
+    Issue #28: (followup) Make Selenium less verbose
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 9f2cf6cc4074e128f0e0c6f2405c277c52566dc6
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Wed Sep 20 14:58:33 2017 -0300
+
+    Issue #28: Add Selenium and deps
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit dfcc28c6f516d45c9f371c84e0db41bb33b36ebf
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Sep 14 15:12:13 2017 -0300
+
+    Issue #29: Set TEST_QA
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 33eb16c0b537dfa55ad0244ba769bc6d04ca7271
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Sep 14 15:10:56 2017 -0300
+
+    Issue #34: Use populate_db.pl new superpowers
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 7afa0f7882ef06933c1434659402c5201778e157
+Author: Jonathan Druart <jonathan.druart@gmail.com>
+Date:   Wed Sep 13 15:26:06 2017 -0300
+
+    Issue #30: Set KOHA_NO_TABLE_LOCKS=1 to avoid LOCK
+    
+    KOHA_NO_TABLE_LOCKS needs to be set, to avoid LOCK (rollback will fail)
+    From Koha code:
+    my $do_not_lock = ( exists $ENV{} && $ENV{} =~ m|prove| ) ||
+    $ENV{KOHA_NO_TABLE_LOCKS};
+    
+    $ENV{_} equals "koha-shell", not the expected "prove"
+
+commit 01a2c934077e1bc02431fb0e134f5bd71879f810
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Sep 12 11:34:11 2017 -0300
+
+    Issue #27: Get rid of ServerName warning
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 3c9d5792936dac895315372b0c096b61ab9a20ce
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Sep 12 11:11:13 2017 -0300
+
+    Issue #26: Fix permissions issues due to UID change
+    
+    When LOCAL_USER_ID is defined, a UID change is performed, but files
+    belonging to the original UID didn't get their permissions changed.
+    
+    This patch adds the needed *chown* commands when LOCAL_USER_ID is defined.
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 4b7475af6b8186bb1c31347824ecb1cd17792570
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Sep 12 11:02:32 2017 -0300
+
+    Issue #26: Start zebra and indexer daemons
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit f90f34db2471ff5eacd8fb98dc3382b4a7bf897d
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Sep 12 10:48:13 2017 -0300
+
+    Issue #25: Remove sudo from koha-shell call
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit fa96bc30004da575e4d6ff5bd0411867cf613a55
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Sep 8 19:29:34 2017 -0300
+
+    Issue #24: Move Mojolicious downgrade into Dockerfile
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 7255ee9c1e58624ca47970c3ee8aafd7621f7f03
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Sep 5 18:00:15 2017 -0300
+
+    Issue #17: Fix permissions issues
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 5547c69cff0b215c42c72f8ff89a78678298081b
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Aug 25 11:16:16 2017 -0300
+
+    Issue #19: Make sure TEMP is defined
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 00e78db1ff285359b4ab2229c03da9cc2b13f983
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Aug 25 11:15:09 2017 -0300
+
+    Issue #20: Downgrade Mojolicious (6.15) until 18137 is pushed
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 5f77ee6e61efd2f63660400eb20ff03bd168279e
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Aug 22 09:02:17 2017 -0300
+
+    Issue #15: Pass variables needed for web tests
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit b56a2bf48d8835f36fe6ced44144c9187823685a
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Aug 18 14:57:41 2017 -0300
+
+    Issue #14: Allow passing a UID for the instance's user
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 0f2badd29b97800667a505cfc168612096aadb29
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Fri Aug 18 12:14:14 2017 -0300
+
+    Issue #13: Install koha-elasticsearch on Dockerfile
+    
+    This patch moves the install step (of koha-elasticsearch) into the Dorckerfile,
+    out of the files/run.sh script. This will save time and bandwidth on jenkins runs.
+    
+    It also changes /kohadevbox into a variable ($BUILD_DIR) which is set to '/kohadevbox'
+    for increased flexibility.
+
+commit 2c57415aab3301631fcf5ec2201a66630c1bfb7b
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Aug 17 15:20:14 2017 -0300
+
+    Issue #12: Call koha-shell using the '-p' switch
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit b7ca17e26a1aadc00f98e5958869c35d02e49a74
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Thu Aug 17 12:55:33 2017 -0300
+
+    Issue #11: Make 'koha' run the full test suite
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 2f93c9119173c8e1b68c427cbf8e89a2d9fe6ad7
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Tue Aug 15 10:43:05 2017 -0300
+
+    Issue #4: Add Elasticsearch
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 9aa51c86edeaa0cc242b3b9867c4116ebf04dea8
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon Aug 14 16:24:48 2017 -0300
+
+    Issue #5: Make sure JSON::Validator is not upgraded
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
+
+commit 100d4893c8e7bdb4b17dd31e89b1f95c6ef67a03
+Author: Tomas Cohen Arazi <tomascohen@theke.io>
+Date:   Mon Aug 14 15:44:29 2017 -0300
+
+    Issue #2: Create a Dockerfile with koha-common in it
+    
+    Signed-off-by: Tomas Cohen Arazi <tomascohen@theke.io>
