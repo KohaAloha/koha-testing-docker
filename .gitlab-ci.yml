@@ -1,7 +1,8 @@
 image: docker:stable
 
 services:
-  - docker:dind
+#  - docker:dind
+  - docker:dind-rootless
 
 stages:
   - build
