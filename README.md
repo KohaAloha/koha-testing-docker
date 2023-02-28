@@ -118,7 +118,6 @@ Several option switches are provided for more fine-grained control:
 ```shell
 ktd --es7 up
 ktd --selenium --os7 --plugin --sso up
-...
 ```
 
 Note: the `pull` command would also work if you add several option switches. So running:
@@ -258,128 +257,6 @@ If you need more information on how to set it up, refer to the [Keycloak manual]
 
 * When you configure Koha as a client in Keycloak you should enable the `Exclude Session State From Authentication Response` in the Advanced settings, because Koha does not support yet the `session_state` parameter
 
-#### Aliases
-
-This project includes some handy aliases for easy startup, opening a shell inside the Koha container and stopping everything:
-
-| Alias   | Function                                                   |
-|---------|------------------------------------------------------------|
-| ku      | Start the whole thing, using MariaDB 10.1 with Debian 9    |
-| kul     | Light mode (no ES, no nothing)                             |
-| ku-es5  | As above, plus ES5                                         |
-| ku-es6  | As above, replacing ES5 with ES6                           |
-| ku-es7  | As above, replacing ES6 with ES7                           |
-| ku-mdb  | Start the whole thing, using latest MariaDB with Debian 9  |
-| ku-md9  | Start the whole thing, using MariaDB matched to Debian 9   |
-| ku-md10 | Start the whole thing, using MariaDB matched to Debian 10  |
-| ku-my8  | Start the whole thing, using latest MySQL with Debian 9    |
-| kp      | Start the whole thing, with mysql persistence              |
-| kup     | Start the env, plugin development set [^1] [^2]            |
-| kk      | Start the whole thing, with kibana                         |
-| kpk     | Start the whole thing, with mysql persistence and kibana   |
-| kd      | Stop the whole thing                                       |
-| kshell  | Opens a shell inside the Koha container                    |
-
-In order to use this aliases you need to edit your _~/.bashrc_ ( or _~/.profile_ if using Git for Windows ) file adding:
-
-```shell
-echo 'source ${KTD_HOME}/files/bash_aliases' >> ~/.bashrc
-```
-
-**Note**: If you are using [Docker Compose V2](https://docs.docker.com/compose/cli-command/#install-on-linux) use this
-command instead:
-
-```shell
-echo 'source ${KTD_HOME}/files/bash_aliases_v2' >> ~/.bashrc
-```
-
-[^1]: You need to export the _PLUGIN_REPO_ variable, with the full path to the plugin dir. It will fail to load if you don't export the variable first.
-[^2]: Once started, you need to edit the kohadev koha-conf commenting the pluginsdir default and uncommenting the kohadev lines and then load the plugin using kshell ./misc/devel/install_plugins.pl
-
-#### Manually
-
-```shell
-docker-compose -p koha up
-```
-
-Alternatively, you can have it run all the tests and exit, like this:
-
-```shell
-export RUN_TESTS_AND_EXIT="yes"
-# Optionally you can add COVERAGE=1 so the tests generate coverage data
-# Optionally you can add CPAN=1 to pull the latest versions of perl dependancies directly from cpan
-docker-compose -p koha up --abort-on-container-exit
-```
-
-#### Update images
-
-```shell
-docker-compose -f docker-compose.yml pull
-```
-
-#### Database persistence
-
-If you need to keep the DB between your different uses of the containers, you can
-run
-
-```shell
-docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -p koha up
-```
-
-**Alias**: `kp`
-
-#### Kibana
-
-If you would like to use Kibana for testing/interacting with ES directly you can include
-an extra compose file
-
-```shell
-docker-compose -f docker-compose.yml -f docker-compose.kibana.yml -p koha up
-```
-
-**Alias**: `kk`
-
-It is possible to combine this with persistence
-
-```shell
-docker-compose -f docker-compose.yml -f docker-compose.persistent.yml -f docker-compose.kibana.yml -p koha up
-```
-
-**Alias**: `kpk`
-
-## Having Elasticsearch run
-
-In order for Elasticsearch to run, changes to the host OS need to be made. Please read
-[the official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
-
-### TL;DR
-Increase *vm.max_map_count* kernel setting to at least 262144:
-
-* On Linux:
-
-```shell
-# Increase vm.max_map_count
-sudo sysctl -w vm.max_map_count=262144
-# Make it permanent
-echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
-```
-
-* On MacOS:
-  
-```shell
-screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
-# login with root and no password
-sysctl -w vm.max_map_count=262144
-```
-
-If the screen command doesn't work try: find ~/Library/Containers/com.docker.docker/Data/ -name 'tty'
-
-## Running commands inside KTD from the host
-Docker compose V2:
-`docker exec -ti koha-koha-1 /bin/bash -c "source /root/.bashrc && restart_all"`
-
-Docker compose V1:
-`docker exec -ti koha_koha_1 /bin/bash -c "source /root/.bashrc && restart_all"`
 
 ## Problems?
 
@@ -391,3 +268,7 @@ ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it runn
 
 ### If starting fails with "database not empty", try running `ktd down` or `kd`
 It's likely that last start of KTD failed and needs cleanup. Or that it was shutdown without `ktd down` or `kd` that are necessary for a clean shutdown.
+
+# Documentation
+
+For more advanced options and more detailed explainations of how this project works please see the [wiki](https://gitlab.com/koha-community/koha-testing-docker/-/wikis/Koha-Testing-Docker)
