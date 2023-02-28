@@ -121,6 +121,11 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
 fi
 
+echo "[API logging] Add TRACE to API log4perl config"
+sed -i 's/log4perl.logger.api = WARN, API/log4perl.logger.api = WARN, TRACE, API/' /etc/koha/sites/${KOHA_INSTANCE}/log4perl.conf \
+  && echo "    [*] TRACE set for the API log4perl configuration" \
+  || echo "    [x] Error setting TRACE for the API log4perl configuration"
+
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
 mkdir -p "/var/lib/koha/${KOHA_INSTANCE}/.cache" \
