@@ -235,28 +235,9 @@ where `<options>` are the valid `ktd` option switches. If your usage requires mo
 check `docker compose --help` or refer to the [Docker compose documentation](https://docs.docker.com/compose/).
 
 ### Keycloak / SSO
+ktd ships with a keycloak option so one may use it for testing and developing single sign on functionality.
 
-The `--sso` option switch will make `ktd` run a Keycloak server for testing _OIDC_, _SAML_, etc.
-
-_Keycloak_ will run on port __8082__ and you will be required to set an alias on `/etc/hosts` like this:
-
-```
-127.0.1.1	sso
-```
-
-It will then be accessible on the following URL: `http://sso:8082/auth`.
-
-If you need more information on how to set it up, refer to the [Keycloak manual](https://www.keycloak.org/getting-started/getting-started-docker).
-
-##### Notes
-
-* When you configure keycloak as an identity provider in Koha
-  1. The `code` you choose will be part of the URI you need to enter in `Valid redirect URIs` when you configure Koha as client in Keycloak. 
-  So if the code you choose is `kc`, the valid redirect URIs you need to enter are  `http://kohadev.mydnsname.org:8080/api/v1/public/oauth/login/kc/opac` for opac, and `http://kohadev-intra.myDNSname.org:8081/api/v1/public/oauth/login/kc/staff` for staff interface
-  1. Choose OIDC protocol, click on `Add default OIDC configuration` and in the  `well_known_url` parameter put the following: `http://sso:8082/auth/realms/master/.well-known/openid-configuration`
-
-* When you configure Koha as a client in Keycloak you should enable the `Exclude Session State From Authentication Response` in the Advanced settings, because Koha does not support yet the `session_state` parameter
-
+Please see the [wiki](https://gitlab.com/koha-community/koha-testing-docker/-/wikis/Using-Keycloak/) for details
 
 ## Problems?
 
