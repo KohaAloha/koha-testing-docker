@@ -18,7 +18,9 @@ This project is self contained and all you need is:
 - Docker ([install instructions](https://docs.docker.com/engine/install/))
 - Docker Compose v2 ([install instructions](https://docs.docker.com/compose/install/linux/#install-using-the-repository))
 
-Note: **Windows** and **macOS** users use [Docker Desktop](https://docs.docker.com/compose/install/compose-desktop/) which already ships Docker Compose v2.
+Notes:
+* **Linux** users, only Docker engine (aka Docker server) is required to run `ktd`.
+* **Windows** and **macOS** users use [Docker Desktop](https://docs.docker.com/compose/install/compose-desktop/) which already ships Docker Compose v2.
 
 ### Hardware
 
