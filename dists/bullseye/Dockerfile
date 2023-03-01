@@ -51,8 +51,8 @@ RUN apt-get -y update \
 
 # -------------------------
 
-RUN apt-get -y update \
-    && echo 'deb-src http://deb.debian.org/debian bullseye main' >> /etc/apt/sources.list \
+RUN echo 'deb-src http://deb.debian.org/debian bullseye main' >> /etc/apt/sources.list \
+    && apt-get -y update \
     && rm -rf ~/tmp2 \
     && mkdir ~/tmp2 \
     && cd ~/tmp2 \
