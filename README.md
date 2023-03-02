@@ -15,7 +15,7 @@ The *docker-compose.yml* file is self explanatory.
 This project is self contained and all you need is:
 
 - A text editor to tweak configuration files
-- Docker ([install instructions](https://docs.docker.com/engine/install/))
+- Docker ([install instructions](https://docs.docker.com/engine/install/#server))
 - Docker Compose v2 ([install instructions](https://docs.docker.com/compose/install/linux/#install-using-the-repository))
 
 Notes:
