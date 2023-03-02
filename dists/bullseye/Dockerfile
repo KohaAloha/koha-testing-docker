@@ -126,8 +126,6 @@ RUN a2enmod rewrite \
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
-COPY files/templates /kohadevbox/templates
-COPY env/defaults.env /kohadevbox/templates/defaults.env
 
 CMD ["/bin/bash", "/kohadevbox/run.sh"]
 
