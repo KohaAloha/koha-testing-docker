@@ -35,6 +35,7 @@ RUN apt-get -y update \
     && dpkg -i apache2-bin*.deb \
     && dpkg -i apache2-data*.deb \
     && dpkg -i apache2_2.4*.deb \
+    && apt policy  apache2 apache2-bin apache2-data apache2-utils \
     && rm -rf  ~/tmp2
 
 
