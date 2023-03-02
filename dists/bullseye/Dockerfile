@@ -67,6 +67,7 @@ RUN apt-get -y update \
 RUN apt-get -y install libdata-uuid-perl
 RUN apt-get -y install devscripts
 RUN apt-get -y install libsoap-lite-perl
+RUN apt-get -y install libdata-uuid-perl
 
 RUN dpkg -l
 
