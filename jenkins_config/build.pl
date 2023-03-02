@@ -24,7 +24,7 @@ my @docker_compose_yml;
 run(q{rm -rf cover_db});
 run(q{git clean -f});
 
-my $GITLAB_RAW_URL = "https://gitlab.com/koha-community/koha-testing-docker/raw/" . $ENV{KTD_BRANCH};
+my $GITLAB_RAW_URL = "https://gitlab.com/mjames/koha-testing-docker/raw/" . $ENV{KTD_BRANCH};
 
 if ( $ENV{TEST_SUITE} eq 'light' ) {
     push @docker_compose_yml, 'docker-compose-light.yml';
