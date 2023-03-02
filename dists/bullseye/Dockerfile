@@ -122,6 +122,11 @@ RUN a2enmod rewrite \
             proxy_http \
             cgi
 
+RUN service apache2 status
+RUN service apache2 stop
+RUN service apache2 status
+RUN service apache2 start
+RUN service apache2 status
 
 VOLUME /kohadevbox/koha
 
