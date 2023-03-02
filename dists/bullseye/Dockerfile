@@ -62,8 +62,9 @@ RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bullseye" >> /e
 
 RUN apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get -y install libsoap-lite-perl \
+    && apt-get -y install libsoap-lite-perl devscripts \
     && apt policy libsoap-lite-perl \
+    && dpkg -l \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/apt/lists/*
 
