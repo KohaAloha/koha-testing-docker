@@ -51,6 +51,23 @@ RUN apt-get -y update \
 
 # -------------------------
 
+RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
+
+# Add Koha development repositories
+RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bullseye" >> /etc/apt/sources.list.d/koha.list
+
+#RUN echo "deb http://debian.koha-community.org/koha-deps exp main" >> /etc/apt/sources.list.d/koha.list
+
+
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get -y install libsoap-lite-perl \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/*
+
+# -------------------------
+
 RUN echo 'deb-src http://deb.debian.org/debian bullseye main' >> /etc/apt/sources.list \
     && apt-get -y update \
     && rm -rf ~/tmp2 \
