@@ -97,9 +97,15 @@ VARS_TO_SUB="\$BUILD_DIR:$VARS_TO_SUB";
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/root_bashrc           > /root/.bashrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/vimrc                 > /root/.vimrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/bash_aliases          > /root/.bash_aliases
+envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/vimrc                 > /var/lib/koha/kohadev/.vimrc
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-conf-site.xml.in > /etc/koha/koha-conf-site.xml.in
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/koha-sites.conf       > /etc/koha/koha-sites.conf
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/sudoers               > /etc/sudoers.d/${KOHA_INSTANCE}
+
+
+# Fix permissions
+chown "${KOHA_INSTANCE}-koha" "/var/lib/koha/kohadev/.vimrc"
+
 
 # bin
 mkdir -p ${BUILD_DIR}/bin
