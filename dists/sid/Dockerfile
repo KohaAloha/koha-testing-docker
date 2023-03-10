@@ -147,6 +147,7 @@ RUN cd /kohadevbox \
     && wget -q https://gitlab.com/koha-community/Koha/-/raw/master/package.json?inline=false -O package.json \
     && wget -q https://gitlab.com/koha-community/Koha/-/raw/master/yarn.lock?inline=false -O yarn.lock \
     && yarn install --modules-folder /kohadevbox/node_modules \
+    && mv /root/.cache/Cypress /kohadevbox \
     && rm -f package.json yarn.lock
 
 # Add git-bz
