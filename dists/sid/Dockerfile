@@ -139,8 +139,11 @@ RUN apt-get update \
    && apt-get -y install nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-# Install gulp
-RUN npm install gulp-cli -g
+
+# Install some tool
+RUN npm install -g \
+            gulp-cli \
+            swagger-cli
 
 # Embed /kohadevbox/node_modules
 RUN cd /kohadevbox \
