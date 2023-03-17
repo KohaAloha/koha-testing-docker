@@ -124,8 +124,8 @@ ln -s /kohadevbox/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
   && echo "[cypress]    [*] Cypress dir linked to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
   || echo "[cypress]    [x] Error linking Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
-# Fix UID
-if [ "${LOCAL_USER_ID}" != "1000" ]; then
+# Fix UID if not empty, and differs from 1000 (Docker's default for the next UID)
+if [[ ! -z "${LOCAL_USER_ID}" && "${LOCAL_USER_ID}" != "1000" ]]; then
     usermod -o -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
 
     chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/kohadevbox/Cypress" \
