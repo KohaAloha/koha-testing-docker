@@ -117,20 +117,20 @@ chown "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}/.vimrc"
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
 mkdir -p "/var/lib/koha/${KOHA_INSTANCE}/.cache" \
-  && echo "    [*] Created cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  || echo "    [x] Error creating cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+  && echo "[cypress]    [*] Created cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "[cypress]    [x] Error creating cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
 ln -s /kohadevbox/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  && echo "    [*] Cypress dir linked to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  || echo "    [x] Error linking Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+  && echo "[cypress]    [*] Cypress dir linked to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "[cypress]    [x] Error linking Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
 # Fix UID
 if [ ${LOCAL_USER_ID} ]; then
     usermod -o -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
 
     chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/kohadevbox/Cypress" \
-      && echo "    [*] Cypress dir chowned correctly" \
-      || echo "    [x] Error running chown on Cypress dir"
+      && echo "[cypress]    [*] Cypress dir chowned correctly" \
+      || echo "[cypress]    [x] Error running chown on Cypress dir"
 
     # Fix permissions due to UID change
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
@@ -140,21 +140,21 @@ if [ ${LOCAL_USER_ID} ]; then
     chown -R "${KOHA_INSTANCE}-koha" "/var/run/koha/${KOHA_INSTANCE}"
 fi
 
-# echo "[API logging] Add TRACE to API log4perl config"
-# sed -i 's/log4perl.logger.api = WARN, API/log4perl.logger.api = WARN, TRACE, API/' /etc/koha/sites/${KOHA_INSTANCE}/log4perl.conf \
-#   && echo "    [*] TRACE set for the API log4perl configuration" \
-#   || echo "    [x] Error setting TRACE for the API log4perl configuration"
+echo "[API logging] Set TRACE to API log4perl config"
+sed -i 's/log4perl.logger.api = WARN, API/log4perl.logger.api = TRACE, API/' /etc/koha/sites/${KOHA_INSTANCE}/log4perl.conf \
+  && echo "[API logging]    [*] TRACE set for the API log4perl configuration" \
+  || echo "[API logging]    [x] Error setting TRACE for the API log4perl configuration"
 
 echo "[git] Setting up Git on the instance user"
 sudo koha-shell ${KOHA_INSTANCE} -c "\
-    echo \"    [*] Generating /var/lib/koha/${KOHA_INSTANCE}/.gitconfig\" ; \
+    echo \"[git]    [*] Generating /var/lib/koha/${KOHA_INSTANCE}/.gitconfig\" ; \
     cp ${BUILD_DIR}/templates/gitconfig /var/lib/koha/${KOHA_INSTANCE}/.gitconfig ; \
-    echo \"    [*] Installing and setting hooks\" ; \
+    echo \"[git]    [*] Installing and setting hooks\" ; \
     mkdir -p ${BUILD_DIR}/koha/.git/hooks/ktd ; \
     cp ${BUILD_DIR}/git_hooks/* ${BUILD_DIR}/koha/.git/hooks/ktd ; \
     cd ${BUILD_DIR}/koha ; \
     git config --local core.hooksPath .git/hooks/ktd ; \
-    echo \"    [*] General setup\" ; \
+    echo \"[git]    [*] General setup\" ; \
     git config --global --add safe.directory ${BUILD_DIR}/koha ; \
     git config --global user.name  \"${GIT_USER_NAME}\" ; \
     git config --global user.email \"${GIT_USER_EMAIL}\" ; \
