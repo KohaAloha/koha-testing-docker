@@ -24,6 +24,18 @@ export NODE_PATH=/kohadevbox/node_modules:$NODE_PATH
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 
+# Latest Depends
+if [ "${CPAN}" = "yes" ]; then
+    echo "Installing latest versions of dependancies from cpan"
+    apt install cpanoutdated
+    cpan-outdated --exclude-core -p | cpanm
+fi
+
+# Install everything in Koha's cpanfile, may include libs for extra patches being tested
+if [ "${INSTALL_MISSING_FROM_CPANFILE}" = "yes" ]; then
+    cpanm --skip-installed --installdeps ${BUILD_DIR}/koha/
+fi
+
 append_if_absent()
 {
     local string=$1
@@ -201,18 +213,6 @@ perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
             --opac-base-url     ${KOHA_OPAC_URL} \
             --intranet-base-url ${KOHA_INTRANET_URL} \
             --gitify_dir        ${BUILD_DIR}/gitify
-
-# Latest Depends
-if [ "${CPAN}" = "yes" ]; then
-    echo "Installing latest versions of dependancies from cpan"
-    apt install cpanoutdated
-    cpan-outdated --exclude-core -p | cpanm
-fi
-
-# Install everything in Koha's cpanfile, may include libs for extra patches being tested
-if [ "${INSTALL_MISSING_FROM_CPANFILE}" = "yes" ]; then
-    cpanm --skip-installed --installdeps ${BUILD_DIR}/koha/
-fi
 
 # Stop apache2
 service apache2 stop
