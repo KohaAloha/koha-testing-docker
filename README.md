@@ -236,6 +236,11 @@ ktd <options> up -d
 where `<options>` are the valid `ktd` option switches. If your usage requires more options you should
 check `docker compose --help` or refer to the [Docker compose documentation](https://docs.docker.com/compose/).
 
+### Developing plugins using ktd
+ktd ships with some nice tools for working with plugins
+
+Please see the [wiki](https://gitlab.com/koha-community/koha-testing-docker/-/wikis/Developing-plugins) for details
+
 ### Keycloak / SSO
 ktd ships with a keycloak option so one may use it for testing and developing single sign on functionality.
 
