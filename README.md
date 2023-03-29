@@ -119,7 +119,7 @@ Several option switches are provided for more fine-grained control:
 
 ```shell
 ktd --es7 up
-ktd --selenium --os7 --plugin --sso up
+ktd --selenium --os1 --plugin --sso up
 ```
 
 Note: the `pull` command would also work if you add several option switches. So running:

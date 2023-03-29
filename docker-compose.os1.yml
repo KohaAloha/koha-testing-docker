@@ -1,7 +1,7 @@
 version: '3'
 services:
     es:
-        image: koha/elasticsearch-icu:7.x-os
+        image: koha/elasticsearch-icu:opensearch-1.x
         environment:
             - cluster.name=docker-cluster
             - discovery.type=single-node

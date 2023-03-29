@@ -29,9 +29,9 @@ This script lets you manage your KTD environment.
 
 Usage:
 
-    $scriptname [--es6|--es7|--es8|--os7|--plugin|--selenium|--sso] up -d
-    $scriptname [--es6|--es7|--es8|--os7|--plugin|--selenium|--sso] down
-    $scriptname [--es6|--es7|--es8|--os7|--plugin|--selenium|--sso] pull
+    $scriptname [--es6|--es7|--es8|--os1|--plugin|--selenium|--sso] up -d
+    $scriptname [--es6|--es7|--es8|--os1|--plugin|--selenium|--sso] down
+    $scriptname [--es6|--es7|--es8|--os1|--plugin|--selenium|--sso] pull
     $scriptname [--root] --shell
     $scriptname --logs
     $scriptname -h|--help
@@ -41,7 +41,7 @@ Options:
     --es6                 Use an Elasticsearch 6.x container
     --es7                 Use an Elasticsearch 7.x container
     --es8                 Use an Elasticsearch 8.x container
-    --os7                 Use an OpenSearch 7.x container
+    --os1                 Use an OpenSearch 1.x container
     --plugin              Enable plugin development environment
     --selenium            Use a Selenium container
     --sso                 Use a Keycloak container
@@ -54,7 +54,7 @@ Environment variables:
     KTD_HOME              Mandatory. Needs to point to a clone of koha-testing-docker
     KTD_PROJECT           Optional. For using with the compose -p option (default: 'koha')
 
-Note: --es6, --es7 and --os7 are mutually exclussive.
+Note: --es6, --es7, --es8 and --os1 are mutually exclussive.
 
 EOF
 }
@@ -106,8 +106,8 @@ while [ $# -gt 0 ]; do
         --es8)
             set_searchengine "es8"
             shift ;;
-        --os7)
-            set_searchengine "os7"
+        --os1)
+            set_searchengine "os1"
             shift ;;
         --plugin)
             ENABLE_PLUGIN="yes"
