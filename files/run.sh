@@ -129,24 +129,24 @@ chown "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}/.vimrc"
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
 mkdir -p "/var/lib/koha/${KOHA_INSTANCE}/.cache" \
-  && echo "[cypress]    [*] Created cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  || echo "[cypress]    [x] Error creating cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+  && echo "    [*] Created cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "    [x] Error creating cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
-chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  && echo "[cypress]    [*] Chowning /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  || echo "[cypress]    [x] Error chowning cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  && echo "    [*] Chowning /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "    [x] Error chowning cache dir /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
 ln -s /kohadevbox/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  && echo "[cypress]    [*] Cypress dir linked to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
-  || echo "[cypress]    [x] Error linking Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
+  && echo "    [*] Cypress dir linked to /var/lib/koha/${KOHA_INSTANCE}/.cache/" \
+  || echo "    [x] Error linking Cypress dir to /var/lib/koha/${KOHA_INSTANCE}/.cache/"
 
 # Fix UID if not empty, and differs from 1000 (Docker's default for the next UID)
 if [[ ! -z "${LOCAL_USER_ID}" && "${LOCAL_USER_ID}" != "1000" ]]; then
     usermod -o -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
 
     chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/kohadevbox/Cypress" \
-      && echo "[cypress]    [*] Cypress dir chowned correctly" \
-      || echo "[cypress]    [x] Error running chown on Cypress dir"
+      && echo "    [*] Cypress dir chowned correctly" \
+      || echo "    [x] Error running chown on Cypress dir"
 
     # Fix permissions due to UID change
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
@@ -158,8 +158,8 @@ fi
 
 echo "[API logging] Set TRACE to API log4perl config"
 sed -i 's/log4perl.logger.api = WARN, API/log4perl.logger.api = TRACE, API/' /etc/koha/sites/${KOHA_INSTANCE}/log4perl.conf \
-  && echo "[API logging]    [*] TRACE set for the API log4perl configuration" \
-  || echo "[API logging]    [x] Error setting TRACE for the API log4perl configuration"
+  && echo "    [*] TRACE set for the API log4perl configuration" \
+  || echo "    [x] Error setting TRACE for the API log4perl configuration"
 
 echo "[git] Setting up Git on the instance user"
 sudo koha-shell ${KOHA_INSTANCE} -c "\
@@ -221,7 +221,10 @@ perl ${BUILD_DIR}/misc4dev/do_all_you_can_do.pl \
 # Stop apache2
 service apache2 stop
 
-chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}"
+echo "[logs] Chowning logs"
+chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/var/log/koha/${KOHA_INSTANCE}" \
+  && echo "    [*] Success chowning /var/log/koha/${KOHA_INSTANCE}" \
+  || echo "    [x] Error chowning cache dir /var/log/koha/${KOHA_INSTANCE}"
 
 # Enable and start koha-plack and koha-z3950-responder
 koha-plack           --enable ${KOHA_INSTANCE}
