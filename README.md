@@ -49,7 +49,7 @@ git clone https://gitlab.com/koha-community/koha-testing-docker.git koha-testing
 
 ```shell
 cd $PROJECTS_DIR
-# be patient, it's a >3GiB download
+# be patient, it's a >5GiB download (2023-04)
 git clone https://git.koha-community.org/Koha-community/Koha.git koha
 ```
 
