@@ -109,6 +109,8 @@ jammy:
 bullseye-arm64v8:
   image: arm64v8/docker
   stage: build
+  variables:
+    DOCKER_TLS_CERTDIR: ""
   tags:
     - arm64
   script:
