@@ -107,6 +107,7 @@ jammy:
 # armd64 jobs
 
 bullseye-arm64v8:
+  image: arm64v8/docker
   stage: build
   tags:
     - arm64
