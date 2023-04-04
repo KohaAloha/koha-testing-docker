@@ -11,7 +11,7 @@ services:
         networks:
             - kohanet
     es:
-        image: koha/elasticsearch-icu:7.x
+        image: kohaaloha/elasticsearch-icu-arm64:7.x
         environment:
             - cluster.name=docker-cluster
             - discovery.type=single-node
