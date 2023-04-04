@@ -1,5 +1,5 @@
 # Base it on Debian 10
-arm64v8/debian:bullseye
+FROM arm64v8/debian:bullseye
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
