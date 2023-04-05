@@ -90,7 +90,6 @@ RUN apt-cache policy libyaml-libyaml-perl
 RUN apt-get -y update \
    && apt-get -y install \
          libcrypt-cbc-perl \
-         libauth-googleauth-perl \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
