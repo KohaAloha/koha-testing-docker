@@ -72,3 +72,18 @@ jammy:
   - docker image rm koha/koha-testing:22.11-jammy
   only:
     - 22.11@koha-community/koha-testing-docker
+
+# -----------------------------------
+# arm64 jobs
+
+bullseye-arm64v8:
+  stage: build
+  tags:
+    - arm64
+  script:
+  - docker build -t koha/koha-testing:22.11-bullseye-arm64v8 --no-cache --rm -f dists/arm64v8/bullseye/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:22.11-bullseye-arm64v8
+  - docker image rm koha/koha-testing:22.11-bullseye-arm64v8
+  only:
+    - 22.11@koha-community/koha-testing-docker
