@@ -89,7 +89,6 @@ RUN apt-cache policy libyaml-libyaml-perl
 # Install koha-common
 RUN apt-get -y update \
    && apt-get -y install \
-         libcrypt-cbc-perl \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
