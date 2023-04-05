@@ -71,6 +71,25 @@ set_searchengine()
     fi
 }
 
+set_arch()
+{
+    UNAME=$(uname -m)
+
+    if [ "$UNAME" == "arm64" ] ||  [ "$UNAME" == "aarch64" ] ; then
+        ARCH="arm64v8"
+
+	# if master, then explicitly set to master-bullseye
+        if [ "$KOHA_IMAGE" == "master" ] ; then
+            KOHA_IMAGE="master-bullseye"
+        fi
+	
+	# append $ARCH, eg: 'master-bullseye-arm64v8'
+        KOHA_IMAGE="${KOHA_IMAGE}-${ARCH}"
+    fi
+}
+
+set_arch
+
 ENABLED_SEARCHENGINE=""
 
 ENABLE_PLUGIN="no"
