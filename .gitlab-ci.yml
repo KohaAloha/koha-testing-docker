@@ -120,3 +120,18 @@ bullseye-arm64v8:
   - docker image rm koha/koha-testing:master-bullseye-arm64v8
   only:
     - master@koha-community/koha-testing-docker
+
+focal-arm64v8:
+  image: arm64v8/docker
+  stage: build
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  tags:
+    - arm64
+  script:
+  - docker build -t koha/koha-testing:master-focal-arm64v8 --no-cache --rm -f dists/arm64v8/focal/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-focal-arm64v8
+  - docker image rm koha/koha-testing:master-focal-arm64v8
+  only:
+    - master@koha-community/koha-testing-docker
