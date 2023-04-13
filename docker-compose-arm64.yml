@@ -25,7 +25,7 @@ services:
         networks:
             - kohanet
     koha:
-        image: koha/koha-testing:master-bullseye-arm64v8
+        image: koha/koha-testing:${KOHA_IMAGE}
         depends_on:
             - db
             - es
