@@ -24,6 +24,7 @@ Notes:
 
 ### Hardware
 
+- A generic x86_64 system or arm64v8 system (Apple M1/M2, AWS EC2 Graviton)
 - At least 2.6 GiB of free RAM (not counting web browser)
 - If you want to try Elastic, count at least 2 GiB more of free RAM.
 
