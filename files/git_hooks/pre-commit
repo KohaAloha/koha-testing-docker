@@ -17,27 +17,29 @@ for my $filepath (`git diff --cached --name-only`) {
     next if not -f $filepath;
 
     my @file_infos = fileparse( $filepath, qr/\.[^.]*/ );
+    my $file_ext = $file_infos[2];
 
-    if ( grep( $file_infos[0], @compiled_css ) && $file_infos[2] eq ".css" ) {
+    if ( grep( $file_infos[0], @compiled_css ) && $file_ext eq ".css" ) {
         say colored( "You don't want to commit $filepath", 'red' );
         $nb_errors++;
     }
 
-    if ( $file_infos[2] =~ /^.pl|^.pm$/ ) {
+    if ( $file_ext =~ /^.pl|^.pm$/ ) {
         system( qq{
             docker exec koha_koha_1 /usr/bin/perl -wc /kohadevbox/koha/$filepath 2>&1 | grep -Pv "Subroutine \\w+ redefined at "
         } ) == 0
           or say "\n" and $nb_errors++;
     }
-    elsif ( $file_infos[2] =~ /^.tt$/ ) {
+    elsif ( $file_ext eq '.tt' ) {
 
         #TODO
     }
-    elsif ( $file_infos[2] =~ /^.js$/ ) {
-
-        #TODO
+    elsif ( $file_ext eq '.js'
+        && $file_infos[1] =~ m{^koha-tmpl/intranet-tmpl/prog/js/vue/}
+        || $file_ext eq '.ts' ) {
+        $modify_files->{$filepath} = qq{yarn --silent run prettier --trailing-comma es5 --arrow-parens avoid --write $filepath};
     }
-    elsif ( $file_infos[2] =~ /^\.vue$/ ) {
+    elsif ( $file_ext eq '.vue' ) {
         $modify_files->{$filepath} = qq{yarn --silent run prettier --trailing-comma es5 --semi false --arrow-parens avoid --write $filepath};
     }
 }
