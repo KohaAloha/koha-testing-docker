@@ -103,6 +103,16 @@ jammy:
   only:
     - master@koha-community/koha-testing-docker
 
+lunar:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-lunar --no-cache --rm -f dists/lunar/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-lunar
+  - docker image rm koha/koha-testing:master-lunar
+  only:
+    - master@koha-community/koha-testing-docker
+
 # -----------------------------------
 # armd64 jobs
 
