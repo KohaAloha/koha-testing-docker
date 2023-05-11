@@ -122,7 +122,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 
 # Install Node.js (includes npm) and Yarn
 RUN apt-get update \
-   && apt-get -y install nodejs yarn \
+   && apt-get -y install nodejs yarn npm \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
