@@ -126,6 +126,11 @@ koha-create --request-db ${KOHA_INSTANCE} --memcached-servers memcached:11211
 envsubst "$VARS_TO_SUB" < ${BUILD_DIR}/templates/vimrc > /var/lib/koha/${KOHA_INSTANCE}/.vimrc
 chown "${KOHA_INSTANCE}-koha" "/var/lib/koha/${KOHA_INSTANCE}/.vimrc"
 
+echo "Install Koha-how-to"
+rm -f ${BUILD_DIR}/koha/how-to.pl ${BUILD_DIR}/koha/koha-tmpl/intranet-tmpl/prog/en/modules/how-to.tt
+ln -s ${BUILD_DIR}/howto/how-to.pl ${BUILD_DIR}/koha/how-to.pl
+ln -s ${BUILD_DIR}/howto/how-to.tt ${BUILD_DIR}/koha/koha-tmpl/intranet-tmpl/prog/en/modules/how-to.tt
+
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
 mkdir -p "/var/lib/koha/${KOHA_INSTANCE}/.cache" \

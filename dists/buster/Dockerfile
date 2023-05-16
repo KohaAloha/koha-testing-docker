@@ -170,9 +170,7 @@ RUN cd /kohadevbox \
         libfile-findlib-perl \
         librest-client-perl \
     && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/api/lists/* \
-    && ln -s /kohadevbox/koha/how-to.pl /kohadevbox/howto/how-to.pl \
-    && ln -s /kohadevbox/koha/koha-tmpl/intranet-tmpl/prog/en/modules/how-to.tt /kohadevbox/howto/how-to.tt
+    && rm -rf /var/lib/api/lists/*
 
 # cypress tests
 RUN apt-get update \
