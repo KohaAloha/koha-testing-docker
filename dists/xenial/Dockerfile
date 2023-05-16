@@ -164,6 +164,7 @@ RUN cd /kohadevbox \
 # release-tools and koha-howto
 RUN cd /kohadevbox \
     && git clone https://gitlab.com/koha-community/release-tools.git \
+    && git clone https://gitlab.com/koha-community/koha-howto.git howto \
     && apt-get update \
     && apt-get -y install \
         libhtml-tableextract-perl \
