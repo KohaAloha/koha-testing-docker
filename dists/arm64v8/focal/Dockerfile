@@ -72,8 +72,8 @@ RUN a2enmod rewrite \
 
 # Add Koha development repositories
 #RUN echo "deb http://debian.koha-community.org/koha-staging exp main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.koha-community.org/koha-staging dev main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main bullseye" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging 23.05 main" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://deb3.kohaaloha.com/ka/koha-deps stable main focal" >> /etc/apt/sources.list.d/koha.list
 
 RUN wget -q -O- http://debian.koha-community.org/koha/gpg.asc | apt-key add -
 RUN apt-get -y update
@@ -148,8 +148,8 @@ RUN npm install -g \
 
 # Embed /kohadevbox/node_modules
 RUN cd /kohadevbox \
-    && wget -q https://gitlab.com/koha-community/Koha/-/raw/master/package.json?inline=false -O package.json \
-    && wget -q https://gitlab.com/koha-community/Koha/-/raw/master/yarn.lock?inline=false -O yarn.lock \
+    && wget -q https://gitlab.com/koha-community/Koha/-/raw/23.05.x/package.json?inline=false -O package.json \
+    && wget -q https://gitlab.com/koha-community/Koha/-/raw/23.05.x/yarn.lock?inline=false -O yarn.lock \
     && yarn install --modules-folder /kohadevbox/node_modules \
     && mv /root/.cache/Cypress /kohadevbox && chown -R 1000 /kohadevbox/Cypress \
     && rm -f package.json yarn.lock
