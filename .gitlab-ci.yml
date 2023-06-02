@@ -37,7 +37,7 @@ bullseye:
   - docker build -t koha/koha-testing:23.05-bullseye --no-cache --rm -f dists/bullseye/Dockerfile .
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push koha/koha-testing:23.05-bullseye
-  - docker tag  koha/koha-testing:23.05-bullseye koha/koha-testing:master
+  - docker tag  koha/koha-testing:23.05-bullseye koha/koha-testing:23.05
   - docker push koha/koha-testing:23.05
   - docker image rm koha/koha-testing:23.05-bullseye
   only:
