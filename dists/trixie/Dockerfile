@@ -122,9 +122,9 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 # Add Node.js
-RUN wget -O- -q https://deb.nodesource.com/setup_14.x | bash -
+##RUN wget -O- -q https://deb.nodesource.com/setup_14.x | bash -
 # Pin Node.js v14
-COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
+##COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
 
 # Add yarn repo
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
