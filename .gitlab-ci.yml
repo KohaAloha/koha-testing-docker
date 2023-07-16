@@ -21,6 +21,16 @@ variables:
 #  only:
 #    - master@koha-community/koha-testing-docker
 
+trixie:
+  stage: build
+  script:
+  - docker build -t koha/koha-testing:master-trixie --no-cache --rm -f dists/trixie/Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push koha/koha-testing:master-trixie
+  - docker image rm koha/koha-testing:master-trixie
+  only:
+    - master@koha-community/koha-testing-docker
+
 bookworm:
   stage: build
   script:
