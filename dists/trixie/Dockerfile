@@ -76,7 +76,7 @@ RUN curl -s http://debian.koha-community.org/koha/gpg.asc  | \
     && chmod 644 /etc/apt/trusted.gpg.d/koha.gpg
 
 #RUN echo "deb http://debian.koha-community.org/koha-staging exp main" >> /etc/apt/sources.list.d/koha.list
-RUN echo "deb http://debian.koha-community.org/koha-staging dev main trixie" >> /etc/apt/sources.list.d/koha.list
+RUN echo "deb http://debian.koha-community.org/koha-staging exp mail" >> /etc/apt/sources.list.d/koha.list
 
 RUN apt-get -y update
 
