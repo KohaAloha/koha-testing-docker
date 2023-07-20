@@ -24,6 +24,13 @@ export NODE_PATH=/kohadevbox/node_modules:$NODE_PATH
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 
+# Early exit if SYNC_REPO is not correctly set
+# Assuming than about.pl will not be removed!
+if [ ! -f "${SYNC_REPO}/about.pl" ]; then
+    echo "The environment variable SYNC_REPO does not point to a valid Koha git repository."
+    exit 2
+fi
+
 # Latest Depends
 if [ "${CPAN}" = "yes" ]; then
     echo "Installing latest versions of dependancies from cpan"
