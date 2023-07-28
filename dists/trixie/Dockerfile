@@ -1,5 +1,5 @@
 # Base it on Debian 11
-FROM debian:trixie
+FROM debian:trixie-slim
 
 # File Author / Maintainer
 LABEL maintainer="tomascohen@theke.io"
