@@ -121,9 +121,9 @@ RUN apt-get -y update \
    && rm -rf /var/lib/api/lists/*
 
 # Add Node.js
-RUN wget -O- -q https://deb.nodesource.com/setup_18.x | bash -
-# Pin Node.js v18
-COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
+##RUN wget -O- -q https://deb.nodesource.com/setup_18.x | bash -
+# Pin Node.js v14
+##COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
 
 # Add yarn repo
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
@@ -134,7 +134,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 
 # Install Node.js (includes npm) and Yarn
 RUN apt-get update \
-   && apt-get -y install nodejs yarn \
+   && apt-get -y install npm nodejs yarn \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
