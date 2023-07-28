@@ -214,6 +214,10 @@ RUN apt-get update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
+
+# Do not embed PO files
+RUN rm -rf /usr/share/koha/misc/translator/po/*
+
 VOLUME /kohadevbox/koha
 
 COPY files/run.sh /kohadevbox
