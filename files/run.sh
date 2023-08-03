@@ -26,7 +26,7 @@ echo "kohadevbox" > /etc/hostname
 
 # Early exit if SYNC_REPO is not correctly set
 # Assuming than about.pl will not be removed!
-if [ ! -f "${SYNC_REPO}/about.pl" ]; then
+if [ ! -f "${BUILD_DIR}/koha/about.pl" ]; then
     echo "The environment variable SYNC_REPO does not point to a valid Koha git repository."
     exit 2
 fi
