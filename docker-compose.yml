@@ -46,6 +46,7 @@ services:
             LOCAL_USER_ID: ${LOCAL_USER_ID}
             TEST_SUITE: ${TEST_SUITE:-full}
             KOHA_ELASTICSEARCH: ${KOHA_ELASTICSEARCH:-no}
+            SKIP_CYPRESS_CHOWN: ${SKIP_CYPRESS_CHOWN:-no}
         ulimits:
             nofile:
                 soft: 65536
