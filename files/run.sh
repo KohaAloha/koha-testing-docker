@@ -159,9 +159,11 @@ ln -s /kohadevbox/Cypress "/var/lib/koha/${KOHA_INSTANCE}/.cache/" \
 if [[ ! -z "${LOCAL_USER_ID}" && "${LOCAL_USER_ID}" != "1000" ]]; then
     usermod -o -u ${LOCAL_USER_ID} "${KOHA_INSTANCE}-koha"
 
-    chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/kohadevbox/Cypress" \
-      && echo "    [*] Cypress dir chowned correctly" \
-      || echo "    [x] Error running chown on Cypress dir"
+    if [[ "${SKIP_CYPRESS_CHOWN}" != "yes" ]]; then
+        chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "/kohadevbox/Cypress" \
+          && echo "    [*] Cypress dir chowned correctly" \
+          || echo "    [x] Error running chown on Cypress dir"
+    fi
 
     # Fix permissions due to UID change
     chown -R "${KOHA_INSTANCE}-koha" "/var/cache/koha/${KOHA_INSTANCE}"
