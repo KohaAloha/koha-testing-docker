@@ -73,6 +73,14 @@ cd $PROJECTS_DIR/koha-testing-docker
 cp env/defaults.env .env
 ```
 
+* Add your user to the docker group
+
+```shell
+sudo usermod -aG docker ${USER}
+```
+
+Then reboot or restart your session.
+
 ## Basic usage
 
 In order to launch _KTD_, you can use the `ktd` wrapper command. It is a wrapper around the
