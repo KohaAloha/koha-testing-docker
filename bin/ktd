@@ -63,8 +63,34 @@ EOF
 
 set_searchengine()
 {
-    if [ "$ENABLED_SEARCHENGINE" = "" ]; then
+    if [ "$ENABLED_SEARCHENGINE" == "" ]; then
+
         ENABLED_SEARCHENGINE=$1
+
+        if [ "$ENABLED_SEARCHENGINE" = "os1" ]; then
+            ES_IMAGE="koha/elasticsearch-icu:opensearch-1.x"
+            ES_IMAGE_TYPE="os"
+        elif [ "$ENABLED_SEARCHENGINE" = "os2" ]; then
+            ES_IMAGE="koha/elasticsearch-icu:opensearch-2.x"
+            ES_IMAGE_TYPE="os"
+        elif [ "$ENABLED_SEARCHENGINE" = "es6" ]; then
+            ES_IMAGE="koha/elasticsearch-icu:6.x"
+            ES_IMAGE_TYPE="es"
+        elif [ "$ENABLED_SEARCHENGINE" = "es7" ]; then
+            ES_IMAGE="koha/elasticsearch-icu:7.x"
+            ES_IMAGE_TYPE="es"
+        elif [ "$ENABLED_SEARCHENGINE" = "es8" ]; then
+            ES_IMAGE="koha/elasticsearch-icu:8.x"
+            ES_IMAGE_TYPE="es"
+        fi
+
+        if [ "$ARCH" = "arm64v8" ] ; then
+            export ES_IMAGE="${ES_IMAGE}-arm64"
+        else
+            export ES_IMAGE="${ES_IMAGE}"
+        fi
+
+        export ES_IMAGE_TYPE=$ES_IMAGE_TYPE
     else
         printf "\nError: only one search engine option is allowed (you passed $ENABLED_SEARCHENGINE and $1)\n\n"
         usage
@@ -75,19 +101,36 @@ set_searchengine()
 set_arch()
 {
     UNAME=$(uname -m)
-
+    ARCH=""
     if [ "$UNAME" == "arm64" ] ||  [ "$UNAME" == "aarch64" ] ; then
         ARCH="arm64v8"
+    fi
 
-	# if master, then explicitly set to master-bullseye
+    export ARCH=$ARCH
+}
+
+set_image()
+{
+    if [ "$ARCH" = "arm64v8" ] ; then
+
+        # if master, then explicitly set to master-bullseye
         if [ "$KOHA_IMAGE" == "master" ] || [ -z "${KOHA_IMAGE}" ] ; then
             KOHA_IMAGE="master-bullseye"
         fi
-	
-	# append $ARCH, eg: 'master-bullseye-arm64v8'
+
+        # append $ARCH, eg: 'master-bullseye-arm64v8'
         export KOHA_IMAGE="${KOHA_IMAGE}-${ARCH}"
+
+        # tweak used memcached image
+        export MEMCACHED_IMAGE="arm64v8/memcached"
+
+        if echo $DB_IMAGE | grep -v -q 'arm64v8'; then
+            export DB_IMAGE="arm64v8/${DB_IMAGE}"
+        fi
     fi
 }
+
+source $KTD_HOME/.env
 
 set_arch
 
@@ -176,6 +219,9 @@ else
         if [ -d "$KTD_HOME" ]; then
             # All good :-D
 
+            # tweak used images
+            set_image
+
             # save current working directory
             current_dir=$(pwd)
             cd "${KTD_HOME}"
@@ -183,7 +229,7 @@ else
             COMPOSE_OPTIONS='-f docker-compose-light.yml'
 
             if [ "$ENABLED_SEARCHENGINE" != "" ]; then
-                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ENABLED_SEARCHENGINE}.yml"
+                COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -f docker-compose.${ES_IMAGE_TYPE}.yml"
                 KOHA_ELASTICSEARCH="yes"
             fi
 
