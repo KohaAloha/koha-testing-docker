@@ -44,7 +44,7 @@ services:
             - "8080:8080"
             - "8081:8081"
     memcached:
-        image: memcached
+        image: ${MEMCACHED_IMAGE:-memcached}
         command: memcached -m 64m
         networks:
             - kohanet
