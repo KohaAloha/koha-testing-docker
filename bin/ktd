@@ -130,7 +130,16 @@ set_image()
     fi
 }
 
+ENV_DB_IMAGE=$DB_IMAGE
+ENV_ES_IMAGE=$ES_IMAGE
+ENV_KOHA_IMAGE=$KOHA_IMAGE
+
 source $KTD_HOME/.env
+
+# ENV overrides sourced config
+DB_IMAGE=$ENV_DB_IMAGE
+ES_IMAGE=$ENV_ES_IMAGE
+KOHA_IMAGE=$ENV_KOHA_IMAGE
 
 set_arch
 
