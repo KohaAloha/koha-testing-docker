@@ -264,7 +264,11 @@ else
 
             COMPOSE_OPTIONS="${COMPOSE_OPTIONS} -p ${DOCKER_PROJECT}"
 
-            docker compose ${COMPOSE_OPTIONS} $@
+            if [ "$1" = "down" ]; then
+                docker compose -p ${DOCKER_PROJECT} down
+            else
+                docker compose ${COMPOSE_OPTIONS} $@
+            fi
 
             # back to the original working directory
             cd "${current_dir}"
