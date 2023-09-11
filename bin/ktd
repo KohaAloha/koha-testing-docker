@@ -124,8 +124,10 @@ set_image()
         # tweak used memcached image
         export MEMCACHED_IMAGE="arm64v8/memcached"
 
-        if echo $DB_IMAGE | grep -v -q 'arm64v8'; then
-            export DB_IMAGE="arm64v8/${DB_IMAGE}"
+        if [ "$DB_IMAGE" != "" ]; then # leave alone if empty
+            if echo $DB_IMAGE | grep -v -q 'arm64v8'; then
+                export DB_IMAGE="arm64v8/${DB_IMAGE}"
+            fi
         fi
     fi
 }
@@ -136,10 +138,10 @@ ENV_KOHA_IMAGE=$KOHA_IMAGE
 
 source $KTD_HOME/.env
 
-# ENV overrides sourced config
-DB_IMAGE=$ENV_DB_IMAGE
-ES_IMAGE=$ENV_ES_IMAGE
-KOHA_IMAGE=$ENV_KOHA_IMAGE
+# ENV overrides sourced config, only if not empty
+[ "$ENV_DB_IMAGE"   != "" ] &&   DB_IMAGE=$ENV_DB_IMAGE
+[ "$ENV_ES_IMAGE"   != "" ] &&   ES_IMAGE=$ENV_ES_IMAGE
+[ "$ENV_KOHA_IMAGE" != "" ] && KOHA_IMAGE=$ENV_KOHA_IMAGE
 
 set_arch
 
