@@ -263,6 +263,13 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
     export KOHA_TESTING=1
 
+    if [ "${TEST_DB_UPGRADE}" = "yes" ]; then
+
+        # Note that --run-all-tests includes this
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-db-upgrade-only
+
+    fi
+
     if [ ${COVERAGE} ]; then
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests --with-coverage
@@ -285,11 +292,6 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
     fi
 
-    if [ "${TEST_DB_UPGRADE}" = "yes" ]; then
-
-        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-db-upgrade-only
-
-    fi
 else
 
 # start koha-reload-starman, if we have inotify installed
