@@ -284,6 +284,12 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests
 
     fi
+
+    if [ "${TEST_DB_UPGRADE}" = "yes" ]; then
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-db-upgrade-only
+
+    fi
 else
 
 # start koha-reload-starman, if we have inotify installed

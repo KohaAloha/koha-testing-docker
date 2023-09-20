@@ -5,14 +5,15 @@ use warnings;
 
 my $env_vars = {
     RUN_TESTS_AND_EXIT => 'yes',
-    SYNC_REPO     => $ENV{SYNC_REPO} || '.',
-    LOCAL_USER_ID => qx{id -u},
-    COVERAGE      => $ENV{COVERAGE},
-    KOHA_IMAGE    => $ENV{KOHA_IMAGE} || 'master',
-    KTD_BRANCH    => $ENV{KTD_BRANCH} || 'master',
-    TEST_SUITE    => $ENV{TEST_SUITE} // 'full',
-    DBMS_YML      => $ENV{DBMS_YML} || '',
-    ES_YML        => $ENV{ES_YML} || '',
+    SYNC_REPO          => $ENV{SYNC_REPO} || '.',
+    LOCAL_USER_ID      => qx{id -u},
+    COVERAGE           => $ENV{COVERAGE},
+    KOHA_IMAGE         => $ENV{KOHA_IMAGE} || 'master',
+    KTD_BRANCH         => $ENV{KTD_BRANCH} || 'master',
+    TEST_SUITE         => $ENV{TEST_SUITE} // 'full',
+    TEST_DB_UPGRADE    => $ENV{TEST_DB_UPGRADE} // 'no',
+    DBMS_YML           => $ENV{DBMS_YML} || '',
+    ES_YML             => $ENV{ES_YML} || '',
 };
 while ( my ( $var, $value ) = each %$env_vars ) {
     $ENV{$var} = $value;
