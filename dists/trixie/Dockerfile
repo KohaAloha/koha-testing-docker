@@ -182,7 +182,6 @@ RUN apt-get update \
         libgtk-3-0\
         libgbm-dev\
         libnotify-dev\
-        libgconf-2-4\
         libnss3\
         libxss1\
         libasound2\
