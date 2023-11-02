@@ -11,7 +11,7 @@ services:
         networks:
             - kohanet
     es:
-        image: koha/elasticsearch-icu:6.x
+        image: koha/elasticsearch-icu:7.x
         environment:
             - cluster.name=docker-cluster
             - bootstrap.memory_lock=true
