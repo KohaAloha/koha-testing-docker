@@ -148,7 +148,7 @@ if [[ -z ${SKIP_L10N} ]]; then
     fi
     if [ ! -d "$BUILD_DIR/koha/misc/translator/po" ]; then
         git clone --branch ${l10n_branch} https://gitlab.com/koha-community/koha-l10n.git $BUILD_DIR/koha/misc/translator/po
-    elif [ ! -d "$BUILD_DIR/koha/misc/translator/po/.git" ]; then
+    elif [ -d "$BUILD_DIR/koha/misc/translator/po/.git" ]; then
         git -C $BUILD_DIR/koha/misc/translator/po fetch origin
         git -C $BUILD_DIR/koha/misc/translator/po checkout origin/${l10n_branch}
     fi
