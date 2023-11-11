@@ -141,6 +141,19 @@ then
     ln -s ${BUILD_DIR}/howto/how-to.tt ${BUILD_DIR}/koha/koha-tmpl/intranet-tmpl/prog/en/modules/how-to.tt
 fi
 
+if [[ -z ${SKIP_L10N} ]]; then
+    l10n_branch="master"
+    if ! [[ "$KOHA_IMAGE" =~ ^master ]]; then
+        l10n_branch=${KOHA_IMAGE:0:5}
+    fi
+    if [ ! -d "$BUILD_DIR/koha/misc/translator/po" ]; then
+        git clone --branch ${l10n_branch} https://gitlab.com/koha-community/koha-l10n.git $BUILD_DIR/koha/misc/translator/po
+    elif [ ! -d "$BUILD_DIR/koha/misc/translator/po/.git" ]; then
+        git -C $BUILD_DIR/koha/misc/translator/po fetch origin
+        git -C $BUILD_DIR/koha/misc/translator/po checkout origin/${l10n_branch}
+    fi
+fi
+
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
 
 mkdir -p "/var/lib/koha/${KOHA_INSTANCE}/.cache" \
