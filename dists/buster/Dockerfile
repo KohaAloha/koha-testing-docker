@@ -100,10 +100,11 @@ RUN apt-get -y update \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
 
-# Add Node.js
-RUN wget -O- -q https://deb.nodesource.com/setup_18.x | bash -
-# Pin Node.js v14
-COPY files/nodejs.pin /etc/apt/preferences.d/nodejs
+# Add nodejs repo
+RUN wget -O- -q https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+      | gpg --dearmor \
+      | tee /usr/share/keyrings/nodesource.gpg >/dev/null \
+   && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
 
 # Add yarn repo
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
