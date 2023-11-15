@@ -50,8 +50,14 @@ git clone https://gitlab.com/koha-community/koha-testing-docker.git koha-testing
 
 ```shell
 cd $PROJECTS_DIR
-# be patient, it's a >1.4GiB download (2023-05)
+git clone --branch master --single-branch https://git.koha-community.org/Koha-community/Koha.git koha
+```
+
+**Note:** this will do a shallow clone only fetching the master branch to speed up the process. Alternatively, you could do a full clone with
+
+```shell
 git clone https://git.koha-community.org/Koha-community/Koha.git koha
+# be patient, it's a >1.4GiB download (2023-05)
 ```
 
 * Set some **mandatory** environment variables:
