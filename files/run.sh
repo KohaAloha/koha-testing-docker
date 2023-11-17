@@ -154,6 +154,7 @@ if [[ -z ${SKIP_L10N} ]]; then
         git -C $BUILD_DIR/koha/misc/translator/po checkout origin/${l10n_branch}
     fi
     set -e
+    chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "$BUILD_DIR/koha/misc/translator/po"
 fi
 
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
