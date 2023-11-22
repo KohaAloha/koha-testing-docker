@@ -146,7 +146,9 @@ if [[ -z ${SKIP_L10N} ]]; then
     if ! [[ "$KOHA_IMAGE" =~ ^master ]]; then
         l10n_branch=${KOHA_IMAGE:0:5}
     fi
+
     set +e
+
     if [ ! -d "$BUILD_DIR/koha/misc/translator/po" ]; then
         echo "Cloning koha-l10n into misc/translator/po"
         git clone --branch ${l10n_branch} https://gitlab.com/koha-community/koha-l10n.git $BUILD_DIR/koha/misc/translator/po
@@ -155,10 +157,12 @@ if [[ -z ${SKIP_L10N} ]]; then
         git -C $BUILD_DIR/koha/misc/translator/po fetch origin
         git -C $BUILD_DIR/koha/misc/translator/po checkout origin/${l10n_branch}
     fi
-    set -e
 
     echo "Chowing po files"
     chown -R "${KOHA_INSTANCE}-koha:${KOHA_INSTANCE}-koha" "$BUILD_DIR/koha/misc/translator/po"
+
+    set -e
+
 fi
 
 echo "[cypress] Make the pre-built cypress available to the instance user [HACK]"
