@@ -49,6 +49,7 @@ services:
             TEST_DB_UPGRADE: ${TEST_DB_UPGRADE:-no}
             KOHA_ELASTICSEARCH: ${KOHA_ELASTICSEARCH:-no}
             SKIP_CYPRESS_CHOWN: ${SKIP_CYPRESS_CHOWN:-no}
+            SKIP_L10N: ${SKIP_L10N:-no}
         ulimits:
             nofile:
                 soft: 65536
