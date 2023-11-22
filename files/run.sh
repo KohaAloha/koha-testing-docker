@@ -149,6 +149,8 @@ if [[ -z ${SKIP_L10N} ]]; then
 
     set +e
 
+    mkdir -p $BUILD_DIR/koha/misc/translator/po
+
     if [ ! -d "$BUILD_DIR/koha/misc/translator/po" ]; then
         echo "Cloning koha-l10n into misc/translator/po"
         git clone --branch ${l10n_branch} https://gitlab.com/koha-community/koha-l10n.git $BUILD_DIR/koha/misc/translator/po
