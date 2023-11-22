@@ -142,9 +142,10 @@ then
 fi
 
 if [[ -z ${SKIP_L10N} ]]; then
-    l10n_branch="master"
-    if ! [[ "$KOHA_IMAGE" =~ ^master ]]; then
+    if [[ ! -z "$KOHA_IMAGE" && ! "$KOHA_IMAGE" =~ ^master ]]; then
         l10n_branch=${KOHA_IMAGE:0:5}
+    else
+        l10n_branch="master"
     fi
 
     set +e
