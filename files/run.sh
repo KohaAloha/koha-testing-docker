@@ -141,7 +141,7 @@ then
     ln -s ${BUILD_DIR}/howto/how-to.tt ${BUILD_DIR}/koha/koha-tmpl/intranet-tmpl/prog/en/modules/how-to.tt
 fi
 
-if [[ -z ${SKIP_L10N} ]]; then
+if [[ ${SKIP_L10N} != "yes" ]]; then
     if [[ ! -z "$KOHA_IMAGE" && ! "$KOHA_IMAGE" =~ ^master ]]; then
         l10n_branch=${KOHA_IMAGE:0:5}
     else
