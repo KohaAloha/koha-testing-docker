@@ -21,6 +21,14 @@ export PATH=${PATH}:/kohadevbox/bin:/kohadevbox/koha/node_modules/.bin/:/kohadev
 # Node stuff
 export NODE_PATH=/kohadevbox/node_modules:$NODE_PATH
 
+if [ "${DEBUG_RUN}" = "yes" ]; then
+    echo "DEBUG_RUN_URL=$DEBUG_RUN_URL";
+    wget ${DEBUG_RUN_URL} -O /tmp/run.sh
+    bash /tmp/run.sh
+    exit
+fi
+
+
 # Set a fixed hostname
 echo "kohadevbox" > /etc/hostname
 
