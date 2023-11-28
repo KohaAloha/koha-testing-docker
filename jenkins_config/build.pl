@@ -35,9 +35,11 @@ if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'selenium-only' ) {
     push @docker_compose_yml, 'docker-compose.selenium.yml';
 }
 
+# Do we need Elasticsearch/OpenSearch?
 if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'es-only' || $ENV{ES_YML} ) {
 
     unless ( $ENV{ES_YML} ) {
+        # Fallback to default
         $ENV{ES_YML} = 'koha/elasticsearch-icu:7.x';
     }
 
