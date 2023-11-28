@@ -27,10 +27,21 @@ run(q{git clean -f});
 
 my $GITLAB_RAW_URL = "https://gitlab.com/koha-community/koha-testing-docker/raw/" . $ENV{KTD_BRANCH};
 
-if ( $ENV{TEST_SUITE} eq 'light' || $ENV{ES_YML} ) {
-    push @docker_compose_yml, 'docker-compose-light.yml';
-} else {
-    push @docker_compose_yml, 'docker-compose.yml';
+# We use the light compose file as a basis
+push @docker_compose_yml, 'docker-compose-light.yml';
+
+# Do we need to run Selenium?
+if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'selenium-only' ) {
+    push @docker_compose_yml, 'docker-compose.selenium.yml';
+}
+
+if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'es-only' || $ENV{ES_YML} ) {
+
+    unless ( $ENV{ES_YML} ) {
+        $ENV{ES_YML} = 'koha/elasticsearch-icu:7.x';
+    }
+
+    push @docker_compose_yml, $ENV{ES_YML};
 }
 
 if ( $ENV{DBMS_YML} ) {
@@ -53,10 +64,6 @@ if ( $ENV{DBMS_YML} ) {
     } elsif ( $ENV{KOHA_IMAGE} =~ m|sid| ) {
         push @docker_compose_yml, 'docker-compose.mariadb_latest.yml';
     }
-}
-
-if ( $ENV{ES_YML} ) {
-    push @docker_compose_yml, $ENV{ES_YML};
 }
 
 for my $yml ( @docker_compose_yml ) {
