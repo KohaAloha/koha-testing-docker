@@ -40,7 +40,7 @@ if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'es-only' || $ENV{ES_YML}
 
     unless ( $ENV{ES_YML} ) {
         # Fallback to default
-        $ENV{ES_YML} = 'koha/elasticsearch-icu:7.x';
+        $ENV{ES_YML} = 'docker-compose.es7.yml';
     }
 
     push @docker_compose_yml, $ENV{ES_YML};
