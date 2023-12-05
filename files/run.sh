@@ -165,7 +165,7 @@ if [[ ${SKIP_L10N} != "yes" ]]; then
         echo "Fetching koha-l10n"
         git config --global --add safe.directory $BUILD_DIR/koha/misc/translator/po
         git -C $BUILD_DIR/koha/misc/translator/po fetch origin
-        git -C $BUILD_DIR/koha/misc/translator/po checkout origin/${l10n_branch}
+        git -C $BUILD_DIR/koha/misc/translator/po checkout -B ${l10n_branch} origin/${l10n_branch}
     fi
 
     echo "Chowing po files"
