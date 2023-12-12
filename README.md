@@ -261,6 +261,84 @@ ktd ships with a keycloak option so one may use it for testing and developing si
 
 Please see the [wiki](https://gitlab.com/koha-community/koha-testing-docker/-/wikis/Using-Keycloak/) for details
 
+## Translation files
+
+Translation files (.po files) have been removed from [the docker container](https://gitlab.com/koha-community/koha-testing-docker/-/issues/386) and [the Koha codebase](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=35174).
+
+When ktd container starts up, it will deal with the .po files if needed, depending on the state of misc/translator/po
+ 1. If empty [koha-l10n](https://gitlab.com/koha-community/koha-l10n) will be cloned
+ 2. If exists and is a git repository, koha-l10n will be pulled and the corresponding branch will be checked out (if there is no changes!)
+ 3. If exists and is not a git repository, nothing is done (we are on a branch prior to the removal)
+
+Note that ktd will not automatically remove changes that have been made to the .po files.
+
+### Update the files
+
+#### Fetch new translations
+To manually fetch new translations from koha-l10n (and so Weblate) you can fetch the git repository.
+
+For master:
+```shell
+cd misc/translator/po
+git fetch origin
+git reset --hard origin/master
+```
+
+#### With new strings
+
+If you want to update the .po files with new strings you have in your Koha codebase (when testing a patch for instance):
+```shell
+# in a koha-shell
+gulp po:update --lang $LANG
+```
+
+To generate new templates using those new .po files
+```
+# in a root shell
+koha-translate --update $LANG --dev kohadev
+```
+
+(Yes, this is confusing)
+
+### Common problems
+#### Detached HEAD
+If you get 'You are not currently on a branch' it means that you are not on a branch. This has been by a previous bug in ktd. You should pull a newest koha-testing-docker docker image 
+
+#### Incorrect permissions
+If misc/translator/po does not have the correct permissions (not owned by kohadev-koha), the gulp command will fail with something similar to
+```
+msgmerge: cannot create output file "misc/translator/po/es-ES-pref.po": Permission denied
+```
+You need to adjust the permissions with
+```shell
+chown -R kohadev-koha:kohadev-koha misc/translator/po
+```
+
+#### Error: ENOENT: no such file or directory, stat '[...]how-to.pl'
+
+See Koha [bug 34915](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=34915) and [issue #401](https://gitlab.com/koha-community/koha-testing-docker/-/issues/401).
+
+### Another problems?
+
+If you are getting another problem you should locate the "Fetching koha-l10n" line in ktd startup and see if you have an error right after.
+This is the kind of output you will have when ktd starts up after a gulp po:update session
+```
+koha-koha-1       | Install Koha-how-to
+koha-koha-1       | Fetching koha-l10n
+koha-koha-1       | From https://gitlab.com/koha-community/koha-l10n
+koha-koha-1       |    37ed79d3..c4cc4e86  master      -> origin/master
+koha-koha-1       |    23095e8c..0470ed29  21.11       -> origin/21.11
+koha-koha-1       |    23aab8b2..154a1a8c  22.05       -> origin/22.05
+koha-koha-1       |    7b797c63..8d4a7671  22.11       -> origin/22.11
+koha-koha-1       |    7fe82983..e80f8014  23.05       -> origin/23.05
+koha-koha-1       |    0f739e99..fbcab13e  terminology -> origin/terminology
+koha-koha-1       | error: Your local changes to the following files would be overwritten by checkout:
+koha-koha-1       |     es-ES-staff-prog.po
+koha-koha-1       | Please commit your changes or stash them before you switch branches.
+koha-koha-1       | Aborting
+koha-koha-1       | Chowing po files
+```
+
 ## Problems?
 
 ### If you see the following error on 'ku' after initial setup, try a reboot
