@@ -26,7 +26,7 @@ for my $filepath (`git diff --cached --name-only`) {
 
     if ( $file_ext =~ /^.pl|^.pm$/ ) {
         system( qq{
-            docker exec koha_koha_1 /usr/bin/perl -wc /kohadevbox/koha/$filepath 2>&1 | grep -Pv "Subroutine \\w+ redefined at "
+            docker exec koha-koha-1 /usr/bin/perl -wc /kohadevbox/koha/$filepath 2>&1 | grep -Pv "Subroutine \\w+ redefined at "
         } ) == 0
           or say "\n" and $nb_errors++;
     }
