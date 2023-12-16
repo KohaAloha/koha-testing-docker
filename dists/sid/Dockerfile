@@ -91,7 +91,8 @@ RUN apt-get -y update \
          koha-common \
    && /etc/init.d/koha-common stop \
    && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/api/lists/*
+   && rm -rf /var/lib/api/lists/* \
+   && rm -rf /usr/share/koha/misc/translator/po/* # Do not embed PO files
 
 RUN mkdir /kohadevbox
 WORKDIR /kohadevbox
@@ -214,9 +215,6 @@ RUN apt-get update \
        libmojolicious-plugin-renderfile-perl \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/api/lists/*
-
-# Do not embed PO files
-RUN rm -rf /usr/share/koha/misc/translator/po/*
 
 VOLUME /kohadevbox/koha
 
