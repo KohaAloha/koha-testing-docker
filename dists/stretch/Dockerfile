@@ -86,6 +86,7 @@ WORKDIR /kohadevbox
 # Install testing extras, packages and cpan
 RUN apt-get -y update \
    && apt-get -y install \
+         perltidy \
          libexpat1-dev \
          libtemplate-plugin-gettext-perl \
          libdevel-cover-perl \
