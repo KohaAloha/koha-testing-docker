@@ -314,6 +314,15 @@ You need to adjust the permissions with
 chown -R kohadev-koha:kohadev-koha misc/translator/po
 ```
 
+#### Error: ENOENT: no such file or directory, open '/tmp/.../Koha-xxx.pot'
+
+koha-l10n is not up-to-date. You can update with with:
+```
+cd misc/translator/po
+git fetch origin
+git reset --hard origin/master
+```
+
 #### Error: ENOENT: no such file or directory, stat '[...]how-to.pl'
 
 See Koha [bug 34915](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=34915) and [issue #401](https://gitlab.com/koha-community/koha-testing-docker/-/issues/401).
