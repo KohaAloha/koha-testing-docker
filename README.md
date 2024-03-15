@@ -261,6 +261,26 @@ ktd ships with a keycloak option so one may use it for testing and developing si
 
 Please see the [wiki](https://gitlab.com/koha-community/koha-testing-docker/-/wikis/Using-Keycloak/) for details
 
+### Hot-reload Plack / automatic reload after code changes
+
+Adding hot-reload to `koha-plack` is not feasable. Here is a slightly hackish way to enable it anyway:
+
+1. Start ktd
+2. In a second terminal, start a second shell: `ktd --shell`
+3. In that shell, first stop plack: `koha-plack --stop kohadev`
+4. Then start Koha directly via `plackup`:
+
+```
+DEV_INSTALL=1 KOHA_HOME=/kohadevbox/koha \
+  /usr/bin/plackup -M FindBin --workers 2 --user=kohadev-koha --group=kohadev-koha  -E deployment --socket /var/run/koha/kohadev/plack.sock -s Starman \
+  -R /kohadevbox/koha \
+  /etc/koha/plack.psgi
+```
+
+Using `-R /kohadevbox/koha` makes `plackup` watch everything in `/kohadevbox/koha` and will restart Plack on changes to any file in that directory. Depending on what you are doing, it make more sense to use eg `-R /kohadevbox/koha/Koha -R /kohadevbox/koha/C4`.
+
+You can also add `DEV_INSTALL` and `KOHA_HOME` to your `.env` file so you don't have to specify them here.
+
 ## Translation files
 
 Translation files (.po files) have been removed from [the docker container](https://gitlab.com/koha-community/koha-testing-docker/-/issues/386) and [the Koha codebase](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=35174).
