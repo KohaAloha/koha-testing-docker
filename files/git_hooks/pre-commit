@@ -34,9 +34,15 @@ for my $filepath (`git diff --cached --name-only`) {
 
         #TODO
     }
-    elsif ( $file_ext eq '.js'
-        && $file_infos[1] =~ m{^koha-tmpl/intranet-tmpl/prog/js/vue/}
-        || $file_ext eq '.ts' ) {
+    elsif ( $file_ext eq '.js' ) {
+        my $tidy = ( $file_infos[1] =~ m{^koha-tmpl/intranet-tmpl/prog/js/vue/} ) ? 1 : 0;
+        unless ( $tidy ) {
+            my $cmd = q{git grep '/\* keep tidy \*/' } . $filepath;
+            $tidy = qx{$cmd};
+        }
+        $modify_files->{$filepath} = qq{yarn --silent run prettier --trailing-comma es5 --arrow-parens avoid --write $filepath};
+    }
+    elsif ( $file_ext eq '.ts' ) {
         $modify_files->{$filepath} = qq{yarn --silent run prettier --trailing-comma es5 --arrow-parens avoid --write $filepath};
     }
     elsif ( $file_ext eq '.vue' ) {
