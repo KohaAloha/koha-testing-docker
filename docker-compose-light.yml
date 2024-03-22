@@ -30,6 +30,7 @@ services:
             RUN_TESTS_AND_EXIT: ${RUN_TESTS_AND_EXIT}
             LOCAL_USER_ID: ${LOCAL_USER_ID}
             TEST_SUITE: ${TEST_SUITE:-light}
+            TESTS_TO_RUN: ${TESTS_TO_RUN}
             TEST_DB_UPGRADE: ${TEST_DB_UPGRADE:-no}
             KOHA_ELASTICSEARCH: ${KOHA_ELASTICSEARCH:-no}
             SKIP_CYPRESS_CHOWN: ${SKIP_CYPRESS_CHOWN:-no}
