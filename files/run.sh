@@ -320,6 +320,15 @@ if [ "$RUN_TESTS_AND_EXIT" = "yes" ]; then
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-selenium-tests-only
 
+    elif [ "$TEST_SUITE" = "specific-tests" ]; then # run specific tests
+
+        if [ -z ${TESTS_TO_RUN} ]; then
+            echo "ERROR: \$TEST_SUITE=specific-tests requires \$TESTS_TO_RUN set"
+            exit 2
+        fi
+
+        perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-only "${TESTS_TO_RUN}"
+
     else
 
         perl ${BUILD_DIR}/misc4dev/run_tests.pl --koha-dir=${BUILD_DIR}/koha --run-all-tests
