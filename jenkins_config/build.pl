@@ -31,7 +31,7 @@ my $GITLAB_RAW_URL = "https://gitlab.com/koha-community/koha-testing-docker/raw/
 push @docker_compose_yml, 'docker-compose-light.yml';
 
 # Do we need to run Selenium?
-if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'selenium-only' ) {
+if ( $ENV{TEST_SUITE} eq 'full' || $ENV{TEST_SUITE} eq 'selenium-only' || $ENV{TEST_SUITE} eq 'specific-tests' ) {
     push @docker_compose_yml, 'docker-compose.selenium.yml';
 }
 
